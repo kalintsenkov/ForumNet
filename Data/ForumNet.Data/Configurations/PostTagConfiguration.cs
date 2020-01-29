@@ -8,7 +8,8 @@
     {
         public void Configure(EntityTypeBuilder<PostTag> postTag)
         {
-            postTag.HasKey(pt => new { pt.PostId, pt.TagId });
+            postTag
+                .HasKey(pt => new { pt.PostId, pt.TagId });
 
             postTag
                 .HasOne(pt => pt.Post)

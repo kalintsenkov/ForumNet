@@ -9,6 +9,11 @@
         public void Configure(EntityTypeBuilder<Reply> reply)
         {
             reply
+                .Property(r => r.Content)
+                .HasMaxLength(1000)
+                .IsRequired();
+
+            reply
                 .HasOne(r => r.Post)
                 .WithMany(p => p.Replies)
                 .HasForeignKey(r => r.PostId)

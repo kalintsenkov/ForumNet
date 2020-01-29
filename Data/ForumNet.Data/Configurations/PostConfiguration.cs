@@ -9,6 +9,16 @@
         public void Configure(EntityTypeBuilder<Post> post)
         {
             post
+                .Property(p => p.Title)
+                .HasMaxLength(150)
+                .IsRequired();
+
+            post
+                .Property(p => p.Content)
+                .HasMaxLength(1000)
+                .IsRequired();
+
+            post
                 .HasOne(p => p.Author)
                 .WithMany(a => a.Posts)
                 .HasForeignKey(p => p.AuthorId)

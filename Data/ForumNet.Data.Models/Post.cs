@@ -2,18 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
 
     public class Post
     {
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(150)]
         public string Title { get; set; }
 
-        [Required]
-        [MaxLength(1000)]
         public string Content { get; set; }
 
         public DateTime CreatedOn { get; set; }

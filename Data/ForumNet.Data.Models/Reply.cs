@@ -1,14 +1,11 @@
 ﻿namespace ForumNet.Data.Models
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
 
     public class Reply
     {
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(1000)]
         public string Content { get; set; }
 
         public int Rating { get; set; }
