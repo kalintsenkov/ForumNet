@@ -17,6 +17,10 @@
                 .Property(u => u.LastName)
                 .HasMaxLength(50)
                 .IsRequired();
+
+            user
+                .Property(u => u.Biography)
+                .HasMaxLength(250);
         }
     }
 }

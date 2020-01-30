@@ -18,6 +18,8 @@
 
         public DateTime BirthDate { get; set; }
 
+        public string Biography { get; set; }
+
         public byte[] ProfilePicture { get; set; }
 
         public bool IsDeleted { get; set; }
