@@ -183,7 +183,7 @@ namespace ForumNet.Data.Migrations
                     b.Property<byte[]>("ProfilePicture")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<DateTime>("RegisteredOn")
+                    b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
