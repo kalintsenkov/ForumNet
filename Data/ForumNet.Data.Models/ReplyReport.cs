@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class Report
+    public class ReplyReport
     {
         public int Id { get; set; }
 
@@ -10,9 +10,9 @@
 
         public DateTime CreatedOn { get; set; }
 
-        public int PostId { get; set; }
+        public int ReplyId { get; set; }
 
-        public Post Post { get; set; }
+        public Reply Reply { get; set; }
 
         public int AuthorId { get; set; }
 

@@ -33,6 +33,6 @@
 
         public ICollection<PostTag> PostsTags { get; set; } = new HashSet<PostTag>();
 
-        public ICollection<Report> Reports { get; set; } = new HashSet<Report>();
+        public ICollection<PostReport> Reports { get; set; } = new HashSet<PostReport>();
     }
 }

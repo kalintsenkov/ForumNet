@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForumNet.Data.Migrations
 {
     [DbContext(typeof(ForumDbContext))]
-    [Migration("20200129141333_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200131214406_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,19 +51,22 @@ namespace ForumNet.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<int>("Likes")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -80,6 +83,36 @@ namespace ForumNet.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("ForumNet.Data.Models.PostReport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostReports");
                 });
 
             modelBuilder.Entity("ForumNet.Data.Models.PostTag", b =>
@@ -107,6 +140,9 @@ namespace ForumNet.Data.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(1000)")
@@ -115,14 +151,14 @@ namespace ForumNet.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Likes")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedOn")
+                    b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -131,6 +167,36 @@ namespace ForumNet.Data.Migrations
                     b.HasIndex("PostId");
 
                     b.ToTable("Replies");
+                });
+
+            modelBuilder.Entity("ForumNet.Data.Models.ReplyReport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<int>("ReplyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("ReplyId");
+
+                    b.ToTable("ReplyReports");
                 });
 
             modelBuilder.Entity("ForumNet.Data.Models.Tag", b =>
@@ -157,7 +223,14 @@ namespace ForumNet.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Biography")
+                        .HasColumnType("nvarchar(250)")
+                        .HasMaxLength(250);
+
                     b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
@@ -176,11 +249,11 @@ namespace ForumNet.Data.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<byte[]>("ProfilePicture")
                         .HasColumnType("varbinary(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -198,6 +271,21 @@ namespace ForumNet.Data.Migrations
                     b.HasOne("ForumNet.Data.Models.Category", "Category")
                         .WithMany("Posts")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ForumNet.Data.Models.PostReport", b =>
+                {
+                    b.HasOne("ForumNet.Data.Models.User", "Author")
+                        .WithMany("PostReports")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ForumNet.Data.Models.Post", "Post")
+                        .WithMany("Reports")
+                        .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
@@ -228,6 +316,21 @@ namespace ForumNet.Data.Migrations
                     b.HasOne("ForumNet.Data.Models.Post", "Post")
                         .WithMany("Replies")
                         .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ForumNet.Data.Models.ReplyReport", b =>
+                {
+                    b.HasOne("ForumNet.Data.Models.User", "Author")
+                        .WithMany("ReplyReports")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ForumNet.Data.Models.Reply", "Reply")
+                        .WithMany("Reports")
+                        .HasForeignKey("ReplyId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

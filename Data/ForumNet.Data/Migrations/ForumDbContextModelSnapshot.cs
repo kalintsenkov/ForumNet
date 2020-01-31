@@ -81,6 +81,36 @@ namespace ForumNet.Data.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("ForumNet.Data.Models.PostReport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostReports");
+                });
+
             modelBuilder.Entity("ForumNet.Data.Models.PostTag", b =>
                 {
                     b.Property<int>("PostId")
@@ -135,7 +165,7 @@ namespace ForumNet.Data.Migrations
                     b.ToTable("Replies");
                 });
 
-            modelBuilder.Entity("ForumNet.Data.Models.Report", b =>
+            modelBuilder.Entity("ForumNet.Data.Models.ReplyReport", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -153,16 +183,16 @@ namespace ForumNet.Data.Migrations
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
 
-                    b.Property<int>("PostId")
+                    b.Property<int>("ReplyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("PostId");
+                    b.HasIndex("ReplyId");
 
-                    b.ToTable("Reports");
+                    b.ToTable("ReplyReports");
                 });
 
             modelBuilder.Entity("ForumNet.Data.Models.Tag", b =>
@@ -241,6 +271,21 @@ namespace ForumNet.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ForumNet.Data.Models.PostReport", b =>
+                {
+                    b.HasOne("ForumNet.Data.Models.User", "Author")
+                        .WithMany("PostReports")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ForumNet.Data.Models.Post", "Post")
+                        .WithMany("Reports")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ForumNet.Data.Models.PostTag", b =>
                 {
                     b.HasOne("ForumNet.Data.Models.Post", "Post")
@@ -271,17 +316,17 @@ namespace ForumNet.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ForumNet.Data.Models.Report", b =>
+            modelBuilder.Entity("ForumNet.Data.Models.ReplyReport", b =>
                 {
                     b.HasOne("ForumNet.Data.Models.User", "Author")
-                        .WithMany("Reports")
+                        .WithMany("ReplyReports")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("ForumNet.Data.Models.Post", "Post")
+                    b.HasOne("ForumNet.Data.Models.Reply", "Reply")
                         .WithMany("Reports")
-                        .HasForeignKey("PostId")
+                        .HasForeignKey("ReplyId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

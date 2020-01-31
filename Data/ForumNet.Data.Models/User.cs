@@ -30,6 +30,8 @@
 
         public ICollection<Reply> Replies { get; set; } = new HashSet<Reply>();
 
-        public ICollection<Report> Reports { get; set; } = new HashSet<Report>();
+        public ICollection<PostReport> PostReports { get; set; } = new HashSet<PostReport>();
+
+        public ICollection<ReplyReport> ReplyReports { get; set; } = new HashSet<ReplyReport>();
     }
 }
