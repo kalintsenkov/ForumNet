@@ -27,5 +27,7 @@
         public ICollection<Post> Posts { get; set; } = new HashSet<Post>();
 
         public ICollection<Reply> Replies { get; set; } = new HashSet<Reply>();
+
+        public ICollection<Report> Reports { get; set; } = new HashSet<Report>();
     }
 }

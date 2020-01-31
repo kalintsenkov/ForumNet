@@ -51,7 +51,7 @@ namespace ForumNet.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Content")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
@@ -62,7 +62,7 @@ namespace ForumNet.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Rating")
+                    b.Property<int>("Likes")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -107,7 +107,7 @@ namespace ForumNet.Data.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Content")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
@@ -118,10 +118,10 @@ namespace ForumNet.Data.Migrations
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Rating")
+                    b.Property<int>("Likes")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("RepliedOn")
+                    b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");

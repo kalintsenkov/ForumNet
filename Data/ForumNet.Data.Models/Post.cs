@@ -9,13 +9,13 @@
 
         public string Title { get; set; }
 
-        public string Content { get; set; }
+        public string Description { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
         public int Views { get; set; }
 
-        public int Rating { get; set; }
+        public int Likes { get; set; }
 
         public bool IsDeleted { get; set; }
 
@@ -30,5 +30,7 @@
         public ICollection<Reply> Replies { get; set; } = new HashSet<Reply>();
 
         public ICollection<PostTag> PostsTags { get; set; } = new HashSet<PostTag>();
+
+        public ICollection<Report> Reports { get; set; } = new HashSet<Report>();
     }
 }

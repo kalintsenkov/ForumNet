@@ -2,17 +2,13 @@
 {
     using System;
 
-    public class Reply
+    public class Report
     {
         public int Id { get; set; }
 
         public string Description { get; set; }
 
-        public int Likes { get; set; }
-
         public DateTime CreatedOn { get; set; }
-
-        public bool IsDeleted { get; set; }
 
         public int PostId { get; set; }
 

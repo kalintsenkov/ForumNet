@@ -4,25 +4,25 @@
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Models;
 
-    public class ReplyConfiguration : IEntityTypeConfiguration<Reply>
+    public class ReportConfiguration : IEntityTypeConfiguration<Report>
     {
-        public void Configure(EntityTypeBuilder<Reply> reply)
+        public void Configure(EntityTypeBuilder<Report> report)
         {
-            reply
+            report
                 .Property(r => r.Description)
                 .HasMaxLength(1000)
                 .IsRequired();
 
-            reply
-                .HasOne(r => r.Post)
-                .WithMany(p => p.Replies)
-                .HasForeignKey(r => r.PostId)
+            report
+                .HasOne(r => r.Author)
+                .WithMany(a => a.Reports)
+                .HasForeignKey(r => r.AuthorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            reply
-                .HasOne(r => r.Author)
-                .WithMany(a => a.Replies)
-                .HasForeignKey(r => r.AuthorId)
+            report
+                .HasOne(r => r.Post)
+                .WithMany(p => p.Reports)
+                .HasForeignKey(r => r.PostId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

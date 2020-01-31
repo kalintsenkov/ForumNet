@@ -14,17 +14,19 @@
         {
         }
 
-        public DbSet<User> Users { get; set; }
-
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Post> Posts { get; set; }
 
-        public DbSet<Tag> Tags { get; set; }
-
         public DbSet<PostTag> PostsTags { get; set; }
 
         public DbSet<Reply> Replies { get; set; }
+
+        public DbSet<Report> Reports { get; set; }
+
+        public DbSet<Tag> Tags { get; set; }
+
+        public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {

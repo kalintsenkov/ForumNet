@@ -14,7 +14,7 @@
                 .IsRequired();
 
             post
-                .Property(p => p.Content)
+                .Property(p => p.Description)
                 .HasMaxLength(1000)
                 .IsRequired();
 
