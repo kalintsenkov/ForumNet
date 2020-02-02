@@ -8,6 +8,6 @@
 
         public string Name { get; set; }
 
-        public ICollection<PostTag> PostsTags { get; set; } = new HashSet<PostTag>();
+        public ICollection<PostTag> Posts { get; set; } = new HashSet<PostTag>();
     }
 }

@@ -13,12 +13,12 @@
 
             postTag
                 .HasOne(pt => pt.Post)
-                .WithMany(p => p.PostsTags)
+                .WithMany(p => p.Tags)
                 .HasForeignKey(pt => pt.PostId);
 
             postTag
                 .HasOne(pt => pt.Tag)
-                .WithMany(t => t.PostsTags)
+                .WithMany(t => t.Posts)
                 .HasForeignKey(pt => pt.TagId);
         }
     }

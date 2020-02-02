@@ -31,7 +31,7 @@
 
         public ICollection<Reply> Replies { get; set; } = new HashSet<Reply>();
 
-        public ICollection<PostTag> PostsTags { get; set; } = new HashSet<PostTag>();
+        public ICollection<PostTag> Tags { get; set; } = new HashSet<PostTag>();
 
         public ICollection<PostReport> Reports { get; set; } = new HashSet<PostReport>();
     }
