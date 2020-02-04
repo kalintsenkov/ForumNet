@@ -1,12 +1,12 @@
 ﻿namespace ForumNet.Data.Configurations
 {
+    using Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Models;
 
-    public class UserConfiguration : IEntityTypeConfiguration<User>
+    public class UserConfiguration : IEntityTypeConfiguration<ForumUser>
     {
-        public void Configure(EntityTypeBuilder<User> user)
+        public void Configure(EntityTypeBuilder<ForumUser> user)
         {
             user
                 .Property(u => u.FirstName)

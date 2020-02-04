@@ -1,8 +1,9 @@
 ﻿namespace ForumNet.Data.Models
 {
     using System;
+    using Common;
 
-    public class ReplyReport
+    public class ReplyReport : IAuditInfo
     {
         public int Id { get; set; }
 
@@ -10,12 +11,14 @@
 
         public DateTime CreatedOn { get; set; }
 
+        public DateTime? ModifiedOn { get; set; }
+
         public int ReplyId { get; set; }
 
         public Reply Reply { get; set; }
 
         public int AuthorId { get; set; }
 
-        public User Author { get; set; }
+        public ForumUser Author { get; set; }
     }
 }

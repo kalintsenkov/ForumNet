@@ -2,8 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using Common;
 
-    public class Reply
+    public class Reply : IAuditInfo, IDeletableEntity
     {
         public int Id { get; set; }
 
@@ -17,13 +18,15 @@
 
         public bool IsDeleted { get; set; }
 
+        public DateTime? DeletedOn { get; set; }
+
         public int PostId { get; set; }
 
         public Post Post { get; set; }
 
         public int AuthorId { get; set; }
 
-        public User Author { get; set; }
+        public ForumUser Author { get; set; }
 
         public ICollection<ReplyReport> Reports { get; set; } = new HashSet<ReplyReport>();
     }

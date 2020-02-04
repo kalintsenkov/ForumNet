@@ -1,7 +1,7 @@
 ﻿namespace ForumNet.Data
 {
-    using Microsoft.EntityFrameworkCore;
     using Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class ForumDbContext : DbContext
     {
@@ -27,8 +27,6 @@
         public DbSet<ReplyReport> ReplyReports { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
-
-        public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
