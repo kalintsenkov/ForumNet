@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumNet.Data", "Data\Forum
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumNet.Data.Models", "Data\ForumNet.Data.Models\ForumNet.Data.Models.csproj", "{3B322DCA-B462-4D6E-9215-6E40CC5D33B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp", "DemoApp\DemoApp.csproj", "{1731B55B-A72A-4E3A-B23F-652CBA7E10BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp", "DemoApp\DemoApp.csproj", "{1731B55B-A72A-4E3A-B23F-652CBA7E10BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumNet.Data.Common", "Data\ForumNet.Data.Common\ForumNet.Data.Common.csproj", "{AAE624FD-24BB-4BAA-9C48-6A83768D9874}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{1731B55B-A72A-4E3A-B23F-652CBA7E10BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1731B55B-A72A-4E3A-B23F-652CBA7E10BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1731B55B-A72A-4E3A-B23F-652CBA7E10BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAE624FD-24BB-4BAA-9C48-6A83768D9874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAE624FD-24BB-4BAA-9C48-6A83768D9874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAE624FD-24BB-4BAA-9C48-6A83768D9874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAE624FD-24BB-4BAA-9C48-6A83768D9874}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +42,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{45F91B90-6143-44AC-9F41-CE4192167F1A} = {C20BB0E0-09B1-43F8-B9EC-34C47D0ABB14}
 		{3B322DCA-B462-4D6E-9215-6E40CC5D33B4} = {C20BB0E0-09B1-43F8-B9EC-34C47D0ABB14}
+		{AAE624FD-24BB-4BAA-9C48-6A83768D9874} = {C20BB0E0-09B1-43F8-B9EC-34C47D0ABB14}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {891FFB53-EEF1-44D4-A29E-351041C220E3}
