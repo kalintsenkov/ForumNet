@@ -3,9 +3,9 @@ namespace ForumNet.Data.Models
 {
     using System;
     using System.Collections.Generic;
+    using Microsoft.AspNetCore.Identity;
     using Common;
     using Enums;
-    using Microsoft.AspNetCore.Identity;
 
     public class ForumUser : IdentityUser, IAuditInfo, IDeletableEntity
     {

@@ -1,8 +1,8 @@
 ﻿namespace ForumNet.Data
 {
-    using Models;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using Models;
 
     public class ForumDbContext : IdentityDbContext<ForumUser, ForumRole, string>
     {

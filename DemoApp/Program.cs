@@ -1,7 +1,7 @@
 ﻿namespace DemoApp
 {
-    using ForumNet.Data;
     using Microsoft.EntityFrameworkCore;
+    using ForumNet.Data;
 
     public class Program
     {
