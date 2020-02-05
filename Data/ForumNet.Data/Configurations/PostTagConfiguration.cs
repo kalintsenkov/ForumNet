@@ -14,12 +14,14 @@
             postTag
                 .HasOne(pt => pt.Post)
                 .WithMany(p => p.Tags)
-                .HasForeignKey(pt => pt.PostId);
+                .HasForeignKey(pt => pt.PostId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             postTag
                 .HasOne(pt => pt.Tag)
                 .WithMany(t => t.Posts)
-                .HasForeignKey(pt => pt.TagId);
+                .HasForeignKey(pt => pt.TagId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
