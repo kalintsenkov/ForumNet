@@ -1,2 +1,2 @@
 # ForumNet
-<p>Forum application raised from scratch for the ASP.NET Core course</p>
+<p>Forum application built from scratch for the ASP.NET Core course</p>
