@@ -17,6 +17,7 @@
                 .HasOne(rr => rr.Author)
                 .WithMany(a => a.ReplyReports)
                 .HasForeignKey(rr => rr.AuthorId)
+                .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
             replyReport

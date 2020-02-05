@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    public class UserIdentityConfiguration : IEntityTypeConfiguration<ForumUser>
+    public class IdentityUserConfiguration : IEntityTypeConfiguration<ForumUser>
     {
         public void Configure(EntityTypeBuilder<ForumUser> user)
         {
@@ -23,25 +23,28 @@
                 .HasMaxLength(250);
 
             user
-                .HasMany(u => u.Claims)
+                .HasMany(e => e.Claims)
                 .WithOne()
-                .HasForeignKey(c => c.UserId)
+                .HasForeignKey(e => e.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
             user
-                .HasMany(u => u.Logins)
+                .HasMany(e => e.Logins)
                 .WithOne()
-                .HasForeignKey(l => l.UserId)
+                .HasForeignKey(e => e.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
             user
-                .HasMany(u => u.Roles)
+                .HasMany(e => e.Roles)
                 .WithOne()
-                .HasForeignKey(l => l.UserId)
+                .HasForeignKey(e => e.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
+
+            user
+                .HasIndex(u => u.IsDeleted);
         }
     }
 }

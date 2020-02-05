@@ -12,6 +12,9 @@
                 .Property(t => t.Name)
                 .HasMaxLength(20)
                 .IsRequired();
+
+            tag
+                .HasIndex(t => t.IsDeleted);
         }
     }
 }

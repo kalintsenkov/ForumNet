@@ -23,7 +23,11 @@
                 .HasOne(r => r.Author)
                 .WithMany(a => a.Replies)
                 .HasForeignKey(r => r.AuthorId)
+                .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
+
+            reply
+                .HasIndex(r => r.IsDeleted);
         }
     }
 }

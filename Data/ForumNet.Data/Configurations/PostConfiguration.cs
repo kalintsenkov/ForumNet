@@ -22,6 +22,7 @@
                 .HasOne(p => p.Author)
                 .WithMany(a => a.Posts)
                 .HasForeignKey(p => p.AuthorId)
+                .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
             post
@@ -29,6 +30,9 @@
                 .WithMany(c => c.Posts)
                 .HasForeignKey(p => p.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            post
+                .HasIndex(p => p.IsDeleted);
         }
     }
 }

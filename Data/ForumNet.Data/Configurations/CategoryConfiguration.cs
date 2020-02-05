@@ -12,6 +12,9 @@
                 .Property(c => c.Name)
                 .HasMaxLength(50)
                 .IsRequired();
+
+            category
+                .HasIndex(c => c.IsDeleted);
         }
     }
 }

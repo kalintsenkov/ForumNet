@@ -1,9 +1,10 @@
 ﻿namespace ForumNet.Data
 {
     using Models;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public class ForumDbContext : DbContext
+    public class ForumDbContext : IdentityDbContext<ForumUser, ForumRole, string>
     {
         public ForumDbContext()
         {
@@ -32,11 +33,15 @@
         {
             if (!builder.IsConfigured)
             {
-                builder.UseSqlServer(DataSettings.ConnectionString);
+                builder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=ForumNet;Trusted_Connection=True;MultipleActiveResultSets=true");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
-            => builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+        {
+            base.OnModelCreating(builder);
+
+            builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+        }
     }
 }

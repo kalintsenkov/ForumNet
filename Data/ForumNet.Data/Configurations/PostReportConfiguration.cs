@@ -17,6 +17,7 @@
                 .HasOne(pr => pr.Author)
                 .WithMany(a => a.PostReports)
                 .HasForeignKey(pr => pr.AuthorId)
+                .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
             postReport

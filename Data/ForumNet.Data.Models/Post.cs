@@ -24,7 +24,7 @@
 
         public DateTime? DeletedOn { get; set; }
 
-        public int AuthorId { get; set; }
+        public string AuthorId { get; set; }
 
         public ForumUser Author { get; set; }
 
