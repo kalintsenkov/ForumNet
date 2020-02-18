@@ -22,6 +22,8 @@ namespace ForumNet.Data.Models
 
         public DateTime BirthDate { get; set; }
 
+        public int Level { get; set; }
+
         public string Biography { get; set; }
 
         public string ProfilePicture { get; set; }
