@@ -24,7 +24,7 @@ namespace ForumNet.Data.Models
 
         public string Biography { get; set; }
 
-        public byte[] ProfilePicture { get; set; }
+        public string ProfilePicture { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

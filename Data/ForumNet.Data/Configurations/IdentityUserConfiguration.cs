@@ -19,6 +19,10 @@
                 .IsRequired();
 
             user
+                .Property(u => u.ProfilePicture)
+                .IsRequired();
+
+            user
                 .Property(u => u.Biography)
                 .HasMaxLength(250);
 
