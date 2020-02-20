@@ -1,23 +1,28 @@
 ﻿namespace ForumNet.Services
 {
-    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+    using Microsoft.EntityFrameworkCore;
+
     using Contracts;
     using Data;
     using Data.Models;
-    using Microsoft.EntityFrameworkCore;
 
     public class PostsService: IPostsService
     {
         private readonly ForumDbContext db;
         private readonly IMapper mapper;
+        private readonly IDateTimeProvider dateTimeProvider;
 
-        public PostsService(ForumDbContext db, IMapper mapper)
+        public PostsService(ForumDbContext db, IMapper mapper, IDateTimeProvider dateTimeProvider)
         {
             this.db = db;
             this.mapper = mapper;
+            this.dateTimeProvider = dateTimeProvider;
         }
 
         public async Task Create(string title, string description, string authorId, int categoryId)
@@ -26,8 +31,8 @@
             {
                 Title = title,
                 Description = description,
-                CreatedOn = DateTime.UtcNow,
-                ModifiedOn = DateTime.UtcNow,
+                CreatedOn = this.dateTimeProvider.Now(),
+                ModifiedOn = this.dateTimeProvider.Now(),
                 AuthorId = authorId,
                 CategoryId = categoryId
             };
@@ -61,6 +66,38 @@
             post.Likes--;
 
             await this.db.SaveChangesAsync();
+        }
+
+        public async Task Edit(int id, string title, string description, int categoryId)
+        {
+            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
+
+            post.Title = title;
+            post.Description = description;
+            post.CategoryId = categoryId;
+            post.ModifiedOn = this.dateTimeProvider.Now();
+
+            await this.db.SaveChangesAsync();
+        }
+
+        public async Task Delete(int id)
+        {
+            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
+
+            post.IsDeleted = true;
+            post.DeletedOn = this.dateTimeProvider.Now();
+
+            await this.db.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<TModel>> GetAll<TModel>()
+        {
+            var posts = await this.db.Posts
+                .Where(p => !p.IsDeleted)
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return posts;
         }
     }
 }
