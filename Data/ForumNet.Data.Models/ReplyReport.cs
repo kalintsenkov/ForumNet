@@ -1,6 +1,7 @@
 ﻿namespace ForumNet.Data.Models
 {
     using System;
+    
     using Common;
 
     public class ReplyReport : IAuditInfo

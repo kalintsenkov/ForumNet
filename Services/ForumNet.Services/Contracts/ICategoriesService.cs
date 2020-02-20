@@ -4,6 +4,10 @@
 
     public interface ICategoriesService
     {
-        Task Add(string name);
+        Task Create(string name);
+
+        Task Delete(int id);
+
+        Task<TModel> GetById<TModel>(int id);
     }
 }

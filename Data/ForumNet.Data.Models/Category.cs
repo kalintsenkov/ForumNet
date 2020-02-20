@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    
     using Common;
 
     public class Category : IAuditInfo, IDeletableEntity

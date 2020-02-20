@@ -2,7 +2,9 @@
 namespace ForumNet.Data.Models
 {
     using System;
+   
     using Microsoft.AspNetCore.Identity;
+    
     using Common;
 
     public class ForumRole : IdentityRole, IAuditInfo, IDeletableEntity
