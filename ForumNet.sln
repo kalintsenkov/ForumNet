@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumNet.Data.Models", "Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumNet.Data.Common", "Data\ForumNet.Data.Common\ForumNet.Data.Common.csproj", "{AAE624FD-24BB-4BAA-9C48-6A83768D9874}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp", "DemoApp\DemoApp.csproj", "{3C88A89A-EA7D-4DC4-9962-C0E13A32DF50}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{CB9E3BBE-8BD6-4583-B6C2-0E1D815E2D6F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumNet.Services", "Services\ForumNet.Services\ForumNet.Services.csproj", "{C9C0689B-FF13-45A0-8EA2-EFACC335EAFA}"
@@ -41,10 +39,6 @@ Global
 		{AAE624FD-24BB-4BAA-9C48-6A83768D9874}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAE624FD-24BB-4BAA-9C48-6A83768D9874}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAE624FD-24BB-4BAA-9C48-6A83768D9874}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C88A89A-EA7D-4DC4-9962-C0E13A32DF50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C88A89A-EA7D-4DC4-9962-C0E13A32DF50}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C88A89A-EA7D-4DC4-9962-C0E13A32DF50}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C88A89A-EA7D-4DC4-9962-C0E13A32DF50}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C9C0689B-FF13-45A0-8EA2-EFACC335EAFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C9C0689B-FF13-45A0-8EA2-EFACC335EAFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9C0689B-FF13-45A0-8EA2-EFACC335EAFA}.Release|Any CPU.ActiveCfg = Release|Any CPU

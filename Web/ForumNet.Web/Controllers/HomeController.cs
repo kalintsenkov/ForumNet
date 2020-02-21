@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using ForumNet.Web.Models;
-
-namespace ForumNet.Web.Controllers
+﻿namespace ForumNet.Web.Controllers
 {
+    using System.Diagnostics;
+
+    using Microsoft.AspNetCore.Mvc;
+
+    using ViewModels;
+
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         public IActionResult Index()
         {
             return View();

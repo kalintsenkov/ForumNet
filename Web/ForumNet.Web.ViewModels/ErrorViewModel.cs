@@ -1,6 +1,4 @@
-using System;
-
-namespace ForumNet.Web.Models
+namespace ForumNet.Web.ViewModels
 {
     public class ErrorViewModel
     {
