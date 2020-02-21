@@ -7,10 +7,6 @@
 
     public class ForumDbContext : IdentityDbContext<ForumUser, ForumRole, string>
     {
-        public ForumDbContext()
-        {
-        }
-
         public ForumDbContext(DbContextOptions options)
             : base(options)
         {
@@ -29,14 +25,6 @@
         public DbSet<ReplyReport> ReplyReports { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder builder)
-        {
-            if (!builder.IsConfigured)
-            {
-                builder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=ForumNet;Trusted_Connection=True;MultipleActiveResultSets=true");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
