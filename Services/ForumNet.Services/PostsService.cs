@@ -25,7 +25,7 @@
             this.dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task Create(string title, string description, string authorId, int categoryId)
+        public async Task CreateAsync(string title, string description, string authorId, int categoryId)
         {
             var post = new Post
             {
@@ -41,7 +41,7 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task View(int id)
+        public async Task ViewAsync(int id)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
 
@@ -50,7 +50,7 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task Like(int id)
+        public async Task LikeAsync(int id)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
 
@@ -59,7 +59,7 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task Dislike(int id)
+        public async Task DislikeAsync(int id)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
 
@@ -68,7 +68,7 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task Edit(int id, string title, string description, int categoryId)
+        public async Task EditAsync(int id, string title, string description, int categoryId)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
 
@@ -80,7 +80,7 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
 
@@ -90,7 +90,7 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TModel>> GetAll<TModel>()
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
         {
             var posts = await this.db.Posts
                 .Where(p => !p.IsDeleted)

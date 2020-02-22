@@ -25,7 +25,7 @@
             this.dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task Create(string name)
+        public async Task CreateAsync(string name)
         {
             var category = new Category
             {
@@ -38,7 +38,7 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var category = await this.db.Categories.FirstOrDefaultAsync(c => c.Id == id);
 
@@ -48,7 +48,7 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<TModel> GetById<TModel>(int id)
+        public async Task<TModel> GetByIdAsync<TModel>(int id)
         {
             var category = await this.db.Categories
                 .Where(c => c.Id == id && !c.IsDeleted)
@@ -58,7 +58,7 @@
             return category;
         }
 
-        public async Task<IEnumerable<TModel>> GetAll<TModel>()
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
         {
             var categories = await this.db.Categories
                 .Where(c => !c.IsDeleted)

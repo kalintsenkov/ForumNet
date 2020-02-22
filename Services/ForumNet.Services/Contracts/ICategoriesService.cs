@@ -5,12 +5,12 @@
 
     public interface ICategoriesService
     {
-        Task Create(string name);
+        Task CreateAsync(string name);
 
-        Task Delete(int id);
+        Task DeleteAsync(int id);
 
-        Task<TModel> GetById<TModel>(int id);
+        Task<TModel> GetByIdAsync<TModel>(int id);
 
-        Task<IEnumerable<TModel>> GetAll<TModel>();
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>();
     }
 }

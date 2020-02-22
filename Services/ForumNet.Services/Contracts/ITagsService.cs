@@ -4,8 +4,8 @@
 
     public interface ITagsService
     {
-        Task Create(string name);
+        Task CreateAsync(string name);
 
-        Task Delete(int id);
+        Task DeleteAsync(int id);
     }
 }

@@ -20,7 +20,7 @@
             this.dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task Create(string name)
+        public async Task CreateAsync(string name)
         {
             var tag = new Tag
             {
@@ -33,7 +33,7 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var tag = await this.db.Tags.FirstOrDefaultAsync(t => t.Id == id);
 

@@ -6,18 +6,18 @@
     public interface IPostsService
     {
         // TODO: Add tags -> IEnumerable<int> tagIds
-        Task Create(string title, string description, string authorId, int categoryId);
+        Task CreateAsync(string title, string description, string authorId, int categoryId);
 
-        Task View(int id);
+        Task ViewAsync(int id);
 
-        Task Like(int id);
+        Task LikeAsync(int id);
 
-        Task Dislike(int id);
+        Task DislikeAsync(int id);
 
-        Task Edit(int id, string title, string description, int categoryId);
+        Task EditAsync(int id, string title, string description, int categoryId);
 
-        Task Delete(int id);
+        Task DeleteAsync(int id);
 
-        Task<IEnumerable<TModel>> GetAll<TModel>();
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>();
     }
 }

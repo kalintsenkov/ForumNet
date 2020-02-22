@@ -17,7 +17,7 @@
             this.dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task Create(string description, int postId, string authorId)
+        public async Task CreateAsync(string description, int postId, string authorId)
         {
             var postReport = new PostReport
             {

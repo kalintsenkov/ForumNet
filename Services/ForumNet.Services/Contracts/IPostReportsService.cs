@@ -4,6 +4,6 @@
 
     public interface IPostReportsService
     {
-        Task Create(string description, int postId, string authorId);
+        Task CreateAsync(string description, int postId, string authorId);
     }
 }
