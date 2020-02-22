@@ -10,16 +10,6 @@
         public void Configure(EntityTypeBuilder<ForumUser> user)
         {
             user
-                .Property(u => u.FirstName)
-                .HasMaxLength(50)
-                .IsRequired();
-
-            user
-                .Property(u => u.LastName)
-                .HasMaxLength(50)
-                .IsRequired();
-
-            user
                 .Property(u => u.ProfilePicture)
                 .IsRequired();
 
