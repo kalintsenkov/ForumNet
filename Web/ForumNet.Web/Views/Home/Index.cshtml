@@ -63,8 +63,8 @@
                     Looks like you are new here. Register for free, learn and contribute.
                 </div>
                 <div class="tt-col-btn">
-                    <button type="button" class="btn btn-primary">Log in</button>
-                    <button type="button" class="btn btn-secondary">Sign up</button>
+                    <a type="button" class="btn btn-primary" asp-area="Identity" asp-page="/Account/Login">Log in</a>
+                    <a type="button" class="btn btn-secondary"asp-area="Identity" asp-page="/Account/Register">Sign up</a>
                     <script type="text/javascript">
                         var removeHtml = function () { document.getElementById("not-logged-in-user").remove() }
                     </script>
