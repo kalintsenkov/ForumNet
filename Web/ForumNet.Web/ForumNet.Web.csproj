@@ -5,6 +5,13 @@
     <UserSecretsId>aspnet-ForumNet.Web-9AFD6084-A346-48A5-9D99-49AE2D326070</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="wwwroot\fontawesome\**" />
+    <Content Remove="wwwroot\fontawesome\**" />
+    <EmbeddedResource Remove="wwwroot\fontawesome\**" />
+    <None Remove="wwwroot\fontawesome\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.1" />
@@ -20,11 +27,6 @@
     <ProjectReference Include="..\..\Data\ForumNet.Data\ForumNet.Data.csproj" />
     <ProjectReference Include="..\..\Services\ForumNet.Services\ForumNet.Services.csproj" />
     <ProjectReference Include="..\ForumNet.Web.ViewModels\ForumNet.Web.ViewModels.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="wwwroot\fontawesome\css\" />
   </ItemGroup>
 
 </Project>
