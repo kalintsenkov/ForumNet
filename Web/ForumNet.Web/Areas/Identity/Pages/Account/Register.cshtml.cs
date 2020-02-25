@@ -1,5 +1,6 @@
 ﻿namespace ForumNet.Web.Areas.Identity.Pages.Account
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
@@ -17,6 +18,7 @@
     using Microsoft.Extensions.Logging;
 
     using Data.Models;
+    using Data.Models.Enums;
 
     [AllowAnonymous]
     public class RegisterModel : PageModel
@@ -48,6 +50,11 @@
         public class InputModel
         {
             [Required]
+            [StringLength(25, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]
+            [Display(Name = "Display name")]
+            public string Username { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -62,6 +69,20 @@
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [DataType(DataType.Upload)]
+            [Display(Name = "Profile Picture")]
+            public string ProfilePicture { get; set; }
+
+            [Required]
+            [DataType(DataType.Date)]
+            [Display(Name = "Birthday")]
+            public DateTime BirthDate { get; set; }
+
+            [Required]
+            [Display(Name = "Gender")]
+            public string Gender { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -75,9 +96,23 @@
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             
+            var isGenderValid = Enum.TryParse(Input.Gender,ignoreCase: true, out GenderType gender);
+            if (!isGenderValid)
+            {
+                return Page();
+            }
+
             if (ModelState.IsValid)
             {
-                var user = new ForumUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ForumUser
+                {
+                    UserName = Input.Username, 
+                    Email = Input.Email,
+                    ProfilePicture = Input.ProfilePicture,
+                    BirthDate = Input.BirthDate,
+                    Gender = gender,
+                };
+
                 var result = await userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

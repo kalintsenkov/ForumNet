@@ -1,49 +1,127 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ForumNet.Web</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <meta charset="utf-8">
+    <title>@ViewData["Title"] - Forum.NET</title>
+    <meta name="description" content="Forum.NET">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="~/favicon/favicon.ico">
+    <link rel="stylesheet" href="~/css/style.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ForumNet.Web</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <!-- tt-mobile menu -->
+    <nav class="panel-menu" id="mobile-menu">
+        <ul>
+        </ul>
+        <div class="mm-navbtn-names">
+            <div class="mm-closebtn">
+                Close
+                <div class="tt-icon">
+                    <svg>
+                        <use xlink:href="#icon-cancel"></use>
+                    </svg>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - ForumNet.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="mm-backbtn">Back</div>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    </nav>
+    <header id="tt-header">
+        <div class="container">
+            <div class="row tt-row no-gutters">
+                <div class="col-auto">
+                    <!-- toggle mobile menu -->
+                    <a class="toggle-mobile-menu" href="#">
+                        <svg class="tt-icon">
+                            <use xlink:href="#icon-menu_icon"></use>
+                        </svg>
+                    </a>
+                    <!-- /toggle mobile menu -->
+                    <!-- logo -->
+                    <div class="tt-logo">
+                        <a asp-controller="Home" asp-action="Index"><img src="~/images/logo.png" alt=""></a>
+                    </div>
+                    <!-- /logo -->
+                    <!-- desktop menu -->
+                    <div class="tt-desktop-menu">
+                        <nav>
+                            <ul>
+                                <li><a asp-controller="Home" asp-action="Index"><span>Home</span></a></li>
+                                <li><a asp-controller="Categories" asp-action="All"><span>Categories</span></a></li>
+                                <li><a asp-controller="Posts" asp-action="Trending"><span>Trending</span></a></li>
+                                @if (this.User.Identity.IsAuthenticated)
+                                {
+                                    <li><a asp-controller="Posts" asp-action="New"><span>New</span></a></li>
+                                }
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- /desktop menu -->
+                    <!-- tt-search -->
+                    <div class="tt-search">
+                        <form class="search-wrapper">
+                            <div class="search-form">
+                                <input type="text" class="tt-search__input" placeholder="Search...">
+                                <button class="tt-search__btn" type="submit">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-search"></use>
+                                    </svg>
+                                </button>
+                                <button class="tt-search__close">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#cancel"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /tt-search -->
+                </div>
+                @if (!this.User.Identity.IsAuthenticated)
+                {
+                    <div class="col-auto ml-auto">
+                        <div class="tt-account-btn">
+                            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary">Log in</a>
+                            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-secondary">Sign up</a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-auto ml-auto">
+                        <div class="tt-user-info d-flex justify-content-center">
+                            <a href="#" class="tt-btn-icon">
+                                <i class="tt-icon"><svg><use xlink:href="#icon-notification"></use></svg></i>
+                            </a>
+                            <div class="tt-avatar-icon tt-size-md">
+                                <i class="tt-icon"><svg><use xlink:href="#icon-ava-a"></use></svg></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto ml-auto">
+                        <div class="tt-account-btn">
+                            <a asp-area="Identity" asp-page="/Account/Logout" class="btn btn-primary">Logout</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </header>
+
+    <main id="tt-pageContent" class="tt-offset-small">
+        @RenderBody()
+    </main>
+
+    <a asp-controller="Posts" asp-action="New" class="tt-btn-create-topic">
+        <span class="tt-icon">
+            <svg>
+                <use xlink:href="#icon-create_new"></use>
+            </svg>
+        </span>
+    </a>
+
+    <script src="~/js/bundle.js"></script>
+    <partial name="_LayoutPartial" />
     @RenderSection("Scripts", required: false)
 </body>
 </html>
