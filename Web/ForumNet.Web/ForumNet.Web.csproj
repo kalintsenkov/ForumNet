@@ -22,4 +22,9 @@
     <ProjectReference Include="..\ForumNet.Web.ViewModels\ForumNet.Web.ViewModels.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="wwwroot\fontawesome\css\" />
+  </ItemGroup>
+
 </Project>

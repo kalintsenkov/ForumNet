@@ -1,13 +1,15 @@
 ﻿<!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>@ViewData["Title"] - Forum.NET</title>
     <meta name="description" content="Forum.NET">
     <meta name="format-detection" content="telephone=no">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" href="~/favicon/favicon.ico">
-    <link rel="stylesheet" href="~/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link href="~/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="~/favicon/favicon.ico" rel="shortcut icon">
+    <link href="~/css/style.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- tt-mobile menu -->
@@ -26,6 +28,7 @@
             <div class="mm-backbtn">Back</div>
         </div>
     </nav>
+    <!-- /tt-mobile menu -->
     <header id="tt-header">
         <div class="container">
             <div class="row tt-row no-gutters">
@@ -61,7 +64,7 @@
                     <div class="tt-search">
                         <form class="search-wrapper">
                             <div class="search-form">
-                                <input type="text" class="tt-search__input" placeholder="Search...">
+                                <input type="text" class="tt-search__input" placeholder="Search">
                                 <button class="tt-search__btn" type="submit">
                                     <svg class="tt-icon">
                                         <use xlink:href="#icon-search"></use>
@@ -119,6 +122,19 @@
             </svg>
         </span>
     </a>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; @DateTime.UtcNow.Year <strong>Forum.NET</strong></p>
+                </div>
+                <div class="col-md-6">
+                    <p class="fa-pull-right"><a href="https://github.com/kalintsenkov/ForumNet"><i class="fab fa-github"></i> Open Source System</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="~/js/bundle.js"></script>
     <partial name="_LayoutPartial" />
