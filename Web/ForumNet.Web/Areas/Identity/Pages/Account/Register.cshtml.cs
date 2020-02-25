@@ -71,7 +71,7 @@
             public string ConfirmPassword { get; set; }
 
             [Required]
-            [DataType(DataType.Upload)]
+            [DataType(DataType.ImageUrl)]
             [Display(Name = "Profile Picture")]
             public string ProfilePicture { get; set; }
 
