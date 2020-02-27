@@ -1,0 +1,215 @@
+﻿@using ForumNet.Web.ViewModels.Posts
+@using ForumNet.Services.Contracts
+
+@model PostsInputViewModel
+@inject ICategoriesService CategoriesService
+
+@{
+    ViewData["Title"] = "Create Post";
+}
+
+<div class="container">
+    <div class="tt-wrapper-inner">
+        <h1 class="tt-title-border">
+            Create New Post
+        </h1>
+        <form class="form-default form-create-topic" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title">Post Title</label>
+                <div class="tt-value-wrapper">
+                    <input asp-for="Title" type="text" class="form-control" id="inputTopicTitle" placeholder="Subject of your post">
+                    <span asp-validation-for="Title" class="tt-value-input">99</span>
+                </div>
+                <div class="tt-note">Describe your post well, while keeping the subject as short as possible.</div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type">Post Type</label>
+                <div class="tt-js-active-btn tt-wrapper-btnicon">
+                    <div class="row tt-w410-col-02">
+                        @*TODO: Make this to work*@
+                        <div class="col-4 col-lg-3 col-xl-2">
+                            <a href="#" class="tt-button-icon">
+                                <span class="tt-icon">
+                                    <svg>
+                                        <use xlink:href="#icon-discussion"></use>
+                                    </svg>
+                                </span>
+                                <span asp-validation-for="Type" class="tt-text">Discussion</span>
+                            </a>
+                        </div>
+                        <div class="col-4 col-lg-3 col-xl-2">
+                            <a href="#" class="tt-button-icon">
+                                <span class="tt-icon">
+                                    <svg>
+                                        <use xlink:href="#Question"></use>
+                                    </svg>
+                                </span>
+                                <span asp-validation-for="Type" class="tt-text">Question</span>
+                            </a>
+                        </div>
+                        <div class="col-4 col-lg-3 col-xl-2">
+                            <a href="#" class="tt-button-icon">
+                                <span class="tt-icon">
+                                    <svg>
+                                        <use xlink:href="#icon-gallery"></use>
+                                    </svg>
+                                </span>
+                                <span asp-validation-for="Type" class="tt-text">Gallery</span>
+                            </a>
+                        </div>
+                        <div class="col-4 col-lg-3 col-xl-2">
+                            <a href="#" class="tt-button-icon">
+                                <span class="tt-icon">
+                                    <svg>
+                                        <use xlink:href="#Video"></use>
+                                    </svg>
+                                </span>
+                                <span asp-validation-for="Type" class="tt-text">Video</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-editor">
+                <h6 class="pt-title">Post Description</h6>
+                @*<div class="pt-row">
+                    <div class="col-left">
+                        <ul class="pt-edit-btn">
+                            <li>
+                                <button type="button" class="btn-icon">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-quote"></use>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn-icon">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-bold"></use>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn-icon">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-italic"></use>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn-icon">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-share_topic"></use>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn-icon">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-blockquote"></use>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn-icon">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-performatted"></use>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li class="hr"></li>
+                            <li>
+                                <button type="button" class="btn-icon">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-upload_files"></use>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn-icon">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-bullet_list"></use>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn-icon">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-heading"></use>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn-icon">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-horizontal_line"></use>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn-icon">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-emoticon"></use>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn-icon">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-settings"></use>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn-icon">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-color_picker"></use>
+                                    </svg>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>*@
+                <div class="form-group">
+                    <textarea asp-for="Description" class="form-control" rows="5" placeholder="Lets get started"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="CategoryId">Category</label>
+                            <select asp-for="CategoryId" class="form-control">
+                                <option hidden>Please select...</option>
+                                @{
+                                    var categories = await this.CategoriesService.GetAllAsync<CategoriesListingViewModel>();
+
+                                    foreach (var category in categories)
+                                    {
+                                        <option value="@category.Id">@category.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label asp-for="Tags">Tags</label>
+                            <input asp-for="Tags" type="text" class="form-control" id="inputTopicTags" placeholder="Use comma to separate tags">
+                            <span asp-validation-for="Tags" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-auto ml-md-auto">
+                            <button type="submit" class="btn btn-secondary btn-width-lg">Create Post</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -52,7 +52,7 @@
                                 <li><a asp-controller="Posts" asp-action="Trending"><span>Trending</span></a></li>
                                 @if (this.User.Identity.IsAuthenticated)
                                 {
-                                    <li><a asp-controller="Posts" asp-action="New"><span>New</span></a></li>
+                                    <li><a asp-controller="Posts" asp-action="Create"><span>New</span></a></li>
                                 }
                             </ul>
                         </nav>
@@ -113,7 +113,7 @@
         @RenderBody()
     </main>
 
-    <a asp-controller="Posts" asp-action="New" class="tt-btn-create-topic">
+    <a asp-controller="Posts" asp-action="Create" class="tt-btn-create-topic">
         <span class="tt-icon">
             <svg>
                 <use xlink:href="#icon-create_new"></use>

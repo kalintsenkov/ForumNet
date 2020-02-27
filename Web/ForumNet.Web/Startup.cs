@@ -1,5 +1,6 @@
 namespace ForumNet.Web
 {
+    using AutoMapper;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -10,6 +11,8 @@ namespace ForumNet.Web
 
     using Data;
     using Data.Models;
+    using Services;
+    using Services.Contracts;
 
     public class Startup
     {
@@ -20,7 +23,6 @@ namespace ForumNet.Web
             this.configuration = configuration;
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ForumDbContext>(options =>
@@ -49,10 +51,19 @@ namespace ForumNet.Web
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            services.AddAutoMapper(typeof(ForumNetProfile).Assembly);
+
             services.AddSingleton(this.configuration);
+
+            services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+            services.AddTransient<IPostReportsService, PostReportsService>();
+            services.AddTransient<IPostsService, PostsService>();
+            services.AddTransient<IRepliesService, RepliesService>();
+            services.AddTransient<IReplyReportsService, ReplyReportsService>();
+            services.AddTransient<ITagsService, TagsService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
