@@ -4,12 +4,17 @@
     using System.Collections.Generic;
    
     using Common;
+    using Enums;
 
     public class Post : IAuditInfo, IDeletableEntity
     {
         public int Id { get; set; }
 
         public string Title { get; set; }
+
+        public PostType Type { get; set; }
+
+        public string ImageOrVideoUrl { get; set; }
 
         public string Description { get; set; }
 

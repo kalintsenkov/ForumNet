@@ -68,6 +68,10 @@ namespace ForumNet.Web
         {
             if (env.IsDevelopment())
             {
+                using var serviceScope = app.ApplicationServices.CreateScope();
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ForumDbContext>();
+                dbContext.Database.Migrate();
+
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }

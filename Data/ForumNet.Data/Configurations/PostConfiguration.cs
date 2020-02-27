@@ -11,7 +11,7 @@
         {
             post
                 .Property(p => p.Title)
-                .HasMaxLength(150)
+                .HasMaxLength(130)
                 .IsRequired();
 
             post
