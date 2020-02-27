@@ -20,9 +20,9 @@
             <form class="form-default" method="post">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control" placeholder="Email..." />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    <label asp-for="Input.Username"></label>
+                    <input asp-for="Input.Username" class="form-control" placeholder="Username..." />
+                    <span asp-validation-for="Input.Username" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Input.Password"></label>
@@ -34,7 +34,7 @@
                         <div class="form-group">
                             <div class="checkbox">
                                 <label asp-for="Input.RememberMe">
-                                    <input asp-for="Input.RememberMe"/>
+                                    <input asp-for="Input.RememberMe" />
                                     @Html.DisplayNameFor(m => m.Input.RememberMe)
                                 </label>
                             </div>
@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary btn-block">Log in</a>
+                    <button type="submit" class="btn btn-secondary btn-block">Log in</button>
                 </div>
                 <p>Or login with social network</p>
                 <div class="row">

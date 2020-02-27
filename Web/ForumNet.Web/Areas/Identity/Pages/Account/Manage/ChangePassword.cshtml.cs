@@ -1,29 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using ForumNet.Data.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-namespace ForumNet.Web.Areas.Identity.Pages.Account.Manage
+﻿namespace ForumNet.Web.Areas.Identity.Pages.Account.Manage
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.Extensions.Logging;
+
+    using Data.Models;
+
     public class ChangePasswordModel : PageModel
     {
-        private readonly UserManager<ForumUser> _userManager;
-        private readonly SignInManager<ForumUser> _signInManager;
-        private readonly ILogger<ChangePasswordModel> _logger;
+        private readonly UserManager<ForumUser> userManager;
+        private readonly SignInManager<ForumUser> signInManager;
+        private readonly ILogger<ChangePasswordModel> logger;
 
         public ChangePasswordModel(
             UserManager<ForumUser> userManager,
             SignInManager<ForumUser> signInManager,
             ILogger<ChangePasswordModel> logger)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _logger = logger;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.logger = logger;
         }
 
         [BindProperty]
@@ -53,13 +53,13 @@ namespace ForumNet.Web.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
             }
 
-            var hasPassword = await _userManager.HasPasswordAsync(user);
+            var hasPassword = await userManager.HasPasswordAsync(user);
             if (!hasPassword)
             {
                 return RedirectToPage("./SetPassword");
@@ -75,13 +75,13 @@ namespace ForumNet.Web.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var user = await _userManager.GetUserAsync(User);
+            var user = await userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
             }
 
-            var changePasswordResult = await _userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
+            var changePasswordResult = await userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
             if (!changePasswordResult.Succeeded)
             {
                 foreach (var error in changePasswordResult.Errors)
@@ -91,8 +91,8 @@ namespace ForumNet.Web.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            await _signInManager.RefreshSignInAsync(user);
-            _logger.LogInformation("User changed their password successfully.");
+            await signInManager.RefreshSignInAsync(user);
+            logger.LogInformation("User changed their password successfully.");
             StatusMessage = "Your password has been changed.";
 
             return RedirectToPage();

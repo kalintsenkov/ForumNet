@@ -20,15 +20,11 @@
             this.logger = logger;
         }
 
-        public void OnGet()
-        {
-        }
-
-        public async Task<IActionResult> OnPost(string returnUrl = null)
+        public async Task<IActionResult> OnGet(string returnUrl = null)
         {
             await signInManager.SignOutAsync();
             logger.LogInformation("User logged out.");
-            
+
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);
@@ -37,6 +33,10 @@
             {
                 return RedirectToPage();
             }
+        }
+
+        public void OnPost()
+        {
         }
     }
 }
