@@ -12,7 +12,7 @@
     using Data;
     using Data.Models;
 
-    public class PostsService: IPostsService
+    public class PostsService : IPostsService
     {
         private readonly ForumDbContext db;
         private readonly IMapper mapper;
@@ -90,10 +90,35 @@
             await this.db.SaveChangesAsync();
         }
 
+        public async Task AddTagsAsync(int id, IEnumerable<int> tagIds)
+        {
+            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
+
+            foreach (var tagId in tagIds)
+            {
+                post.Tags.Add(new PostTag
+                {
+                    PostId = id,
+                    TagId = tagId
+                });
+            }
+
+            await this.db.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
         {
             var posts = await this.db.Posts
                 .Where(p => !p.IsDeleted)
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return posts;
+        }
+
+        public async Task<IEnumerable<TModel>> GetAllWithDeletedAsync<TModel>()
+        {
+            var posts = await this.db.Posts
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

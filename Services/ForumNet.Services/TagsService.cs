@@ -1,8 +1,12 @@
 ﻿namespace ForumNet.Services
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
-    
+
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
 
     using Contracts;
@@ -12,11 +16,13 @@
     public class TagsService : ITagsService
     {
         private readonly ForumDbContext db;
+        private readonly IMapper mapper;
         private readonly IDateTimeProvider dateTimeProvider;
 
-        public TagsService(ForumDbContext db, IDateTimeProvider dateTimeProvider)
+        public TagsService(ForumDbContext db, IMapper mapper,IDateTimeProvider dateTimeProvider)
         {
             this.db = db;
+            this.mapper = mapper;
             this.dateTimeProvider = dateTimeProvider;
         }
 
@@ -41,6 +47,26 @@
             tag.DeletedOn = DateTime.UtcNow;
 
             await this.db.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
+        {
+            var tags = await this.db.Tags
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return tags;
+        }
+
+        public async Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId)
+        {
+            var tags = await this.db.PostsTags
+                .Where(pt => pt.PostId == postId)
+                .Select(pt => pt.Tag)
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return tags;
         }
     }
 }
