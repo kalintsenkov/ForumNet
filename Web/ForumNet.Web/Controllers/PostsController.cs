@@ -1,6 +1,5 @@
 ﻿namespace ForumNet.Web.Controllers
 {
-    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
@@ -36,13 +35,18 @@
             }
 
             var authorId = await this.usersService.GetId(this.User);
-            await this.postsService.CreateAsync(
-                input.Title,
-                input.PostType,
+            var isCreated = await this.postsService.CreateAsync(
+                input.Title, 
+                input.PostType, 
                 input.Description,
                 authorId, 
-                input.CategoryId,
+                input.CategoryId, 
                 input.ImageOrVideoUrl);
+
+            if (!isCreated)
+            {
+                return this.View();
+            }
 
             return RedirectToAction("Index", "Home");
         }
