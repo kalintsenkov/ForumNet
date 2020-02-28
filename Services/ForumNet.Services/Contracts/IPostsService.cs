@@ -5,7 +5,13 @@
 
     public interface IPostsService
     {
-        Task CreateAsync(string title, string description, string authorId, int categoryId);
+        Task<bool> CreateAsync(
+            string title,
+            string postType,
+            string description,
+            string authorId,
+            int categoryId,
+            string imageOrVideoUrl = null);
 
         Task ViewAsync(int id);
 

@@ -36,7 +36,13 @@
             }
 
             var authorId = await this.usersService.GetId(this.User);
-            await this.postsService.CreateAsync(input.Title, input.Description, authorId, input.CategoryId);
+            await this.postsService.CreateAsync(
+                input.Title,
+                input.PostType,
+                input.Description,
+                authorId, 
+                input.CategoryId,
+                input.ImageOrVideoUrl);
 
             return RedirectToAction("Index", "Home");
         }

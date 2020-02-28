@@ -1,5 +1,6 @@
 ﻿namespace ForumNet.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -11,6 +12,7 @@
     using Contracts;
     using Data;
     using Data.Models;
+    using Data.Models.Enums;
 
     public class PostsService : IPostsService
     {
@@ -25,11 +27,26 @@
             this.dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task CreateAsync(string title, string description, string authorId, int categoryId)
+        public async Task<bool> CreateAsync(
+            string title,
+            string postType,
+            string description, 
+            string authorId,
+            int categoryId,
+            string imageOrVideoUrl = null)
         {
+            var isTypeValid = Enum.TryParse(postType, true, out PostType type);
+
+            if (!isTypeValid)
+            {
+                return false;
+            }
+
             var post = new Post
             {
                 Title = title,
+                Type = type,
+                ImageOrVideoUrl = imageOrVideoUrl,
                 Description = description,
                 CreatedOn = this.dateTimeProvider.Now(),
                 ModifiedOn = this.dateTimeProvider.Now(),
@@ -39,6 +56,8 @@
 
             await this.db.Posts.AddAsync(post);
             await this.db.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task ViewAsync(int id)

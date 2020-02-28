@@ -9,9 +9,13 @@
         public string Title { get; set; }
 
         [Required]
-        public string Type { get; set; }
+        public string PostType { get; set; }
+
+        [DataType(DataType.Url)]
+        public string ImageOrVideoUrl { get; set; }
 
         [Required]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         public int CategoryId { get; set; }

@@ -62,6 +62,7 @@ namespace ForumNet.Web
             services.AddTransient<IRepliesService, RepliesService>();
             services.AddTransient<IReplyReportsService, ReplyReportsService>();
             services.AddTransient<ITagsService, TagsService>();
+            services.AddTransient<IUsersService, UsersService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
