@@ -31,7 +31,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View();
+                return this.View(input);
             }
 
             var authorId = await this.usersService.GetIdAsync(this.User);
