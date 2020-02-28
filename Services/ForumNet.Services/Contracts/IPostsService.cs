@@ -27,6 +27,8 @@
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>();
 
+        Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId);
+
         Task<IEnumerable<TModel>> GetAllWithDeletedAsync<TModel>();
     }
 }

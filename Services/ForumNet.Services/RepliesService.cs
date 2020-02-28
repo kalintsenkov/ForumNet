@@ -63,7 +63,7 @@
         public async Task<TModel> GetByIdAsync<TModel>(int id)
         {
             var reply = await this.db.Replies
-                .Where(r => r.Id == id)
+                .Where(r => r.Id == id && !r.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
@@ -73,7 +73,29 @@
         public async Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId)
         {
             var replies = await this.db.Replies
-                .Where(r => r.PostId == postId)
+                .Where(r => r.PostId == postId && !r.IsDeleted)
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return replies;
+        }
+
+        public async Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId)
+        {
+            var replies = await this.db.Replies
+                .Where(r => r.AuthorId == userId && !r.IsDeleted)
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return replies;
+        }
+
+        public async Task<IEnumerable<TModel>> GetAllByPostIdAndUserIdAsync<TModel>(int postId, string userId)
+        {
+            var replies = await this.db.Replies
+                .Where(r => r.PostId == postId &&
+                            r.AuthorId == userId && 
+                            !r.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
