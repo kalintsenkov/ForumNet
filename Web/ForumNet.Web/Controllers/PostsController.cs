@@ -11,18 +11,28 @@
     public class PostsController : Controller
     {
         private readonly IPostsService postsService;
+        private readonly ICategoriesService categoriesService;
         private readonly IUsersService usersService;
 
-        public PostsController(IPostsService postsService, IUsersService usersService)
+        public PostsController(
+            IPostsService postsService, 
+            ICategoriesService categoriesService,
+            IUsersService usersService)
         {
             this.postsService = postsService;
+            this.categoriesService = categoriesService;
             this.usersService = usersService;
         }
 
         [Authorize]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var viewModel = new PostsInputViewModel
+            {
+                Categories = await this.categoriesService.GetAllAsync<CategoriesListingViewModel>()
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -31,6 +41,8 @@
         {
             if (!this.ModelState.IsValid)
             {
+                input.Categories = await this.categoriesService.GetAllAsync<CategoriesListingViewModel>();
+
                 return this.View(input);
             }
 

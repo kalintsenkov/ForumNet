@@ -1,11 +1,11 @@
 ﻿namespace ForumNet.Web.ViewModels.Posts
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class PostsInputViewModel
     {
         [Required]
-        [MaxLength(130, ErrorMessage = "The {0} must be max {1} characters long.")]
         [Display(Name = "Title")]
         public string Title { get; set; }
 
@@ -26,5 +26,7 @@
 
         [Required]
         public string Tags { get; set; }
+
+        public IEnumerable<CategoriesListingViewModel> Categories { get; set; }
     }
 }

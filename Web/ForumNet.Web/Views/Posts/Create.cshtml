@@ -1,9 +1,4 @@
-﻿@using ForumNet.Web.ViewModels.Posts
-@using ForumNet.Services.Contracts
-
-@model PostsInputViewModel
-@inject ICategoriesService CategoriesService
-
+﻿@model ForumNet.Web.ViewModels.Posts.PostsInputViewModel
 @{
     ViewData["Title"] = "Create Post";
 }
@@ -19,7 +14,8 @@
                 <label asp-for="Title">Post Title</label>
                 <div class="tt-value-wrapper">
                     <input asp-for="Title" type="text" class="form-control" id="inputTopicTitle" placeholder="Subject of your post">
-                    <span asp-validation-for="Title" class="tt-value-input">130</span>
+                    <span class="tt-value-input">130</span>
+                    <span asp-validation-for="Title"></span>
                 </div>
                 <div class="tt-note">Describe your post well, while keeping the subject as short as possible.</div>
             </div>
@@ -82,13 +78,9 @@
                             <label asp-for="CategoryId">Category</label>
                             <select asp-for="CategoryId" class="form-control">
                                 <option hidden>Please select...</option>
-                                @{
-                                    var categories = await this.CategoriesService.GetAllAsync<CategoriesListingViewModel>();
-
-                                    foreach (var category in categories)
-                                    {
-                                        <option value="@category.Id">@category.Name</option>
-                                    }
+                                @foreach (var category in Model.Categories)
+                                {
+                                    <option value="@category.Id">@category.Name</option>
                                 }
                             </select>
                         </div>
