@@ -34,7 +34,7 @@
                 return this.View();
             }
 
-            var authorId = await this.usersService.GetId(this.User);
+            var authorId = await this.usersService.GetIdAsync(this.User);
             var isCreated = await this.postsService.CreateAsync(
                 input.Title, 
                 input.PostType, 

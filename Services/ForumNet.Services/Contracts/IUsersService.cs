@@ -5,8 +5,10 @@
 
     public interface IUsersService
     {
-        Task<string> GetId(ClaimsPrincipal claimsPrincipal);
+        Task<string> GetIdAsync(ClaimsPrincipal claimsPrincipal);
 
-        Task<int> LevelUp(string id);
+        Task<int> LevelUpAsync(string id);
+
+        Task DeleteAsync(string id);
     }
 }
