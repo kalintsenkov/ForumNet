@@ -12,10 +12,12 @@
     public class PostsController : Controller
     {
         private readonly IPostsService postsService;
+        private readonly IUsersService usersService;
 
-        public PostsController(IPostsService postsService)
+        public PostsController(IPostsService postsService, IUsersService usersService)
         {
             this.postsService = postsService;
+            this.usersService = usersService;
         }
 
         [Authorize]
@@ -33,7 +35,7 @@
                 return this.View();
             }
 
-            var authorId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var authorId = await this.usersService.GetId(this.User);
             await this.postsService.CreateAsync(input.Title, input.Description, authorId, input.CategoryId);
 
             return RedirectToAction("Index", "Home");
