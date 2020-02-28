@@ -125,6 +125,16 @@
             await this.db.SaveChangesAsync();
         }
 
+        public async Task<TModel> GetById<TModel>(int id)
+        {
+            var post = await this.db.Posts
+                .Where(p => p.Id == id && !p.IsDeleted)
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+
+            return post;
+        }
+
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
         {
             var posts = await this.db.Posts
