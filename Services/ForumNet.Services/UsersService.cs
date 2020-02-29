@@ -23,6 +23,26 @@
             this.dateTimeProvider = dateTimeProvider;
         }
 
+        public async Task DeleteAsync(string id)
+        {
+            var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+            user.IsDeleted = true;
+            user.DeletedOn = this.dateTimeProvider.Now();
+
+            await this.db.SaveChangesAsync();
+        }
+
+        public async Task UndeleteAsync(string id)
+        {
+            var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+            user.IsDeleted = false;
+            user.DeletedOn = null;
+
+            await this.db.SaveChangesAsync();
+        }
+
         public async Task<string> GetIdAsync(ClaimsPrincipal claimsPrincipal)
         {
             var user = await userManager.GetUserAsync(claimsPrincipal);
@@ -39,16 +59,6 @@
             await this.db.SaveChangesAsync();
 
             return user.Level;
-        }
-
-        public async Task DeleteAsync(string id)
-        {
-            var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id);
-
-            user.IsDeleted = true;
-            user.DeletedOn = this.dateTimeProvider.Now();
-
-            await this.db.SaveChangesAsync();
         }
 
         public async Task<bool> IsUsernameUsed(string username)

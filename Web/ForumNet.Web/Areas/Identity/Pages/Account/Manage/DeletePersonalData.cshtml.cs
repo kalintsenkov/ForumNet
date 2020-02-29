@@ -40,38 +40,38 @@
 
         public async Task<IActionResult> OnGet()
         {
-            var user = await userManager.GetUserAsync(User);
+            var user = await this.userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
             }
 
-            RequirePassword = await userManager.HasPasswordAsync(user);
+            this.RequirePassword = await userManager.HasPasswordAsync(user);
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var user = await userManager.GetUserAsync(this.User);
+            var user = await this.userManager.GetUserAsync(this.User);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
             }
 
-            RequirePassword = await userManager.HasPasswordAsync(user);
-            if (RequirePassword)
+            this.RequirePassword = await this.userManager.HasPasswordAsync(user);
+            if (this.RequirePassword)
             {
                 if (!await userManager.CheckPasswordAsync(user, Input.Password))
                 {
-                    ModelState.AddModelError(string.Empty, "Incorrect password.");
+                    this.ModelState.AddModelError(string.Empty, "Incorrect password.");
                     return Page();
                 }
             }
 
-            var userId = await usersService.GetIdAsync(this.User);
-            await usersService.DeleteAsync(userId);
+            var userId = await this.usersService.GetIdAsync(this.User);
+            await this.usersService.DeleteAsync(userId);
 
-            await signInManager.SignOutAsync();
+            await this.signInManager.SignOutAsync();
 
             return Redirect("~/");
         }

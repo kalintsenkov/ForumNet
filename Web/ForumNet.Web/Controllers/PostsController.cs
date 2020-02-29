@@ -12,24 +12,28 @@
     {
         private readonly IPostsService postsService;
         private readonly ICategoriesService categoriesService;
+        private readonly ITagsService tagsService;
         private readonly IUsersService usersService;
 
         public PostsController(
             IPostsService postsService, 
             ICategoriesService categoriesService,
+            ITagsService tagsService,
             IUsersService usersService)
         {
             this.postsService = postsService;
             this.categoriesService = categoriesService;
+            this.tagsService = tagsService;
             this.usersService = usersService;
         }
 
         [Authorize]
         public async Task<IActionResult> Create()
         {
-            var viewModel = new PostsInputViewModel
+            var viewModel = new PostsCreateInputModel
             {
-                Categories = await this.categoriesService.GetAllAsync<CategoriesListingViewModel>()
+                Categories = await this.categoriesService.GetAllAsync<CategoriesListingViewModel>(),
+                Tags = await this.tagsService.GetAllAsync<TagsListingViewModel>()
             };
 
             return View(viewModel);
@@ -37,22 +41,23 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(PostsInputViewModel input)
+        public async Task<IActionResult> Create(PostsCreateInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
                 input.Categories = await this.categoriesService.GetAllAsync<CategoriesListingViewModel>();
+                input.Tags = await this.tagsService.GetAllAsync<TagsListingViewModel>();
 
                 return this.View(input);
             }
 
             var authorId = await this.usersService.GetIdAsync(this.User);
             var isCreated = await this.postsService.CreateAsync(
-                input.Title, 
-                input.PostType, 
+                input.Title,
+                input.PostType,
                 input.Description,
-                authorId, 
-                input.CategoryId, 
+                authorId,
+                input.CategoryId,
                 input.ImageOrVideoUrl);
 
             if (!isCreated)

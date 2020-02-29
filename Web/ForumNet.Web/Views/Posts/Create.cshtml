@@ -1,4 +1,4 @@
-﻿@model ForumNet.Web.ViewModels.Posts.PostsInputViewModel
+﻿@model ForumNet.Web.ViewModels.Posts.PostsCreateInputModel
 @{
     ViewData["Title"] = "Create Post";
 }
@@ -87,8 +87,13 @@
                     </div>
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label asp-for="Tags">Tags</label>
-                            <input asp-for="Tags" type="text" class="form-control" id="inputTopicTags" placeholder="Use comma to separate tags">
+                            <label asp-for="TagIds">Tags</label>
+                            <select asp-for="TagIds" data-placeholder="Begin typing a tag to filter..." multiple class="chosen-default">
+                                @foreach (var tag in Model.Tags)
+                                {
+                                    <option value="@tag.Id">@tag.Name</option>
+                                }
+                            </select>
                             <span asp-validation-for="Tags" class="text-danger"></span>
                         </div>
                     </div>
@@ -104,5 +109,10 @@
 </div>
 
 @section Scripts {
+    <script type="text/javascript">
+        $(".chosen-default").chosen({
+            no_results_text: "Oops, nothing found!"
+        })
+    </script>
     <partial name="_ValidationScriptsPartial" />
 }

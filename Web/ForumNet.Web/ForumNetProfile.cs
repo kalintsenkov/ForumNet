@@ -10,6 +10,7 @@
         public ForumNetProfile()
         {
             this.CreateMap<Category, CategoriesListingViewModel>();
+            this.CreateMap<Tag, TagsListingViewModel>();
         }
     }
 }

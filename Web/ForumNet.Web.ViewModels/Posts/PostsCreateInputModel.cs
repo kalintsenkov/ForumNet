@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class PostsInputViewModel
+    public class PostsCreateInputModel
     {
         [Required]
         [Display(Name = "Title")]
@@ -25,8 +25,10 @@
         public int CategoryId { get; set; }
 
         [Required]
-        public string Tags { get; set; }
+        public int[] TagIds { get; set; }
 
         public IEnumerable<CategoriesListingViewModel> Categories { get; set; }
+
+        public IEnumerable<TagsListingViewModel> Tags { get; set; }
     }
 }

@@ -5,11 +5,13 @@
 
     public interface IUsersService
     {
+        Task DeleteAsync(string id);
+
+        Task UndeleteAsync(string id);
+
         Task<string> GetIdAsync(ClaimsPrincipal claimsPrincipal);
 
         Task<int> LevelUpAsync(string id);
-
-        Task DeleteAsync(string id);
 
         Task<bool> IsUsernameUsed(string username);
 

@@ -44,7 +44,7 @@
             var tag = await this.db.Tags.FirstOrDefaultAsync(t => t.Id == id);
 
             tag.IsDeleted = true;
-            tag.DeletedOn = DateTime.UtcNow;
+            tag.DeletedOn = this.dateTimeProvider.Now();
 
             await this.db.SaveChangesAsync();
         }
@@ -52,6 +52,7 @@
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
         {
             var tags = await this.db.Tags
+                .Where(t => !t.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

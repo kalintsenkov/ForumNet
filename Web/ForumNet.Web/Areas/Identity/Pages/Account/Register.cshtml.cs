@@ -101,15 +101,15 @@
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            var isUsernameUsed = await this.usersService.IsUsernameUsed(Input.Username);
-            if (isUsernameUsed)
-            {
-                this.ModelState.AddModelError(nameof(Input.Username), "There is already user with that username.");
-                return Page();
-            }
-
             if (this.ModelState.IsValid)
             {
+                var isUsernameUsed = await this.usersService.IsUsernameUsed(Input.Username);
+                if (isUsernameUsed)
+                {
+                    this.ModelState.AddModelError(nameof(Input.Username), "There is already user with that username.");
+                    return Page();
+                }
+
                 var user = new ForumUser
                 {
                     UserName = Input.Username,
@@ -117,6 +117,8 @@
                     ProfilePicture = Input.ProfilePicture,
                     BirthDate = Input.BirthDate,
                     Gender = Input.Gender,
+                    CreatedOn = DateTime.UtcNow,
+                    ModifiedOn = DateTime.UtcNow
                 };
 
                 var result = await userManager.CreateAsync(user, Input.Password);
