@@ -6,14 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\fontawesome\**" />
-    <Content Remove="wwwroot\fontawesome\**" />
-    <EmbeddedResource Remove="wwwroot\fontawesome\**" />
-    <None Remove="wwwroot\fontawesome\**" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.1" />
@@ -21,7 +13,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
   </ItemGroup>
-
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\ForumNet.Data\ForumNet.Data.csproj" />
