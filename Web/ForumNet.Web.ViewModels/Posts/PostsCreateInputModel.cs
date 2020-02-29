@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Data.Models.Enums;
 
     public class PostsCreateInputModel
     {
@@ -11,10 +12,11 @@
 
         [Required]
         [Display(Name = "Post Type")]
-        public string PostType { get; set; }
+        [EnumDataType(typeof(PostType))]
+        public PostType PostType { get; set; }
 
-        [DataType(DataType.Url)]
         [Display(Name = "Url")]
+        [DataType(DataType.Url)]
         public string ImageOrVideoUrl { get; set; }
 
         [Required]

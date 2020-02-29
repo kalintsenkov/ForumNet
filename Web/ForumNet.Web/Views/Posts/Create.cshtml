@@ -1,4 +1,5 @@
-﻿@model ForumNet.Web.ViewModels.Posts.PostsCreateInputModel
+﻿@using ForumNet.Data.Models.Enums
+@model ForumNet.Web.ViewModels.Posts.PostsCreateInputModel
 @{
     ViewData["Title"] = "Create Post";
 }
@@ -21,49 +22,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="PostType">Post Type</label>
-                <div class="tt-js-active-btn tt-wrapper-btnicon">
-                    <div class="row tt-w410-col-02">
-                        <div class="col-4 col-lg-3 col-xl-2">
-                            <input asp-for="PostType" type="radio" value="Discussion" checked />
-                            <a href="#" class="tt-button-icon">
-                                <span class="tt-icon">
-                                    <svg>
-                                        <use xlink:href="#icon-discussion"></use>
-                                    </svg>
-                                </span>
-                                <span asp-validation-for="PostType" class="tt-text">Discussion</span>
-                            </a>
-                        </div>
-                        <div class="col-4 col-lg-3 col-xl-2">
-                            <input asp-for="PostType" type="radio" value="Image" />
-                            <a href="#" class="tt-button-icon">
-                                <span class="tt-icon">
-                                    <svg>
-                                        <use xlink:href="#icon-gallery"></use>
-                                    </svg>
-                                </span>
-                                <span asp-validation-for="PostType" class="tt-text">Image</span>
-                            </a>
-                        </div>
-                        <div class="col-4 col-lg-3 col-xl-2">
-                            <input asp-for="PostType" type="radio" value="Video" />
-                            <a href="#" class="tt-button-icon">
-                                <span class="tt-icon">
-                                    <svg>
-                                        <use xlink:href="#Video"></use>
-                                    </svg>
-                                </span>
-                                <span asp-validation-for="PostType" class="tt-text">Video</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageOrVideoUrl"></label>
-                <div class="tt-value-wrapper">
-                    <input asp-for="ImageOrVideoUrl" type="text" class="form-control" placeholder="Url...">
-                    <span asp-validation-for="ImageOrVideoUrl" class="tt-value-input"></span>
+                <select asp-for="PostType" class="form-control" onchange="showfield(this.options[this.selectedIndex].value)">
+                    <option value="@PostType.Discussion">@PostType.Discussion</option>
+                    <option value="@PostType.Image">@PostType.Image</option>
+                    <option value="@PostType.Video">@PostType.Video</option>
+                </select>
+                <div id="hidden-input">
+                    <span asp-validation-for="ImageOrVideoUrl"></span>
                 </div>
             </div>
             <div class="pt-editor">
@@ -83,6 +48,7 @@
                                     <option value="@category.Id">@category.Name</option>
                                 }
                             </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -94,7 +60,7 @@
                                     <option value="@tag.Id">@tag.Name</option>
                                 }
                             </select>
-                            <span asp-validation-for="Tags" class="text-danger"></span>
+                            <span asp-validation-for="TagIds" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -107,6 +73,13 @@
         </form>
     </div>
 </div>
+
+<script type="text/javascript">
+    function showfield(name) {
+        if (name == 'Image' || name == 'Video') document.getElementById('hidden-input').innerHTML = 'Url: <input name="ImageOrVideoUrl" type="text" class="form-control" placeholder="Url..." required />';
+        else document.getElementById('hidden-input').innerHTML = '';
+    }
+</script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

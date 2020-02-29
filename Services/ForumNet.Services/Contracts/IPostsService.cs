@@ -3,11 +3,13 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using Data.Models.Enums;
+
     public interface IPostsService
     {
-        Task<bool> CreateAsync(
+        Task<int> CreateAsync(
             string title,
-            string postType,
+            PostType type,
             string description,
             string authorId,
             int categoryId,

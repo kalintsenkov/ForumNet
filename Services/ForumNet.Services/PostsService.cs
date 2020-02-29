@@ -1,6 +1,5 @@
 ﻿namespace ForumNet.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -27,21 +26,14 @@
             this.dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task<bool> CreateAsync(
+        public async Task<int> CreateAsync(
             string title,
-            string postType,
-            string description, 
+            PostType type,
+            string description,
             string authorId,
             int categoryId,
             string imageOrVideoUrl = null)
         {
-            var isTypeValid = Enum.TryParse(postType, true, out PostType type);
-
-            if (!isTypeValid)
-            {
-                return false;
-            }
-
             var post = new Post
             {
                 Title = title,
@@ -57,7 +49,7 @@
             await this.db.Posts.AddAsync(post);
             await this.db.SaveChangesAsync();
 
-            return true;
+            return post.Id;
         }
 
         public async Task ViewAsync(int id)

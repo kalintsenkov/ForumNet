@@ -52,18 +52,15 @@
             }
 
             var authorId = await this.usersService.GetIdAsync(this.User);
-            var isCreated = await this.postsService.CreateAsync(
-                input.Title,
-                input.PostType,
-                input.Description,
-                authorId,
-                input.CategoryId,
+            var postId = await this.postsService.CreateAsync(
+                input.Title, 
+                input.PostType, 
+                input.Description, 
+                authorId, 
+                input.CategoryId, 
                 input.ImageOrVideoUrl);
 
-            if (!isCreated)
-            {
-                return this.View();
-            }
+            await this.postsService.AddTagsAsync(postId, input.TagIds);
 
             return RedirectToAction("Index", "Home");
         }
