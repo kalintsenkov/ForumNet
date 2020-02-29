@@ -25,7 +25,7 @@
         public int CategoryId { get; set; }
 
         [Required]
-        public int[] TagIds { get; set; }
+        public IEnumerable<int> TagIds { get; set; }
 
         public IEnumerable<CategoriesListingViewModel> Categories { get; set; }
 

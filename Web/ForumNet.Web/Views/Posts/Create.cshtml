@@ -88,7 +88,7 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label asp-for="TagIds">Tags</label>
-                            <select asp-for="TagIds" data-placeholder="Begin typing a tag to filter..." multiple class="chosen-default">
+                            <select asp-for="TagIds" class="form-control">
                                 @foreach (var tag in Model.Tags)
                                 {
                                     <option value="@tag.Id">@tag.Name</option>
@@ -109,10 +109,5 @@
 </div>
 
 @section Scripts {
-    <script type="text/javascript">
-        $(".chosen-default").chosen({
-            no_results_text: "Oops, nothing found!"
-        })
-    </script>
     <partial name="_ValidationScriptsPartial" />
 }
