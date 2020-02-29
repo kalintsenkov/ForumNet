@@ -19,23 +19,27 @@
 
     using Data.Models;
     using Data.Models.Enums;
+    using Services.Contracts;
 
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ForumUser> signInManager;
         private readonly UserManager<ForumUser> userManager;
+        private readonly IUsersService usersService;
         private readonly ILogger<RegisterModel> logger;
         private readonly IEmailSender emailSender;
 
         public RegisterModel(
             UserManager<ForumUser> userManager,
             SignInManager<ForumUser> signInManager,
+            IUsersService usersService,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.usersService = usersService;
             this.logger = logger;
             this.emailSender = emailSender;
         }
@@ -81,8 +85,9 @@
             public DateTime BirthDate { get; set; }
 
             [Required]
+            [EnumDataType(typeof(GenderType), ErrorMessage = "Not valid gender.")]
             [Display(Name = "Gender")]
-            public string Gender { get; set; }
+            public GenderType Gender { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -95,22 +100,23 @@
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            
-            var isGenderValid = Enum.TryParse(Input.Gender,ignoreCase: true, out GenderType gender);
-            if (!isGenderValid)
+
+            var isUsernameUsed = await this.usersService.IsUsernameUsed(Input.Username);
+            if (isUsernameUsed)
             {
+                this.ModelState.AddModelError(nameof(Input.Username), "There is already user with that username.");
                 return Page();
             }
 
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
                 var user = new ForumUser
                 {
-                    UserName = Input.Username, 
+                    UserName = Input.Username,
                     Email = Input.Email,
                     ProfilePicture = Input.ProfilePicture,
                     BirthDate = Input.BirthDate,
-                    Gender = gender,
+                    Gender = Input.Gender,
                 };
 
                 var result = await userManager.CreateAsync(user, Input.Password);
@@ -141,7 +147,7 @@
                 }
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    this.ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 

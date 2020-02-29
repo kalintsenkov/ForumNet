@@ -13,20 +13,25 @@
     using Microsoft.Extensions.Logging;
 
     using Data.Models;
+    using Services.Contracts;
 
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
         private readonly UserManager<ForumUser> userManager;
         private readonly SignInManager<ForumUser> signInManager;
+        private readonly IUsersService usersService;
         private readonly ILogger<LoginModel> logger;
 
-        public LoginModel(SignInManager<ForumUser> signInManager, 
-            ILogger<LoginModel> logger,
-            UserManager<ForumUser> userManager)
+        public LoginModel(
+            UserManager<ForumUser> userManager,
+            SignInManager<ForumUser> signInManager,
+            IUsersService usersService,
+            ILogger<LoginModel> logger)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.usersService = usersService;
             this.logger = logger;
         }
 
@@ -87,8 +92,15 @@
                 returnUrl = returnUrl ?? Url.Content("~/");
             }
 
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
+                var isUserDeleted = await this.usersService.IsUserDeleted(Input.Username);
+                if (isUserDeleted)
+                {
+                    this.ModelState.AddModelError(string.Empty, "The username or password is incorrect.");
+                    return Page();
+                }
+
                 var result = await signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
@@ -101,7 +113,7 @@
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "The username or password is incorrect.");
+                    this.ModelState.AddModelError(string.Empty, "The username or password is incorrect.");
                     return Page();
                 }
             }

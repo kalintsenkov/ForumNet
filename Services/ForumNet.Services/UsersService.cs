@@ -50,5 +50,15 @@
 
             await this.db.SaveChangesAsync();
         }
+
+        public async Task<bool> IsUsernameUsed(string username)
+        {
+            return await this.db.Users.AnyAsync(u => u.UserName == username);
+        }
+
+        public async Task<bool> IsUserDeleted(string username)
+        {
+            return await this.db.Users.AnyAsync(u => u.UserName == username && u.IsDeleted);
+        }
     }
 }

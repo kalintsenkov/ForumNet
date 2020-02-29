@@ -10,5 +10,9 @@
         Task<int> LevelUpAsync(string id);
 
         Task DeleteAsync(string id);
+
+        Task<bool> IsUsernameUsed(string username);
+
+        Task<bool> IsUserDeleted(string username);
     }
 }
