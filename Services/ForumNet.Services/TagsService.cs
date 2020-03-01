@@ -1,6 +1,5 @@
 ﻿namespace ForumNet.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -47,6 +46,20 @@
             tag.DeletedOn = this.dateTimeProvider.Now();
 
             await this.db.SaveChangesAsync();
+        }
+
+        public async Task<bool> AreExisting(IEnumerable<int> ids)
+        {
+            foreach (var id in ids)
+            {
+                var isExisting = await this.db.Tags.AnyAsync(t => t.Id == id);
+                if (!isExisting)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()

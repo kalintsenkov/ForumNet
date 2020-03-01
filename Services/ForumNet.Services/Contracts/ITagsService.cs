@@ -9,6 +9,8 @@
 
         Task DeleteAsync(int id);
 
+        Task<bool> AreExisting(IEnumerable<int> ids);
+
         Task<IEnumerable<TModel>> GetAllAsync<TModel>();
 
         Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId);
