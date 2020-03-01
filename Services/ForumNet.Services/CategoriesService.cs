@@ -48,6 +48,11 @@
             await this.db.SaveChangesAsync();
         }
 
+        public async Task<bool> IsExisting(int id)
+        {
+            return await this.db.Categories.AnyAsync(c => c.Id == id);
+        }
+
         public async Task<TModel> GetByIdAsync<TModel>(int id)
         {
             var category = await this.db.Categories
