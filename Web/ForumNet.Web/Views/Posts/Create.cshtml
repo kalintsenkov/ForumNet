@@ -6,6 +6,7 @@
 
 <div class="container">
     <div class="tt-wrapper-inner">
+        <br />
         <h1 class="tt-title-border">
             Create New Post
         </h1>
@@ -27,6 +28,7 @@
                     <option value="@PostType.Image">@PostType.Image</option>
                     <option value="@PostType.Video">@PostType.Video</option>
                 </select>
+                <span asp-validation-for="PostType"></span>
                 <div id="hidden-input">
                     <span asp-validation-for="ImageOrVideoUrl"></span>
                 </div>
@@ -76,8 +78,12 @@
 
 <script type="text/javascript">
     function showfield(name) {
-        if (name == 'Image' || name == 'Video') document.getElementById('hidden-input').innerHTML = 'Url: <input name="ImageOrVideoUrl" type="text" class="form-control" placeholder="Url..." required />';
-        else document.getElementById('hidden-input').innerHTML = '';
+        if (name == 'Image' || name == 'Video') {
+            document.getElementById('hidden-input').innerHTML =
+                '<br/><label for="ImageOrVideoUrl">Url</label><input name="ImageOrVideoUrl" type="text" class="form-control" placeholder="Url..." required />';
+        } else {
+            document.getElementById('hidden-input').innerHTML = '';
+        }
     }
 </script>
 
