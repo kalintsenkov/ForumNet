@@ -7,6 +7,8 @@
     {
         Task CreateAsync(string name);
 
+        Task EditAsync(int id, string name);
+
         Task DeleteAsync(int id);
 
         Task<bool> IsExisting(int id);

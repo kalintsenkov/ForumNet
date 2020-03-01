@@ -38,6 +38,16 @@
             await this.db.SaveChangesAsync();
         }
 
+        public async Task EditAsync(int id, string name)
+        {
+            var category = await this.db.Categories.FirstOrDefaultAsync(c => c.Id == id);
+
+            category.Name = name;
+            category.ModifiedOn = this.dateTimeProvider.Now();
+
+            await this.db.SaveChangesAsync();
+        }
+
         public async Task DeleteAsync(int id)
         {
             var category = await this.db.Categories.FirstOrDefaultAsync(c => c.Id == id);

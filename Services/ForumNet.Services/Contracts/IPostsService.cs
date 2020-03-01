@@ -15,19 +15,19 @@
             int categoryId,
             string imageOrVideoUrl = null);
 
+        Task EditAsync(int id, string title, string description, int categoryId);
+
+        Task DeleteAsync(int id);
+
         Task ViewAsync(int id);
 
         Task LikeAsync(int id);
 
         Task DislikeAsync(int id);
 
-        Task EditAsync(int id, string title, string description, int categoryId);
-
-        Task DeleteAsync(int id);
-
         Task AddTagsAsync(int id, IEnumerable<int> tagIds);
 
-        Task<TModel> GetById<TModel>(int id);
+        Task<TModel> GetByIdAsync<TModel>(int id);
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>();
 

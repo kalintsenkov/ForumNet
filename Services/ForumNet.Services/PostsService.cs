@@ -52,6 +52,28 @@
             return post.Id;
         }
 
+        public async Task EditAsync(int id, string title, string description, int categoryId)
+        {
+            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
+
+            post.Title = title;
+            post.Description = description;
+            post.CategoryId = categoryId;
+            post.ModifiedOn = this.dateTimeProvider.Now();
+
+            await this.db.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
+
+            post.IsDeleted = true;
+            post.DeletedOn = this.dateTimeProvider.Now();
+
+            await this.db.SaveChangesAsync();
+        }
+
         public async Task ViewAsync(int id)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
@@ -79,28 +101,6 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task EditAsync(int id, string title, string description, int categoryId)
-        {
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
-
-            post.Title = title;
-            post.Description = description;
-            post.CategoryId = categoryId;
-            post.ModifiedOn = this.dateTimeProvider.Now();
-
-            await this.db.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
-
-            post.IsDeleted = true;
-            post.DeletedOn = this.dateTimeProvider.Now();
-
-            await this.db.SaveChangesAsync();
-        }
-
         public async Task AddTagsAsync(int id, IEnumerable<int> tagIds)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
@@ -117,7 +117,7 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<TModel> GetById<TModel>(int id)
+        public async Task<TModel> GetByIdAsync<TModel>(int id)
         {
             var post = await this.db.Posts
                 .Where(p => p.Id == id && !p.IsDeleted)
