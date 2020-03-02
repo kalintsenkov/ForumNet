@@ -11,14 +11,14 @@
                 <div class="tt-item-header">
                     <div class="tt-item-info info-top">
                         <div class="tt-avatar-icon">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-ava-d"></use></svg></i>
+                            <i class="tt-icon"><svg><use xlink:href="#@Model.Author.ProfilePicture"></use></svg></i>
                         </div>
                         <div class="tt-avatar-title">
-                            <a href="#">@Model.AuthorName</a>
+                            <a href="#">@Model.Author.Name</a>
                         </div>
-                        <a href="#" class="tt-info-time">
+                        <div class="tt-info-time">
                             <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>@Model.CreatedOn
-                        </a>
+                        </div>
                     </div>
                     <h3 class="tt-item-title">
                         <a href="#">@Model.Title</a>
@@ -37,10 +37,10 @@
                     @Model.Description
                 </div>
                 <div class="tt-item-info info-bottom">
-                    <a href="#" class="tt-icon-btn">
+                    <a asp-controller="Posts" asp-action="Like" asp-route-id="@Model.Id" class="tt-icon-btn">
                         <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
                     </a>
-                    <a href="#" class="tt-icon-btn">
+                    <a asp-controller="Posts" asp-action="Dislike" asp-route-id="@Model.Id" class="tt-icon-btn">
                         <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
                     </a>
 
@@ -62,22 +62,22 @@
                 <h6 class="tt-title">Thread Status</h6>
                 <div class="tt-row-icon">
                     <div class="tt-item">
-                        <a href="#" class="tt-icon-btn tt-position-bottom">
+                        <div class="tt-icon-btn tt-position-bottom">
                             <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
-                            <span class="tt-text">283</span>
-                        </a>
+                            <span class="tt-text">@Model.RepliesCount</span>
+                        </div>
                     </div>
                     <div class="tt-item">
-                        <a href="#" class="tt-icon-btn tt-position-bottom">
+                        <div class="tt-icon-btn tt-position-bottom">
                             <i class="tt-icon"><svg><use xlink:href="#icon-view"></use></svg></i>
                             <span class="tt-text">@Model.Views</span>
-                        </a>
+                        </div>
                     </div>
                     <div class="tt-item">
-                        <a href="#" class="tt-icon-btn tt-position-bottom">
+                        <div class="tt-icon-btn tt-position-bottom">
                             <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
                             <span class="tt-text">@Model.Likes</span>
-                        </a>
+                        </div>
                     </div>
                     @*<div class="tt-item">
                         <a href="#" class="tt-icon-btn tt-position-bottom">

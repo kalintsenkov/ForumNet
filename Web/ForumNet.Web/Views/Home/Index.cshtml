@@ -17,7 +17,7 @@
         <div class="tt-topic-alert tt-alert-default" role="alert">
             <a href="#" target="_blank">4 new posts</a> are added recently, click here to load them.
         </div>
-        
+
         @if (!this.User.Identity.IsAuthenticated)
         {
             <div class="tt-item tt-item-popup" id="not-logged-in-user">
@@ -54,7 +54,7 @@
                 </div>
                 <div class="tt-col-description">
                     <h6 class="tt-title">
-                        <a href="/Posts/Details?id=@post.Id">
+                        <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.Id">
                             <svg class="tt-icon">
                                 <use xlink:href="#icon-pinned"></use>
                             </svg>

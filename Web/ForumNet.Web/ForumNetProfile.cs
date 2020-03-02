@@ -1,11 +1,13 @@
 ﻿namespace ForumNet.Web
 {
+    using System.Globalization;
     using AutoMapper;
 
     using Data.Models;
     using ViewModels.Categories;
     using ViewModels.Posts;
     using ViewModels.Tags;
+    using ViewModels.Users;
 
     public class ForumNetProfile : Profile
     {
@@ -17,6 +19,16 @@
 
             #endregion
 
+            #region Posts
+
+            this.CreateMap<Post, PostsListingViewModel>();
+            this.CreateMap<Post, PostsDetailsViewModel>()
+                .ForMember(
+                    dest => dest.CreatedOn,
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)));
+
+            #endregion
+
             #region Tags
 
             this.CreateMap<Tag, TagsInfoViewModel>();
@@ -24,16 +36,16 @@
 
             #endregion
 
-            #region Posts
-
-            this.CreateMap<Post, PostsDetailsViewModel>();
-            this.CreateMap<Post, PostsListingViewModel>();
+            #region Replies
 
             #endregion
 
-            #region Replies
+            #region Users
 
-            
+            this.CreateMap<ForumUser, UsersInfoViewModel>()
+                .ForMember(
+                    dest => dest.Name,
+                    dest => dest.MapFrom(src => src.UserName));
 
             #endregion
         }

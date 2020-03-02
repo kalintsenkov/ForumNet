@@ -1,10 +1,10 @@
 ﻿namespace ForumNet.Web.ViewModels.Posts
 {
-    using System;
     using System.Collections.Generic;
 
     using Data.Models.Enums;
     using Tags;
+    using Users;
 
     public class PostsDetailsViewModel
     {
@@ -22,9 +22,11 @@
 
         public int Likes { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public int RepliesCount { get; set; }
 
-        public string AuthorName { get; set; }
+        public string CreatedOn { get; set; }
+
+        public UsersInfoViewModel Author { get; set; }
 
         public string CategoryName { get; set; }
 

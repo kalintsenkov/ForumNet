@@ -75,11 +75,6 @@
             public string ConfirmPassword { get; set; }
 
             [Required]
-            [DataType(DataType.ImageUrl)]
-            [Display(Name = "Profile Picture")]
-            public string ProfilePicture { get; set; }
-
-            [Required]
             [DataType(DataType.Date)]
             [Display(Name = "Birthday")]
             public DateTime BirthDate { get; set; }
@@ -110,11 +105,14 @@
                     return Page();
                 }
 
+                var usernameFirstLetter = char.ToLower(Input.Username[0]);
+                var profilePicture = $"icon-ava-{usernameFirstLetter}";
+
                 var user = new ForumUser
                 {
                     UserName = Input.Username,
                     Email = Input.Email,
-                    ProfilePicture = Input.ProfilePicture,
+                    ProfilePicture = profilePicture,
                     BirthDate = Input.BirthDate,
                     Gender = Input.Gender,
                     CreatedOn = DateTime.UtcNow,

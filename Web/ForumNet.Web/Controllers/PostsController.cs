@@ -18,7 +18,7 @@
         private readonly IUsersService usersService;
 
         public PostsController(
-            IPostsService postsService, 
+            IPostsService postsService,
             ICategoriesService categoriesService,
             ITagsService tagsService,
             IUsersService usersService)
@@ -55,11 +55,11 @@
 
             var authorId = await this.usersService.GetIdAsync(this.User);
             var postId = await this.postsService.CreateAsync(
-                input.Title, 
-                input.PostType, 
-                input.Description, 
-                authorId, 
-                input.CategoryId, 
+                input.Title,
+                input.PostType,
+                input.Description,
+                authorId,
+                input.CategoryId,
                 input.ImageOrVideoUrl);
 
             await this.postsService.AddTagsAsync(postId, input.TagIds);
@@ -76,9 +76,26 @@
                 return this.NotFound();
             }
 
+            await this.postsService.ViewAsync(id);
             post.Tags = await this.tagsService.GetAllByPostIdAsync<TagsInfoViewModel>(id);
 
             return this.View(post);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Like(int id)
+        {
+            await this.postsService.LikeAsync(id);
+
+            return this.RedirectToAction("Details", new { id });
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Dislike(int id)
+        {
+            await this.postsService.DislikeAsync(id);
+
+            return this.RedirectToAction("Details", new { id });
         }
 
         //// GET: Posts/Edit/5
