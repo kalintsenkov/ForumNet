@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ForumNet.Web.ViewModels.Home.HomeViewModel
+@{
     ViewData["Title"] = "Home";
 }
 
@@ -16,41 +17,7 @@
         <div class="tt-topic-alert tt-alert-default" role="alert">
             <a href="#" target="_blank">4 new posts</a> are added recently, click here to load them.
         </div>
-        @*Add foreach for all posts*@
-        <div class="tt-item tt-itemselect">
-            <div class="tt-col-avatar">
-                <svg class="tt-icon">
-                    <use xlink:href="#icon-ava-k"></use>
-                </svg>
-            </div>
-            <div class="tt-col-description">
-                <h6 class="tt-title">
-                    <a href="/Posts/Details?id=">
-                        <svg class="tt-icon">
-                            <use xlink:href="#icon-pinned"></use>
-                        </svg>
-                        Halloween Costume Contest 2018
-                    </a>
-                </h6>
-                <div class="row align-items-center no-gutters">
-                    <div class="col-11">
-                        <ul class="tt-list-badge">
-                            <li class="show-mobile"><a href="#"><span class="tt-color01 tt-badge">politics</span></a></li>
-                            <li><a href="#"><span class="tt-badge">contests</span></a></li>
-                            <li><a href="#"><span class="tt-badge">authors</span></a></li>
-                        </ul>
-                    </div>
-                    <div class="col-1 ml-auto show-mobile">
-                        <div class="tt-value">1h</div>
-                    </div>
-                </div>
-            </div>
-            <div class="tt-col-category"><span class="tt-color01 tt-badge">politics</span></div>
-            <div class="tt-col-value hide-mobile">985</div>
-            <div class="tt-col-value tt-color-select hide-mobile">502</div>
-            <div class="tt-col-value hide-mobile">15.1k</div>
-            <div class="tt-col-value hide-mobile">1h</div>
-        </div>
+        
         @if (!this.User.Identity.IsAuthenticated)
         {
             <div class="tt-item tt-item-popup" id="not-logged-in-user">
@@ -64,7 +31,7 @@
                 </div>
                 <div class="tt-col-btn">
                     <a type="button" class="btn btn-primary" asp-area="Identity" asp-page="/Account/Login">Log in</a>
-                    <a type="button" class="btn btn-secondary"asp-area="Identity" asp-page="/Account/Register">Sign up</a>
+                    <a type="button" class="btn btn-secondary" asp-area="Identity" asp-page="/Account/Register">Sign up</a>
                     <script type="text/javascript">
                         var removeHtml = function () { document.getElementById("not-logged-in-user").remove() }
                     </script>
@@ -74,6 +41,46 @@
                         </svg>
                     </button>
                 </div>
+            </div>
+        }
+
+        @foreach (var post in Model.Posts)
+        {
+            <div class="tt-item tt-itemselect">
+                <div class="tt-col-avatar">
+                    <svg class="tt-icon">
+                        <use xlink:href="#icon-ava-k"></use>
+                    </svg>
+                </div>
+                <div class="tt-col-description">
+                    <h6 class="tt-title">
+                        <a href="/Posts/Details?id=@post.Id">
+                            <svg class="tt-icon">
+                                <use xlink:href="#icon-pinned"></use>
+                            </svg>
+                            @post.Title
+                        </a>
+                    </h6>
+                    <div class="row align-items-center no-gutters">
+                        <div class="col-11">
+                            <ul class="tt-list-badge">
+                                <li class="show-mobile"><a href="#"><span class="tt-color01 tt-badge">@post.Category.Name</span></a></li>
+                                @foreach (var tag in post.Tags.Take(4))
+                                {
+                                    <li><a href="#"><span class="tt-badge">@tag.Name</span></a></li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="col-1 ml-auto show-mobile">
+                            <div class="tt-value">1h</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tt-col-category"><span class="tt-color01 tt-badge">@post.Category.Name</span></div>
+                <div class="tt-col-value hide-mobile">@post.Likes</div>
+                <div class="tt-col-value tt-color-select hide-mobile">@post.RepliesCount</div>
+                <div class="tt-col-value hide-mobile">@post.Views</div>
+                <div class="tt-col-value hide-mobile">1h</div>
             </div>
         }
         <div class="tt-row-btn">

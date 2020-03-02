@@ -1,16 +1,32 @@
 ﻿namespace ForumNet.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
 
+    using Services.Contracts;
     using ViewModels;
+    using ViewModels.Home;
+    using ViewModels.Posts;
 
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IPostsService postsService;
+
+        public HomeController(IPostsService postsService)
         {
-            return this.View();
+            this.postsService = postsService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var viewModel = new HomeViewModel
+            {
+                Posts = await this.postsService.GetAllAsync<PostsListingViewModel>()
+            };
+
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()

@@ -6,7 +6,9 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Services.Contracts;
+    using ViewModels.Categories;
     using ViewModels.Posts;
+    using ViewModels.Tags;
 
     public class PostsController : Controller
     {
@@ -32,11 +34,11 @@
         {
             var viewModel = new PostsCreateInputModel
             {
-                Categories = await this.categoriesService.GetAllAsync<CategoriesListingViewModel>(),
-                Tags = await this.tagsService.GetAllAsync<TagsListingViewModel>()
+                Categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>(),
+                Tags = await this.tagsService.GetAllAsync<TagsInfoViewModel>()
             };
 
-            return View(viewModel);
+            return this.View(viewModel);
         }
 
         [HttpPost]
@@ -45,8 +47,8 @@
         {
             if (!this.ModelState.IsValid)
             {
-                input.Categories = await this.categoriesService.GetAllAsync<CategoriesListingViewModel>();
-                input.Tags = await this.tagsService.GetAllAsync<TagsListingViewModel>();
+                input.Categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>();
+                input.Tags = await this.tagsService.GetAllAsync<TagsInfoViewModel>();
 
                 return this.View(input);
             }
@@ -62,14 +64,22 @@
 
             await this.postsService.AddTagsAsync(postId, input.TagIds);
 
-            return RedirectToAction("Index", "Home");
+            return this.RedirectToAction("Index", "Home");
         }
 
-        //// GET: Posts/Details/5
-        //public IActionResult Details(int id)
-        //{
-        //    return View();
-        //}
+        [Authorize]
+        public async Task<IActionResult> Details(int id)
+        {
+            var post = await this.postsService.GetByIdAsync<PostsDetailsViewModel>(id);
+            if (post == null)
+            {
+                return this.NotFound();
+            }
+
+            post.Tags = await this.tagsService.GetAllByPostIdAsync<TagsInfoViewModel>(id);
+
+            return this.View(post);
+        }
 
         //// GET: Posts/Edit/5
         //public IActionResult Edit(int id)

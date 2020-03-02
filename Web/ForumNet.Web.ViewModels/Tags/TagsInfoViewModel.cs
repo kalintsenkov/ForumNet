@@ -1,6 +1,6 @@
-﻿namespace ForumNet.Web.ViewModels.Posts
+﻿namespace ForumNet.Web.ViewModels.Tags
 {
-    public class CategoriesListingViewModel
+    public class TagsInfoViewModel
     {
         public int Id { get; set; }
 

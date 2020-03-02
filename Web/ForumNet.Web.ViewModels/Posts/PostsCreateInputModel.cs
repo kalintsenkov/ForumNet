@@ -3,8 +3,10 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using Categories;
     using Data.Models.Enums;
     using Services.Common.Attributes;
+    using Tags;
 
     public class PostsCreateInputModel
     {
@@ -33,8 +35,8 @@
         [ValidateTagIds]
         public IEnumerable<int> TagIds { get; set; }
 
-        public IEnumerable<CategoriesListingViewModel> Categories { get; set; }
+        public IEnumerable<CategoriesInfoViewModel> Categories { get; set; }
 
-        public IEnumerable<TagsListingViewModel> Tags { get; set; }
+        public IEnumerable<TagsInfoViewModel> Tags { get; set; }
     }
 }

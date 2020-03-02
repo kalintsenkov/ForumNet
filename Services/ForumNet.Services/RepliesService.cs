@@ -70,6 +70,15 @@
             return reply;
         }
 
+        public async Task<int> GetCountByPostIdAsync(int postId)
+        {
+            var count = await this.db.Replies
+                .Where(r => r.PostId == postId)
+                .CountAsync();
+
+            return count;
+        }
+
         public async Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId)
         {
             var replies = await this.db.Replies
