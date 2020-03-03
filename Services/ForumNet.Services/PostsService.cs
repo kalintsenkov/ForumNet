@@ -8,11 +8,11 @@
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
 
+    using Common.Extensions;
     using Contracts;
     using Data;
     using Data.Models;
     using Data.Models.Enums;
-    using Extensions;
 
     public class PostsService : IPostsService
     {

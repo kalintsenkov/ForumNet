@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Services.Extensions
+﻿namespace ForumNet.Common.Extensions
 {
     using System.Text.RegularExpressions;
 
