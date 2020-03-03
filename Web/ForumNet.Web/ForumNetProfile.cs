@@ -21,7 +21,9 @@
 
             #region Posts
 
+            this.CreateMap<PostsEditInputModel, PostsEditViewModel>();
             this.CreateMap<Post, PostsListingViewModel>();
+            this.CreateMap<Post, PostsEditViewModel>();
             this.CreateMap<Post, PostsDetailsViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,

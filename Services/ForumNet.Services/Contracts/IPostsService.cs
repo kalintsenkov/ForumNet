@@ -15,7 +15,13 @@
             int categoryId,
             string imageOrVideoUrl = null);
 
-        Task EditAsync(int id, string title, string description, int categoryId);
+        Task EditAsync(
+            int id,
+            string title,
+            string description,
+            int categoryId,
+            IEnumerable<int> tagIds,
+            string imageOrVideoUrl = null);
 
         Task DeleteAsync(int id);
 

@@ -52,15 +52,28 @@
             return post.Id;
         }
 
-        public async Task EditAsync(int id, string title, string description, int categoryId)
+        public async Task EditAsync(
+            int id,
+            string title,
+            string description,
+            int categoryId,
+            IEnumerable<int> tagIds,
+            string imageOrVideoUrl = null)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
 
+            foreach (var tag in post.Tags)
+            {
+                post.Tags.Remove(tag);
+            }
+
             post.Title = title;
             post.Description = description;
+            post.ImageOrVideoUrl = imageOrVideoUrl;
             post.CategoryId = categoryId;
             post.ModifiedOn = this.dateTimeProvider.Now();
 
+            await this.AddTagsAsync(id, tagIds);
             await this.db.SaveChangesAsync();
         }
 

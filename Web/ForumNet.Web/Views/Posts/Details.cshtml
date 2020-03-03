@@ -43,7 +43,12 @@
                     <a asp-controller="Posts" asp-action="Dislike" asp-route-id="@Model.Id" class="tt-icon-btn">
                         <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
                     </a>
-
+                    @if (this.Model.Author.Id == (string)this.ViewData["UserId"] || this.User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Posts" asp-action="Edit" asp-route-id="@Model.Id" class="tt-icon-btn">
+                            <i class="tt-icon"><svg><use xlink:href="#icon-pencil"></use></svg></i>
+                        </a>
+                    }
                     <div class="col-separator"></div>
                     <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                         <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
@@ -80,17 +85,17 @@
                         </div>
                     </div>
                     @*<div class="tt-item">
-                        <a href="#" class="tt-icon-btn tt-position-bottom">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
-                            <span class="tt-text">951</span>
-                        </a>
-                    </div>*@
+                            <a href="#" class="tt-icon-btn tt-position-bottom">
+                                <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
+                                <span class="tt-text">951</span>
+                            </a>
+                        </div>*@
                     @*<div class="tt-item">
-                        <a href="#" class="tt-icon-btn tt-position-bottom">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
-                            <span class="tt-text">32</span>
-                        </a>
-                    </div>*@
+                            <a href="#" class="tt-icon-btn tt-position-bottom">
+                                <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
+                                <span class="tt-text">32</span>
+                            </a>
+                        </div>*@
                 </div>
                 <hr>
                 <h6 class="tt-title">Frequent Posters</h6>
