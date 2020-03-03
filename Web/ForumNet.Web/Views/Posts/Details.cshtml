@@ -1,4 +1,6 @@
-﻿@model ForumNet.Web.ViewModels.Posts.PostsDetailsViewModel
+﻿@using ForumNet.Data.Models.Enums
+@using Microsoft.CodeAnalysis.CSharp.Syntax
+@model ForumNet.Web.ViewModels.Posts.PostsDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -34,7 +36,19 @@
                     </div>
                 </div>
                 <div class="tt-item-description">
-                    @Model.Description
+                    <p>@Model.Description</p>
+                    @if (Model.Type == PostType.Image)
+                    {
+                        <p>
+                            <img class="responsive-image" src="@Model.ImageOrVideoUrl" alt="post-image"  width="600" height="400"/>
+                        </p>
+                    }
+                    else if (Model.Type == PostType.Video)
+                    {
+                        <div class="video-container">
+                            <iframe title="YouTube video player" src="@Model.ImageOrVideoUrl" allowfullscreen></iframe>
+                        </div>
+                    }
                 </div>
                 <div class="tt-item-info info-bottom">
                     <a asp-controller="Posts" asp-action="Like" asp-route-id="@Model.Id" class="tt-icon-btn">
@@ -168,7 +182,7 @@
                         categories eg in Add-Ons category have 22749 items, why not see all of them but only those 1800 items? This is a bad thing.
                     </p>
                     <p>
-                        <img class="tt-offset-11" src="images/single-topic-img01.jpg" alt="">
+                        <img class="tt-offset-11" src="~/images/single-topic-img01.jpg" alt="">
                     </p>
                 </div>
                 <div class="tt-item-info info-bottom">

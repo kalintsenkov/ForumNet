@@ -51,6 +51,11 @@
     box-sizing: border-box;
 }
 
+.responsive-image {
+    max-width: 100%;
+    height: auto;
+} 
+
 html {
     font-family: sans-serif;
     line-height: 1.15;

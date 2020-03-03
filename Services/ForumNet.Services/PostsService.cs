@@ -34,6 +34,14 @@
             int categoryId,
             string imageOrVideoUrl = null)
         {
+            //if (imageOrVideoUrl != null && type == PostType.Video)
+            //{
+            //    if (imageOrVideoUrl.StartsWith("youtu"))
+            //    {
+            //        imageOrVideoUrl = imageOrVideoUrl.u
+            //    }
+            //}
+
             var post = new Post
             {
                 Title = title,
