@@ -40,13 +40,13 @@
                     @if (Model.Type == PostType.Image)
                     {
                         <p>
-                            <img class="responsive-image" src="@Model.ImageOrVideoUrl" alt="post-image"  width="600" height="400"/>
+                            <img class="responsive-image" src="@Model.ImageUrl" alt="post-image"  width="600" height="400"/>
                         </p>
                     }
                     else if (Model.Type == PostType.Video)
                     {
                         <div class="video-container">
-                            <iframe title="YouTube video player" src="@Model.ImageOrVideoUrl" allowfullscreen></iframe>
+                            <iframe title="YouTube video player" src="@Model.VideoUrl" allowfullscreen></iframe>
                         </div>
                     }
                 </div>

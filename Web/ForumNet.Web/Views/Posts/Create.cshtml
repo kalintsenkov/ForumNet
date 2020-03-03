@@ -29,9 +29,7 @@
                     <option value="@PostType.Video">@PostType.Video</option>
                 </select>
                 <span asp-validation-for="PostType"></span>
-                <div id="hidden-input">
-                    <span asp-validation-for="ImageOrVideoUrl"></span>
-                </div>
+                <div id="hidden-input"></div>
             </div>
             <div class="pt-editor">
                 <h6 class="pt-title">Post Description</h6>
@@ -78,9 +76,12 @@
 
 <script type="text/javascript">
     function showfield(name) {
-        if (name == 'Image' || name == 'Video') {
+        if (name == 'Image') {
             document.getElementById('hidden-input').innerHTML =
-                '<br/><label for="ImageOrVideoUrl">Url</label><input name="ImageOrVideoUrl" type="text" class="form-control" placeholder="Url..." required />';
+                '<br/><label for="ImageUrl">Image Url</label><input name="ImageUrl" type="text" class="form-control" placeholder="Image Url..." required />';
+        } else if (name == 'Video') {
+            document.getElementById('hidden-input').innerHTML =
+                '<br/><label for="VideoUrl">Video Url</label><input name="VideoUrl" type="text" class="form-control" placeholder="Video Url..." required />';
         } else {
             document.getElementById('hidden-input').innerHTML = '';
         }

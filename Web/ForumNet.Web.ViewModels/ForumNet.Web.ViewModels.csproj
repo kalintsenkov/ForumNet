@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\ForumNet.Data.Models\ForumNet.Data.Models.csproj" />
-    <ProjectReference Include="..\..\Services\ForumNet.Services\ForumNet.Services.csproj" />
+    <ProjectReference Include="..\..\Services\ForumNet.Services.Common\ForumNet.Services.Common.csproj" />
   </ItemGroup>
 
 </Project>

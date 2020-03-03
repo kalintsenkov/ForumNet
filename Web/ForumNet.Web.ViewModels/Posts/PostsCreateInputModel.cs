@@ -18,9 +18,13 @@
         [EnumDataType(typeof(PostType))]
         public PostType PostType { get; set; }
 
-        [Display(Name = "Url")]
+        [Display(Name = "Image Url")]
         [DataType(DataType.Url)]
-        public string ImageOrVideoUrl { get; set; }
+        public string ImageUrl { get; set; }
+
+        [Display(Name = "Video Url")]
+        [DataType(DataType.Url)]
+        public string VideoUrl { get; set; }
 
         [Required]
         [DataType(DataType.MultilineText)]

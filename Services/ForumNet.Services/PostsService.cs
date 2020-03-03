@@ -12,6 +12,7 @@
     using Data;
     using Data.Models;
     using Data.Models.Enums;
+    using Extensions;
 
     public class PostsService : IPostsService
     {
@@ -32,21 +33,20 @@
             string description,
             string authorId,
             int categoryId,
-            string imageOrVideoUrl = null)
+            string imageUrl = null,
+            string videoUrl = null)
         {
-            //if (imageOrVideoUrl != null && type == PostType.Video)
-            //{
-            //    if (imageOrVideoUrl.StartsWith("youtu"))
-            //    {
-            //        imageOrVideoUrl = imageOrVideoUrl.u
-            //    }
-            //}
+            if (videoUrl != null && type == PostType.Video)
+            {
+                videoUrl = videoUrl.UrlToYouTubeEmbed();
+            }
 
             var post = new Post
             {
                 Title = title,
                 Type = type,
-                ImageOrVideoUrl = imageOrVideoUrl,
+                ImageUrl = imageUrl,
+                VideoUrl = videoUrl,
                 Description = description,
                 CreatedOn = this.dateTimeProvider.Now(),
                 ModifiedOn = this.dateTimeProvider.Now(),
@@ -66,7 +66,8 @@
             string description,
             int categoryId,
             IEnumerable<int> tagIds,
-            string imageOrVideoUrl = null)
+            string imageUrl = null,
+            string videoUrl = null)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
 
@@ -77,7 +78,8 @@
 
             post.Title = title;
             post.Description = description;
-            post.ImageOrVideoUrl = imageOrVideoUrl;
+            post.ImageUrl = imageUrl;
+            post.VideoUrl = videoUrl;
             post.CategoryId = categoryId;
             post.ModifiedOn = this.dateTimeProvider.Now();
 

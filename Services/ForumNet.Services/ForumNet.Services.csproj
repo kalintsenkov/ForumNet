@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\ForumNet.Data\ForumNet.Data.csproj" />
+    <ProjectReference Include="..\ForumNet.Services.Extensions\ForumNet.Services.Extensions.csproj" />
   </ItemGroup>
 
 </Project>

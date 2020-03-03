@@ -13,7 +13,8 @@
             string description,
             string authorId,
             int categoryId,
-            string imageOrVideoUrl = null);
+            string imageUrl = null,
+            string videoUrl = null);
 
         Task EditAsync(
             int id,
@@ -21,7 +22,8 @@
             string description,
             int categoryId,
             IEnumerable<int> tagIds,
-            string imageOrVideoUrl = null);
+            string imageUrl = null,
+            string videoUrl = null);
 
         Task DeleteAsync(int id);
 
