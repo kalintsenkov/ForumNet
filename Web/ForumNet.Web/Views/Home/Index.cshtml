@@ -51,7 +51,7 @@
 
         @foreach (var post in Model.Posts)
         {
-            <div class="tt-item tt-itemselect">
+            <div class="tt-item">
                 <div class="tt-col-avatar">
                     <svg class="tt-icon">
                         <use xlink:href="#icon-ava-k"></use>
@@ -60,9 +60,6 @@
                 <div class="tt-col-description">
                     <h6 class="tt-title">
                         <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.Id">
-                            <svg class="tt-icon">
-                                <use xlink:href="#icon-pinned"></use>
-                            </svg>
                             @post.Title
                         </a>
                     </h6>
