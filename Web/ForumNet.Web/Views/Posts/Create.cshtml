@@ -29,7 +29,10 @@
                     <option value="@PostType.Video">@PostType.Video</option>
                 </select>
                 <span asp-validation-for="PostType"></span>
-                <div id="hidden-input"></div>
+                <div id="hidden-input">
+                    <span asp-validation-for="ImageUrl"></span>
+                    <span asp-validation-for="VideoUrl"></span>
+                </div>
             </div>
             <div class="pt-editor">
                 <h6 class="pt-title">Post Description</h6>

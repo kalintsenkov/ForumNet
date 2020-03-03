@@ -1,5 +1,4 @@
 ﻿@using ForumNet.Data.Models.Enums
-@using Microsoft.CodeAnalysis.CSharp.Syntax
 @model ForumNet.Web.ViewModels.Posts.PostsDetailsViewModel
 
 @{
@@ -40,7 +39,7 @@
                     @if (Model.Type == PostType.Image)
                     {
                         <p>
-                            <img class="responsive-image" src="@Model.ImageUrl" alt="post-image"  width="600" height="400"/>
+                            <img class="responsive-image" src="@Model.ImageUrl" alt="post-image" width="600">
                         </p>
                     }
                     else if (Model.Type == PostType.Video)
@@ -110,6 +109,20 @@
                                 <span class="tt-text">32</span>
                             </a>
                         </div>*@
+                </div>
+                <div class="tt-wrapper-inner">
+                    <div class="pt-editor form-default">
+                        <h6 class="pt-title">Post Your Reply</h6>
+                        <div class="form-group">
+                            <textarea name="message" class="form-control" rows="5" placeholder="Lets get started"></textarea>
+                        </div>
+                        <div class="pt-row">
+                            <div class="col-auto ml-md-auto">
+                                <a href="#" class="btn btn-primary">Preview</a>
+                                <a href="#" class="btn btn-secondary btn-width-lg">Reply</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <hr>
                 <h6 class="tt-title">Frequent Posters</h6>

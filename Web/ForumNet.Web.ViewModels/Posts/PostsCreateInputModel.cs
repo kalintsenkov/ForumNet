@@ -22,6 +22,7 @@
         [DataType(DataType.Url)]
         public string ImageUrl { get; set; }
 
+        [YouTubeUrl]
         [Display(Name = "Video Url")]
         [DataType(DataType.Url)]
         public string VideoUrl { get; set; }

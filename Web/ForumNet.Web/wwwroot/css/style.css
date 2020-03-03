@@ -52,8 +52,8 @@
 }
 
 .responsive-image {
-    max-width: 100%;
-    height: auto;
+    width: 100%;
+    max-width: 600px;
 } 
 
 html {
@@ -214,6 +214,7 @@ figure {
 img {
     vertical-align: middle;
     border-style: none;
+    display: inline-block;
 }
 
 svg {
