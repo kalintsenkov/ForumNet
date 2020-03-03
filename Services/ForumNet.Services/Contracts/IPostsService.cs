@@ -27,6 +27,10 @@
 
         Task DeleteAsync(int id);
 
+        Task PinAsync(int id);
+
+        Task UnpinAsync(int id);
+
         Task ViewAsync(int id);
 
         Task LikeAsync(int id);
@@ -40,6 +44,8 @@
         Task<TModel> GetByIdAsync<TModel>(int id);
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>();
+
+        Task<IEnumerable<TModel>> GetAllPinnedAsync<TModel>();
 
         Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId);
 

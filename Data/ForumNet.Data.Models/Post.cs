@@ -24,6 +24,8 @@
 
         public int Likes { get; set; }
 
+        public bool IsPinned { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }

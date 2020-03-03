@@ -97,6 +97,26 @@
             await this.db.SaveChangesAsync();
         }
 
+        public async Task PinAsync(int id)
+        {
+            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
+
+            post.IsPinned = true;
+            post.ModifiedOn = this.dateTimeProvider.Now();
+
+            await this.db.SaveChangesAsync();
+        }
+
+        public async Task UnpinAsync(int id)
+        {
+            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
+
+            post.IsPinned = false;
+            post.ModifiedOn = this.dateTimeProvider.Now();
+
+            await this.db.SaveChangesAsync();
+        }
+
         public async Task ViewAsync(int id)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
@@ -162,7 +182,17 @@
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
         {
             var posts = await this.db.Posts
-                .Where(p => !p.IsDeleted)
+                .Where(p => !p.IsPinned && !p.IsDeleted)
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return posts;
+        }
+
+        public async Task<IEnumerable<TModel>> GetAllPinnedAsync<TModel>()
+        {
+            var posts = await this.db.Posts
+                .Where(p => p.IsPinned && !p.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

@@ -32,10 +32,12 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <div class="checkbox">
+                            <div class="checkbox-group">
+                                <input type="checkbox" asp-for="Input.RememberMe" />
                                 <label asp-for="Input.RememberMe">
-                                    <input asp-for="Input.RememberMe" />
-                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                    <span class="check"></span>
+                                    <span class="box"></span>
+                                    <span class="tt-text">@Html.DisplayNameFor(m => m.Input.RememberMe)</span>
                                 </label>
                             </div>
                         </div>
