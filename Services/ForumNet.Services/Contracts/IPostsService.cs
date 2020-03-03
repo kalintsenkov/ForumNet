@@ -27,6 +27,8 @@
 
         Task AddTagsAsync(int id, IEnumerable<int> tagIds);
 
+        Task<int> GetCountByUserId(string userId);
+
         Task<TModel> GetByIdAsync<TModel>(int id);
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>();

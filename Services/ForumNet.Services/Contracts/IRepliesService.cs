@@ -13,6 +13,8 @@
 
         Task<TModel> GetByIdAsync<TModel>(int id);
 
+        Task<int> GetCountByUserId(string userId);
+
         Task<int> GetCountByPostIdAsync(int postId);
 
         Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId);

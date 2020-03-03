@@ -117,6 +117,15 @@
             await this.db.SaveChangesAsync();
         }
 
+        public async Task<int> GetCountByUserId(string userId)
+        {
+            var count = await this.db.Posts
+                .Where(p => p.AuthorId == userId)
+                .CountAsync();
+
+            return count;
+        }
+
         public async Task<TModel> GetByIdAsync<TModel>(int id)
         {
             var post = await this.db.Posts

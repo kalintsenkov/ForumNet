@@ -70,6 +70,15 @@
             return reply;
         }
 
+        public async Task<int> GetCountByUserId(string userId)
+        {
+            var count = await this.db.Replies
+                .Where(r => r.AuthorId == userId)
+                .CountAsync();
+
+            return count;
+        }
+
         public async Task<int> GetCountByPostIdAsync(int postId)
         {
             var count = await this.db.Replies
