@@ -1,9 +1,4 @@
-﻿@using ForumNet.Services.Contracts;
-@using ForumNet.Web.ViewModels.Tags
-
-@inject ITagsService TagsService
-
-@model ForumNet.Web.ViewModels.Home.HomeViewModel
+﻿@model ForumNet.Web.ViewModels.Home.HomeViewModel
 @{
     ViewData["Title"] = "Home";
 }
@@ -67,12 +62,10 @@
                         <div class="col-11">
                             <ul class="tt-list-badge">
                                 <li class="show-mobile"><a href="#"><span class="tt-color01 tt-badge">@post.Category.Name</span></a></li>
-                                @{
-                                    post.Tags = await this.TagsService.GetAllByPostIdAsync<TagsInfoViewModel>(post.Id);
-                                    @foreach (var tag in post.Tags.Take(4))
-                                    {
-                                        <li><a href="#"><span class="tt-badge">@tag.Name</span></a></li>
-                                    }
+
+                                @foreach (var tag in post.Tags.Take(4))
+                                {
+                                    <li><a href="#"><span class="tt-badge">@tag.Name</span></a></li>
                                 }
                             </ul>
                         </div>

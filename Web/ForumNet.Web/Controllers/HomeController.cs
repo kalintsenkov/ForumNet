@@ -9,14 +9,17 @@
     using ViewModels;
     using ViewModels.Home;
     using ViewModels.Posts;
+    using ViewModels.Tags;
 
     public class HomeController : Controller
     {
         private readonly IPostsService postsService;
+        private readonly ITagsService tagsService;
 
-        public HomeController(IPostsService postsService)
+        public HomeController(IPostsService postsService, ITagsService tagsService)
         {
             this.postsService = postsService;
+            this.tagsService = tagsService;
         }
 
         public async Task<IActionResult> Index()
@@ -25,6 +28,11 @@
             {
                 Posts = await this.postsService.GetAllAsync<PostsListingViewModel>()
             };
+
+            foreach (var post in viewModel.Posts)
+            {
+                post.Tags = await this.tagsService.GetAllByPostIdAsync<TagsInfoViewModel>(post.Id);
+            }
 
             return this.View(viewModel);
         }
