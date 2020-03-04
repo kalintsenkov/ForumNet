@@ -11,6 +11,7 @@
     public class PostsCreateInputModel
     {
         [Required]
+        [MaxLength(100)]
         public string Title { get; set; }
 
         [Required]
@@ -28,6 +29,7 @@
         public string VideoUrl { get; set; }
 
         [Required]
+        [MaxLength(1000)]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 

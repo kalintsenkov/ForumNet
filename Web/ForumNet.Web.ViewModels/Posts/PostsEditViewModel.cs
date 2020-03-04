@@ -12,9 +12,12 @@
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(100)]
         public string Title { get; set; }
 
         [Required]
+        [MaxLength(1000)]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         [Required]

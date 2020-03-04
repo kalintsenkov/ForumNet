@@ -1,14 +1,35 @@
 ﻿namespace ForumNet.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
+
+    using Services.Contracts;
+    using ViewModels.Categories;
 
     public class CategoriesController : Controller
     {
-        //// GET: Categories
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
+        private readonly ICategoriesService categoriesService;
+
+        public CategoriesController(ICategoriesService categoriesService)
+        {
+            this.categoriesService = categoriesService;
+        }
+
+        public async Task<IActionResult> All()
+        {
+            var viewModel = new CategoriesAllViewModel
+            {
+                Categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>()
+            };
+
+            foreach (var category in viewModel.Categories)
+            {
+                category.Threads = await this.categoriesService.GetThreadsCountByIdAsync(category.Id);
+            }
+
+            return View(viewModel);
+        }
 
         //// GET: Categories/Details/5
         //public IActionResult Details(int id)
