@@ -1,4 +1,6 @@
-﻿@model ForumNet.Web.ViewModels.Categories.CategoriesAllViewModel
+﻿@using ForumNet.Common
+
+@model ForumNet.Web.ViewModels.Categories.CategoriesAllViewModel
 
 @{
     ViewData["Title"] = "Categories";
@@ -8,8 +10,12 @@
 <div class="tt-custom-mobile-indent container">
     <div class="tt-categories-title">
         <div class="tt-title">@ViewData["Title"]</div>
+        
+        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+        {
+            <a asp-area="Administration" asp-controller="Categories" asp-action="Create" class="btn btn-secondary ml-md-auto">Create</a>
+        }
 
-        <a asp-area="Administration" asp-controller="Categories" asp-action="Create" class="btn btn-secondary ml-md-auto">Create</a>
         <div class="tt-search">
             <form class="search-wrapper">
                 <div class="search-form">
@@ -53,7 +59,8 @@
                             </div>
                             <hr />
                             <a asp-controller="Categories" asp-action="Details" class="btn btn-primary">Details</a>
-                            @if (this.User.IsInRole(ForumNet.Common.GlobalConstants.AdministratorRoleName))
+                            
+                            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                             {
                                 <a asp-area="Administration" asp-controller="Categories" asp-action="Delete" class="btn btn-primary">Delete</a>
                             }
