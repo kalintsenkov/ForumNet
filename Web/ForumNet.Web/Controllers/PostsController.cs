@@ -36,10 +36,12 @@
         [Authorize]
         public async Task<IActionResult> Create()
         {
+            var categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>();
+            var tags = await this.tagsService.GetAllAsync<TagsInfoViewModel>();
             var viewModel = new PostsCreateInputModel
             {
-                Categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>(),
-                Tags = await this.tagsService.GetAllAsync<TagsInfoViewModel>()
+                Categories = categories,
+                Tags = tags 
             };
 
             return this.View(viewModel);

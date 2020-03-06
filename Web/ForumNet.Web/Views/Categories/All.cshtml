@@ -60,8 +60,8 @@
                             <a asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id" class="btn btn-primary">Details</a>
                             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                             {
-                                <a asp-area="Administration" asp-controller="Categories" asp-action="Edit" class="btn btn-secondary">Edit</a>
-                                <a asp-area="Administration" asp-controller="Categories" asp-action="Delete" class="btn btn-secondary">Delete</a>
+                                <a asp-area="Administration" asp-controller="Categories" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-secondary">Edit</a>
+                                <a asp-area="Administration" asp-controller="Categories" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-secondary">Delete</a>
                             }
                         </div>
                     </div>

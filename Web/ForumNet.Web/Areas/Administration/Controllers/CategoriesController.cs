@@ -4,7 +4,6 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    using Services.Common.Attributes;
     using Services.Contracts;
     using ViewModels.Categories;
 
@@ -60,13 +59,8 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete([ValidateCategoryId]int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.NotFound();
-            }
-
             await this.categoriesService.DeleteAsync(id);
 
             return this.RedirectToAction("All", "Categories");

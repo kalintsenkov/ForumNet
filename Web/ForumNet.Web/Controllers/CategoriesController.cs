@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using Services.Contracts;
@@ -41,6 +42,7 @@
             return View(viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> Details(int id)
         {
             var category = await this.categoriesService.GetByIdAsync<CategoriesInfoViewModel>(id);
