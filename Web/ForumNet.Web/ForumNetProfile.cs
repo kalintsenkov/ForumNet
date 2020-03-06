@@ -17,6 +17,7 @@
             #region Categories
 
             this.CreateMap<Category, CategoriesInfoViewModel>();
+            this.CreateMap<Category, CategoriesEditInputModel>();
 
             #endregion
 

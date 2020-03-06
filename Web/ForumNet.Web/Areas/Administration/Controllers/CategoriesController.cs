@@ -4,6 +4,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
+    using Services.Common.Attributes;
     using Services.Contracts;
     using ViewModels.Categories;
 
@@ -30,6 +31,43 @@
             }
 
             await this.categoriesService.CreateAsync(input.Name);
+
+            return this.RedirectToAction("All", "Categories");
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var category = await this.categoriesService.GetByIdAsync<CategoriesEditInputModel>(id);
+            if (category == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(category);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(CategoriesEditInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.categoriesService.EditAsync(input.Id, input.Name);
+
+            return this.RedirectToAction("Details", "Categories");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete([ValidateCategoryId]int id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
+            }
+
+            await this.categoriesService.DeleteAsync(id);
 
             return this.RedirectToAction("All", "Categories");
         }

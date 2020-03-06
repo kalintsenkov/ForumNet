@@ -6,13 +6,13 @@
 
     using Contracts;
 
-    public class ValidateCategoryAttribute : ValidationAttribute
+    public class ValidateCategoryNameAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var categoriesService = validationContext.GetService<ICategoriesService>();
-            var isExisting = categoriesService.IsExisting((int) value).GetAwaiter().GetResult();
-            if (!isExisting)
+            var categoryService = validationContext.GetService<ICategoriesService>();
+            var isExisting = categoryService.IsExisting((string) value).GetAwaiter().GetResult();
+            if (isExisting)
             {
                 return new ValidationResult(this.ErrorMessage);
             }

@@ -49,6 +49,8 @@
 
         Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId);
 
+        Task<IEnumerable<TModel>> GetAllByCategoryIdAsync<TModel>(int categoryId);
+
         Task<IEnumerable<TModel>> GetAllWithDeletedAsync<TModel>();
     }
 }

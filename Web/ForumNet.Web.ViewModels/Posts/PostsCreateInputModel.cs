@@ -34,7 +34,7 @@
         public string Description { get; set; }
 
         [Required]
-        [ValidateCategory]
+        [ValidateCategoryId]
         public int CategoryId { get; set; }
 
         [Required]

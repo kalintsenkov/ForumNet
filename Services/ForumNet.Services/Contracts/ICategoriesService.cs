@@ -13,6 +13,8 @@
 
         Task<bool> IsExisting(int id);
 
+        Task<bool> IsExisting(string name);
+
         Task<int> GetThreadsCountByIdAsync(int id);
 
         Task<TModel> GetByIdAsync<TModel>(int id);

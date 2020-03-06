@@ -6,21 +6,31 @@
 
     using Services.Contracts;
     using ViewModels.Categories;
+    using ViewModels.Posts;
+    using ViewModels.Tags;
 
     public class CategoriesController : Controller
     {
         private readonly ICategoriesService categoriesService;
+        private readonly IPostsService postsService;
+        private readonly ITagsService tagsService;
 
-        public CategoriesController(ICategoriesService categoriesService)
+        public CategoriesController(
+            ICategoriesService categoriesService,
+            IPostsService postsService, 
+            ITagsService tagsService)
         {
             this.categoriesService = categoriesService;
+            this.postsService = postsService;
+            this.tagsService = tagsService;
         }
 
         public async Task<IActionResult> All()
         {
+            var categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>();
             var viewModel = new CategoriesAllViewModel
             {
-                Categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>()
+                Categories = categories
             };
 
             foreach (var category in viewModel.Categories)
@@ -31,73 +41,29 @@
             return View(viewModel);
         }
 
-        //// GET: Categories/Details/5
-        //public IActionResult Details(int id)
-        //{
-        //    return View();
-        //}
+        public async Task<IActionResult> Details(int id)
+        {
+            var category = await this.categoriesService.GetByIdAsync<CategoriesInfoViewModel>(id);
+            if (category == null)
+            {
+                return this.NotFound();
+            }
 
-        //// GET: Categories/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
+            category.Threads = await this.categoriesService.GetThreadsCountByIdAsync(id);
 
-        //// POST: Categories/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Create(IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+            var posts = await this.postsService.GetAllByCategoryIdAsync<PostsListingViewModel>(id);
+            foreach (var post in posts)
+            {
+                post.Tags = await this.tagsService.GetAllByPostIdAsync<TagsInfoViewModel>(post.Id);
+            }
 
-        //// GET: Categories/Edit/5
-        //public IActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
+            var viewModel = new CategoriesDetailsViewModel
+            {
+                Category = category,
+                Posts = posts
+            };
 
-        //// POST: Categories/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Edit(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: Categories/Delete/5
-        //public IActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: Categories/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+            return View(viewModel);
+        }
     }
 }

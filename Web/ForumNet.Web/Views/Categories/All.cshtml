@@ -15,7 +15,6 @@
         {
             <a asp-area="Administration" asp-controller="Categories" asp-action="Create" class="btn btn-secondary ml-md-auto">Create</a>
         }
-
         <div class="tt-search">
             <form class="search-wrapper">
                 <div class="search-form">
@@ -58,11 +57,11 @@
                                 Lets discuss about @category.Name.
                             </div>
                             <hr />
-                            <a asp-controller="Categories" asp-action="Details" class="btn btn-primary">Details</a>
-                            
+                            <a asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id" class="btn btn-primary">Details</a>
                             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                             {
-                                <a asp-area="Administration" asp-controller="Categories" asp-action="Delete" class="btn btn-primary">Delete</a>
+                                <a asp-area="Administration" asp-controller="Categories" asp-action="Edit" class="btn btn-secondary">Edit</a>
+                                <a asp-area="Administration" asp-controller="Categories" asp-action="Delete" class="btn btn-secondary">Delete</a>
                             }
                         </div>
                     </div>

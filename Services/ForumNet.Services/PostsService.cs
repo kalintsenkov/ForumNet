@@ -209,6 +209,16 @@
             return posts;
         }
 
+        public async Task<IEnumerable<TModel>> GetAllByCategoryIdAsync<TModel>(int categoryId)
+        {
+            var posts = await this.db.Posts
+                .Where(p => p.CategoryId == categoryId && !p.IsDeleted)
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return posts;
+        }
+
         public async Task<IEnumerable<TModel>> GetAllWithDeletedAsync<TModel>()
         {
             var posts = await this.db.Posts

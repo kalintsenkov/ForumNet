@@ -63,6 +63,11 @@
             return await this.db.Categories.AnyAsync(c => c.Id == id);
         }
 
+        public async Task<bool> IsExisting(string name)
+        {
+            return await this.db.Categories.AnyAsync(c => c.Name == name);
+        }
+
         public async Task<int> GetThreadsCountByIdAsync(int id)
         {
             var count = await this.db.Categories
