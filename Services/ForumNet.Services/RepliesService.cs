@@ -60,6 +60,24 @@
             await this.db.SaveChangesAsync();
         }
 
+        public async Task LikeAsync(int id)
+        {
+            var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id);
+
+            reply.Likes++;
+
+            await this.db.SaveChangesAsync();
+        }
+
+        public async Task DislikeAsync(int id)
+        {
+            var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id);
+
+            reply.Likes--;
+
+            await this.db.SaveChangesAsync();
+        }
+
         public async Task<TModel> GetByIdAsync<TModel>(int id)
         {
             var reply = await this.db.Replies

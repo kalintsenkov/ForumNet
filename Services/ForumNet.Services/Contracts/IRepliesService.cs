@@ -11,6 +11,10 @@
 
         Task DeleteAsync(int id);
 
+        Task LikeAsync(int id);
+
+        Task DislikeAsync(int id);
+
         Task<TModel> GetByIdAsync<TModel>(int id);
 
         Task<int> GetCountByUserId(string userId);
