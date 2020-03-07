@@ -39,6 +39,8 @@ namespace ForumNet.Web
                     options.Password.RequiredLength = 6;
 
                     options.User.RequireUniqueEmail = true;
+
+                    options.SignIn.RequireConfirmedAccount = true;
                 })
                 .AddRoles<ForumRole>()
                 .AddEntityFrameworkStores<ForumDbContext>();
