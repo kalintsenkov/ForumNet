@@ -13,6 +13,7 @@ namespace ForumNet.Web
     using Data.Models;
     using Services;
     using Services.Contracts;
+    using Services.Messaging;
 
     public class Startup
     {
@@ -55,6 +56,7 @@ namespace ForumNet.Web
 
             services.AddSingleton(this.configuration);
 
+            services.AddTransient<IEmailSender>(s => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services.AddTransient<IPostReportsService, PostReportsService>();
