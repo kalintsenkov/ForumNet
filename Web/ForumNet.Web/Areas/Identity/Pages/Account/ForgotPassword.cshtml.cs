@@ -11,6 +11,7 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
 
+    using Common;
     using Data.Models;
     using Services.Messaging;
 
@@ -55,8 +56,8 @@
                     protocol: Request.Scheme);
 
                 await emailSender.SendEmailAsync(
-                    "no-reply@forum.net",
-                    "Forum.NET",
+                    GlobalConstants.SystemEmail,
+                    GlobalConstants.SystemName,
                     Input.Email,
                     "Reset Password",
                     $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");

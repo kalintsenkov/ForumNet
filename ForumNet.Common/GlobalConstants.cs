@@ -4,6 +4,8 @@
     {
         public const string SystemName = "Forum.NET";
 
+        public const string SystemEmail = "no-reply@forum.net";
+
         public const string AdministratorRoleName = "Admin";
     }
 }

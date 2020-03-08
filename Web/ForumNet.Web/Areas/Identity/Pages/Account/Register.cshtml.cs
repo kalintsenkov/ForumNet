@@ -16,6 +16,7 @@
     using Microsoft.AspNetCore.WebUtilities;
     using Microsoft.Extensions.Logging;
 
+    using Common;
     using Data.Models;
     using Data.Models.Enums;
     using Services.Contracts;
@@ -133,8 +134,8 @@
                         protocol: Request.Scheme);
 
                     await emailSender.SendEmailAsync(
-                        "no-reply@forum.net",
-                        "Forum.NET",
+                        GlobalConstants.SystemEmail,
+                        GlobalConstants.SystemName,
                         Input.Email,
                         "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");

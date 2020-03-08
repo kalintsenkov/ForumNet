@@ -6,12 +6,13 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
 
+    using Common;
     using Data.Models;
+    using Services.Messaging;
 
     public partial class EmailModel : PageModel
     {
@@ -63,10 +64,10 @@
 
         public async Task<IActionResult> OnPostChangeEmailAsync()
         {
-            var user = await userManager.GetUserAsync(User);
+            var user = await this.userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
+                return NotFound($"Unable to load user with ID '{this.userManager.GetUserId(User)}'.");
             }
 
             if (!ModelState.IsValid)
@@ -75,26 +76,28 @@
                 return Page();
             }
 
-            var email = await userManager.GetEmailAsync(user);
+            var email = await this.userManager.GetEmailAsync(user);
             if (Input.NewEmail != email)
             {
-                var userId = await userManager.GetUserIdAsync(user);
-                var code = await userManager.GenerateChangeEmailTokenAsync(user, Input.NewEmail);
+                var userId = await this.userManager.GetUserIdAsync(user);
+                var code = await this.userManager.GenerateChangeEmailTokenAsync(user, Input.NewEmail);
                 var callbackUrl = Url.Page(
                     "/Account/ConfirmEmailChange",
                     pageHandler: null,
                     values: new { userId = userId, email = Input.NewEmail, code = code },
                     protocol: Request.Scheme);
                 await emailSender.SendEmailAsync(
+                    GlobalConstants.SystemEmail,
+                    GlobalConstants.SystemName,
                     Input.NewEmail,
                     "Confirm your email",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
+                this.StatusMessage = "Confirmation link to change email sent. Please check your email.";
                 return RedirectToPage();
             }
 
-            StatusMessage = "Your email is unchanged.";
+            this.StatusMessage = "Your email is unchanged.";
             return RedirectToPage();
         }
 
@@ -122,17 +125,19 @@
                 values: new { area = "Identity", userId = userId, code = code },
                 protocol: Request.Scheme);
             await emailSender.SendEmailAsync(
+                GlobalConstants.SystemEmail,
+                GlobalConstants.SystemName,
                 email,
                 "Confirm your email",
                 $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            this.StatusMessage = "Verification email sent. Please check your email.";
             return RedirectToPage();
         }
 
         private async Task LoadAsync(ForumUser user)
         {
-            var email = await userManager.GetEmailAsync(user);
+            var email = await this.userManager.GetEmailAsync(user);
             Email = email;
 
             Input = new InputModel
@@ -140,7 +145,7 @@
                 NewEmail = email,
             };
 
-            IsEmailConfirmed = await userManager.IsEmailConfirmedAsync(user);
+            IsEmailConfirmed = await this.userManager.IsEmailConfirmedAsync(user);
         }
     }
 }
