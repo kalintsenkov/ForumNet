@@ -14,9 +14,9 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
-    using Microsoft.Extensions.Logging;
 
     using Common;
+    using Data.Common;
     using Data.Models;
     using Data.Models.Enums;
     using Services.Contracts;
@@ -28,20 +28,17 @@
         private readonly SignInManager<ForumUser> signInManager;
         private readonly UserManager<ForumUser> userManager;
         private readonly IUsersService usersService;
-        private readonly ILogger<RegisterModel> logger;
         private readonly IEmailSender emailSender;
 
         public RegisterModel(
             UserManager<ForumUser> userManager,
             SignInManager<ForumUser> signInManager,
             IUsersService usersService,
-            ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.usersService = usersService;
-            this.logger = logger;
             this.emailSender = emailSender;
         }
 
@@ -55,7 +52,7 @@
         public class InputModel
         {
             [Required]
-            [StringLength(25, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]
+            [StringLength(DataConstants.UserUsernameMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = DataConstants.UserUsernameMinLength)]
             [Display(Name = "Display name")]
             public string Username { get; set; }
 
@@ -65,7 +62,7 @@
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(DataConstants.UserPasswordMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = DataConstants.UserPasswordMinLength)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
@@ -123,8 +120,6 @@
                 var result = await this.userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    this.logger.LogInformation("User created a new account with password.");
-
                     var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(

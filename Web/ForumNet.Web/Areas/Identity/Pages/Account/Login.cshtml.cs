@@ -10,7 +10,6 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
-    using Microsoft.Extensions.Logging;
 
     using Data.Models;
     using Services.Contracts;
@@ -21,18 +20,15 @@
         private readonly UserManager<ForumUser> userManager;
         private readonly SignInManager<ForumUser> signInManager;
         private readonly IUsersService usersService;
-        private readonly ILogger<LoginModel> logger;
 
         public LoginModel(
             UserManager<ForumUser> userManager,
             SignInManager<ForumUser> signInManager,
-            IUsersService usersService,
-            ILogger<LoginModel> logger)
+            IUsersService usersService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.usersService = usersService;
-            this.logger = logger;
         }
 
         [BindProperty]
@@ -104,7 +100,6 @@
                 var result = await signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

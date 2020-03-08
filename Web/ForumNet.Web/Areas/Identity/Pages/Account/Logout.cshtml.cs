@@ -5,25 +5,21 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
-    using Microsoft.Extensions.Logging;
 
     using Data.Models;
 
     public class LogoutModel : PageModel
     {
         private readonly SignInManager<ForumUser> signInManager;
-        private readonly ILogger<LogoutModel> logger;
 
-        public LogoutModel(SignInManager<ForumUser> signInManager, ILogger<LogoutModel> logger)
+        public LogoutModel(SignInManager<ForumUser> signInManager)
         {
             this.signInManager = signInManager;
-            this.logger = logger;
         }
 
         public async Task<IActionResult> OnGet(string returnUrl = null)
         {
-            await signInManager.SignOutAsync();
-            logger.LogInformation("User logged out.");
+            await this.signInManager.SignOutAsync();
 
             if (returnUrl != null)
             {

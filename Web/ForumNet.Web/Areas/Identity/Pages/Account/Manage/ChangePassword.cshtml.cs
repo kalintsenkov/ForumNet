@@ -6,24 +6,21 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
-    using Microsoft.Extensions.Logging;
 
+    using Data.Common;
     using Data.Models;
 
     public class ChangePasswordModel : PageModel
     {
         private readonly UserManager<ForumUser> userManager;
         private readonly SignInManager<ForumUser> signInManager;
-        private readonly ILogger<ChangePasswordModel> logger;
 
         public ChangePasswordModel(
             UserManager<ForumUser> userManager,
-            SignInManager<ForumUser> signInManager,
-            ILogger<ChangePasswordModel> logger)
+            SignInManager<ForumUser> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.logger = logger;
         }
 
         [BindProperty]
@@ -40,7 +37,7 @@
             public string OldPassword { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(DataConstants.UserPasswordMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = DataConstants.UserPasswordMinLength)]
             [DataType(DataType.Password)]
             [Display(Name = "New password")]
             public string NewPassword { get; set; }
@@ -92,7 +89,6 @@
             }
 
             await signInManager.RefreshSignInAsync(user);
-            logger.LogInformation("User changed their password successfully.");
             StatusMessage = "Your password has been changed.";
 
             return RedirectToPage();

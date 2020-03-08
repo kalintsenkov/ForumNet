@@ -6,9 +6,15 @@
 
         public const int CategoryNameMaxLength = 50;
 
-        public const int UserBiographyMaxLength = 250;
+        public const int UserUsernameMaxLength = 25;
+
+        public const int UserUsernameMinLength = 4;
+
+        public const int UserPasswordMaxLength = 100;
 
         public const int UserPasswordMinLength = 6;
+
+        public const int UserBiographyMaxLength = 250;
 
         public const int PostTitleMaxLength = 100;
 
