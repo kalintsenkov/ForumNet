@@ -19,7 +19,7 @@
             </div>
             <div class="ml-left tt-col-right">
                 <div class="tt-col-item">
-                    <h2 class="tt-value">Threads - @Model.Category.Threads</h2>
+                    <h2 class="tt-value">Threads - @Model.Category.PostsCount</h2>
                 </div>
                 <div class="tt-col-item">
                     <div class="tt-search">
@@ -66,7 +66,7 @@
                 <div class="tt-col-avatar">
                     <svg class="tt-icon">
                         @*TODO: author profile pic*@
-                        <use xlink:href="#icon-ava-t"></use>
+                        <use xlink:href="#@post.AuthorProfilePicture"></use>
                     </svg>
                 </div>
                 <div class="tt-col-description">

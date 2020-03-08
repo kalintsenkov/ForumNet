@@ -1,4 +1,7 @@
-﻿<!doctype html>
+﻿@using ForumNet.Data.Models
+@inject Microsoft.AspNetCore.Identity.UserManager<ForumUser> UserManager
+
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -89,10 +92,13 @@
                 }
                 else
                 {
+                    
+                    var user = await this.UserManager.FindByNameAsync(User.Identity.Name);
+                    
                     <div class="col-auto ml-auto">
                         <div class="tt-user-info d-flex justify-content-center">
                             <div class="tt-avatar-icon tt-size-md">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-ava-t"></use></svg></i>
+                                <i class="tt-icon"><svg><use xlink:href="#@user.ProfilePicture"></use></svg></i>
                             </div>
                             <div>
                                 <a asp-area="Identity" asp-page="/Account/Manage/PersonalData" class="btn">@User.Identity.Name</a>

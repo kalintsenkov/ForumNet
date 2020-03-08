@@ -21,6 +21,8 @@
 
         //public int Activity { get; set; }
 
+        public string AuthorProfilePicture { get; set; }
+
         public IEnumerable<TagsInfoViewModel> Tags { get; set; }
     }
 }

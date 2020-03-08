@@ -34,11 +34,6 @@
                 Categories = categories
             };
 
-            foreach (var category in viewModel.Categories)
-            {
-                category.Threads = await this.categoriesService.GetThreadsCountByIdAsync(category.Id);
-            }
-
             return View(viewModel);
         }
 
@@ -50,8 +45,6 @@
             {
                 return this.NotFound();
             }
-
-            category.Threads = await this.categoriesService.GetThreadsCountByIdAsync(id);
 
             var posts = await this.postsService.GetAllByCategoryIdAsync<PostsListingViewModel>(id);
             foreach (var post in posts)

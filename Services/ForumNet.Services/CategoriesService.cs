@@ -67,16 +67,6 @@
             return await this.db.Categories.AnyAsync(c => c.Name == name && !c.IsDeleted);
         }
 
-        public async Task<int> GetThreadsCountByIdAsync(int id)
-        {
-            var count = await this.db.Categories
-                .Where(c => c.Id == id && !c.IsDeleted)
-                .Select(c => c.Posts.Count)
-                .FirstOrDefaultAsync();
-
-            return count;
-        }
-
         public async Task<TModel> GetByIdAsync<TModel>(int id)
         {
             var category = await this.db.Categories

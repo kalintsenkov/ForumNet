@@ -16,8 +16,8 @@
 
             options.User.RequireUniqueEmail = true;
 
-            options.SignIn.RequireConfirmedAccount = true;
-            options.SignIn.RequireConfirmedEmail = true;
+            //options.SignIn.RequireConfirmedAccount = true;
+            //options.SignIn.RequireConfirmedEmail = true;
         }
     }
 }

@@ -43,14 +43,6 @@ namespace ForumNet.Web
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services
-                .AddAuthentication()
-                .AddFacebook(options =>
-                {
-                    options.AppId = this.configuration["Facebook:AppId"];
-                    options.AppSecret = this.configuration["Facebook:AppSecret"];
-                });
-
             services.AddAutoMapper(typeof(ForumNetProfile).Assembly);
 
             services.AddSingleton(this.configuration);

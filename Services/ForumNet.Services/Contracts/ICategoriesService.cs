@@ -15,8 +15,6 @@
 
         Task<bool> IsExisting(string name);
 
-        Task<int> GetThreadsCountByIdAsync(int id);
-
         Task<TModel> GetByIdAsync<TModel>(int id);
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>();
