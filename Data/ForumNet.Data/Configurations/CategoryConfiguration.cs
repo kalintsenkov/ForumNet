@@ -3,6 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     
+    using Common;
     using Models;
 
     public class CategoryConfiguration : IEntityTypeConfiguration<Category>
@@ -11,7 +12,7 @@
         {
             category
                 .Property(c => c.Name)
-                .HasMaxLength(50)
+                .HasMaxLength(DataConstants.CategoryNameMaxLength)
                 .IsRequired();
 
             category

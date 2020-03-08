@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using Data.Common;
     using Services.Common.Attributes;
 
     public class PostsEditInputModel
@@ -10,11 +11,11 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(DataConstants.PostTitleMaxLength)]
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(1000)]
+        [MaxLength(DataConstants.PostDescriptionMaxLength)]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 

@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using Categories;
+    using Data.Common;
     using Data.Models.Enums;
     using Services.Common.Attributes;
     using Tags;
@@ -11,7 +12,7 @@
     public class PostsCreateInputModel
     {
         [Required]
-        [MaxLength(100)]
+        [MaxLength(DataConstants.PostTitleMaxLength)]
         public string Title { get; set; }
 
         [Required]
@@ -29,7 +30,7 @@
         public string VideoUrl { get; set; }
 
         [Required]
-        [MaxLength(1000)]
+        [MaxLength(DataConstants.PostDescriptionMaxLength)]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 

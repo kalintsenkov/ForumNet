@@ -2,7 +2,8 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    
+
+    using Common;
     using Models;
 
     public class TagConfiguration : IEntityTypeConfiguration<Tag>
@@ -11,7 +12,7 @@
         {
             tag
                 .Property(t => t.Name)
-                .HasMaxLength(20)
+                .HasMaxLength(DataConstants.TagNameMaxLength)
                 .IsRequired();
 
             tag

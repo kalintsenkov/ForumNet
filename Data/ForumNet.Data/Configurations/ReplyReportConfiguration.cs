@@ -2,7 +2,8 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    
+
+    using Common;
     using Models;
 
     public class ReplyReportConfiguration: IEntityTypeConfiguration<ReplyReport>
@@ -11,7 +12,7 @@
         {
             replyReport
                 .Property(rr => rr.Description)
-                .HasMaxLength(1000)
+                .HasMaxLength(DataConstants.ReplyReportDescriptionMaxLength)
                 .IsRequired();
 
             replyReport

@@ -2,7 +2,8 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    
+
+    using Common;
     using Models;
 
     public class PostReportConfiguration : IEntityTypeConfiguration<PostReport>
@@ -11,7 +12,7 @@
         {
             postReport
                 .Property(r => r.Description)
-                .HasMaxLength(1000)
+                .HasMaxLength(DataConstants.PostReportDescriptionMaxLength)
                 .IsRequired();
 
             postReport

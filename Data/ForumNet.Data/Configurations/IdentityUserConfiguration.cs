@@ -2,7 +2,8 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    
+
+    using Common;
     using Models;
 
     public class IdentityUserConfiguration : IEntityTypeConfiguration<ForumUser>
@@ -15,7 +16,7 @@
 
             user
                 .Property(u => u.Biography)
-                .HasMaxLength(250);
+                .HasMaxLength(DataConstants.UserBiographyMaxLength);
 
             user
                 .HasMany(e => e.Claims)

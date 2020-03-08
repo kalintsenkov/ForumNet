@@ -2,7 +2,8 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    
+
+    using Common;
     using Models;
 
     public class PostConfiguration : IEntityTypeConfiguration<Post>
@@ -11,12 +12,12 @@
         {
             post
                 .Property(p => p.Title)
-                .HasMaxLength(100)
+                .HasMaxLength(DataConstants.PostTitleMaxLength)
                 .IsRequired();
 
             post
                 .Property(p => p.Description)
-                .HasMaxLength(1000)
+                .HasMaxLength(DataConstants.PostDescriptionMaxLength)
                 .IsRequired();
 
             post
