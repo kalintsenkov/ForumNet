@@ -31,7 +31,6 @@
             {
                 Description = description,
                 CreatedOn = this.dateTimeProvider.Now(),
-                ModifiedOn = this.dateTimeProvider.Now(),
                 PostId = postId,
                 AuthorId = authorId
             };

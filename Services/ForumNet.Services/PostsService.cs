@@ -49,7 +49,6 @@
                 VideoUrl = videoUrl,
                 Description = description,
                 CreatedOn = this.dateTimeProvider.Now(),
-                ModifiedOn = this.dateTimeProvider.Now(),
                 AuthorId = authorId,
                 CategoryId = categoryId
             };

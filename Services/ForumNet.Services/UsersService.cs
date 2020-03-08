@@ -23,6 +23,15 @@
             this.dateTimeProvider = dateTimeProvider;
         }
 
+        public async Task ModifyAsync(string id)
+        {
+            var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+            user.ModifiedOn = this.dateTimeProvider.Now();
+
+            await this.db.SaveChangesAsync();
+        }
+
         public async Task DeleteAsync(string id)
         {
             var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id);

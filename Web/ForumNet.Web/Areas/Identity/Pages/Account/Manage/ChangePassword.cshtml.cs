@@ -9,18 +9,22 @@
 
     using Data.Common;
     using Data.Models;
+    using Services.Contracts;
 
     public class ChangePasswordModel : PageModel
     {
         private readonly UserManager<ForumUser> userManager;
         private readonly SignInManager<ForumUser> signInManager;
+        private readonly IUsersService usersService;
 
         public ChangePasswordModel(
             UserManager<ForumUser> userManager,
-            SignInManager<ForumUser> signInManager)
+            SignInManager<ForumUser> signInManager,
+            IUsersService usersService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.usersService = usersService;
         }
 
         [BindProperty]
@@ -50,13 +54,13 @@
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var user = await userManager.GetUserAsync(User);
+            var user = await this.userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
+                return NotFound($"Unable to load user with ID '{this.userManager.GetUserId(User)}'.");
             }
 
-            var hasPassword = await userManager.HasPasswordAsync(user);
+            var hasPassword = await this.userManager.HasPasswordAsync(user);
             if (!hasPassword)
             {
                 return RedirectToPage("./SetPassword");
@@ -67,29 +71,30 @@
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 return Page();
             }
 
-            var user = await userManager.GetUserAsync(User);
+            var user = await this.userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
+                return NotFound($"Unable to load user with ID '{this.userManager.GetUserId(User)}'.");
             }
 
-            var changePasswordResult = await userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
+            var changePasswordResult = await this.userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
             if (!changePasswordResult.Succeeded)
             {
                 foreach (var error in changePasswordResult.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    this.ModelState.AddModelError(string.Empty, error.Description);
                 }
                 return Page();
             }
 
-            await signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your password has been changed.";
+            await this.signInManager.RefreshSignInAsync(user);
+            await this.usersService.ModifyAsync(user.Id);
+            this.StatusMessage = "Your password has been changed.";
 
             return RedirectToPage();
         }

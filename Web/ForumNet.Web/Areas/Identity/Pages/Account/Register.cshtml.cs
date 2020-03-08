@@ -113,8 +113,7 @@
                     ProfilePicture = profilePicture,
                     BirthDate = Input.BirthDate,
                     Gender = Input.Gender,
-                    CreatedOn = DateTime.UtcNow,
-                    ModifiedOn = DateTime.UtcNow
+                    CreatedOn = DateTime.UtcNow
                 };
 
                 var result = await this.userManager.CreateAsync(user, Input.Password);

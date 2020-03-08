@@ -30,8 +30,7 @@
             var tag = new Tag
             {
                 Name = name,
-                CreatedOn = this.dateTimeProvider.Now(),
-                ModifiedOn = this.dateTimeProvider.Now()
+                CreatedOn = this.dateTimeProvider.Now()
             };
 
             await this.db.Tags.AddAsync(tag);
@@ -52,7 +51,7 @@
         {
             foreach (var id in ids)
             {
-                var isExisting = await this.db.Tags.AnyAsync(t => t.Id == id);
+                var isExisting = await this.db.Tags.AnyAsync(t => t.Id == id && !t.IsDeleted);
                 if (!isExisting)
                 {
                     return false;

@@ -12,15 +12,18 @@
 
     using Data.Common;
     using Data.Models;
+    using Services.Contracts;
 
     [AllowAnonymous]
     public class ResetPasswordModel : PageModel
     {
         private readonly UserManager<ForumUser> userManager;
+        private readonly IUsersService usersService;
 
-        public ResetPasswordModel(UserManager<ForumUser> userManager)
+        public ResetPasswordModel(UserManager<ForumUser> userManager, IUsersService usersService)
         {
             this.userManager = userManager;
+            this.usersService = usersService;
         }
 
         [BindProperty]
@@ -64,7 +67,7 @@
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 return Page();
             }
@@ -78,12 +81,13 @@
             var result = await this.userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
             if (result.Succeeded)
             {
+                await this.usersService.ModifyAsync(user.Id);
                 return RedirectToPage("./ResetPasswordConfirmation");
             }
 
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                this.ModelState.AddModelError(string.Empty, error.Description);
             }
 
             return Page();

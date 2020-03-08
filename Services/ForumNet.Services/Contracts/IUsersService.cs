@@ -5,6 +5,8 @@
 
     public interface IUsersService
     {
+        Task ModifyAsync(string id);
+
         Task DeleteAsync(string id);
 
         Task UndeleteAsync(string id);

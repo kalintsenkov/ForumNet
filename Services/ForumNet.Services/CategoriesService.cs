@@ -30,8 +30,7 @@
             var category = new Category
             {
                 Name = name,
-                CreatedOn = this.dateTimeProvider.Now(),
-                ModifiedOn = this.dateTimeProvider.Now()
+                CreatedOn = this.dateTimeProvider.Now()
             };
 
             await this.db.Categories.AddAsync(category);
@@ -60,12 +59,12 @@
 
         public async Task<bool> IsExisting(int id)
         {
-            return await this.db.Categories.AnyAsync(c => c.Id == id);
+            return await this.db.Categories.AnyAsync(c => c.Id == id && !c.IsDeleted);
         }
 
         public async Task<bool> IsExisting(string name)
         {
-            return await this.db.Categories.AnyAsync(c => c.Name == name);
+            return await this.db.Categories.AnyAsync(c => c.Name == name && !c.IsDeleted);
         }
 
         public async Task<int> GetThreadsCountByIdAsync(int id)

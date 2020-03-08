@@ -23,7 +23,6 @@
             {
                 Description = description,
                 CreatedOn = this.dateTimeProvider.Now(),
-                ModifiedOn = this.dateTimeProvider.Now(),
                 ReplyId = replyId,
                 AuthorId = authorId
             };
