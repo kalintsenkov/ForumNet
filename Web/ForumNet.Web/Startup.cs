@@ -30,19 +30,7 @@ namespace ForumNet.Web
                 options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
             services
-                .AddDefaultIdentity<ForumUser>(options =>
-                {
-                    options.Password.RequireDigit = false;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequiredLength = 6;
-
-                    options.User.RequireUniqueEmail = true;
-
-                    options.SignIn.RequireConfirmedAccount = true;
-                    options.SignIn.RequireConfirmedEmail = true;
-                })
+                .AddDefaultIdentity<ForumUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ForumRole>()
                 .AddEntityFrameworkStores<ForumDbContext>();
 
