@@ -4,7 +4,6 @@
     ViewData["Title"] = "Register confirmation";
 }
 
-<h1>@ViewData["Title"]</h1>
 @{
     if (Model.DisplayConfirmAccountLink)
     {
@@ -15,8 +14,20 @@
     }
     else
     {
-        <p>
-            Please check your email to confirm your account.
-        </p>
+        <div class="container">
+            <div class="tt-loginpages-wrapper">
+                <div class="tt-loginpages">
+                    <div class="tt-block-title">
+                        <img src="~/images/logo.png" alt="logo">
+                        <div class="tt-title">
+                            @ViewData["Title"]
+                        </div>
+                        <div class="tt-description">
+                            Please check your email to confirm your account.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 }
