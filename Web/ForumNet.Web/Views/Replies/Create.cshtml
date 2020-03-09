@@ -1,0 +1,34 @@
+﻿@model ForumNet.Web.ViewModels.Replies.RepliesCreateInputModel
+
+@{
+    ViewData["Title"] = "Post Your Reply";
+}
+
+<div class="container">
+    <div class="tt-wrapper-inner">
+        <br />
+        <h1 class="tt-title-border">
+            @ViewData["Title"]
+        </h1>
+        <form class="form-default form-create-topic" asp-action="Create">
+            <div class="form-group">
+                <input asp-for="PostId" value="@Model.PostId" hidden class="form-control" />
+                <span asp-validation-for="PostId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <textarea asp-for="Description" class="form-control" rows="5" placeholder="Lets get started"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-auto ml-md-auto">
+                    <a asp-controller="Posts" asp-action="Details" asp-route-id="@Model.PostId" class="btn btn-primary">Preview</a>
+                    <input type="submit" value="Reply" class="btn btn-secondary" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

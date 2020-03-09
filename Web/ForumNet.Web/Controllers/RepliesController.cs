@@ -20,15 +20,72 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> Create(int id, string description)
+        public IActionResult Create(int postId)
+        {
+            var viewModel = new RepliesCreateInputModel { PostId = postId };
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Create(RepliesCreateInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.RedirectToAction("Details", "Posts", new { id });
+                return this.View(input);
             }
 
             var authorId = await this.usersService.GetIdAsync(this.User);
-            await this.repliesService.CreateAsync(description, id, authorId);
+            await this.repliesService.CreateAsync(input.Description, input.PostId, authorId);
+
+            return this.RedirectToAction("Details", "Posts", new { id = input.PostId });
+        }
+
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(RepliesEditInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.repliesService.EditAsync(input.Id, input.Description);
+
+            return this.RedirectToAction(nameof(Details), new { id = input.Id });
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Details(int id)
+        {
+            var reply = await this.repliesService.GetByIdAsync<RepliesDetailsViewModel>(id);
+            if (reply == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(reply);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Like(int id)
+        {
+            await this.repliesService.LikeAsync(id);
+
+            return this.RedirectToAction("Details", "Posts", new { id });
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Dislike(int id)
+        {
+            await this.repliesService.DislikeAsync(id);
 
             return this.RedirectToAction("Details", "Posts", new { id });
         }

@@ -1,36 +1,40 @@
 ﻿namespace ForumNet.Web.Controllers
 {
     using System.Threading.Tasks;
-
+    
     using AutoMapper;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
+    
     using Services.Contracts;
     using ViewModels.Categories;
     using ViewModels.Posts;
+    using ViewModels.Replies;
     using ViewModels.Tags;
 
     public class PostsController : Controller
     {
-        private readonly IPostsService postsService;
-        private readonly ICategoriesService categoriesService;
-        private readonly ITagsService tagsService;
-        private readonly IUsersService usersService;
         private readonly IMapper mapper;
+        private readonly ITagsService tagsService;
+        private readonly IPostsService postsService;
+        private readonly IUsersService usersService;
+        private readonly IRepliesService repliesService;
+        private readonly ICategoriesService categoriesService;
 
         public PostsController(
-            IPostsService postsService,
-            ICategoriesService categoriesService,
+            IMapper mapper,
             ITagsService tagsService,
-            IUsersService usersService, 
-            IMapper mapper)
+            IPostsService postsService,
+            IUsersService usersService,
+            IRepliesService repliesService,
+            ICategoriesService categoriesService)
         {
-            this.postsService = postsService;
-            this.categoriesService = categoriesService;
-            this.tagsService = tagsService;
-            this.usersService = usersService;
             this.mapper = mapper;
+            this.tagsService = tagsService;
+            this.postsService = postsService;
+            this.usersService = usersService;
+            this.repliesService = repliesService;
+            this.categoriesService = categoriesService;
         }
 
         [Authorize]
@@ -87,6 +91,7 @@
 
             this.ViewData["UserId"] = await this.usersService.GetIdAsync(this.User);
             post.Tags = await this.tagsService.GetAllByPostIdAsync<TagsInfoViewModel>(id);
+            post.Replies = await this.repliesService.GetAllByPostIdAsync<RepliesDetailsViewModel>(id);
 
             return this.View(post);
         }

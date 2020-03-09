@@ -34,8 +34,8 @@
 
         public CategoriesInfoViewModel Category { get; set; }
 
-        public RepliesCreateInputModel ReplyInput { get; set; }
-
         public IEnumerable<TagsInfoViewModel> Tags { get; set; }
+
+        public IEnumerable<RepliesDetailsViewModel> Replies { get; set; }
     }
 }

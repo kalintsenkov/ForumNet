@@ -4,9 +4,9 @@
 
     using Data.Common;
 
-    public class RepliesCreateInputModel
+    public class RepliesEditInputModel
     {
-        public int PostId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(DataConstants.ReplyDescriptionMaxLength)]

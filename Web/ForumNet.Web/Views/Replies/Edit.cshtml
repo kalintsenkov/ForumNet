@@ -1,0 +1,28 @@
+﻿@model ForumNet.Web.ViewModels.Replies.RepliesEditInputModel
+@{
+    ViewData["Title"] = "Edit Reply";
+}
+
+<div class="container">
+    <div class="tt-wrapper-inner">
+        <br />
+        <h1 class="tt-title-border">
+            @ViewData["Title"]
+        </h1>
+        <form class="form-default form-create-topic" asp-action="Edit">
+            <div class="form-group">
+                <textarea asp-for="Description" class="form-control" rows="5" placeholder="Lets get started"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-auto ml-md-auto">
+                    <input type="submit" value="Edit" class="btn btn-secondary" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

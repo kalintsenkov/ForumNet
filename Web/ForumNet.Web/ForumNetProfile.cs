@@ -1,12 +1,13 @@
 ﻿namespace ForumNet.Web
 {
     using System.Globalization;
-
+    
     using AutoMapper;
-
+    
     using Data.Models;
     using ViewModels.Categories;
     using ViewModels.Posts;
+    using ViewModels.Replies;
     using ViewModels.Tags;
     using ViewModels.Users;
 
@@ -41,6 +42,11 @@
             #endregion
 
             #region Replies
+
+            this.CreateMap<Reply, RepliesDetailsViewModel>()
+                .ForMember(
+                    dest => dest.CreatedOn,
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)));
 
             #endregion
 

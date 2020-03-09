@@ -74,7 +74,7 @@
                     <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                         <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
                     </a>
-                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                    <a asp-controller="Replies" asp-action="Create" asp-route-postid="@Model.Id" class="tt-icon-btn tt-hover-02 tt-small-indent">
                         <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
                     </a>
                 </div>
@@ -104,170 +104,97 @@
                     </div>
                     @*<div class="tt-item">
                             <a href="#" class="tt-icon-btn tt-position-bottom">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
-                                <span class="tt-text">951</span>
-                            </a>
-                        </div>*@
-                    @*<div class="tt-item">
-                            <a href="#" class="tt-icon-btn tt-position-bottom">
                                 <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
                                 <span class="tt-text">32</span>
                             </a>
                         </div>*@
                 </div>
-                <div class="tt-wrapper-inner">
-                    <div class="pt-editor form-default">
-                        <h6 class="pt-title">Post Your Reply</h6>
-                        <div class="form-group">
-                            <textarea name="message" class="form-control" rows="5" placeholder="Lets get started"></textarea>
-                        </div>
-                        <div class="pt-row">
-                            <div class="col-auto ml-md-auto">
-                                <a href="#" class="btn btn-primary">Preview</a>
-                                <a asp-controller="Replies" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-secondary btn-width-lg">Reply</a>
+                @*<div class="tt-wrapper-inner">
+                        <div class="pt-editor form-default">
+                            <h6 class="pt-title">Post Your Reply</h6>
+                            <div class="form-group">
+                                <textarea name="message" class="form-control" rows="5" placeholder="Lets get started"></textarea>
+                            </div>
+                            <div class="pt-row">
+                                <div class="col-auto ml-md-auto">
+                                    <a asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary">Preview</a>
+                                    <a asp-controller="Replies" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-secondary btn-width-lg">Reply</a>
+                                </div>
                             </div>
                         </div>
+                    </div>*@
+                @if (Model.Replies.Any())
+                {
+                    <hr />
+                    <h6 class="tt-title">Frequent Posters</h6>
+                    <div class="tt-row-icon">
+                        @foreach (var reply in Model.Replies)
+                        {
+                            <div class="tt-item">
+                                <a href="#" class="tt-icon-avatar">
+                                    <svg><use xlink:href="#@reply.Author.ProfilePicture"></use></svg>
+                                </a>
+                            </div>
+                        }
                     </div>
-                </div>
-                <hr>
-                <h6 class="tt-title">Frequent Posters</h6>
-                <div class="tt-row-icon">
-                    <div class="tt-item">
-                        <a href="#" class=" tt-icon-avatar">
-                            <svg><use xlink:href="#icon-ava-d"></use></svg>
+                }
+            </div>
+        </div>
+        @foreach (var reply in Model.Replies)
+        {
+            <div class="tt-item">
+                <div class="tt-single-topic">
+                    <div class="tt-item-header pt-noborder">
+                        <div class="tt-item-info info-top">
+                            <div class="tt-avatar-icon">
+                                <i class="tt-icon"><svg><use xlink:href="#@reply.Author.ProfilePicture"></use></svg></i>
+                            </div>
+                            <div class="tt-avatar-title">
+                                <a href="#">@reply.Author.Name</a>
+                            </div>
+                            <a href="#" class="tt-info-time">
+                                <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>@reply.CreatedOn
+                            </a>
+                        </div>
+                    </div>
+                    <div class="tt-item-description">
+                        @reply.Description
+                    </div>
+                    <div class="tt-item-info info-bottom">
+                        <a asp-controller="Replies" asp-action="Like" asp-route-id="@reply.Id" class="tt-icon-btn">
+                            <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
+                        </a>
+                        <a asp-controller="Replies" asp-action="Dislike" asp-route-id="@reply.Id" class="tt-icon-btn">
+                            <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
+                        </a>
+                        <a asp-controller="Replies" asp-action="Details" asp-route-id="@reply.Id" class="tt-icon-btn">
+                            <i class="tt-icon"><svg><use xlink:href="#icon-view"></use></svg></i>
+                        </a>
+                        @if (reply.Author.Id == (string)this.ViewData["UserId"] || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <a asp-controller="Replies" asp-action="Edit" asp-route-id="@reply.Id" class="tt-icon-btn">
+                                <i class="tt-icon"><svg><use xlink:href="#icon-pencil"></use></svg></i>
+                            </a>
+                        }
+                        <div class="col-separator"></div>
+                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                            <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
+                        </a>
+                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                            <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
+                        </a>
+                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                            <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
                         </a>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="tt-item">
-            <div class="tt-single-topic">
-                <div class="tt-item-header pt-noborder">
-                    <div class="tt-item-info info-top">
-                        <div class="tt-avatar-icon">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-ava-t"></use></svg></i>
-                        </div>
-                        <div class="tt-avatar-title">
-                            <a href="#">tesla02</a>
-                        </div>
-                        <a href="#" class="tt-info-time">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>6 Jan,2019
-                        </a>
-                    </div>
-                </div>
-                <div class="tt-item-description">
-                    Finally!<br>
-                    Are there any special recommendations for design or an updated guide that includes new preview sizes, including retina displays?
-                </div>
-                <div class="tt-item-info info-bottom">
-                    <a href="#" class="tt-icon-btn">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
-                    </a>
-                    <a href="#" class="tt-icon-btn">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
-                    </a>
-                    <div class="col-separator"></div>
-                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
-                    </a>
-                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
-                    </a>
-                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="tt-item">
-            <div class="tt-single-topic">
-                <div class="tt-item-header pt-noborder">
-                    <div class="tt-item-info info-top">
-                        <div class="tt-avatar-icon">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-ava-k"></use></svg></i>
-                        </div>
-                        <div class="tt-avatar-title">
-                            <a href="#">kolis27</a>
-                        </div>
-                        <a href="#" class="tt-info-time">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>6 Jan,2019
-                        </a>
-                    </div>
-                </div>
-                <div class="tt-item-description">
-                    <p>
-                        It’s too big preview image, it should be smaller even five in row. On one page there are 30 items to 60 pages it is 1800 items in
-                        categories eg in Add-Ons category have 22749 items, why not see all of them but only those 1800 items? This is a bad thing.
-                    </p>
-                    <p>
-                        <img class="tt-offset-11" src="~/images/single-topic-img01.jpg" alt="">
-                    </p>
-                </div>
-                <div class="tt-item-info info-bottom">
-                    <a href="#" class="tt-icon-btn">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
-                    </a>
-                    <a href="#" class="tt-icon-btn">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
-                    </a>
-                    <div class="col-separator"></div>
-                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
-                    </a>
-                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
-                    </a>
-                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="tt-item">
-            <div class="tt-single-topic">
-                <div class="tt-item-header pt-noborder">
-                    <div class="tt-item-info info-top">
-                        <div class="tt-avatar-icon">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-ava-k"></use></svg></i>
-                        </div>
-                        <div class="tt-avatar-title">
-                            <a href="#">kolis27</a>
-                        </div>
-                        <a href="#" class="tt-info-time">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>6 Jan,2019
-                        </a>
-                    </div>
-                </div>
-                <div class="tt-item-description">
-                    <p>
-                        I do not like. Choosing a template has become more difficult.<br>Small thumbnails 80x80px were better.
-                    </p>
-                    <div class="video-container">
-                        <iframe title="YouTube video player" src="https://www.youtube.com/embed/BbW8djS7kI4" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="tt-item-info info-bottom">
-                    <a href="#" class="tt-icon-btn">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
-                    </a>
-                    <a href="#" class="tt-icon-btn">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
-                    </a>
-                    <div class="col-separator"></div>
-                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
-                    </a>
-                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
-                    </a>
-                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
-                    </a>
-                </div>
-            </div>
-        </div>
+        }
     </div>
-    <div class="tt-wrapper-inner">
-        <h4 class="tt-title-separator"><span>You’ve reached the end of replies</span></h4>
-    </div>
+    @if (Model.Replies.Any())
+    {
+        <div class="tt-wrapper-inner">
+            <h4 class="tt-title-separator"><span>You’ve reached the end of replies</span></h4>
+        </div>
+    }
 </div>

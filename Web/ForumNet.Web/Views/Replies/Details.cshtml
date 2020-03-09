@@ -1,0 +1,62 @@
+﻿@using ForumNet.Common
+@model ForumNet.Web.ViewModels.Replies.RepliesDetailsViewModel
+
+@{
+    ViewData["Title"] = "Reply Details";
+}
+
+<br />
+<div class="container">
+    <div class="tt-single-topic-list">
+        <div class="tt-item">
+            <div class="tt-single-topic">
+                <div class="tt-item-header pt-noborder">
+                    <div class="tt-item-info info-top">
+                        <div class="tt-avatar-icon">
+                            <i class="tt-icon"><svg><use xlink:href="#@Model.Author.ProfilePicture"></use></svg></i>
+                        </div>
+                        <div class="tt-avatar-title">
+                            <a href="#">@Model.Author.Name</a>
+                        </div>
+                        <a href="#" class="tt-info-time">
+                            <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>@Model.CreatedOn
+                        </a>
+                    </div>
+                </div>
+                <div class="tt-item-description">
+                    @Model.Description
+                </div>
+                <div class="tt-item-info info-bottom">
+                    <a asp-controller="Replies" asp-action="Like" asp-route-id="@Model.Id" class="tt-icon-btn">
+                        <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
+                    </a>
+                    <a asp-controller="Replies" asp-action="Dislike" asp-route-id="@Model.Id" class="tt-icon-btn">
+                        <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
+                    </a>
+                    @if (Model.Author.Id == (string)this.ViewData["UserId"] || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        <a asp-controller="Replies" asp-action="Edit" asp-route-id="@Model.Id" class="tt-icon-btn">
+                            <i class="tt-icon"><svg><use xlink:href="#icon-pencil"></use></svg></i>
+                        </a>
+                    }
+                    <div class="col-separator"></div>
+                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                        <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
+                    </a>
+                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                        <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
+                    </a>
+                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                        <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-auto ml-md-auto">
+                <a asp-controller="Posts" asp-action="Details" asp-route-id="@Model.PostId" class="btn btn-primary">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
