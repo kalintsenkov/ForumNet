@@ -1,4 +1,5 @@
-﻿@using ForumNet.Data.Models.Enums
+﻿@using ForumNet.Common
+@using ForumNet.Data.Models.Enums
 @model ForumNet.Web.ViewModels.Posts.PostsDetailsViewModel
 
 @{
@@ -26,7 +27,11 @@
                     </h3>
                     <div class="tt-item-tag">
                         <ul class="tt-list-badge">
-                            <li><a href="#"><span class="tt-color03 tt-badge">@Model.CategoryName</span></a></li>
+                            <li>
+                                <a asp-controller="Categories" asp-action="Details" asp-route-id="@Model.Category.Id">
+                                    <span class="tt-color03 tt-badge">@Model.Category.Name</span>
+                                </a>
+                            </li>
                             @foreach (var tag in Model.Tags)
                             {
                                 <li><a href="#"><span class="tt-badge">@tag.Name</span></a></li>
@@ -56,7 +61,7 @@
                     <a asp-controller="Posts" asp-action="Dislike" asp-route-id="@Model.Id" class="tt-icon-btn">
                         <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
                     </a>
-                    @if (this.Model.Author.Id == (string)this.ViewData["UserId"] || this.User.IsInRole("Admin"))
+                    @if (this.Model.Author.Id == (string)this.ViewData["UserId"] || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                     {
                         <a asp-controller="Posts" asp-action="Edit" asp-route-id="@Model.Id" class="tt-icon-btn">
                             <i class="tt-icon"><svg><use xlink:href="#icon-pencil"></use></svg></i>
@@ -119,7 +124,7 @@
                         <div class="pt-row">
                             <div class="col-auto ml-md-auto">
                                 <a href="#" class="btn btn-primary">Preview</a>
-                                <a asp-controller="Replies" asp-action="Reply" asp-route-id="@Model.Id" class="btn btn-secondary btn-width-lg">Reply</a>
+                                <a asp-controller="Replies" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-secondary btn-width-lg">Reply</a>
                             </div>
                         </div>
                     </div>

@@ -4,7 +4,7 @@
 
     using Data.Common;
 
-    public class RepliesReplyInputModel
+    public class RepliesCreateInputModel
     {
         public int Id { get; set; }
 

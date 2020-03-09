@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
 
+    using Categories;
     using Data.Models.Enums;
+    using Replies;
     using Tags;
     using Users;
 
@@ -30,7 +32,9 @@
 
         public UsersInfoViewModel Author { get; set; }
 
-        public string CategoryName { get; set; }
+        public CategoriesInfoViewModel Category { get; set; }
+
+        public RepliesCreateInputModel ReplyInput { get; set; }
 
         public IEnumerable<TagsInfoViewModel> Tags { get; set; }
     }

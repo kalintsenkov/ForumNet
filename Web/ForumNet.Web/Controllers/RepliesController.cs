@@ -20,18 +20,17 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> Reply(RepliesReplyInputModel input)
+        public async Task<IActionResult> Create(int id, string description)
         {
             if (!this.ModelState.IsValid)
             {
-                this.ModelState.AddModelError(nameof(input.Description), "Description should be less than 1000 symbols");
-                return this.RedirectToAction("Details", "Posts", new { id = input.Id });
+                return this.RedirectToAction("Details", "Posts", new { id });
             }
 
             var authorId = await this.usersService.GetIdAsync(this.User);
-            await this.repliesService.CreateAsync(input.Description, input.Id, authorId);
+            await this.repliesService.CreateAsync(description, id, authorId);
 
-            return this.RedirectToAction("Details", "Posts", new { id = input.Id });
+            return this.RedirectToAction("Details", "Posts", new { id });
         }
     }
 }
