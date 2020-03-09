@@ -97,22 +97,6 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> Like(int id)
-        {
-            await this.postsService.LikeAsync(id);
-
-            return this.RedirectToAction(nameof(Details), new { id });
-        }
-
-        [Authorize]
-        public async Task<IActionResult> Dislike(int id)
-        {
-            await this.postsService.DislikeAsync(id);
-
-            return this.RedirectToAction(nameof(Details), new { id });
-        }
-
-        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             var post = await this.postsService.GetByIdAsync<PostsEditViewModel>(id);
@@ -134,7 +118,7 @@
             if (!this.ModelState.IsValid)
             {
                 var viewModel = this.mapper.Map<PostsEditViewModel>(input);
-                
+
                 viewModel.Categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>();
                 viewModel.Tags = await this.tagsService.GetAllAsync<TagsInfoViewModel>();
 
@@ -144,6 +128,22 @@
             await this.postsService.EditAsync(input.Id, input.Title, input.Description, input.CategoryId, input.TagIds);
 
             return this.RedirectToAction(nameof(Details), new { id = input.Id });
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Like(int id)
+        {
+            await this.postsService.LikeAsync(id);
+
+            return this.RedirectToAction(nameof(Details), new { id });
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Dislike(int id)
+        {
+            await this.postsService.DislikeAsync(id);
+
+            return this.RedirectToAction(nameof(Details), new { id });
         }
 
         //// GET: Posts/Delete/5
