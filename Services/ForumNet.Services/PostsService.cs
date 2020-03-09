@@ -69,11 +69,8 @@
             string videoUrl = null)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
-
-            foreach (var tag in post.Tags)
-            {
-                post.Tags.Remove(tag);
-            }
+            
+            await this.RemoveTags(id, post);
 
             post.Title = title;
             post.Description = description;
@@ -225,6 +222,17 @@
                 .ToListAsync();
 
             return posts;
+        }
+
+        private async Task RemoveTags(int id, Post post)
+        {
+            var postTags = await this.db.PostsTags.Where(pt => pt.PostId == id).ToListAsync();
+            foreach (var tag in postTags)
+            {
+                post.Tags.Remove(tag);
+            }
+
+            await this.db.SaveChangesAsync();
         }
     }
 }
