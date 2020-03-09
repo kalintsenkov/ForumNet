@@ -19,21 +19,13 @@
             this.usersService = usersService;
         }
 
-        [Authorize]
-        public IActionResult Create(int postId)
-        {
-            var viewModel = new RepliesCreateInputModel { PostId = postId };
-
-            return this.View(viewModel);
-        }
-
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Create(RepliesCreateInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(input);
+                return this.RedirectToAction("Details", "Posts", new { id = input.PostId });
             }
 
             var authorId = await this.usersService.GetIdAsync(this.User);

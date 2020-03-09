@@ -1,11 +1,14 @@
 ﻿@using ForumNet.Common
 @using ForumNet.Data.Models.Enums
-@model ForumNet.Web.ViewModels.Posts.PostsDetailsViewModel
+@using ForumNet.Web.ViewModels.Posts
+@using ForumNet.Web.ViewModels.Replies
+@model PostsDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
+<br />
 <div class="container">
     <div class="tt-single-topic-list">
         <div class="tt-item">
@@ -74,7 +77,7 @@
                     <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                         <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
                     </a>
-                    <a asp-controller="Replies" asp-action="Create" asp-route-postid="@Model.Id" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                    <a asp-fragment="reply" class="tt-icon-btn tt-hover-02 tt-small-indent">
                         <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
                     </a>
                 </div>
@@ -109,20 +112,7 @@
                             </a>
                         </div>*@
                 </div>
-                @*<div class="tt-wrapper-inner">
-                        <div class="pt-editor form-default">
-                            <h6 class="pt-title">Post Your Reply</h6>
-                            <div class="form-group">
-                                <textarea name="message" class="form-control" rows="5" placeholder="Lets get started"></textarea>
-                            </div>
-                            <div class="pt-row">
-                                <div class="col-auto ml-md-auto">
-                                    <a asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary">Preview</a>
-                                    <a asp-controller="Replies" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-secondary btn-width-lg">Reply</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>*@
+                <partial name="~/Views/Replies/_CreatePartial.cshtml" model="new RepliesCreateInputModel { PostId = Model.Id }" />
                 @if (Model.Replies.Any())
                 {
                     <hr />
@@ -198,3 +188,7 @@
         </div>
     }
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
