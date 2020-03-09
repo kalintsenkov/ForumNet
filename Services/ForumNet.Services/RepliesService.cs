@@ -109,6 +109,7 @@
         {
             var replies = await this.db.Replies
                 .Where(r => r.PostId == postId && !r.IsDeleted)
+                .OrderByDescending(r => r.CreatedOn)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -119,6 +120,7 @@
         {
             var replies = await this.db.Replies
                 .Where(r => r.AuthorId == userId && !r.IsDeleted)
+                .OrderByDescending(r => r.CreatedOn)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -131,6 +133,7 @@
                 .Where(r => r.PostId == postId &&
                             r.AuthorId == userId && 
                             !r.IsDeleted)
+                .OrderByDescending(r => r.CreatedOn)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
