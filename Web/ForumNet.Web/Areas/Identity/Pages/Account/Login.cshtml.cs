@@ -11,6 +11,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
+    using Common;
     using Data.Models;
     using Services.Contracts;
 
@@ -50,7 +51,7 @@
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me")]
+            [Display(Name = ModelConstants.RememberMeDisplayName)]
             public bool RememberMe { get; set; }
         }
 

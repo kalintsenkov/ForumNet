@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
+    using Common;
     using Data.Common;
     using Data.Models;
     using Services.Contracts;
@@ -37,18 +38,18 @@
         {
             [Required]
             [DataType(DataType.Password)]
-            [Display(Name = "Current password")]
+            [Display(Name = ModelConstants.CurrentPasswordDisplayName)]
             public string OldPassword { get; set; }
 
             [Required]
             [StringLength(DataConstants.UserPasswordMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = DataConstants.UserPasswordMinLength)]
             [DataType(DataType.Password)]
-            [Display(Name = "New password")]
+            [Display(Name = ModelConstants.NewPasswordDisplayName)]
             public string NewPassword { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+            [Display(Name = ModelConstants.ConfirmNewPasswordDisplayName)]
+            [Compare(nameof(NewPassword), ErrorMessage = "The new password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
         }
 

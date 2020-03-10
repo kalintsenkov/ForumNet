@@ -2,7 +2,8 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
+
+    using Common;
     using Common.Attributes;
     using Data.Common;
 
@@ -24,8 +25,8 @@
         public int CategoryId { get; set; }
 
         [Required]
-        [Display(Name = "Tags")]
         [ValidateTagIds]
+        [Display(Name = ModelConstants.TagsDisplyName)]
         public IEnumerable<int> TagIds { get; set; }
     }
 }

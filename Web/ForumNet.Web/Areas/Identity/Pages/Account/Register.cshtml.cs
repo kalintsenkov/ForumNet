@@ -15,6 +15,7 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
 
+    using Common;
     using Data.Common;
     using Data.Models;
     using Data.Models.Enums;
@@ -53,33 +54,31 @@
         {
             [Required]
             [StringLength(DataConstants.UserUsernameMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = DataConstants.UserUsernameMinLength)]
-            [Display(Name = "Display name")]
+            [Display(Name = ModelConstants.UsernameDisplayName)]
             public string Username { get; set; }
 
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
             public string Email { get; set; }
 
             [Required]
             [StringLength(DataConstants.UserPasswordMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = DataConstants.UserPasswordMinLength)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = ModelConstants.ConfirmPasswordDisplayName)]
+            [Compare(nameof(Password), ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
             [Required]
             [DataType(DataType.Date)]
-            [Display(Name = "Birthday")]
+            [Display(Name = ModelConstants.BirthDateDisplayName)]
             public DateTime BirthDate { get; set; }
 
             [Required]
             [EnumDataType(typeof(GenderType), ErrorMessage = "Not valid gender.")]
-            [Display(Name = "Gender")]
+            [Display(Name = ModelConstants.GenderDisplayName)]
             public GenderType Gender { get; set; }
         }
 

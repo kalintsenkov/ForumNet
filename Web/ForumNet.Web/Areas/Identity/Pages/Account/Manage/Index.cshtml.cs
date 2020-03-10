@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
+    using Common;
     using Data.Models;
 
     public partial class IndexModel : PageModel
@@ -34,7 +35,7 @@
         public class InputModel
         {
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = ModelConstants.PhoneNumberDisplayName)]
             public string PhoneNumber { get; set; }
         }
 

@@ -2,8 +2,9 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
+
     using Categories;
+    using Common;
     using Common.Attributes;
     using Data.Common;
     using Data.Models.Enums;
@@ -16,16 +17,16 @@
         public string Title { get; set; }
 
         [Required]
-        [Display(Name = "Post Type")]
         [EnumDataType(typeof(PostType))]
+        [Display(Name = ModelConstants.PostTypeDisplayName)]
         public PostType PostType { get; set; }
 
-        [Display(Name = "Image Url")]
         [DataType(DataType.Url)]
+        [Display(Name = ModelConstants.ImageUrlDisplyName)]
         public string ImageUrl { get; set; }
 
         [YouTubeUrl]
-        [Display(Name = "Video Url")]
+        [Display(Name = ModelConstants.VideoUrlDisplyName)]
         [DataType(DataType.Url)]
         public string VideoUrl { get; set; }
 
@@ -39,8 +40,8 @@
         public int CategoryId { get; set; }
 
         [Required]
-        [Display(Name = "Tags")]
         [ValidateTagIds]
+        [Display(Name = ModelConstants.TagsDisplyName)]
         public IEnumerable<int> TagIds { get; set; }
 
         public IEnumerable<CategoriesInfoViewModel> Categories { get; set; }

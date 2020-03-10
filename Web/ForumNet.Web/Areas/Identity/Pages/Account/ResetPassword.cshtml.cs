@@ -10,6 +10,7 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
 
+    using Common;
     using Data.Common;
     using Data.Models;
     using Services.Contracts;
@@ -41,8 +42,8 @@
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = ModelConstants.ConfirmPasswordDisplayName)]
+            [Compare(nameof(Password), ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
             public string Code { get; set; }

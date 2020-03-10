@@ -10,6 +10,7 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
 
+    using Common;
     using Data.Models;
     using ForumNet.Common;
     using Services.Messaging;
@@ -46,7 +47,7 @@
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "New email")]
+            [Display(Name = ModelConstants.NewEmailDisplayName)]
             public string NewEmail { get; set; }
         }
 
