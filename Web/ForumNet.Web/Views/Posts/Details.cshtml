@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="tt-item-description">
-                    <p>@Model.Description</p>
+                    <p>@Html.Raw(Model.Description)</p>
                     @if (Model.Type == PostType.Image)
                     {
                         <p>
