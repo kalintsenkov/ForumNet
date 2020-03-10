@@ -2,8 +2,8 @@
 {
     using System.ComponentModel.DataAnnotations;
     
+    using Common.Attributes;
     using Data.Common;
-    using Services.Common.Attributes;
 
     public class CategoriesCreateInputModel
     {

@@ -11,8 +11,8 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
 
-    using Common;
     using Data.Models;
+    using ForumNet.Common;
     using Services.Messaging;
 
     [AllowAnonymous]

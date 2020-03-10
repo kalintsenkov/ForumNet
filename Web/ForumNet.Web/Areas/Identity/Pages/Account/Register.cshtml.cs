@@ -15,10 +15,10 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
 
-    using Common;
     using Data.Common;
     using Data.Models;
     using Data.Models.Enums;
+    using ForumNet.Common;
     using Services.Contracts;
     using Services.Messaging;
 

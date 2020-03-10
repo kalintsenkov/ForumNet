@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    
     using Categories;
+    using Common.Attributes;
     using Data.Common;
-    using Services.Common.Attributes;
     using Tags;
 
     public class PostsEditViewModel

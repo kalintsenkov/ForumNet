@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ForumNet.Services\ForumNet.Services.csproj" />
+    <ProjectReference Include="..\..\Services\ForumNet.Services\ForumNet.Services.csproj" />
   </ItemGroup>
 
 </Project>

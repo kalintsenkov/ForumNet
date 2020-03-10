@@ -1,11 +1,11 @@
-﻿namespace ForumNet.Services.Common.Attributes
+﻿namespace ForumNet.Web.Common.Attributes
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using Microsoft.Extensions.DependencyInjection;
 
-    using Contracts;
+    using Services.Contracts;
 
     public class ValidateTagIdsAttribute : ValidationAttribute
     {

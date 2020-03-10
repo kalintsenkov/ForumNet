@@ -2,11 +2,11 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    
     using Categories;
+    using Common.Attributes;
     using Data.Common;
     using Data.Models.Enums;
-    using Services.Common.Attributes;
     using Tags;
 
     public class PostsCreateInputModel
