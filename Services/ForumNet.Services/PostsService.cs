@@ -122,22 +122,26 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task LikeAsync(int id)
+        public async Task<int> LikeAsync(int id)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
 
             post.Likes++;
 
             await this.db.SaveChangesAsync();
+
+            return post.Likes;
         }
 
-        public async Task DislikeAsync(int id)
+        public async Task<int> DislikeAsync(int id)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
 
             post.Likes--;
 
             await this.db.SaveChangesAsync();
+
+            return post.Likes;
         }
 
         public async Task AddTagsAsync(int id, IEnumerable<int> tagIds)

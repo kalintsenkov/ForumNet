@@ -58,12 +58,12 @@
                     }
                 </div>
                 <div class="tt-item-info info-bottom">
-                    <button type="button" class="tt-icon-btn" onclick="likePost()">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none" onclick="likePost()">
                         <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
                     </button>
-                    <a class="tt-icon-btn">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none" onclick="dislikePost()">
                         <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
-                    </a>
+                    </button>
                     @if (this.Model.Author.Id == (string)this.ViewData["UserId"] || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                     {
                         <a asp-controller="Posts" asp-action="Edit" asp-route-id="@Model.Id" class="tt-icon-btn">
@@ -213,9 +213,18 @@
         $.ajax({
             type: "POST",
             url: "/Posts/Like/@Model.Id",
-            data: @Model.Likes,
-            success: function (data) {
-                 document.getElementById("post-likes").innerHTML = data;
+            success: function (msg) {
+                document.getElementById("post-likes").innerHTML = msg["likes"]
+            },
+        });
+    }
+
+    function dislikePost() {
+        $.ajax({
+            type: "POST",
+            url: "/Posts/Dislike/@Model.Id",
+            success: function (msg) {
+                document.getElementById("post-likes").innerHTML = msg["likes"]
             },
         });
     }

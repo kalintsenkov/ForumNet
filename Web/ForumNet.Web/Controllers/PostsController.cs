@@ -134,20 +134,18 @@
         [Authorize]
         public async Task<IActionResult> Like(int id)
         {
-            await this.postsService.LikeAsync(id);
+            var likes = await this.postsService.LikeAsync(id);
 
-            // TODO: Change this
-            return this.Json(new { Likes = 10 });
+            return this.Json(new { Likes = likes });
         }
 
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Dislike(int id)
         {
-            await this.postsService.DislikeAsync(id);
+            var likes = await this.postsService.DislikeAsync(id);
 
-            // TODO: Change this
-            return this.Json(new { Likes = 9 });
+            return this.Json(new { Likes = likes });
         }
 
         //// GET: Posts/Delete/5

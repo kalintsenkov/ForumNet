@@ -11,9 +11,9 @@
 
         Task DeleteAsync(int id);
 
-        Task LikeAsync(int id);
+        Task<int> LikeAsync(int id);
 
-        Task DislikeAsync(int id);
+        Task<int> DislikeAsync(int id);
 
         Task<TModel> GetByIdAsync<TModel>(int id);
 

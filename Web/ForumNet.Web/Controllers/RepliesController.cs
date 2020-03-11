@@ -66,20 +66,22 @@
             return this.View(reply);
         }
 
+        [HttpPost]
         [Authorize]
         public async Task<IActionResult> Like(int id)
         {
-            await this.repliesService.LikeAsync(id);
+            var likes = await this.repliesService.LikeAsync(id);
 
-            return this.RedirectToAction("Details", "Posts", new { id });
+            return this.Json(new { Likes = likes});
         }
 
+        [HttpPost]
         [Authorize]
         public async Task<IActionResult> Dislike(int id)
         {
-            await this.repliesService.DislikeAsync(id);
+            var likes = await this.repliesService.DislikeAsync(id);
 
-            return this.RedirectToAction("Details", "Posts", new { id });
+            return this.Json(new { Likes = likes});
         }
     }
 }

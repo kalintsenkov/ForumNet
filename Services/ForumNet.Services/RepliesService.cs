@@ -59,22 +59,26 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task LikeAsync(int id)
+        public async Task<int> LikeAsync(int id)
         {
             var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id);
 
             reply.Likes++;
 
             await this.db.SaveChangesAsync();
+
+            return reply.Likes;
         }
 
-        public async Task DislikeAsync(int id)
+        public async Task<int> DislikeAsync(int id)
         {
             var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id);
 
             reply.Likes--;
 
             await this.db.SaveChangesAsync();
+
+            return reply.Likes;
         }
 
         public async Task<TModel> GetByIdAsync<TModel>(int id)
