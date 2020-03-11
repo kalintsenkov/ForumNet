@@ -76,6 +76,7 @@
             var tags = await this.db.PostsTags
                 .Where(pt => pt.PostId == postId)
                 .Select(pt => pt.Tag)
+                .Where(t => !t.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

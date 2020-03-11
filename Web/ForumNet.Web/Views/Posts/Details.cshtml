@@ -106,11 +106,11 @@
                         </div>
                     </div>
                     @*<div class="tt-item">
-                            <a href="#" class="tt-icon-btn tt-position-bottom">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
-                                <span class="tt-text">32</span>
-                            </a>
-                        </div>*@
+                <a href="#" class="tt-icon-btn tt-position-bottom">
+                    <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
+                    <span class="tt-text">32</span>
+                </a>
+            </div>*@
                 </div>
                 <partial name="~/Views/Replies/_CreatePartial.cshtml" model="new RepliesCreateInputModel { PostId = Model.Id }" />
                 @if (Model.Replies.Any())
@@ -127,7 +127,26 @@
                             </div>
                         }
                     </div>
+                    <hr />
+                    <div class="row-object-inline form-default">
+                        <h6 class="tt-title">Sort replies by:</h6>
+                        <ul class="tt-list-badge tt-size-lg">
+                            <li><a href="#"><span class="tt-badge">Recent</span></a></li>
+                            <li><a href="#"><span class="tt-color02 tt-badge">Most Liked</span></a></li>
+                            <li><a href="#"><span class="tt-badge">Longest</span></a></li>
+                            <li><a href="#"><span class="tt-badge">Shortest</span></a></li>
+                            <li><a href="#"><span class="tt-badge">Accepted Answers</span></a></li>
+                        </ul>
+                        <select class="tt-select form-control">
+                            <option value="Recent">Recent</option>
+                            <option value="Most Liked">Most Liked</option>
+                            <option value="Longest">Longest</option>
+                            <option value="Shortest">Shortest</option>
+                            <option value="Accepted Answer">Accepted Answer</option>
+                        </select>
+                    </div>
                 }
+
             </div>
         </div>
         @foreach (var reply in Model.Replies)

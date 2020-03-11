@@ -179,7 +179,6 @@
         {
             var posts = await this.db.Posts
                 .Where(p => !p.IsPinned && !p.IsDeleted)
-                .OrderByDescending(p => p.CreatedOn)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -200,7 +199,6 @@
         {
             var posts = await this.db.Posts
                 .Where(p => p.AuthorId == userId && !p.IsDeleted)
-                .OrderByDescending(p => p.CreatedOn)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -211,7 +209,6 @@
         {
             var posts = await this.db.Posts
                 .Where(p => p.CategoryId == categoryId && !p.IsDeleted)
-                .OrderByDescending(p => p.CreatedOn)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -221,7 +218,6 @@
         public async Task<IEnumerable<TModel>> GetAllWithDeletedAsync<TModel>()
         {
             var posts = await this.db.Posts
-                .OrderByDescending(p => p.CreatedOn)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
