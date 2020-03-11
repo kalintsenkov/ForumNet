@@ -1,11 +1,11 @@
 ﻿namespace ForumNet.Web.Controllers
 {
     using System.Threading.Tasks;
-    
+
     using AutoMapper;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    
+
     using Services.Contracts;
     using ViewModels.Categories;
     using ViewModels.Posts;
@@ -45,7 +45,7 @@
             var viewModel = new PostsCreateInputModel
             {
                 Categories = categories,
-                Tags = tags 
+                Tags = tags
             };
 
             return this.View(viewModel);
@@ -130,20 +130,24 @@
             return this.RedirectToAction(nameof(Details), new { id = input.Id });
         }
 
+        [HttpPost]
         [Authorize]
         public async Task<IActionResult> Like(int id)
         {
             await this.postsService.LikeAsync(id);
 
-            return this.RedirectToAction(nameof(Details), new { id });
+            // TODO: Change this
+            return this.Json(new { Likes = 10 });
         }
 
+        [HttpPost]
         [Authorize]
         public async Task<IActionResult> Dislike(int id)
         {
             await this.postsService.DislikeAsync(id);
 
-            return this.RedirectToAction(nameof(Details), new { id });
+            // TODO: Change this
+            return this.Json(new { Likes = 9 });
         }
 
         //// GET: Posts/Delete/5
