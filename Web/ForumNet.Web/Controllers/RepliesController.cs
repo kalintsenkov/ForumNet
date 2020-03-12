@@ -35,9 +35,15 @@
         }
 
         [Authorize]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            return this.View();
+            var reply = await this.repliesService.GetByIdAsync<RepliesEditInputModel>(id);
+            if (reply == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(reply);
         }
 
         [HttpPost]

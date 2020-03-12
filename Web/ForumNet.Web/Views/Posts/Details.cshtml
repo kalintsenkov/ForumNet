@@ -64,9 +64,9 @@
                     <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                         <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
                     </a>
-                    <a asp-fragment="reply" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                    <button style="padding: 0; border:none; background:none; outline:none" class="tt-icon-btn tt-hover-02 tt-small-indent" onclick="animateButton()">
                         <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -195,10 +195,18 @@
             <h4 class="tt-title-separator"><span>You’ve reached the end of replies</span></h4>
         </div>
     }
-    <partial name="~/Views/Replies/_CreatePartial.cshtml" model="new RepliesCreateInputModel { PostId = Model.Id }"/>
+    <div id="reply-box">
+        <partial name="~/Views/Replies/_CreatePartial.cshtml" model="new RepliesCreateInputModel { PostId = Model.Id }" />
+    </div>
 </div>
 
 <script>
+    function animateButton() {
+        $('html, body').animate({
+            scrollTop: $("#reply-box").offset().top
+        }, 2000);
+    }
+
     function likePost() {
         $.ajax({
             type: "POST",

@@ -43,6 +43,7 @@
 
             #region Replies
 
+            this.CreateMap<Reply, RepliesEditInputModel>();
             this.CreateMap<Reply, RepliesDetailsViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
