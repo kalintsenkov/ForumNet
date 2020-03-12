@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="tt-item-description">
-                    @Model.Description
+                    <p>@Html.Raw(Model.Description)</p>
                 </div>
                 <div class="tt-item-info info-bottom">
                     <a asp-controller="Replies" asp-action="Like" asp-route-id="@Model.Id" class="tt-icon-btn">

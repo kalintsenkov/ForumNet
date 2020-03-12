@@ -1,4 +1,5 @@
-﻿@using ForumNet.Data.Models.Enums
+﻿@using ForumNet.Data.Common
+@using ForumNet.Data.Models.Enums
 @model ForumNet.Web.ViewModels.Posts.PostsCreateInputModel
 @{
     ViewData["Title"] = "Create Post";
@@ -16,7 +17,7 @@
                 <label asp-for="Title">Post Title</label>
                 <div class="tt-value-wrapper">
                     <input asp-for="Title" type="text" class="form-control" id="inputTopicTitle" placeholder="Subject of your post">
-                    <span class="tt-value-input">100</span>
+                    <span class="tt-value-input">@DataConstants.PostTitleMaxLength</span>
                     <span asp-validation-for="Title"></span>
                 </div>
                 <div class="tt-note">Describe your post well, while keeping the subject as short as possible.</div>
