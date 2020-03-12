@@ -1,5 +1,4 @@
 ﻿@using ForumNet.Common
-@using ForumNet.Data.Models.Enums
 @using ForumNet.Web.ViewModels.Posts
 @using ForumNet.Web.ViewModels.Replies
 @model PostsDetailsViewModel
@@ -44,18 +43,6 @@
                 </div>
                 <div class="tt-item-description">
                     <p>@Html.Raw(Model.Description)</p>
-                    @if (Model.Type == PostType.Image)
-                    {
-                        <p>
-                            <img class="responsive-image" src="@Model.ImageUrl" alt="post-image" width="600">
-                        </p>
-                    }
-                    else if (Model.Type == PostType.Video)
-                    {
-                        <div class="video-container">
-                            <iframe title="YouTube video player" src="@Model.VideoUrl" allowfullscreen></iframe>
-                        </div>
-                    }
                 </div>
                 <div class="tt-item-info info-bottom">
                     <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="likePost()">
@@ -112,7 +99,6 @@
                             </a>
                         </div>*@
                 </div>
-                <partial name="~/Views/Replies/_CreatePartial.cshtml" model="new RepliesCreateInputModel { PostId = Model.Id }" />
                 @if (Model.Replies.Any())
                 {
                     <hr />
@@ -167,7 +153,7 @@
                         </div>
                     </div>
                     <div class="tt-item-description">
-                        @reply.Description
+                        <p>@Html.Raw(reply.Description)</p>
                     </div>
                     <div class="tt-item-info info-bottom">
                         <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="likeReply(@reply.Id)">
@@ -176,7 +162,7 @@
                         <span class="tt-text">&nbsp;</span>
                         <span id="reply-likes-@reply.Id" class="tt-text">@reply.Likes</span>
                         <span class="tt-text">&nbsp;</span>
-                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none"  onclick="dislikeReply(@reply.Id)">
+                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="dislikeReply(@reply.Id)">
                             <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
                         </button>
                         <a asp-controller="Replies" asp-action="Details" asp-route-id="@reply.Id" class="tt-icon-btn">
@@ -209,6 +195,7 @@
             <h4 class="tt-title-separator"><span>You’ve reached the end of replies</span></h4>
         </div>
     }
+    <partial name="~/Views/Replies/_CreatePartial.cshtml" model="new RepliesCreateInputModel { PostId = Model.Id }"/>
 </div>
 
 <script>

@@ -69,9 +69,7 @@
                 input.PostType,
                 input.Description,
                 authorId,
-                input.CategoryId,
-                input.ImageUrl,
-                input.VideoUrl);
+                input.CategoryId);
 
             await this.postsService.AddTagsAsync(postId, input.TagIds);
 

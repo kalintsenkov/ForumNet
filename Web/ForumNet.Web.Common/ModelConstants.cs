@@ -5,10 +5,6 @@
         #region DisplayNames
         public const string PostTypeDisplayName = "Post Type";
 
-        public const string ImageUrlDisplyName = "Image Url";
-
-        public const string VideoUrlDisplyName = "Video Url";
-
         public const string TagsDisplyName = "Tags";
 
         public const string RememberMeDisplayName = "Remember me";

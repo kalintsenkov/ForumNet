@@ -8,7 +8,6 @@
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
 
-    using Common.Extensions;
     using Contracts;
     using Data;
     using Data.Models;
@@ -27,26 +26,12 @@
             this.dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task<int> CreateAsync(
-            string title,
-            PostType type,
-            string description,
-            string authorId,
-            int categoryId,
-            string imageUrl = null,
-            string videoUrl = null)
+        public async Task<int> CreateAsync(string title, PostType type, string description, string authorId, int categoryId)
         {
-            if (videoUrl != null && type == PostType.Video)
-            {
-                videoUrl = videoUrl.UrlToYouTubeEmbed();
-            }
-
             var post = new Post
             {
                 Title = title,
                 Type = type,
-                ImageUrl = imageUrl,
-                VideoUrl = videoUrl,
                 Description = description,
                 CreatedOn = this.dateTimeProvider.Now(),
                 AuthorId = authorId,
@@ -59,14 +44,7 @@
             return post.Id;
         }
 
-        public async Task EditAsync(
-            int id,
-            string title,
-            string description,
-            int categoryId,
-            IEnumerable<int> tagIds,
-            string imageUrl = null,
-            string videoUrl = null)
+        public async Task EditAsync(int id, string title, string description, int categoryId, IEnumerable<int> tagIds)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
             
@@ -74,8 +52,6 @@
 
             post.Title = title;
             post.Description = description;
-            post.ImageUrl = imageUrl;
-            post.VideoUrl = videoUrl;
             post.CategoryId = categoryId;
             post.ModifiedOn = this.dateTimeProvider.Now();
 

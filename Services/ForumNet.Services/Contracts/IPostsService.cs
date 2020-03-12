@@ -7,23 +7,9 @@
 
     public interface IPostsService
     {
-        Task<int> CreateAsync(
-            string title,
-            PostType type,
-            string description,
-            string authorId,
-            int categoryId,
-            string imageUrl = null,
-            string videoUrl = null);
+        Task<int> CreateAsync(string title, PostType type, string description, string authorId, int categoryId);
 
-        Task EditAsync(
-            int id,
-            string title,
-            string description,
-            int categoryId,
-            IEnumerable<int> tagIds,
-            string imageUrl = null,
-            string videoUrl = null);
+        Task EditAsync(int id, string title, string description, int categoryId, IEnumerable<int> tagIds);
 
         Task DeleteAsync(int id);
 

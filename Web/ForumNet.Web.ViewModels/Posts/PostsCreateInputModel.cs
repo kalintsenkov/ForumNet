@@ -21,15 +21,6 @@
         [Display(Name = ModelConstants.PostTypeDisplayName)]
         public PostType PostType { get; set; }
 
-        [DataType(DataType.Url)]
-        [Display(Name = ModelConstants.ImageUrlDisplyName)]
-        public string ImageUrl { get; set; }
-
-        [YouTubeUrl]
-        [Display(Name = ModelConstants.VideoUrlDisplyName)]
-        [DataType(DataType.Url)]
-        public string VideoUrl { get; set; }
-
         [Required]
         [MaxLength(DataConstants.PostDescriptionMaxLength)]
         [DataType(DataType.MultilineText)]
