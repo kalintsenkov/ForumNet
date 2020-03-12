@@ -1,9 +1,10 @@
 ﻿namespace ForumNet.Web
 {
     using System.Globalization;
-    
+    using System.Linq;
+
     using AutoMapper;
-    
+
     using Data.Models;
     using ViewModels.Categories;
     using ViewModels.Posts;
@@ -26,7 +27,10 @@
 
             this.CreateMap<PostsEditInputModel, PostsEditViewModel>();
             this.CreateMap<Post, PostsListingViewModel>();
-            this.CreateMap<Post, PostsEditViewModel>();
+            this.CreateMap<Post, PostsEditViewModel>()
+                .ForMember(
+                    dest => dest.TagIds,
+                    dest => dest.MapFrom(src => src.Tags.Select(t => t.TagId)));
             this.CreateMap<Post, PostsDetailsViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
