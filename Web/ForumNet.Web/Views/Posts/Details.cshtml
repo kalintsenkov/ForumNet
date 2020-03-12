@@ -58,10 +58,10 @@
                     }
                 </div>
                 <div class="tt-item-info info-bottom">
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none" onclick="likePost()">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="likePost()">
                         <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
                     </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none" onclick="dislikePost()">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="dislikePost()">
                         <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
                     </button>
                     @if (this.Model.Author.Id == (string)this.ViewData["UserId"] || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
@@ -170,12 +170,15 @@
                         @reply.Description
                     </div>
                     <div class="tt-item-info info-bottom">
-                        <a asp-controller="Replies" asp-action="Like" asp-route-id="@reply.Id" class="tt-icon-btn">
+                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="likeReply(@reply.Id)">
                             <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
-                        </a>
-                        <a asp-controller="Replies" asp-action="Dislike" asp-route-id="@reply.Id" class="tt-icon-btn">
+                        </button>
+                        <span class="tt-text">&nbsp;</span>
+                        <span id="reply-likes-@reply.Id" class="tt-text">@reply.Likes</span>
+                        <span class="tt-text">&nbsp;</span>
+                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none"  onclick="dislikeReply(@reply.Id)">
                             <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
-                        </a>
+                        </button>
                         <a asp-controller="Replies" asp-action="Details" asp-route-id="@reply.Id" class="tt-icon-btn">
                             <i class="tt-icon"><svg><use xlink:href="#icon-view"></use></svg></i>
                         </a>
@@ -225,6 +228,26 @@
             url: "/Posts/Dislike/@Model.Id",
             success: function (msg) {
                 document.getElementById("post-likes").innerHTML = msg["likes"]
+            },
+        });
+    }
+
+    function likeReply(replyId) {
+        $.ajax({
+            type: "POST",
+            url: "/Replies/Like/" + replyId,
+            success: function (msg) {
+                document.getElementById("reply-likes-" + replyId).innerHTML = msg["likes"]
+            },
+        });
+    }
+
+    function dislikeReply(replyId) {
+        $.ajax({
+            type: "POST",
+            url: "/Replies/Dislike/" + replyId,
+            success: function (msg) {
+                document.getElementById("reply-likes-" + replyId).innerHTML = msg["likes"]
             },
         });
     }
