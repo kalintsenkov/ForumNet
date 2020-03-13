@@ -77,7 +77,7 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string sort)
         {
             var post = await this.postsService.GetByIdAsync<PostsDetailsViewModel>(id);
             if (post == null)
@@ -89,7 +89,7 @@
 
             this.ViewData["UserId"] = await this.usersService.GetIdAsync(this.User);
             post.Tags = await this.tagsService.GetAllByPostIdAsync<TagsInfoViewModel>(id);
-            post.Replies = await this.repliesService.GetAllByPostIdAsync<RepliesDetailsViewModel>(id);
+            post.Replies = await this.repliesService.GetAllByPostIdAsync<RepliesDetailsViewModel>(id, sort);
 
             return this.View(post);
         }

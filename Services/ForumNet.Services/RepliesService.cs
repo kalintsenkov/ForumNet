@@ -119,6 +119,27 @@
             return replies;
         }
 
+        public async Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId, string sort)
+        {
+            var queryable = this.db.Replies
+                .Where(r => r.PostId == postId && !r.IsDeleted);
+
+            queryable = sort switch
+            {
+                "recent" => queryable.OrderByDescending(r => r.CreatedOn),
+                "most liked" => queryable.OrderByDescending(r => r.Likes),
+                "longest" => queryable.OrderByDescending(r => r.Description.Length),
+                "shortest" => queryable.OrderBy(r => r.Description.Length),
+                _ => queryable.OrderByDescending(r => r.CreatedOn)
+            };
+
+            var replies = await queryable
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return replies;
+        }
+
         public async Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId)
         {
             var replies = await this.db.Replies
