@@ -4,6 +4,42 @@
 }
 
 <div class="container">
+    <div class="form-control col-md-auto">
+        <h4 class="tt-title">Sort posts by:</h4>
+        <ul class="tt-list-badge tt-size-lg">
+            @{
+                this.Context.Request.Query.TryGetValue("sort", out var value);
+                if (value == "most liked")
+                {
+                    <li><a><span class="tt-badge">Recent</span></a></li>
+                    <li><a><span class="tt-color01 tt-badge">Most Liked</span></a></li>
+                    <li><a><span class="tt-badge">Longest</span></a></li>
+                    <li><a><span class="tt-badge">Shortest</span></a></li>
+                }
+                else if (value == "longest")
+                {
+                    <li><a><span class="tt-badge">Recent</span></a></li>
+                    <li><a><span class="tt-badge">Most Liked</span></a></li>
+                    <li><a><span class="tt-color01 tt-badge">Longest</span></a></li>
+                    <li><a><span class="tt-badge">Shortest</span></a></li>
+                }
+                else if (value == "shortest")
+                {
+                    <li><a><span class="tt-badge">Recent</span></a></li>
+                    <li><a><span class="tt-badge">Most Liked</span></a></li>
+                    <li><a><span class="tt-badge">Longest</span></a></li>
+                    <li><a><span class="tt-color01 tt-badge">Shortest</span></a></li>
+                }
+                else
+                {
+                    <li><a><span class="tt-color01 tt-badge">Recent</span></a></li>
+                    <li><a><span class="tt-badge">Most Liked</span></a></li>
+                    <li><a><span class="tt-badge">Most Replied</span></a></li>
+                    <li><a><span class="tt-badge">Most Viewed</span></a></li>
+                }
+            }
+        </ul>
+    </div>
     <div class="tt-topic-list">
         <div class="tt-list-header">
             <div class="tt-col-topic">Topic</div>
@@ -13,10 +49,10 @@
             <div class="tt-col-value hide-mobile">Views</div>
             <div class="tt-col-value">Activity</div>
         </div>
-        @*Think how to resolve this*@
+        @*Think how to resolve this
         <div class="tt-topic-alert tt-alert-default" role="alert">
             <a asp-controller="Home" asp-action="Index" target="_blank">4 new posts</a> are added recently, click here to load them.
-        </div>
+        </div>*@
 
         @if (!this.User.Identity.IsAuthenticated)
         {
