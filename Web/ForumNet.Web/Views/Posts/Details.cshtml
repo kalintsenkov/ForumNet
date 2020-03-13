@@ -2,7 +2,6 @@
 @using ForumNet.Web.ViewModels.Posts
 @using ForumNet.Web.ViewModels.Replies
 @model PostsDetailsViewModel
-
 @{
     ViewData["Title"] = "Details";
 }
@@ -149,11 +148,11 @@
                                 }
                             }
                         </ul>
-                        <select class="tt-select form-control">
-                            <option value="recent">Recent</option>
-                            <option value="most liked">Most Liked</option>
-                            <option value="longest">Longest</option>
-                            <option value="shortest">Shortest</option>
+                        <select class="tt-select form-control" onchange="location = this.value">
+                            <option value="/Posts/Details/@Model.Id?sort=recent">Recent</option>
+                            <option value="/Posts/Details/@Model.Id?sort=most%20liked">Most Liked</option>
+                            <option value="/Posts/Details/@Model.Id?sort=longest">Longest</option>
+                            <option value="/Posts/Details/@Model.Id?sort=shortest">Shortest</option>
                         </select>
                     </div>
                 }
