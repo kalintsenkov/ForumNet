@@ -11,31 +11,31 @@
                 this.Context.Request.Query.TryGetValue("sort", out var value);
                 if (value == "most liked")
                 {
-                    <li><a><span class="tt-badge">Recent</span></a></li>
-                    <li><a><span class="tt-color01 tt-badge">Most Liked</span></a></li>
-                    <li><a><span class="tt-badge">Longest</span></a></li>
-                    <li><a><span class="tt-badge">Shortest</span></a></li>
+                    <li><a asp-controller="Home" asp-action="Index" asp-route-sort="recent"><span class="tt-badge">Recent</span></a></li>
+                    <li><a asp-controller="Home" asp-action="Index" asp-route-sort="most liked"><span class="tt-color01 tt-badge">Most Liked</span></a></li>
+                    <li><a asp-controller="Home" asp-action="Index" asp-route-sort="most replied"><span class="tt-badge">Most Replied</span></a></li>
+                    <li><a asp-controller="Home" asp-action="Index" asp-route-sort="most viewed"><span class="tt-badge">Most Viewed</span></a></li>
                 }
-                else if (value == "longest")
+                else if (value == "most replied")
                 {
-                    <li><a><span class="tt-badge">Recent</span></a></li>
-                    <li><a><span class="tt-badge">Most Liked</span></a></li>
-                    <li><a><span class="tt-color01 tt-badge">Longest</span></a></li>
-                    <li><a><span class="tt-badge">Shortest</span></a></li>
+                    <li><a asp-controller="Home" asp-action="Index" asp-route-sort="recent"><span class="tt-badge">Recent</span></a></li>
+                    <li><a asp-controller="Home" asp-action="Index" asp-route-sort="most liked"><span class="tt-badge">Most Liked</span></a></li>
+                    <li><a asp-controller="Home" asp-action="Index" asp-route-sort="most replied"><span class="tt-color01 tt-badge">Most Replied</span></a></li>
+                    <li><a asp-controller="Home" asp-action="Index" asp-route-sort="most viewed"><span class="tt-badge">Most Viewed</span></a></li>
                 }
-                else if (value == "shortest")
+                else if (value == "most viewed")
                 {
-                    <li><a><span class="tt-badge">Recent</span></a></li>
-                    <li><a><span class="tt-badge">Most Liked</span></a></li>
-                    <li><a><span class="tt-badge">Longest</span></a></li>
-                    <li><a><span class="tt-color01 tt-badge">Shortest</span></a></li>
+                    <li><a asp-controller="Home" asp-action="Index" asp-route-sort="recent"><span class="tt-badge">Recent</span></a></li>
+                    <li><a asp-controller="Home" asp-action="Index" asp-route-sort="most liked"><span class="tt-badge">Most Liked</span></a></li>
+                    <li><a asp-controller="Home" asp-action="Index" asp-route-sort="most replied"><span class="tt-badge">Most Replied</span></a></li>
+                    <li><a asp-controller="Home" asp-action="Index" asp-route-sort="most viewed"><span class="tt-color01 tt-badge">Most Viewed</span></a></li>
                 }
                 else
                 {
-                    <li><a><span class="tt-color01 tt-badge">Recent</span></a></li>
-                    <li><a><span class="tt-badge">Most Liked</span></a></li>
-                    <li><a><span class="tt-badge">Most Replied</span></a></li>
-                    <li><a><span class="tt-badge">Most Viewed</span></a></li>
+                    <li><a asp-controller="Home" asp-action="Index" asp-route-sort="recent"><span class="tt-color01 tt-badge">Recent</span></a></li>
+                    <li><a asp-controller="Home" asp-action="Index" asp-route-sort="most liked"><span class="tt-badge">Most Liked</span></a></li>
+                    <li><a asp-controller="Home" asp-action="Index" asp-route-sort="most replied"><span class="tt-badge">Most Replied</span></a></li>
+                    <li><a asp-controller="Home" asp-action="Index" asp-route-sort="most viewed"><span class="tt-badge">Most Viewed</span></a></li>
                 }
             }
         </ul>

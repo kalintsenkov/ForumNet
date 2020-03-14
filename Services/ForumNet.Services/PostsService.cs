@@ -165,6 +165,27 @@
             return posts;
         }
 
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string sort)
+        {
+            var queryable = this.db.Posts
+                .Where(p => !p.IsPinned && !p.IsDeleted);
+
+            queryable = sort switch
+            {
+                "recent" => queryable.OrderByDescending(r => r.CreatedOn),
+                "most liked" => queryable.OrderByDescending(r => r.Likes),
+                "most replied" => queryable.OrderByDescending(r => r.Replies.Count),
+                "most viewed" => queryable.OrderByDescending(r => r.Views),
+                _ => queryable.OrderByDescending(r => r.CreatedOn)
+            };
+
+            var posts = await queryable
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return posts;
+        }
+
         public async Task<IEnumerable<TModel>> GetAllPinnedAsync<TModel>()
         {
             var posts = await this.db.Posts

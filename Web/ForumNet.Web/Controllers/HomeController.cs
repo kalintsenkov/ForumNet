@@ -22,11 +22,11 @@
             this.tagsService = tagsService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sort)
         {
             var viewModel = new HomeViewModel
             {
-                Posts = await this.postsService.GetAllAsync<PostsListingViewModel>()
+                Posts = await this.postsService.GetAllAsync<PostsListingViewModel>(sort)
             };
 
             foreach (var post in viewModel.Posts)

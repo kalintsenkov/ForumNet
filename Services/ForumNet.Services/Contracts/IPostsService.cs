@@ -31,6 +31,8 @@
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>();
 
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>(string sort);
+
         Task<IEnumerable<TModel>> GetAllPinnedAsync<TModel>();
 
         Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId);
