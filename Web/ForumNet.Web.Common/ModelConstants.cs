@@ -2,10 +2,9 @@
 {
     public class ModelConstants
     {
-        #region DisplayNames
         public const string PostTypeDisplayName = "Post Type";
 
-        public const string TagsDisplyName = "Tags";
+        public const string TagsDisplayName = "Tags";
 
         public const string RememberMeDisplayName = "Remember me";
 
@@ -26,6 +25,5 @@
         public const string BirthDateDisplayName = "Birthday";
 
         public const string GenderDisplayName = "Gender";
-        #endregion
     }
 }

@@ -28,7 +28,7 @@
 
         [Required]
         [ValidateTagIds]
-        [Display(Name = ModelConstants.TagsDisplyName)]
+        [Display(Name = ModelConstants.TagsDisplayName)]
         public IEnumerable<int> TagIds { get; set; }
 
         public IEnumerable<TagsInfoViewModel> Tags { get; set; }
