@@ -47,7 +47,8 @@ namespace ForumNet.Web
 
             services.AddSingleton(this.configuration);
 
-            services.AddTransient<IEmailSender>(s => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
+            services.AddTransient<IEmailSender>(
+                serviceProvider => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services.AddTransient<IPostReportsService, PostReportsService>();
@@ -63,7 +64,7 @@ namespace ForumNet.Web
             if (env.IsDevelopment())
             {
                 using var serviceScope = app.ApplicationServices.CreateScope();
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ForumDbContext>();
+                using var dbContext = serviceScope.ServiceProvider.GetRequiredService<ForumDbContext>();
                 dbContext.Database.Migrate();
 
                 app.UseDeveloperExceptionPage();
@@ -90,7 +91,7 @@ namespace ForumNet.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Posts}/{action=All}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "areaRoute",

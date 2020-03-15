@@ -1,10 +1,8 @@
-﻿namespace ForumNet.Web.ViewModels.Home
+﻿namespace ForumNet.Web.ViewModels.Posts
 {
     using System.Collections.Generic;
 
-    using Posts;
-
-    public class HomeViewModel
+    public class PostsAllViewModel
     {
         public IEnumerable<PostsListingViewModel> Posts { get; set; }
     }

@@ -12,6 +12,7 @@
     using ViewModels.Replies;
     using ViewModels.Tags;
 
+    [Authorize]
     public class PostsController : Controller
     {
         private readonly IMapper mapper;
@@ -37,7 +38,22 @@
             this.categoriesService = categoriesService;
         }
 
-        [Authorize]
+        [AllowAnonymous]
+        public async Task<IActionResult> All(int id, string sort)
+        {
+            var viewModel = new PostsAllViewModel
+            {
+                Posts = await this.postsService.GetAllAsync<PostsListingViewModel>(sort)
+            };
+
+            foreach (var post in viewModel.Posts)
+            {
+                post.Tags = await this.tagsService.GetAllByPostIdAsync<TagsInfoViewModel>(post.Id);
+            }
+
+            return this.View(viewModel);
+        }
+
         public async Task<IActionResult> Create()
         {
             var categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>();
@@ -52,7 +68,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Create(PostsCreateInputModel input)
         {
             if (!this.ModelState.IsValid)
@@ -76,7 +91,6 @@
             return this.RedirectToAction(nameof(Details), new { id = postId });
         }
 
-        [Authorize]
         public async Task<IActionResult> Details(int id, string sort)
         {
             var post = await this.postsService.GetByIdAsync<PostsDetailsViewModel>(id);
@@ -94,7 +108,6 @@
             return this.View(post);
         }
 
-        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             var post = await this.postsService.GetByIdAsync<PostsEditViewModel>(id);
@@ -110,7 +123,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Edit(PostsEditInputModel input)
         {
             if (!this.ModelState.IsValid)
@@ -129,7 +141,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Like(int id)
         {
             var likes = await this.postsService.LikeAsync(id);
@@ -138,7 +149,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Dislike(int id)
         {
             var likes = await this.postsService.DislikeAsync(id);
