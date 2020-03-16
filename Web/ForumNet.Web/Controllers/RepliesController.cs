@@ -8,6 +8,7 @@
     using Services.Contracts;
     using ViewModels.Replies;
 
+    [Authorize]
     public class RepliesController : Controller
     {
         private readonly IRepliesService repliesService;
@@ -20,7 +21,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Create(RepliesCreateInputModel input)
         {
             if (!this.ModelState.IsValid)
@@ -34,7 +34,6 @@
             return this.RedirectToAction("Details", "Posts", new { id = input.PostId });
         }
 
-        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             var reply = await this.repliesService.GetByIdAsync<RepliesEditInputModel>(id);
@@ -47,7 +46,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Edit(RepliesEditInputModel input)
         {
             if (!this.ModelState.IsValid)
@@ -60,7 +58,6 @@
             return this.RedirectToAction(nameof(Details), new { id = input.Id });
         }
 
-        [Authorize]
         public async Task<IActionResult> Details(int id)
         {
             var reply = await this.repliesService.GetByIdAsync<RepliesDetailsViewModel>(id);
@@ -73,7 +70,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Like(int id)
         {
             var likes = await this.repliesService.LikeAsync(id);
@@ -82,7 +78,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Dislike(int id)
         {
             var likes = await this.repliesService.DislikeAsync(id);

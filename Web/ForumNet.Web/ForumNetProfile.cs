@@ -26,6 +26,7 @@
             #region Posts
 
             this.CreateMap<PostsEditInputModel, PostsEditViewModel>();
+            this.CreateMap<Post, PostsDeleteDetailsViewModel>();
             this.CreateMap<Post, PostsListingViewModel>();
             this.CreateMap<Post, PostsEditViewModel>()
                 .ForMember(

@@ -116,6 +116,12 @@
                 return this.NotFound();
             }
 
+            var currentUserId = await this.usersService.GetIdAsync(this.User);
+            if (post.AuthorId != currentUserId)
+            {
+                return this.BadRequest();
+            }
+
             post.Categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>();
             post.Tags = await this.tagsService.GetAllAsync<TagsInfoViewModel>();
 
@@ -133,6 +139,12 @@
                 viewModel.Tags = await this.tagsService.GetAllAsync<TagsInfoViewModel>();
 
                 return this.View(viewModel);
+            }
+
+            var currentUserId = await this.usersService.GetIdAsync(this.User);
+            if (input.AuthorId != currentUserId)
+            {
+                return this.BadRequest();
             }
 
             await this.postsService.EditAsync(input.Id, input.Title, input.Description, input.CategoryId, input.TagIds);
@@ -171,10 +183,16 @@
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            var isExisting = await this.postsService.IsExisting(id);
-            if (!isExisting)
+            var post = await this.postsService.GetByIdAsync<PostsDeleteDetailsViewModel>(id);
+            if (post == null)
             {
                 return this.NotFound();
+            }
+            
+            var currentUserId = await this.usersService.GetIdAsync(this.User);
+            if (post.AuthorId != currentUserId)
+            {
+                return this.BadRequest();
             }
 
             await this.postsService.DeleteAsync(id);

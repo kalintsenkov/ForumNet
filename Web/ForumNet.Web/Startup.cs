@@ -95,7 +95,7 @@ namespace ForumNet.Web
 
                 endpoints.MapControllerRoute(
                     name: "areaRoute",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area:exists}/{controller=Posts}/{action=All}/{id?}");
 
                 endpoints.MapRazorPages();
             });

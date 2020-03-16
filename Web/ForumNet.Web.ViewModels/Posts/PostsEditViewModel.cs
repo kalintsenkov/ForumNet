@@ -26,6 +26,8 @@
         [ValidateCategoryId]
         public int CategoryId { get; set; }
 
+        public string AuthorId { get; set; }
+
         [Required]
         [ValidateTagIds]
         [Display(Name = ModelConstants.TagsDisplayName)]
