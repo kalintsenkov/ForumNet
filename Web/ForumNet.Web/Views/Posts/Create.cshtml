@@ -71,8 +71,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label asp-for="CategoryId">Category</label>
-                            <select asp-for="CategoryId" class="form-control">
-                                <option hidden>Please select...</option>
+                            <select asp-for="CategoryId" id="input-category">
                                 @foreach (var category in Model.Categories)
                                 {
                                     <option value="@category.Id">@category.Name</option>
@@ -84,7 +83,7 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label asp-for="TagIds">Tags</label>
-                            <select asp-for="TagIds" class="form-control">
+                            <select asp-for="TagIds" id="input-tags">
                                 @foreach (var tag in Model.Tags)
                                 {
                                     <option value="@tag.Id">@tag.Name</option>
@@ -105,6 +104,20 @@
 </div>
 
 <script>
+    var $select = $('#input-category').selectize({
+        create: false,
+        sortField: 'text',
+        placeholder: 'Please select...'
+    });
+    $select.each(function() {
+        $(this)[0].selectize.clear(true);
+    });
+    $('#input-tags').selectize({
+        plugins: ['remove_button', 'restore_on_backspace'],
+        delimiter: ',',
+        persist: false,
+        create: false
+    });
     tinymce.init({
         selector: '#post-create',
         height: 400,

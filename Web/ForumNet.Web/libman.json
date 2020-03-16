@@ -74,6 +74,18 @@
         "plugins/emoticons/index.min.js",
         "plugins/emoticons/js/emojis.min.js"
       ]
+    },
+    {
+      "library": "selectize.js@0.12.12",
+      "destination": "wwwroot/lib/selectize/",
+      "files": [
+        "dist/js/standalone/selectize.js",
+        "dist/js/standalone/selectize.min.js",
+        "dist/css/selectize.css",
+        "dist/css/selectize.min.css",
+        "src/plugins/remove_button/plugin.min.js",
+        "src/plugins/restore_on_backspace/plugin.min.js"
+      ]
     }
   ]
 }
