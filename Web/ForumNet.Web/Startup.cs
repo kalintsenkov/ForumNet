@@ -11,6 +11,7 @@ namespace ForumNet.Web
 
     using Data;
     using Data.Models;
+    using Data.Seeding;
     using Services;
     using Services.Contracts;
     using Services.Messaging;
@@ -61,12 +62,13 @@ namespace ForumNet.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            using var serviceScope = app.ApplicationServices.CreateScope();
+            using var dbContext = serviceScope.ServiceProvider.GetRequiredService<ForumDbContext>();
+            dbContext.Database.Migrate();
+            new ForumDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+
             if (env.IsDevelopment())
             {
-                using var serviceScope = app.ApplicationServices.CreateScope();
-                using var dbContext = serviceScope.ServiceProvider.GetRequiredService<ForumDbContext>();
-                dbContext.Database.Migrate();
-
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
@@ -78,10 +80,10 @@ namespace ForumNet.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
 
             app.UseRouting();
 
+            app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -90,12 +92,12 @@ namespace ForumNet.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Posts}/{action=All}/{id?}");
+                    name: "areaRoute",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
-                    name: "areaRoute",
-                    pattern: "{area:exists}/{controller=Posts}/{action=All}/{id?}");
+                    name: "default",
+                    pattern: "{controller=Posts}/{action=All}/{id?}");
 
                 endpoints.MapRazorPages();
             });

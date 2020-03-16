@@ -9,7 +9,7 @@
 </h1>
 <div class="row">
     <div class="col-md-4">
-        <form class="form-default" asp-action="Edit">
+        <form class="form-default" asp-area="Administration" asp-controller="Categories" asp-action="Edit">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -26,7 +26,7 @@
 </div>
 
 <div>
-    <a asp-controller="Categories" asp-action="All" class="btn btn-primary">Back</a>
+    <a asp-area="Administration" asp-controller="Categories" asp-action="All" class="btn btn-primary">Back</a>
 </div>
 
 @section Scripts {
