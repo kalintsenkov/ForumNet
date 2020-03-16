@@ -143,6 +143,12 @@
         [HttpPost]
         public async Task<IActionResult> Like(int id)
         {
+            var isExisting = await this.postsService.IsExisting(id);
+            if (!isExisting)
+            {
+                return this.NotFound();
+            }
+
             var likes = await this.postsService.LikeAsync(id);
 
             return this.Json(new { Likes = likes });
@@ -151,13 +157,26 @@
         [HttpPost]
         public async Task<IActionResult> Dislike(int id)
         {
+            var isExisting = await this.postsService.IsExisting(id);
+            if (!isExisting)
+            {
+                return this.NotFound();
+            }
+
             var likes = await this.postsService.DislikeAsync(id);
 
             return this.Json(new { Likes = likes });
         }
 
+        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
+            var isExisting = await this.postsService.IsExisting(id);
+            if (!isExisting)
+            {
+                return this.NotFound();
+            }
+
             await this.postsService.DeleteAsync(id);
 
             return this.RedirectToAction(nameof(All));

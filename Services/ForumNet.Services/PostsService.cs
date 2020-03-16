@@ -47,7 +47,7 @@
         public async Task EditAsync(int id, string title, string description, int categoryId, IEnumerable<int> tagIds)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
-            
+
             await this.RemoveTagsAsync(id, post);
 
             post.Title = title;
@@ -143,6 +143,11 @@
                 .CountAsync();
 
             return count;
+        }
+
+        public Task<bool> IsExisting(int id)
+        {
+            return this.db.Posts.AnyAsync(p => p.Id == id && !p.IsDeleted);
         }
 
         public async Task<TModel> GetByIdAsync<TModel>(int id)

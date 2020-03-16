@@ -27,6 +27,8 @@
 
         Task<int> GetCountByUserId(string userId);
 
+        Task<bool> IsExisting(int id);
+
         Task<TModel> GetByIdAsync<TModel>(int id);
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>();

@@ -52,10 +52,10 @@
                     </button>
                     @if (this.Model.Author.Id == (string)this.ViewData["UserId"] || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                     {
-                        <a asp-controller="Posts" asp-action="Edit" asp-route-id="@Model.Id" class="tt-icon-btn" style="color:#666f74">
+                        <a asp-controller="Posts" asp-action="Edit" asp-route-id="@Model.Id" class="tt-icon-btn" style="color: #666f74">
                             <i class="fas fa-pen"></i>
                         </a>
-                        <a asp-controller="Posts" asp-action="Delete" asp-route-id="@Model.Id" class="tt-icon-btn" style="color:#666f74">
+                        <a asp-controller="Posts" asp-action="Delete" asp-route-id="@Model.Id" class="tt-icon-btn" style="color: #666f74">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     }
