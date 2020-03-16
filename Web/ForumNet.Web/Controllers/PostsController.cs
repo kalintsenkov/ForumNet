@@ -156,10 +156,11 @@
             return this.Json(new { Likes = likes });
         }
 
-        //// GET: Posts/Delete/5
-        //public IActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.postsService.DeleteAsync(id);
+
+            return this.RedirectToAction(nameof(All));
+        }
     }
 }
