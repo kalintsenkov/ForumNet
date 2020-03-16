@@ -25,9 +25,9 @@
 
         Task AddTagsAsync(int id, IEnumerable<int> tagIds);
 
-        Task<int> GetCountByUserId(string userId);
-
         Task<bool> IsExisting(int id);
+
+        Task<string> GetAuthorIdById(int id);
 
         Task<TModel> GetByIdAsync<TModel>(int id);
 

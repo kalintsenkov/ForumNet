@@ -11,5 +11,7 @@
         [Required]
         [MaxLength(DataConstants.ReplyDescriptionMaxLength)]
         public string Description { get; set; }
+
+        public string AuthorId { get; set; }
     }
 }

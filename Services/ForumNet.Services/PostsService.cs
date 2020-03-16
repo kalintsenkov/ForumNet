@@ -136,18 +136,19 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<int> GetCountByUserId(string userId)
-        {
-            var count = await this.db.Posts
-                .Where(p => p.AuthorId == userId)
-                .CountAsync();
-
-            return count;
-        }
-
         public Task<bool> IsExisting(int id)
         {
             return this.db.Posts.AnyAsync(p => p.Id == id && !p.IsDeleted);
+        }
+
+        public async Task<string> GetAuthorIdById(int id)
+        {
+            var authorId = await this.db.Posts
+                .Where(p => p.Id == id && !p.IsDeleted)
+                .Select(p => p.AuthorId)
+                .FirstOrDefaultAsync();
+
+            return authorId;
         }
 
         public async Task<TModel> GetByIdAsync<TModel>(int id)

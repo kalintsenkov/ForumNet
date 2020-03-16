@@ -142,7 +142,8 @@
             }
 
             var currentUserId = await this.usersService.GetIdAsync(this.User);
-            if (input.AuthorId != currentUserId)
+            var postAuthorId = await this.postsService.GetAuthorIdById(input.Id);
+            if (postAuthorId != currentUserId)
             {
                 return this.BadRequest();
             }

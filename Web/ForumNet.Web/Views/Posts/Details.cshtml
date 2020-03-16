@@ -197,8 +197,11 @@
                         </a>
                         @if (reply.Author.Id == (string)this.ViewData["UserId"] || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                         {
-                            <a asp-controller="Replies" asp-action="Edit" asp-route-id="@reply.Id" class="tt-icon-btn">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-pencil"></use></svg></i>
+                            <a asp-controller="Replies" asp-action="Edit" asp-route-id="@reply.Id" class="tt-icon-btn" style="color: #666f74">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                            <a asp-controller="Replies" asp-action="Delete" asp-route-id="@reply.Id" class="tt-icon-btn" style="color: #666f74">
+                                <i class="fas fa-trash-alt"></i>
                             </a>
                         }
                         <div class="col-separator"></div>

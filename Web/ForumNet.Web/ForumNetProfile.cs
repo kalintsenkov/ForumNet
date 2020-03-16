@@ -48,6 +48,7 @@
 
             #region Replies
 
+            this.CreateMap<Reply, RepliesDeleteDetailsViewModel>();
             this.CreateMap<Reply, RepliesEditInputModel>();
             this.CreateMap<Reply, RepliesDetailsViewModel>()
                 .ForMember(

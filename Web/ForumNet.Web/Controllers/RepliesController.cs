@@ -1,5 +1,6 @@
 ﻿namespace ForumNet.Web.Controllers
 {
+    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
@@ -42,6 +43,12 @@
                 return this.NotFound();
             }
 
+            var currentUserId = await this.usersService.GetIdAsync(this.User);
+            if (reply.AuthorId != currentUserId)
+            {
+                return this.BadRequest();
+            }
+
             return this.View(reply);
         }
 
@@ -51,6 +58,13 @@
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
+            }
+
+            var currentUserId = await this.usersService.GetIdAsync(this.User);
+            var replyAuthorId = await this.repliesService.GetAuthorIdById(input.Id);
+            if (replyAuthorId != currentUserId)
+            {
+                return this.BadRequest();
             }
 
             await this.repliesService.EditAsync(input.Id, input.Description);
@@ -66,23 +80,57 @@
                 return this.NotFound();
             }
 
+            this.ViewData["UserId"] = await this.usersService.GetIdAsync(this.User);
+
             return this.View(reply);
         }
 
         [HttpPost]
         public async Task<IActionResult> Like(int id)
         {
+            var isExisting = await this.repliesService.IsExisting(id);
+            if (!isExisting)
+            {
+                return this.NotFound();
+            }
+
             var likes = await this.repliesService.LikeAsync(id);
 
-            return this.Json(new { Likes = likes});
+            return this.Json(new { Likes = likes });
         }
 
         [HttpPost]
         public async Task<IActionResult> Dislike(int id)
         {
+            var isExisting = await this.repliesService.IsExisting(id);
+            if (!isExisting)
+            {
+                return this.NotFound();
+            }
+
             var likes = await this.repliesService.DislikeAsync(id);
 
-            return this.Json(new { Likes = likes});
+            return this.Json(new { Likes = likes });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var reply = await this.repliesService.GetByIdAsync<RepliesDeleteDetailsViewModel>(id);
+            if (reply == null)
+            {
+                return this.NotFound();
+            }
+
+            var currentUserId = await this.usersService.GetIdAsync(this.User);
+            if (reply.AuthorId != currentUserId)
+            {
+                return this.BadRequest();
+            }
+
+            await this.repliesService.DeleteAsync(id);
+
+            return this.RedirectToAction("Details", "Posts", new { id = reply.PostId });
         }
     }
 }

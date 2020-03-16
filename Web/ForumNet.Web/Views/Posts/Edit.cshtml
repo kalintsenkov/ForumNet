@@ -69,9 +69,6 @@
         sortField: 'text',
         placeholder: 'Please select...'
     });
-    $select.each(function() {
-        $(this)[0].selectize.clear(true);
-    });
     $('#input-tags').selectize({
         plugins: ['remove_button', 'restore_on_backspace'],
         delimiter: ',',

@@ -81,6 +81,21 @@
             return reply.Likes;
         }
 
+        public Task<bool> IsExisting(int id)
+        {
+            return this.db.Replies.AnyAsync(r => r.Id == id && !r.IsDeleted);
+        }
+
+        public async Task<string> GetAuthorIdById(int id)
+        {
+            var authorId = await this.db.Replies
+                .Where(r => r.Id == id && !r.IsDeleted)
+                .Select(r => r.AuthorId)
+                .FirstOrDefaultAsync();
+
+            return authorId;
+        }
+
         public async Task<TModel> GetByIdAsync<TModel>(int id)
         {
             var reply = await this.db.Replies
@@ -89,24 +104,6 @@
                 .FirstOrDefaultAsync();
 
             return reply;
-        }
-
-        public async Task<int> GetCountByUserId(string userId)
-        {
-            var count = await this.db.Replies
-                .Where(r => r.AuthorId == userId)
-                .CountAsync();
-
-            return count;
-        }
-
-        public async Task<int> GetCountByPostIdAsync(int postId)
-        {
-            var count = await this.db.Replies
-                .Where(r => r.PostId == postId)
-                .CountAsync();
-
-            return count;
         }
 
         public async Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId)
@@ -154,7 +151,7 @@
         {
             var replies = await this.db.Replies
                 .Where(r => r.PostId == postId &&
-                            r.AuthorId == userId && 
+                            r.AuthorId == userId &&
                             !r.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
