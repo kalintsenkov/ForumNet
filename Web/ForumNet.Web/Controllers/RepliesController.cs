@@ -1,11 +1,11 @@
 ﻿namespace ForumNet.Web.Controllers
 {
-    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using ForumNet.Common;
     using Services.Contracts;
     using ViewModels.Replies;
 
@@ -44,9 +44,9 @@
             }
 
             var currentUserId = await this.usersService.GetIdAsync(this.User);
-            if (reply.AuthorId != currentUserId)
+            if (reply.AuthorId != currentUserId && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
-                return this.BadRequest();
+                return this.Unauthorized();
             }
 
             return this.View(reply);
@@ -62,9 +62,9 @@
 
             var currentUserId = await this.usersService.GetIdAsync(this.User);
             var replyAuthorId = await this.repliesService.GetAuthorIdById(input.Id);
-            if (replyAuthorId != currentUserId)
+            if (replyAuthorId != currentUserId && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
-                return this.BadRequest();
+                return this.Unauthorized();
             }
 
             await this.repliesService.EditAsync(input.Id, input.Description);
@@ -123,9 +123,9 @@
             }
 
             var currentUserId = await this.usersService.GetIdAsync(this.User);
-            if (reply.AuthorId != currentUserId)
+            if (reply.AuthorId != currentUserId && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
-                return this.BadRequest();
+                return this.Unauthorized();
             }
 
             await this.repliesService.DeleteAsync(id);

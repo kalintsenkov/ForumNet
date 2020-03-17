@@ -1,13 +1,13 @@
 ﻿@model ForumNet.Web.ViewModels.Posts.PostsEditViewModel
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Post";
 }
 
 <div class="container">
     <div class="tt-wrapper-inner">
         <br />
         <h1 class="tt-title-border">
-            Edit Post
+            @ViewData["Title"]
         </h1>
         <form class="form-default form-create-topic" asp-action="Edit">
             <div asp-validation-summary="All" class="text-danger"></div>

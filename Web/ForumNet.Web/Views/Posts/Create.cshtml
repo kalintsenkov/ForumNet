@@ -2,14 +2,14 @@
 @using ForumNet.Data.Models.Enums
 @model ForumNet.Web.ViewModels.Posts.PostsCreateInputModel
 @{
-    ViewData["Title"] = "Create Post";
+    ViewData["Title"] = "Create New Post";
 }
 
 <div class="container">
     <div class="tt-wrapper-inner">
         <br />
         <h1 class="tt-title-border">
-            Create New Post
+            @ViewData["Title"]
         </h1>
         <form class="form-default form-create-topic" asp-action="Create">
             <div asp-validation-summary="All" class="text-danger"></div>

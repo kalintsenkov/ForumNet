@@ -44,19 +44,19 @@
                     <!-- /toggle mobile menu -->
                     <!-- logo -->
                     <div class="tt-logo">
-                        <a asp-controller="Home" asp-action="Index"><img src="~/images/logo.png" alt="logo"></a>
+                        <a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/logo.png" alt="logo"></a>
                     </div>
                     <!-- /logo -->
                     <!-- desktop menu -->
                     <div class="tt-desktop-menu">
                         <nav>
                             <ul>
-                                <li><a asp-controller="Home" asp-action="Index"><span>Home</span></a></li>
-                                <li><a asp-controller="Categories" asp-action="All"><span>Categories</span></a></li>
-                                <li><a asp-controller="Posts" asp-action="Trending"><span>Trending</span></a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Index"><span>Home</span></a></li>
+                                <li><a asp-area="" asp-controller="Categories" asp-action="All"><span>Categories</span></a></li>
+                                <li><a asp-area="" asp-controller="Posts" asp-action="Trending"><span>Trending</span></a></li>
                                 @if (this.User.Identity.IsAuthenticated)
                                 {
-                                    <li><a asp-controller="Posts" asp-action="Create"><span>New</span></a></li>
+                                    <li><a asp-area="" asp-controller="Posts" asp-action="Create"><span>New</span></a></li>
                                 }
                             </ul>
                         </nav>
@@ -119,7 +119,7 @@
         @RenderBody()
     </main>
 
-    <a asp-controller="Posts" asp-action="Create" class="tt-btn-create-topic">
+    <a asp-area="" asp-controller="Posts" asp-action="Create" class="tt-btn-create-topic">
         <span class="tt-icon">
             <svg>
                 <use xlink:href="#icon-create_new"></use>
