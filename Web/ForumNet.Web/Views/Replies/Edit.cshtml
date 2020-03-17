@@ -23,7 +23,10 @@
     </div>
 </div>
 
-<script>
+
+
+@section Scripts {
+    <script>
     tinymce.init({
         selector: '#reply-edit',
         height: 400,
@@ -40,7 +43,5 @@
         menubar: 'file edit view insert format table'
     });
 </script>
-
-@section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

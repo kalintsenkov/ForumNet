@@ -103,38 +103,37 @@
     </div>
 </div>
 
-<script>
-    var $select = $('#input-category').selectize({
-        create: false,
-        sortField: 'text',
-        placeholder: 'Please select...'
-    });
-    $select.each(function() {
-        $(this)[0].selectize.clear(true);
-    });
-    $('#input-tags').selectize({
-        plugins: ['remove_button', 'restore_on_backspace'],
-        delimiter: ',',
-        persist: false,
-        create: false
-    });
-    tinymce.init({
-        selector: '#post-create',
-        height: 400,
-        plugins: [
-            'lists advlist link autolink image media preview hr anchor',
-            'code codesample paste',
-            'table emoticons help'
-        ],
-        toolbar: [
-            'undo redo | styleselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent bullist numlist |',
-            'forecolor backcolor emoticons | link image media codesample preview | help'
-        ],
-        link_default_protocol: "https",
-        menubar: 'file edit view insert format table'
-    });
-</script>
-
 @section Scripts {
+    <script>
+        var $select = $('#input-category').selectize({
+            create: false,
+            sortField: 'text',
+            placeholder: 'Please select...'
+        });
+        $select.each(function () {
+            $(this)[0].selectize.clear(true);
+        });
+        $('#input-tags').selectize({
+            plugins: ['remove_button', 'restore_on_backspace'],
+            delimiter: ',',
+            persist: false,
+            create: false
+        });
+        tinymce.init({
+            selector: '#post-create',
+            height: 400,
+            plugins: [
+                'lists advlist link autolink image media preview hr anchor',
+                'code codesample paste',
+                'table emoticons help'
+            ],
+            toolbar: [
+                'undo redo | styleselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent bullist numlist |',
+                'forecolor backcolor emoticons | link image media codesample preview | help'
+            ],
+            link_default_protocol: "https",
+            menubar: 'file edit view insert format table'
+        });
+    </script>
     <partial name="_ValidationScriptsPartial" />
 }

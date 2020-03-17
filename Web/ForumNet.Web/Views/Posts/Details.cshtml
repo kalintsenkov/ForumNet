@@ -230,54 +230,70 @@
     </div>
 </div>
 
-<script>
-    function animateButton() {
-        $('html, body').animate({
-            scrollTop: $("#reply-box").offset().top
-        }, 1500);
-    }
-
-    function likePost() {
-        $.ajax({
-            type: "POST",
-            url: "/Posts/Like/@Model.Id",
-            success: function (msg) {
-                document.getElementById("post-likes").innerHTML = msg["likes"];
-            }
-        });
-    }
-
-    function dislikePost() {
-        $.ajax({
-            type: "POST",
-            url: "/Posts/Dislike/@Model.Id",
-            success: function (msg) {
-                document.getElementById("post-likes").innerHTML = msg["likes"];
-            }
-        });
-    }
-
-    function likeReply(replyId) {
-        $.ajax({
-            type: "POST",
-            url: "/Replies/Like/" + replyId,
-            success: function (msg) {
-                document.getElementById("reply-likes-" + replyId).innerHTML = msg["likes"];
-            }
-        });
-    }
-
-    function dislikeReply(replyId) {
-        $.ajax({
-            type: "POST",
-            url: "/Replies/Dislike/" + replyId,
-            success: function (msg) {
-                document.getElementById("reply-likes-" + replyId).innerHTML = msg["likes"];
-            }
-        });
-    }
-</script>
-
 @section Scripts {
+    <script>
+        tinymce.init({
+            selector: '#reply-create',
+            height: 300,
+            plugins: [
+                'lists advlist link autolink image media preview hr anchor',
+                'code codesample paste',
+                'table emoticons help'
+            ],
+            toolbar: [
+                'undo redo | styleselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent bullist numlist |',
+                'forecolor backcolor emoticons | link image media codesample preview | help'
+            ],
+            link_default_protocol: "https",
+            menubar: 'file edit view insert format table'
+        });
+    </script>
+    <script>
+        function animateButton() {
+            $('html, body').animate({
+                scrollTop: $("#reply-box").offset().top
+            }, 1500);
+        }
+
+        function likePost() {
+            $.ajax({
+                type: "POST",
+                url: "/Posts/Like/@Model.Id",
+                success: function (msg) {
+                    document.getElementById("post-likes").innerHTML = msg["likes"];
+                }
+            });
+        }
+
+        function dislikePost() {
+            $.ajax({
+                type: "POST",
+                url: "/Posts/Dislike/@Model.Id",
+                success: function (msg) {
+                    document.getElementById("post-likes").innerHTML = msg["likes"];
+                }
+            });
+        }
+
+        function likeReply(replyId) {
+            $.ajax({
+                type: "POST",
+                url: "/Replies/Like/" + replyId,
+                success: function (msg) {
+                    document.getElementById("reply-likes-" + replyId).innerHTML = msg["likes"];
+                }
+            });
+        }
+
+        function dislikeReply(replyId) {
+            $.ajax({
+                type: "POST",
+                url: "/Replies/Dislike/" + replyId,
+                success: function (msg) {
+                    document.getElementById("reply-likes-" + replyId).innerHTML = msg["likes"];
+                }
+            });
+        }
+    </script>
     <partial name="_ValidationScriptsPartial" />
 }
