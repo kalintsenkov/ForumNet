@@ -8,11 +8,12 @@
 <div class="tt-custom-mobile-indent container">
     <div class="tt-categories-title">
         <div class="tt-title">@ViewData["Title"]</div>
-        
+
         @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
-            <a asp-area="Administration" asp-controller="Categories" asp-action="Create" class="btn btn-secondary ml-md-auto">Create</a>
+            <a asp-area="Administration" asp-controller="Categories" asp-action="Create" class="btn btn-secondary ml-auto">Create</a>
         }
+        &nbsp;
         <div class="tt-search">
             <form class="search-wrapper">
                 <div class="search-form">
@@ -59,7 +60,9 @@
                             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                             {
                                 <a asp-area="Administration" asp-controller="Categories" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-secondary">Edit</a>
-                                <a asp-area="Administration" asp-controller="Categories" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-secondary">Delete</a>
+                                <form asp-area="Administration" asp-controller="Categories" asp-action="Delete" asp-route-id="@category.Id" method="post" class="btn">
+                                    <button type="submit" class="btn btn-secondary">Delete</button>
+                                </form>
                             }
                         </div>
                     </div>

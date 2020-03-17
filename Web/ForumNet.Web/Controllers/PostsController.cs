@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using ForumNet.Common;
     using Services.Contracts;
     using ViewModels.Categories;
     using ViewModels.Posts;
@@ -117,9 +118,9 @@
             }
 
             var currentUserId = await this.usersService.GetIdAsync(this.User);
-            if (post.AuthorId != currentUserId)
+            if (post.AuthorId != currentUserId && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
-                return this.BadRequest();
+                return this.Unauthorized();
             }
 
             post.Categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>();
@@ -143,9 +144,9 @@
 
             var currentUserId = await this.usersService.GetIdAsync(this.User);
             var postAuthorId = await this.postsService.GetAuthorIdById(input.Id);
-            if (postAuthorId != currentUserId)
+            if (postAuthorId != currentUserId && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
-                return this.BadRequest();
+                return this.Unauthorized();
             }
 
             await this.postsService.EditAsync(input.Id, input.Title, input.Description, input.CategoryId, input.TagIds);
@@ -191,9 +192,9 @@
             }
             
             var currentUserId = await this.usersService.GetIdAsync(this.User);
-            if (post.AuthorId != currentUserId)
+            if (post.AuthorId != currentUserId && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
-                return this.BadRequest();
+                return this.Unauthorized();
             }
 
             await this.postsService.DeleteAsync(id);
