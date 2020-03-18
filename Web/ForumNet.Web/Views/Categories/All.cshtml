@@ -15,9 +15,9 @@
         }
         &nbsp;
         <div class="tt-search">
-            <form class="search-wrapper">
+            <form class="search-wrapper" asp-area="" asp-controller="Categories" asp-action="All" method="get">
                 <div class="search-form">
-                    <input type="text" class="tt-search__input" placeholder="Search Categories">
+                    <input type="text" asp-for="Search" value="@Model.Search" class="tt-search__input" placeholder="Search Categories">
                     <button class="tt-search__btn" type="submit">
                         <svg class="tt-icon">
                             <use xlink:href="#icon-search"></use>
@@ -42,13 +42,13 @@
                         <div class="tt-item-header">
                             <ul class="tt-list-badge">
                                 <li>
-                                    <a asp-controller="Categories" asp-action="Details">
+                                    <a asp-area="" asp-controller="Categories" asp-action="Details">
                                         <span class="tt-color01 tt-badge">@category.Name</span>
                                     </a>
                                 </li>
                             </ul>
                             <h6 class="tt-title">
-                                <a asp-controller="Categories" asp-action="Details">Threads - @category.PostsCount</a>
+                                <a asp-area="" asp-controller="Categories" asp-action="Details">Threads - @category.PostsCount</a>
                             </h6>
                         </div>
                         <div class="tt-item-layout">
@@ -56,7 +56,7 @@
                                 Lets discuss about @category.Name.
                             </div>
                             <hr />
-                            <a asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id" class="btn btn-primary">Details</a>
+                            <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id" class="btn btn-primary">Details</a>
                             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                             {
                                 <a asp-area="Administration" asp-controller="Categories" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-secondary">Edit</a>

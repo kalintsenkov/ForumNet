@@ -17,6 +17,6 @@
 
         Task<TModel> GetByIdAsync<TModel>(int id);
 
-        Task<IEnumerable<TModel>> GetAllAsync<TModel>();
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null);
     }
 }

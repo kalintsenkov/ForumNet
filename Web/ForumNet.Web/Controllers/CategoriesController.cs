@@ -26,11 +26,12 @@
             this.tagsService = tagsService;
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(string search)
         {
-            var categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>();
+            var categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>(search);
             var viewModel = new CategoriesAllViewModel
             {
+                Search = search,
                 Categories = categories
             };
 

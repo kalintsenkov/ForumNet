@@ -77,10 +77,17 @@
             return category;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null)
         {
-            var categories = await this.db.Categories
-                .Where(c => !c.IsDeleted)
+            var queryable = this.db.Categories.Where(c => !c.IsDeleted);
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                queryable = queryable.Where(q => q.Name.Contains(search));
+            }
+
+            var categories = await queryable
+                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

@@ -1,0 +1,17 @@
+﻿<div class="tt-search">
+    <form class="search-wrapper" asp-area="" asp-controller="Posts" asp-action="All" method="get">
+        <div class="search-form">
+            <input type="text" name="search" class="tt-search__input" placeholder="Search" value="@ViewData["Search"]" />
+            <button class="tt-search__btn" type="submit">
+                <svg class="tt-icon">
+                    <use xlink:href="#icon-search"></use>
+                </svg>
+            </button>
+            <button class="tt-search__close">
+                <svg class="tt-icon">
+                    <use xlink:href="#icon-cancel"></use>
+                </svg>
+            </button>
+        </div>
+    </form>
+</div>

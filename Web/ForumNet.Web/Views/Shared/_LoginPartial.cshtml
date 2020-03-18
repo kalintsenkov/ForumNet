@@ -1,27 +1,19 @@
-﻿@using ForumNet.Data.Models
-@using Microsoft.AspNetCore.Identity
-@inject SignInManager<ForumUser> SignInManager
-@inject UserManager<ForumUser> UserManager
+﻿@if (!this.User.Identity.IsAuthenticated)
+{
+    <div class="col-auto ml-auto">
+        <div class="tt-account-btn">
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary">Log in</a>
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-secondary">Sign up</a>
+        </div>
+    </div>
+}
+else
+{
+    <vc:user-details-nav-bar></vc:user-details-nav-bar>
 
-<ul class="navbar-nav">
-    @if (this.SignInManager.IsSignedIn(User))
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @this.User.Identity.Name!</a>
-        </li>
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>
-        </li>
-    }
-    else
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-        </li>
-    }
-</ul>
+    <div class="col-auto ml-auto">
+        <div class="tt-account-btn">
+            <a asp-area="Identity" asp-page="/Account/Logout" class="btn btn-primary">Logout</a>
+        </div>
+    </div>
+}

@@ -1,0 +1,12 @@
+﻿@model ForumNet.Web.ViewModels.Users.UserDetailsNavBarComponentViewModel
+
+<div class="col-auto ml-auto">
+    <div class="tt-user-info d-flex justify-content-center">
+        <div class="tt-avatar-icon tt-size-md">
+            <i class="tt-icon"><svg><use xlink:href="#@Model.ProfilePicture"></use></svg></i>
+        </div>
+        <div>
+            <a asp-area="Identity" asp-page="/Account/Manage/PersonalData" class="btn">@Model.UserName</a>
+        </div>
+    </div>
+</div>

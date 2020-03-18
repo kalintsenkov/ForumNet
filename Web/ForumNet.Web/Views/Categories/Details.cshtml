@@ -29,7 +29,7 @@
                         </button>
                         <form class="search-wrapper" asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@Model.Category.Id" method="get">
                             <div class="search-form">
-                                <input type="text" asp-for="Search" class="tt-search__input" placeholder="Search in @Model.Category.Name" value="@Model.Search">
+                                <input type="text" asp-for="Search" value="@Model.Search" class="tt-search__input" placeholder="Search in @Model.Category.Name">
                                 <button class="tt-search__btn" type="submit">
                                     <svg class="tt-icon">
                                         <use xlink:href="#icon-search"></use>
