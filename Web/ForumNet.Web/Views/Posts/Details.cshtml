@@ -20,6 +20,13 @@
                             <a href="#">@Model.Author.Name</a>
                         </div>
                         <div class="tt-info-time">
+                            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                            {
+                                <button style="padding: 0; border:none; background:none; outline: none; color: #666f74" >
+                                    <i class="fas fa-thumbtack" onclick="pinPost(@Model.Id)"></i>
+                                    <span id="isPinned">@(Model.IsPinned ? "Unpin" : "Pin")</span>
+                                </button>
+                            }
                             <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>@Model.CreatedOn
                         </div>
                     </div>
@@ -44,10 +51,10 @@
                     <p>@Html.Raw(Model.Description)</p>
                 </div>
                 <div class="tt-item-info info-bottom">
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="likePost()">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="likePost(@Model.Id)">
                         <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
                     </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="dislikePost()">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="dislikePost(@Model.Id)">
                         <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
                     </button>
                     @if (this.Model.Author.Id == (string)this.ViewData["UserId"] || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
@@ -255,22 +262,32 @@
             }, 1500);
         }
 
-        function likePost() {
+        function pinPost(id) {
             $.ajax({
                 type: "POST",
-                url: "/Posts/Like/@Model.Id",
-                success: function (msg) {
-                    document.getElementById("post-likes").innerHTML = msg["likes"];
+                url: "/Administration/Posts/Pin/" + id,
+                success: function (json) {
+                    $('#isPinned').html(json.pinOrUnpin);
                 }
             });
         }
 
-        function dislikePost() {
+        function likePost(id) {
             $.ajax({
                 type: "POST",
-                url: "/Posts/Dislike/@Model.Id",
-                success: function (msg) {
-                    document.getElementById("post-likes").innerHTML = msg["likes"];
+                url: "/Posts/Like/" + id,
+                success: function (json) {
+                    $("#post-likes").html(json.likes);
+                }
+            });
+        }
+
+        function dislikePost(id) {
+            $.ajax({
+                type: "POST",
+                url: "/Posts/Dislike/" + id,
+                success: function (json) {
+                    $("#post-likes").html(json.likes);
                 }
             });
         }
@@ -279,8 +296,8 @@
             $.ajax({
                 type: "POST",
                 url: "/Replies/Like/" + replyId,
-                success: function (msg) {
-                    document.getElementById("reply-likes-" + replyId).innerHTML = msg["likes"];
+                success: function (json) {
+                    $("#reply-likes-" + replyId).html(json.likes);
                 }
             });
         }
@@ -289,8 +306,8 @@
             $.ajax({
                 type: "POST",
                 url: "/Replies/Dislike/" + replyId,
-                success: function (msg) {
-                    document.getElementById("reply-likes-" + replyId).innerHTML = msg["likes"];
+                success: function (json) {
+                    $("#reply-likes-" + replyId).html(json.likes);
                 }
             });
         }

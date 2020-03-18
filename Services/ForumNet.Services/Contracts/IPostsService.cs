@@ -13,11 +13,9 @@
 
         Task DeleteAsync(int id);
 
-        Task PinAsync(int id);
-
-        Task UnpinAsync(int id);
-
         Task ViewAsync(int id);
+
+        Task<bool> PinAsync(int id);
 
         Task<int> LikeAsync(int id);
 

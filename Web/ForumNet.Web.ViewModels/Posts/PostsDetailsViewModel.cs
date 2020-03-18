@@ -24,6 +24,8 @@
 
         public int RepliesCount { get; set; }
 
+        public bool IsPinned { get; set; }
+
         public string CreatedOn { get; set; }
 
         public UsersInfoViewModel Author { get; set; }

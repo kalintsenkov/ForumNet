@@ -61,6 +61,12 @@
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
+            var isExisting = await this.categoriesService.IsExisting(id);
+            if (!isExisting)
+            {
+                return this.NotFound();
+            }
+
             await this.categoriesService.DeleteAsync(id);
 
             return this.RedirectToAction("All", "Categories");
