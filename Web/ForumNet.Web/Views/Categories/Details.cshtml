@@ -27,9 +27,9 @@
                                 <use xlink:href="#icon-search"></use>
                             </svg>
                         </button>
-                        <form class="search-wrapper">
+                        <form class="search-wrapper" asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@Model.Category.Id" method="get">
                             <div class="search-form">
-                                <input type="text" class="tt-search__input" placeholder="Search in @Model.Category.Name">
+                                <input type="text" asp-for="Search" class="tt-search__input" placeholder="Search in @Model.Category.Name" value="@Model.Search">
                                 <button class="tt-search__btn" type="submit">
                                     <svg class="tt-icon">
                                         <use xlink:href="#icon-search"></use>

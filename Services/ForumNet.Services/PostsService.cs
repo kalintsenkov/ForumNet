@@ -161,7 +161,7 @@
             return post;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search)
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null)
         {
             var queryable = this.db.Posts
                 .Where(p => !p.IsPinned && !p.IsDeleted);
@@ -199,9 +199,18 @@
             return posts;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllByCategoryIdAsync<TModel>(int categoryId)
+        public async Task<IEnumerable<TModel>> GetAllByCategoryIdAsync<TModel>(int categoryId, string search = null)
         {
-            var posts = await this.db.Posts
+            var queryable = this.db.Posts
+                .Where(p => p.CategoryId == categoryId && !p.IsDeleted);
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                queryable = queryable.Where(p => p.Title.Contains(search));
+            }
+
+            var posts = await queryable
+                .AsNoTracking()
                 .Where(p => p.CategoryId == categoryId && !p.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();

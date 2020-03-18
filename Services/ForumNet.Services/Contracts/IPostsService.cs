@@ -31,13 +31,13 @@
 
         Task<TModel> GetByIdAsync<TModel>(int id);
 
-        Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search);
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null);
 
         Task<IEnumerable<TModel>> GetAllPinnedAsync<TModel>();
 
         Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId);
 
-        Task<IEnumerable<TModel>> GetAllByCategoryIdAsync<TModel>(int categoryId);
+        Task<IEnumerable<TModel>> GetAllByCategoryIdAsync<TModel>(int categoryId, string search = null);
 
         Task<IEnumerable<TModel>> GetAllWithDeletedAsync<TModel>();
     }

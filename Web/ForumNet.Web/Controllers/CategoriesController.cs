@@ -38,7 +38,7 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string search)
         {
             var category = await this.categoriesService.GetByIdAsync<CategoriesInfoViewModel>(id);
             if (category == null)
@@ -46,7 +46,7 @@
                 return this.NotFound();
             }
 
-            var posts = await this.postsService.GetAllByCategoryIdAsync<PostsListingViewModel>(id);
+            var posts = await this.postsService.GetAllByCategoryIdAsync<PostsListingViewModel>(id, search);
             foreach (var post in posts)
             {
                 post.Tags = await this.tagsService.GetAllByPostIdAsync<TagsInfoViewModel>(post.Id);
@@ -54,6 +54,7 @@
 
             var viewModel = new CategoriesDetailsViewModel
             {
+                Search = search,
                 Category = category,
                 Posts = posts
             };
