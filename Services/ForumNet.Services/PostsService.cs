@@ -161,31 +161,18 @@
             return post;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
-        {
-            var posts = await this.db.Posts
-                .Where(p => !p.IsPinned && !p.IsDeleted)
-                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
-                .ToListAsync();
-
-            return posts;
-        }
-
-        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string sort)
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search)
         {
             var queryable = this.db.Posts
                 .Where(p => !p.IsPinned && !p.IsDeleted);
 
-            queryable = sort switch
+            if (!string.IsNullOrWhiteSpace(search))
             {
-                "recent" => queryable.OrderByDescending(r => r.CreatedOn),
-                "most liked" => queryable.OrderByDescending(r => r.Likes),
-                "most replied" => queryable.OrderByDescending(r => r.Replies.Count),
-                "most viewed" => queryable.OrderByDescending(r => r.Views),
-                _ => queryable.OrderByDescending(r => r.CreatedOn)
-            };
+                queryable = queryable.Where(p => p.Title.Contains(search));
+            }
 
             var posts = await queryable
+                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

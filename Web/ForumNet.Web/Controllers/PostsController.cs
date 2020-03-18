@@ -40,11 +40,11 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All(int id, string sort)
+        public async Task<IActionResult> All(int id, string search)
         {
             var viewModel = new PostsAllViewModel
             {
-                Posts = await this.postsService.GetAllAsync<PostsListingViewModel>(sort)
+                Posts = await this.postsService.GetAllAsync<PostsListingViewModel>(search)
             };
 
             foreach (var post in viewModel.Posts)
@@ -52,6 +52,7 @@
                 post.Tags = await this.tagsService.GetAllByPostIdAsync<TagsInfoViewModel>(post.Id);
             }
 
+            this.ViewData["Search"] = search;
             return this.View(viewModel);
         }
 

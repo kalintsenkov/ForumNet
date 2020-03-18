@@ -31,9 +31,7 @@
 
         Task<TModel> GetByIdAsync<TModel>(int id);
 
-        Task<IEnumerable<TModel>> GetAllAsync<TModel>();
-
-        Task<IEnumerable<TModel>> GetAllAsync<TModel>(string sort);
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search);
 
         Task<IEnumerable<TModel>> GetAllPinnedAsync<TModel>();
 

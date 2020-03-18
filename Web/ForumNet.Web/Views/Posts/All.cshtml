@@ -4,42 +4,6 @@
 }
 
 <div class="container">
-    <div class="form-control col-md-auto">
-        <h5 class="tt-title">Sort posts by:</h5>
-        <ul class="tt-list-badge tt-size-lg">
-            @{
-                this.Context.Request.Query.TryGetValue("sort", out var value);
-                if (value == "most liked")
-                {
-                    <li><a asp-controller="Posts" asp-action="All" asp-route-sort="recent"><span class="tt-badge">Recent</span></a></li>
-                    <li><a asp-controller="Posts" asp-action="All" asp-route-sort="most liked"><span class="tt-color01 tt-badge">Most Liked</span></a></li>
-                    <li><a asp-controller="Posts" asp-action="All" asp-route-sort="most replied"><span class="tt-badge">Most Replied</span></a></li>
-                    <li><a asp-controller="Posts" asp-action="All" asp-route-sort="most viewed"><span class="tt-badge">Most Viewed</span></a></li>
-                }
-                else if (value == "most replied")
-                {
-                    <li><a asp-controller="Posts" asp-action="All" asp-route-sort="recent"><span class="tt-badge">Recent</span></a></li>
-                    <li><a asp-controller="Posts" asp-action="All" asp-route-sort="most liked"><span class="tt-badge">Most Liked</span></a></li>
-                    <li><a asp-controller="Posts" asp-action="All" asp-route-sort="most replied"><span class="tt-color01 tt-badge">Most Replied</span></a></li>
-                    <li><a asp-controller="Posts" asp-action="All" asp-route-sort="most viewed"><span class="tt-badge">Most Viewed</span></a></li>
-                }
-                else if (value == "most viewed")
-                {
-                    <li><a asp-controller="Posts" asp-action="All" asp-route-sort="recent"><span class="tt-badge">Recent</span></a></li>
-                    <li><a asp-controller="Posts" asp-action="All" asp-route-sort="most liked"><span class="tt-badge">Most Liked</span></a></li>
-                    <li><a asp-controller="Posts" asp-action="All" asp-route-sort="most replied"><span class="tt-badge">Most Replied</span></a></li>
-                    <li><a asp-controller="Posts" asp-action="All" asp-route-sort="most viewed"><span class="tt-color01 tt-badge">Most Viewed</span></a></li>
-                }
-                else
-                {
-                    <li><a asp-controller="Posts" asp-action="All" asp-route-sort="recent"><span class="tt-color01 tt-badge">Recent</span></a></li>
-                    <li><a asp-controller="Posts" asp-action="All" asp-route-sort="most liked"><span class="tt-badge">Most Liked</span></a></li>
-                    <li><a asp-controller="Posts" asp-action="All" asp-route-sort="most replied"><span class="tt-badge">Most Replied</span></a></li>
-                    <li><a asp-controller="Posts" asp-action="All" asp-route-sort="most viewed"><span class="tt-badge">Most Viewed</span></a></li>
-                }
-            }
-        </ul>
-    </div>
     <div class="tt-topic-list">
         <div class="tt-list-header">
             <div class="tt-col-topic">Topic</div>
