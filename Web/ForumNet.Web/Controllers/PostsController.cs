@@ -6,7 +6,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using ForumNet.Common;
+    using Common.Extensions;
     using Services.Contracts;
     using ViewModels.Categories;
     using ViewModels.Posts;
@@ -19,7 +19,6 @@
         private readonly IMapper mapper;
         private readonly ITagsService tagsService;
         private readonly IPostsService postsService;
-        private readonly IUsersService usersService;
         private readonly IRepliesService repliesService;
         private readonly ICategoriesService categoriesService;
 
@@ -27,14 +26,12 @@
             IMapper mapper,
             ITagsService tagsService,
             IPostsService postsService,
-            IUsersService usersService,
             IRepliesService repliesService,
             ICategoriesService categoriesService)
         {
             this.mapper = mapper;
             this.tagsService = tagsService;
             this.postsService = postsService;
-            this.usersService = usersService;
             this.repliesService = repliesService;
             this.categoriesService = categoriesService;
         }
@@ -80,7 +77,7 @@
                 return this.View(input);
             }
 
-            var authorId = await this.usersService.GetIdAsync(this.User);
+            var authorId = this.User.GetId();
             var postId = await this.postsService.CreateAsync(
                 input.Title,
                 input.PostType,
@@ -103,7 +100,7 @@
 
             await this.postsService.ViewAsync(id);
 
-            this.ViewData["UserId"] = await this.usersService.GetIdAsync(this.User);
+            this.ViewData["UserId"] = this.User.GetId();
             post.Tags = await this.tagsService.GetAllByPostIdAsync<TagsInfoViewModel>(id);
             post.Replies = await this.repliesService.GetAllByPostIdAsync<RepliesDetailsViewModel>(id, sort);
 
@@ -118,8 +115,8 @@
                 return this.NotFound();
             }
 
-            var currentUserId = await this.usersService.GetIdAsync(this.User);
-            if (post.AuthorId != currentUserId && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            var currentUserId = this.User.GetId();
+            if (post.AuthorId != currentUserId && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();
             }
@@ -143,9 +140,9 @@
                 return this.View(viewModel);
             }
 
-            var currentUserId = await this.usersService.GetIdAsync(this.User);
+            var currentUserId = this.User.GetId();
             var postAuthorId = await this.postsService.GetAuthorIdById(input.Id);
-            if (postAuthorId != currentUserId && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            if (postAuthorId != currentUserId && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();
             }
@@ -191,9 +188,9 @@
             {
                 return this.NotFound();
             }
-            
-            var currentUserId = await this.usersService.GetIdAsync(this.User);
-            if (post.AuthorId != currentUserId && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+
+            var currentUserId = this.User.GetId();
+            if (post.AuthorId != currentUserId && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();
             }

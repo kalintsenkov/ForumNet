@@ -1,4 +1,4 @@
-﻿@using ForumNet.Common
+﻿@using ForumNet.Web.Common.Extensions
 @model ForumNet.Web.ViewModels.Categories.CategoriesAllViewModel
 @{
     ViewData["Title"] = "Categories";
@@ -9,7 +9,7 @@
     <div class="tt-categories-title">
         <div class="tt-title">@ViewData["Title"]</div>
 
-        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+        @if (this.User.IsAdministrator())
         {
             <a asp-area="Administration" asp-controller="Categories" asp-action="Create" class="btn btn-secondary ml-auto">Create</a>
         }
@@ -57,7 +57,7 @@
                             </div>
                             <hr />
                             <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id" class="btn btn-primary">Details</a>
-                            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                            @if (this.User.IsAdministrator())
                             {
                                 <a asp-area="Administration" asp-controller="Categories" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-secondary">Edit</a>
                                 <form asp-area="Administration" asp-controller="Categories" asp-action="Delete" asp-route-id="@category.Id" method="post" class="btn">

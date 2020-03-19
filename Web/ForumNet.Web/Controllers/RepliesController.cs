@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using ForumNet.Common;
+    using Common.Extensions;
     using Services.Contracts;
     using ViewModels.Replies;
 
@@ -13,12 +13,10 @@
     public class RepliesController : Controller
     {
         private readonly IRepliesService repliesService;
-        private readonly IUsersService usersService;
 
-        public RepliesController(IRepliesService repliesService, IUsersService usersService)
+        public RepliesController(IRepliesService repliesService)
         {
             this.repliesService = repliesService;
-            this.usersService = usersService;
         }
 
         [HttpPost]
@@ -29,7 +27,7 @@
                 return this.RedirectToAction("Details", "Posts", new { id = input.PostId });
             }
 
-            var authorId = await this.usersService.GetIdAsync(this.User);
+            var authorId = this.User.GetId();
             await this.repliesService.CreateAsync(input.Description, input.PostId, authorId);
 
             return this.RedirectToAction("Details", "Posts", new { id = input.PostId });
@@ -43,8 +41,8 @@
                 return this.NotFound();
             }
 
-            var currentUserId = await this.usersService.GetIdAsync(this.User);
-            if (reply.AuthorId != currentUserId && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            var currentUserId = this.User.GetId();
+            if (reply.AuthorId != currentUserId && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();
             }
@@ -60,9 +58,9 @@
                 return this.View(input);
             }
 
-            var currentUserId = await this.usersService.GetIdAsync(this.User);
+            var currentUserId = this.User.GetId();
             var replyAuthorId = await this.repliesService.GetAuthorIdById(input.Id);
-            if (replyAuthorId != currentUserId && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            if (replyAuthorId != currentUserId && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();
             }
@@ -80,7 +78,7 @@
                 return this.NotFound();
             }
 
-            this.ViewData["UserId"] = await this.usersService.GetIdAsync(this.User);
+            this.ViewData["UserId"] = this.User.GetId();
 
             return this.View(reply);
         }
@@ -122,8 +120,8 @@
                 return this.NotFound();
             }
 
-            var currentUserId = await this.usersService.GetIdAsync(this.User);
-            if (reply.AuthorId != currentUserId && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            var currentUserId = this.User.GetId();
+            if (reply.AuthorId != currentUserId && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();
             }

@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
+    using Common.Extensions;
     using Data.Models;
     using Services.Contracts;
 
@@ -61,14 +62,14 @@
             this.RequirePassword = await this.userManager.HasPasswordAsync(user);
             if (this.RequirePassword)
             {
-                if (!await userManager.CheckPasswordAsync(user, Input.Password))
+                if (!await this.userManager.CheckPasswordAsync(user, Input.Password))
                 {
                     this.ModelState.AddModelError(string.Empty, "Incorrect password.");
                     return Page();
                 }
             }
 
-            var userId = await this.usersService.GetIdAsync(this.User);
+            var userId = this.User.GetId();
             await this.usersService.DeleteAsync(userId);
 
             await this.signInManager.SignOutAsync();

@@ -1,4 +1,4 @@
-﻿@using ForumNet.Common
+﻿@using ForumNet.Web.Common.Extensions
 @using ForumNet.Web.ViewModels.Posts
 @using ForumNet.Web.ViewModels.Replies
 @model PostsDetailsViewModel
@@ -20,7 +20,7 @@
                             <a href="#">@Model.Author.Name</a>
                         </div>
                         <div class="tt-info-time">
-                            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                            @if (this.User.IsAdministrator())
                             {
                                 <button style="padding: 0; border:none; background:none; outline: none; color: #666f74" >
                                     <i class="fas fa-thumbtack" onclick="pinPost(@Model.Id)"></i>
@@ -57,7 +57,7 @@
                     <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="dislikePost(@Model.Id)">
                         <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
                     </button>
-                    @if (this.Model.Author.Id == (string)this.ViewData["UserId"] || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    @if (this.Model.Author.Id == (string)this.ViewData["UserId"] || this.User.IsAdministrator())
                     {
                         <a asp-controller="Posts" asp-action="Edit" asp-route-id="@Model.Id" class="tt-icon-btn" style="color: #666f74">
                             <i class="fas fa-pen"></i>
@@ -202,7 +202,7 @@
                         <a asp-controller="Replies" asp-action="Details" asp-route-id="@reply.Id" class="tt-icon-btn">
                             <i class="tt-icon"><svg><use xlink:href="#icon-view"></use></svg></i>
                         </a>
-                        @if (reply.Author.Id == (string)this.ViewData["UserId"] || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        @if (reply.Author.Id == (string)this.ViewData["UserId"] || this.User.IsAdministrator())
                         {
                             <a asp-controller="Replies" asp-action="Edit" asp-route-id="@reply.Id" class="tt-icon-btn" style="color: #666f74">
                                 <i class="fas fa-pen"></i>
