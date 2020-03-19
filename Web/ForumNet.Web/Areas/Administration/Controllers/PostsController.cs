@@ -28,7 +28,7 @@
             }
 
             var isPinned = await this.postsService.PinAsync(id);
-            var pinOrUnpinPostText = isPinned ? PinPostText : UnpinPostText;
+            var pinOrUnpinPostText = isPinned ? UnpinPostText : PinPostText;
 
             return this.Json(new { pinOrUnpin = pinOrUnpinPostText });
         }

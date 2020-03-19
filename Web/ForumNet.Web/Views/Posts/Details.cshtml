@@ -22,8 +22,8 @@
                         <div class="tt-info-time">
                             @if (this.User.IsAdministrator())
                             {
-                                <button style="padding: 0; border:none; background:none; outline: none; color: #666f74" >
-                                    <i class="fas fa-thumbtack" onclick="pinPost(@Model.Id)"></i>
+                                <button style="padding: 0; border: none; background: none; outline: none; color: #666f74" onclick="pinPost(@Model.Id)">
+                                    <i class="fas fa-thumbtack"></i>
                                     <span id="isPinned">@(Model.IsPinned ? "Unpin" : "Pin")</span>
                                 </button>
                             }

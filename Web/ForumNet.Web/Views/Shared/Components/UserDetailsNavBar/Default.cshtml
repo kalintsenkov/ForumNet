@@ -5,8 +5,12 @@
         <div class="tt-avatar-icon tt-size-md">
             <i class="tt-icon"><svg><use xlink:href="#@Model.ProfilePicture"></use></svg></i>
         </div>
-        <div>
-            <a asp-area="Identity" asp-page="/Account/Manage/PersonalData" class="btn">@Model.UserName</a>
+        <div class="custom-select-01">
+            <select onchange="location = this.value;">
+                <option value="Default Sorting" selected>@Model.UserName</option>
+                <option value="/Identity/Account/Manage/PersonalData">Manage Account</option>
+                <option value="/Identity/Account/Logout">Logout</option>
+            </select>
         </div>
     </div>
 </div>

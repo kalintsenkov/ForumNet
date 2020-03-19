@@ -174,6 +174,7 @@
         {
             var posts = await this.db.Posts
                 .Where(p => p.IsPinned && !p.IsDeleted)
+                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -184,6 +185,7 @@
         {
             var posts = await this.db.Posts
                 .Where(p => p.AuthorId == userId && !p.IsDeleted)
+                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -212,6 +214,7 @@
         public async Task<IEnumerable<TModel>> GetAllWithDeletedAsync<TModel>()
         {
             var posts = await this.db.Posts
+                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

@@ -41,8 +41,14 @@
         {
             var viewModel = new PostsAllViewModel
             {
-                Posts = await this.postsService.GetAllAsync<PostsListingViewModel>(search)
+                Posts = await this.postsService.GetAllAsync<PostsListingViewModel>(search),
+                PinnedPosts = await this.postsService.GetAllPinnedAsync<PostsListingViewModel>()
             };
+
+            foreach (var post in viewModel.PinnedPosts)
+            {
+                post.Tags = await this.tagsService.GetAllByPostIdAsync<TagsInfoViewModel>(post.Id);
+            }
 
             foreach (var post in viewModel.Posts)
             {
