@@ -9,7 +9,7 @@
 <div class="container">
     <div class="tt-loginpages-wrapper">
         <div class="tt-loginpages">
-            <a asp-controller="Home" asp-action="Index" class="tt-block-title">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="tt-block-title">
                 <img src="~/images/logo.png" alt="logo">
                 <div class="tt-title">
                     Welcome to Forum.NET
@@ -48,7 +48,7 @@
                 <div class="form-group">
                     <label asp-for="Input.Gender"></label>
                     <select class="form-control" asp-for="Input.Gender">
-                        <option hidden>Please select...</option>
+                        <option disabled selected>Please select...</option>
                         <option value="@GenderType.NotKnown">Not known</option>
                         <option value="@GenderType.Male">Male</option>
                         <option value="@GenderType.Female">Female</option>
@@ -87,7 +87,7 @@
                 <p>Already have an account? <a asp-area="Identity" asp-page="/Account/Login">Login here</a></p>
                 <div class="tt-notes">
                     By signing up, signing in or continuing, I agree to
-                    Forum.NET’s <a href="#" class="tt-underline">Terms of Use</a> and <a asp-controller="Home" asp-action="Privacy" class="tt-underline">Privacy Policy.</a>
+                    Forum.NET’s <a href="#" class="tt-underline">Terms of Use</a> and <a asp-area="" asp-controller="Home" asp-action="Privacy" class="tt-underline">Privacy Policy.</a>
                 </div>
             </form>
         </div>

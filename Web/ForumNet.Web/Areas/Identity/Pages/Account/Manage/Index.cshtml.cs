@@ -9,7 +9,9 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
     using Common;
+    using Data.Common;
     using Data.Models;
+    using Data.Models.Enums;
 
     public partial class IndexModel : PageModel
     {
@@ -34,9 +36,18 @@
 
         public class InputModel
         {
-            [Phone]
-            [Display(Name = ModelConstants.PhoneNumberDisplayName)]
-            public string PhoneNumber { get; set; }
+            [Required]
+            [DataType(DataType.Date)]
+            [Display(Name = ModelConstants.BirthDateDisplayName)]
+            public DateTime BirthDate { get; set; }
+
+            [Required]
+            [EnumDataType(typeof(GenderType), ErrorMessage = "Not valid gender.")]
+            [Display(Name = ModelConstants.GenderDisplayName)]
+            public GenderType Gender { get; set; }
+
+            [MaxLength(DataConstants.UserBiographyMaxLength)]
+            public string Biography { get; set; }
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -44,53 +55,57 @@
             var user = await userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
+                return this.NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
             }
 
-            await LoadAsync(user);
-            return Page();
+            await this.LoadAsync();
+            return this.Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var user = await userManager.GetUserAsync(User);
+            var user = await this.userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
+                return this.NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
             }
 
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                await LoadAsync(user);
-                return Page();
+                await this.LoadAsync();
+                return this.Page();
             }
 
-            var phoneNumber = await userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
+            if (this.Input.BirthDate != user.BirthDate || this.Input.Gender != user.Gender)
             {
-                var setPhoneResult = await userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
+                user.BirthDate = this.Input.BirthDate;
+                user.Gender = this.Input.Gender;
+                user.Biography = this.Input.Biography;
+
+                var updateResult = await this.userManager.UpdateAsync(user);
+                if (!updateResult.Succeeded)
                 {
-                    var userId = await userManager.GetUserIdAsync(user);
+                    var userId = await this.userManager.GetUserIdAsync(user);
                     throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
                 }
             }
 
-            await signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
-            return RedirectToPage();
+            await this.signInManager.RefreshSignInAsync(user);
+            this.StatusMessage = "Your profile has been updated";
+            return this.RedirectToPage();
         }
 
-        private async Task LoadAsync(ForumUser user)
+        private async Task LoadAsync()
         {
-            var userName = await userManager.GetUserNameAsync(user);
-            var phoneNumber = await userManager.GetPhoneNumberAsync(user);
+            var user = await this.userManager.GetUserAsync(this.User);
 
-            Username = userName;
+            this.Username = user.UserName;
 
-            Input = new InputModel
+            this.Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                BirthDate = user.BirthDate,
+                Gender = user.Gender,
+                Biography = user.Biography
             };
         }
     }
