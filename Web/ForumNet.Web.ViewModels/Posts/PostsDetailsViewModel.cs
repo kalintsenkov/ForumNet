@@ -28,6 +28,8 @@
 
         public string CreatedOn { get; set; }
 
+        public string CurrentUserId { get; set; }
+
         public UsersInfoViewModel Author { get; set; }
 
         public CategoriesInfoViewModel Category { get; set; }
