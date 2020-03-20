@@ -10,7 +10,7 @@
             <div class="tt-col-left">
                 <ul class="tt-list-badge">
                     <li>
-                        <a asp-controller="Categories" asp-action="Details" asp-route-id="@Model.Category.Id">
+                        <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@Model.Category.Id">
                             <span class="tt-color01 tt-badge">@Model.Category.Name</span>
                         </a>
                     </li>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="tt-col-description">
                         <h6 class="tt-title">
-                            <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.Id">
+                            <a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@post.Id">
                                 @post.Title
                             </a>
                         </h6>
@@ -82,7 +82,7 @@
                             <div class="col-11">
                                 <ul class="tt-list-badge">
                                     <li class="show-mobile">
-                                        <a asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
+                                        <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
                                             <span class="tt-color01 tt-badge">@post.Category.Name</span>
                                         </a>
                                     </li>

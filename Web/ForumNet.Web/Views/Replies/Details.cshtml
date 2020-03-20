@@ -26,19 +26,19 @@
                     <p>@Html.Raw(Model.SanitizedDescription)</p>
                 </div>
                 <div class="tt-item-info info-bottom">
-                    <a asp-controller="Replies" asp-action="Like" asp-route-id="@Model.Id" class="tt-icon-btn">
+                    <a asp-area="" asp-controller="Replies" asp-action="Like" asp-route-id="@Model.Id" class="tt-icon-btn">
                         <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
                     </a>
-                    <a asp-controller="Replies" asp-action="Dislike" asp-route-id="@Model.Id" class="tt-icon-btn">
+                    <a asp-area="" asp-controller="Replies" asp-action="Dislike" asp-route-id="@Model.Id" class="tt-icon-btn">
                         <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
                     </a>
 
                     @if (Model.Author.Id == (string)this.ViewData["UserId"] || this.User.IsAdministrator())
                     {
-                        <a asp-controller="Replies" asp-action="Edit" asp-route-id="@Model.Id" class="tt-icon-btn" style="color: #666f74">
+                        <a asp-area="" asp-controller="Replies" asp-action="Edit" asp-route-id="@Model.Id" class="tt-icon-btn" style="color: #666f74">
                             <i class="fas fa-pen"></i>
                         </a>
-                        <a asp-controller="Replies" asp-action="Delete" asp-route-id="@Model.Id" class="tt-icon-btn" style="color: #666f74">
+                        <a asp-area="" asp-controller="Replies" asp-action="Delete" asp-route-id="@Model.Id" class="tt-icon-btn" style="color: #666f74">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     }
@@ -59,7 +59,7 @@
         <br />
         <div class="row">
             <div class="col-auto ml-md-auto">
-                <a asp-controller="Posts" asp-action="Details" asp-route-id="@Model.PostId" class="btn btn-primary">Back</a>
+                <a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.PostId" class="btn btn-primary">Back</a>
             </div>
         </div>
     </div>

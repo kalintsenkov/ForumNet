@@ -3,7 +3,7 @@
 <div class="tt-wrapper-inner">
     <div class="pt-editor form-default">
         <h6 class="pt-title">Post Your Reply</h6>
-        <form class="form-default form-create-topic" asp-controller="Replies" asp-action="Create" method="post">
+        <form class="form-default form-create-topic" asp-area="" asp-controller="Replies" asp-action="Create" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <input asp-for="PostId" value="@Model.PostId" hidden class="form-control" />
@@ -21,6 +21,5 @@
 </div>
 
 @section Scripts {
-    
     <partial name="_ValidationScriptsPartial" />
 }

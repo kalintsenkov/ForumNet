@@ -9,7 +9,7 @@
         <h1 class="tt-title-border">
             @ViewData["Title"]
         </h1>
-        <form class="form-default form-create-topic" asp-action="Edit">
+        <form class="form-default form-create-topic" asp-area="" asp-controller="Replies" asp-action="Edit">
             <div class="form-group">
                 <textarea id="reply-edit" asp-for="Description"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
