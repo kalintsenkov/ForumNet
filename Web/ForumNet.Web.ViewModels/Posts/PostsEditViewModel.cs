@@ -3,11 +3,9 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     
-    using Categories;
     using Common;
     using Common.Attributes;
     using Data.Common;
-    using Tags;
 
     public class PostsEditViewModel
     {
@@ -33,8 +31,8 @@
         [Display(Name = ModelConstants.TagsDisplayName)]
         public IEnumerable<int> TagIds { get; set; }
 
-        public IEnumerable<TagsInfoViewModel> Tags { get; set; }
+        public IEnumerable<PostsTagsDetailsViewModel> Tags { get; set; }
 
-        public IEnumerable<CategoriesInfoViewModel> Categories { get; set; }
+        public IEnumerable<PostsCategoryDetailsViewModel> Categories { get; set; }
     }
 }

@@ -4,11 +4,7 @@
 
     using Ganss.XSS;
     
-    using Categories;
     using Data.Models.Enums;
-    using Replies;
-    using Tags;
-    using Users;
 
     public class PostsDetailsViewModel
     {
@@ -36,12 +32,12 @@
 
         public string CurrentUserId { get; set; }
 
-        public UsersInfoViewModel Author { get; set; }
+        public PostsAuthorDetailsViewModel Author { get; set; }
 
-        public CategoriesInfoViewModel Category { get; set; }
+        public PostsCategoryDetailsViewModel Category { get; set; }
 
-        public IEnumerable<TagsInfoViewModel> Tags { get; set; }
+        public IEnumerable<PostsTagsDetailsViewModel> Tags { get; set; }
 
-        public IEnumerable<RepliesDetailsViewModel> Replies { get; set; }
+        public IEnumerable<PostsRepliesDetailsViewModel> Replies { get; set; }
     }
 }

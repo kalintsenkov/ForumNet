@@ -2,16 +2,11 @@
 {
     using System.Collections.Generic;
 
-    using Categories;
-    using Tags;
-
     public class PostsListingViewModel
     {
         public int Id { get; set; }
 
         public string Title { get; set; }
-
-        public CategoriesInfoViewModel Category { get; set; }
 
         public int Likes { get; set; }
 
@@ -23,6 +18,8 @@
 
         public string AuthorProfilePicture { get; set; }
 
-        public IEnumerable<TagsInfoViewModel> Tags { get; set; }
+        public PostsCategoryDetailsViewModel Category { get; set; }
+
+        public IEnumerable<PostsTagsDetailsViewModel> Tags { get; set; }
     }
 }

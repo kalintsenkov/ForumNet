@@ -17,7 +17,7 @@
                             <i class="tt-icon"><svg><use xlink:href="#@Model.Author.ProfilePicture"></use></svg></i>
                         </div>
                         <div class="tt-avatar-title">
-                            <a href="#">@Model.Author.Name</a>
+                            <a href="#">@Model.Author.UserName</a>
                         </div>
                         <div class="tt-info-time">
                             @if (this.User.IsAdministrator())
@@ -179,7 +179,7 @@
                                 <i class="tt-icon"><svg><use xlink:href="#@reply.Author.ProfilePicture"></use></svg></i>
                             </div>
                             <div class="tt-avatar-title">
-                                <a href="#">@reply.Author.Name</a>
+                                <a href="#">@reply.Author.UserName</a>
                             </div>
                             <a href="#" class="tt-info-time">
                                 <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>@reply.CreatedOn
@@ -187,7 +187,7 @@
                         </div>
                     </div>
                     <div class="tt-item-description">
-                        <p>@Html.Raw(reply.Description)</p>
+                        <p>@Html.Raw(reply.SanitizedDescription)</p>
                     </div>
                     <div class="tt-item-info info-bottom">
                         <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="likeReply(@reply.Id)">

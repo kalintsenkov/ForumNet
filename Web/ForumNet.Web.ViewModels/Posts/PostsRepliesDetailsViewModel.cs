@@ -1,8 +1,8 @@
-﻿namespace ForumNet.Web.ViewModels.Replies
+﻿namespace ForumNet.Web.ViewModels.Posts
 {
     using Ganss.XSS;
 
-    public class RepliesDetailsViewModel
+    public class PostsRepliesDetailsViewModel
     {
         public int Id { get; set; }
 
@@ -16,8 +16,6 @@
 
         public string CreatedOn { get; set; }
 
-        public int PostId { get; set; }
-
-        public RepliesAuthorDetailsViewModel Author { get; set; }
+        public PostsAuthorDetailsViewModel Author { get; set; }
     }
 }

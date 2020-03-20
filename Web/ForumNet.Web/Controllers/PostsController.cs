@@ -8,10 +8,7 @@
 
     using Common.Extensions;
     using Services.Contracts;
-    using ViewModels.Categories;
     using ViewModels.Posts;
-    using ViewModels.Replies;
-    using ViewModels.Tags;
 
     [Authorize]
     public class PostsController : Controller
@@ -47,22 +44,21 @@
 
             foreach (var post in viewModel.PinnedPosts)
             {
-                post.Tags = await this.tagsService.GetAllByPostIdAsync<TagsInfoViewModel>(post.Id);
+                post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(post.Id);
             }
 
             foreach (var post in viewModel.Posts)
             {
-                post.Tags = await this.tagsService.GetAllByPostIdAsync<TagsInfoViewModel>(post.Id);
+                post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(post.Id);
             }
 
-            this.ViewData["Search"] = search;
             return this.View(viewModel);
         }
 
         public async Task<IActionResult> Create()
         {
-            var categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>();
-            var tags = await this.tagsService.GetAllAsync<TagsInfoViewModel>();
+            var categories = await this.categoriesService.GetAllAsync<PostsCategoryDetailsViewModel>();
+            var tags = await this.tagsService.GetAllAsync<PostsTagsDetailsViewModel>();
             var viewModel = new PostsCreateInputModel
             {
                 Categories = categories,
@@ -77,8 +73,8 @@
         {
             if (!this.ModelState.IsValid)
             {
-                input.Categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>();
-                input.Tags = await this.tagsService.GetAllAsync<TagsInfoViewModel>();
+                input.Categories = await this.categoriesService.GetAllAsync<PostsCategoryDetailsViewModel>();
+                input.Tags = await this.tagsService.GetAllAsync<PostsTagsDetailsViewModel>();
 
                 return this.View(input);
             }
@@ -107,8 +103,8 @@
             await this.postsService.ViewAsync(id);
 
             post.CurrentUserId = this.User.GetId();
-            post.Tags = await this.tagsService.GetAllByPostIdAsync<TagsInfoViewModel>(id);
-            post.Replies = await this.repliesService.GetAllByPostIdAsync<RepliesDetailsViewModel>(id, sort);
+            post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(id);
+            post.Replies = await this.repliesService.GetAllByPostIdAsync<PostsRepliesDetailsViewModel>(id, sort);
 
             return this.View(post);
         }
@@ -127,8 +123,8 @@
                 return this.Unauthorized();
             }
 
-            post.Categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>();
-            post.Tags = await this.tagsService.GetAllAsync<TagsInfoViewModel>();
+            post.Categories = await this.categoriesService.GetAllAsync<PostsCategoryDetailsViewModel>();
+            post.Tags = await this.tagsService.GetAllAsync<PostsTagsDetailsViewModel>();
 
             return this.View(post);
         }
@@ -140,8 +136,8 @@
             {
                 var viewModel = this.mapper.Map<PostsEditViewModel>(input);
 
-                viewModel.Categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>();
-                viewModel.Tags = await this.tagsService.GetAllAsync<TagsInfoViewModel>();
+                viewModel.Categories = await this.categoriesService.GetAllAsync<PostsCategoryDetailsViewModel>();
+                viewModel.Tags = await this.tagsService.GetAllAsync<PostsTagsDetailsViewModel>();
 
                 return this.View(viewModel);
             }

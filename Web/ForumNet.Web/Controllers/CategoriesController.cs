@@ -8,7 +8,6 @@
     using Services.Contracts;
     using ViewModels.Categories;
     using ViewModels.Posts;
-    using ViewModels.Tags;
 
     public class CategoriesController : Controller
     {
@@ -50,7 +49,7 @@
             var posts = await this.postsService.GetAllByCategoryIdAsync<PostsListingViewModel>(id, search);
             foreach (var post in posts)
             {
-                post.Tags = await this.tagsService.GetAllByPostIdAsync<TagsInfoViewModel>(post.Id);
+                post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(post.Id);
             }
 
             var viewModel = new CategoriesDetailsViewModel
