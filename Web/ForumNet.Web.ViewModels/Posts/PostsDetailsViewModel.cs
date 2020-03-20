@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
 
+    using Ganss.XSS;
+    
     using Categories;
     using Data.Models.Enums;
     using Replies;
@@ -17,6 +19,10 @@
         public PostType Type { get; set; }
 
         public string Description { get; set; }
+
+        public string SanitizedDescription 
+            => new HtmlSanitizer()
+                .Sanitize(this.Description);
 
         public int Views { get; set; }
 

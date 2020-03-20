@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlSanitizer" Version="5.0.298" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ForumNet.Web.Common\ForumNet.Web.Common.csproj" />
   </ItemGroup>
 

@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="tt-item-description">
-                    <p>@Html.Raw(Model.Description)</p>
+                    <p>@Html.Raw(Model.SanitizedDescription)</p>
                 </div>
                 <div class="tt-item-info info-bottom">
                     <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="likePost(@Model.Id)">

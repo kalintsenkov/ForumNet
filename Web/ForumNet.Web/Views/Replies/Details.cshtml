@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="tt-item-description">
-                    <p>@Html.Raw(Model.Description)</p>
+                    <p>@Html.Raw(Model.SanitizedDescription)</p>
                 </div>
                 <div class="tt-item-info info-bottom">
                     <a asp-controller="Replies" asp-action="Like" asp-route-id="@Model.Id" class="tt-icon-btn">
