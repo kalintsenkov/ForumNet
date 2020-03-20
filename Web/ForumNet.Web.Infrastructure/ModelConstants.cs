@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Web.Common
+﻿namespace ForumNet.Web.Infrastructure
 {
     public class ModelConstants
     {
@@ -19,8 +19,6 @@
         public const string ConfirmNewPasswordDisplayName = "Confirm new password";
 
         public const string NewEmailDisplayName = "New email";
-
-        public const string PhoneNumberDisplayName = "Phone number";
 
         public const string BirthDateDisplayName = "Birthday";
 

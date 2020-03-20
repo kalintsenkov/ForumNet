@@ -3,11 +3,10 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using Categories;
-    using Common;
-    using Common.Attributes;
     using Data.Common;
     using Data.Models.Enums;
+    using Infrastructure;
+    using Infrastructure.Attributes;
 
     public class PostsCreateInputModel
     {

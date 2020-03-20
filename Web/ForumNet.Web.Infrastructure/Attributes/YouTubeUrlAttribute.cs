@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Web.Common.Attributes
+﻿namespace ForumNet.Web.Infrastructure.Attributes
 {
     using System.ComponentModel.DataAnnotations;
     using System.Text.RegularExpressions;

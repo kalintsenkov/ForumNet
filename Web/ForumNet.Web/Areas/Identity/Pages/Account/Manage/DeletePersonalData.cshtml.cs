@@ -7,8 +7,8 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
-    using Common.Extensions;
     using Data.Models;
+    using Infrastructure.Extensions;
     using Services.Contracts;
 
     public class DeletePersonalDataModel : PageModel

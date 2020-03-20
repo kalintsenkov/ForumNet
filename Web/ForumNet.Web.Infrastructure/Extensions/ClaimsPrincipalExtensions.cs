@@ -1,8 +1,8 @@
-﻿namespace ForumNet.Web.Common.Extensions
+﻿namespace ForumNet.Web.Infrastructure.Extensions
 {
     using System.Security.Claims;
 
-    using ForumNet.Common;
+    using Common;
 
     public static class ClaimsPrincipalExtensions
     {

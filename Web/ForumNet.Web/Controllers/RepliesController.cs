@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using Common.Extensions;
+    using Infrastructure.Extensions;
     using Services.Contracts;
     using ViewModels.Replies;
 

@@ -19,7 +19,7 @@
     using Data.Common;
     using Data.Models;
     using Data.Models.Enums;
-    using ForumNet.Common;
+    using Infrastructure;
     using Services.Contracts;
     using Services.Messaging;
 

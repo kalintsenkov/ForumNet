@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ForumNet.Web.Infrastructure\ForumNet.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\ForumNet.Web.ViewModels\ForumNet.Web.ViewModels.csproj" />
   </ItemGroup>
 

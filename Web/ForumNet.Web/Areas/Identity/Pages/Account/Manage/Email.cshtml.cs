@@ -12,7 +12,7 @@
 
     using Common;
     using Data.Models;
-    using ForumNet.Common;
+    using Infrastructure;
     using Services.Messaging;
 
     public partial class EmailModel : PageModel

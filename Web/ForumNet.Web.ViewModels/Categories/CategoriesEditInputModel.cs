@@ -1,9 +1,9 @@
 ﻿namespace ForumNet.Web.ViewModels.Categories
 {
     using System.ComponentModel.DataAnnotations;
-    
-    using Common.Attributes;
+
     using Data.Common;
+    using Infrastructure.Attributes;
 
     public class CategoriesEditInputModel
     {

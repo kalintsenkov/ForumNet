@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ForumNet.Web.Common\ForumNet.Web.Common.csproj" />
+    <ProjectReference Include="..\ForumNet.Web.Infrastructure\ForumNet.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

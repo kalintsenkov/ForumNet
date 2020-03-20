@@ -11,8 +11,8 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
-    using Common;
     using Data.Models;
+    using Infrastructure;
     using Services.Contracts;
 
     [AllowAnonymous]
