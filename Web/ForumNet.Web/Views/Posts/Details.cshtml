@@ -51,12 +51,25 @@
                     <p>@Html.Raw(Model.SanitizedDescription)</p>
                 </div>
                 <div class="tt-item-info info-bottom">
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="likePost(@Model.Id)">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="likePost(@Model.Id)">
                         <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
                     </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="dislikePost(@Model.Id)">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="dislikePost(@Model.Id)">
+                        <i class="fas fa-heart"></i>
                     </button>
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="dislikePost(@Model.Id)">
+                        <i class="fas fa-grin-tears"></i>
+                    </button>
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="dislikePost(@Model.Id)">
+                        <i class="fas fa-surprise"></i>
+                    </button>
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="dislikePost(@Model.Id)">
+                        <i class="fas fa-sad-tear"></i>
+                    </button>
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="dislikePost(@Model.Id)">
+                        <i class="fas fa-angry"></i>
+                    </button>
+                    <div class="col-separator"></div>
                     @if (this.Model.Author.Id == this.Model.CurrentUserId || this.User.IsAdministrator())
                     {
                         <a asp-area="" asp-controller="Posts" asp-action="Edit" asp-route-id="@Model.Id" class="tt-icon-btn" style="color: #666f74">
@@ -66,7 +79,6 @@
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     }
-                    <div class="col-separator"></div>
                     <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                         <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
                     </a>

@@ -52,9 +52,11 @@ namespace ForumNet.Web
                 serviceProvider => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+            services.AddTransient<IPostReactionsService, PostReactionsService>();
             services.AddTransient<IPostReportsService, PostReportsService>();
             services.AddTransient<IPostsService, PostsService>();
             services.AddTransient<IRepliesService, RepliesService>();
+            services.AddTransient<IReplyReactionsService, ReplyReactionsService>();
             services.AddTransient<IReplyReportsService, ReplyReportsService>();
             services.AddTransient<ITagsService, TagsService>();
             services.AddTransient<IUsersService, UsersService>();
