@@ -312,7 +312,7 @@
         function likeReactPost(id) {
             $.ajax({
                 type: "POST",
-                url: "/Posts/LikeReact/" + id,
+                url: "/api/post-reactions/" + id + "/like",
                 success: function (json) {
                     $("#post-likes").html(json.likes);
                     $("#post-loves").html(json.loves);
@@ -327,7 +327,7 @@
         function loveReactPost(id) {
             $.ajax({
                 type: "POST",
-                url: "/Posts/LoveReact/" + id,
+                url: "/api/post-reactions/" + id + "/love",
                 success: function (json) {
                     $("#post-likes").html(json.likes);
                     $("#post-loves").html(json.loves);
@@ -342,7 +342,7 @@
         function hahaReactPost(id) {
             $.ajax({
                 type: "POST",
-                url: "/Posts/HahaReact/" + id,
+                url: "/api/post-reactions/" + id + "/haha",
                 success: function (json) {
                     $("#post-likes").html(json.likes);
                     $("#post-loves").html(json.loves);
@@ -357,7 +357,7 @@
         function wowReactPost(id) {
             $.ajax({
                 type: "POST",
-                url: "/Posts/WowReact/" + id,
+                url: "/api/post-reactions/" + id + "/wow",
                 success: function (json) {
                     $("#post-likes").html(json.likes);
                     $("#post-loves").html(json.loves);
@@ -372,7 +372,7 @@
         function sadReactPost(id) {
             $.ajax({
                 type: "POST",
-                url: "/Posts/SadReact/" + id,
+                url: "/api/post-reactions/" + id + "/sad",
                 success: function (json) {
                     $("#post-likes").html(json.likes);
                     $("#post-loves").html(json.loves);
@@ -387,7 +387,7 @@
         function angryReactPost(id) {
             $.ajax({
                 type: "POST",
-                url: "/Posts/AngryReact/" + id,
+                url: "/api/post-reactions/" + id + "/angry",
                 success: function (json) {
                     $("#post-likes").html(json.likes);
                     $("#post-loves").html(json.loves);

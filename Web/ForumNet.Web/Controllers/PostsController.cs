@@ -6,7 +6,6 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using Data.Models.Enums;
     using Infrastructure.Extensions;
     using Services.Contracts;
     using ViewModels.Posts;
@@ -19,22 +18,19 @@
         private readonly IPostsService postsService;
         private readonly IRepliesService repliesService;
         private readonly ICategoriesService categoriesService;
-        private readonly IPostReactionsService postReactionsService;
 
         public PostsController(
             IMapper mapper,
             ITagsService tagsService,
             IPostsService postsService,
             IRepliesService repliesService,
-            ICategoriesService categoriesService,
-            IPostReactionsService postReactionsService)
+            ICategoriesService categoriesService)
         {
             this.mapper = mapper;
             this.tagsService = tagsService;
             this.postsService = postsService;
             this.repliesService = repliesService;
             this.categoriesService = categoriesService;
-            this.postReactionsService = postReactionsService;
         }
 
         [AllowAnonymous]
@@ -156,156 +152,6 @@
             await this.postsService.EditAsync(input.Id, input.Title, input.Description, input.CategoryId, input.TagIds);
 
             return this.RedirectToAction(nameof(Details), new { id = input.Id });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> LikeReact(int id)
-        {
-            var isExisting = await this.postsService.IsExisting(id);
-            if (!isExisting)
-            {
-                return this.NotFound();
-            }
-
-            var userId = this.User.GetId();
-            await this.postReactionsService.ReactAsync(ReactionType.Like, id, userId);
-            var (likes, loves, haha, wow, sad, angry) = await this.postReactionsService.GetCountByPostIdAsync(id);
-            var viewModel = new PostsReactionsCountViewModel
-            {
-                Likes = likes,
-                Loves = loves,
-                Wow = wow,
-                Haha = haha,
-                Sad = sad,
-                Angry = angry
-            };
-
-            return this.Ok(viewModel);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> LoveReact(int id)
-        {
-            var isExisting = await this.postsService.IsExisting(id);
-            if (!isExisting)
-            {
-                return this.NotFound();
-            }
-
-            var userId = this.User.GetId();
-            await this.postReactionsService.ReactAsync(ReactionType.Love, id, userId);
-            var (likes, loves, haha, wow, sad, angry) = await this.postReactionsService.GetCountByPostIdAsync(id);
-            var viewModel = new PostsReactionsCountViewModel
-            {
-                Likes = likes,
-                Loves = loves,
-                Wow = wow,
-                Haha = haha,
-                Sad = sad,
-                Angry = angry
-            };
-
-            return this.Ok(viewModel);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> HahaReact(int id)
-        {
-            var isExisting = await this.postsService.IsExisting(id);
-            if (!isExisting)
-            {
-                return this.NotFound();
-            }
-
-            var userId = this.User.GetId();
-            await this.postReactionsService.ReactAsync(ReactionType.Haha, id, userId);
-            var (likes, loves, haha, wow, sad, angry) = await this.postReactionsService.GetCountByPostIdAsync(id);
-            var viewModel = new PostsReactionsCountViewModel
-            {
-                Likes = likes,
-                Loves = loves,
-                Wow = wow,
-                Haha = haha,
-                Sad = sad,
-                Angry = angry
-            };
-
-            return this.Ok(viewModel);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> WowReact(int id)
-        {
-            var isExisting = await this.postsService.IsExisting(id);
-            if (!isExisting)
-            {
-                return this.NotFound();
-            }
-
-            var userId = this.User.GetId();
-            await this.postReactionsService.ReactAsync(ReactionType.Wow, id, userId);
-            var (likes, loves, haha, wow, sad, angry) = await this.postReactionsService.GetCountByPostIdAsync(id);
-            var viewModel = new PostsReactionsCountViewModel
-            {
-                Likes = likes,
-                Loves = loves,
-                Wow = wow,
-                Haha = haha,
-                Sad = sad,
-                Angry = angry
-            };
-
-            return this.Ok(viewModel);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> SadReact(int id)
-        {
-            var isExisting = await this.postsService.IsExisting(id);
-            if (!isExisting)
-            {
-                return this.NotFound();
-            }
-
-            var userId = this.User.GetId();
-            await this.postReactionsService.ReactAsync(ReactionType.Sad, id, userId);
-            var (likes, loves, haha, wow, sad, angry) = await this.postReactionsService.GetCountByPostIdAsync(id);
-            var viewModel = new PostsReactionsCountViewModel
-            {
-                Likes = likes,
-                Loves = loves,
-                Haha = haha,
-                Wow = wow,
-                Sad = sad,
-                Angry = angry
-            };
-
-            return this.Ok(viewModel);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AngryReact(int id)
-        {
-            var isExisting = await this.postsService.IsExisting(id);
-            if (!isExisting)
-            {
-                return this.NotFound();
-            }
-
-            var userId = this.User.GetId();
-            await this.postReactionsService.ReactAsync(ReactionType.Angry, id, userId);
-            var (likes, loves, haha, wow, sad, angry) = await this.postReactionsService.GetCountByPostIdAsync(id);
-            var viewModel = new PostsReactionsCountViewModel
-            {
-                Likes = likes,
-                Loves = loves,
-                Wow = wow,
-                Haha = haha,
-                Sad = sad,
-                Angry = angry
-            };
-
-            return this.Ok(viewModel);
         }
 
         [HttpPost]
