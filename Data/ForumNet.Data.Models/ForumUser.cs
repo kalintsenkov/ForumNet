@@ -38,7 +38,11 @@ namespace ForumNet.Data.Models
 
         public ICollection<Reply> Replies { get; set; } = new HashSet<Reply>();
 
+        public ICollection<PostReaction> PostReactions { get; set; } = new HashSet<PostReaction>();
+
         public ICollection<PostReport> PostReports { get; set; } = new HashSet<PostReport>();
+
+        public ICollection<ReplyReaction> ReplyReactions { get; set; } = new HashSet<ReplyReaction>();
 
         public ICollection<ReplyReport> ReplyReports { get; set; } = new HashSet<ReplyReport>();
 

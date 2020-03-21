@@ -7,7 +7,7 @@
 
     public class ForumDbContext : IdentityDbContext<ForumUser, ForumRole, string>
     {
-        public ForumDbContext(DbContextOptions options)
+        public ForumDbContext(DbContextOptions<ForumDbContext> options)
             : base(options)
         {
         }
@@ -16,11 +16,15 @@
 
         public DbSet<Post> Posts { get; set; }
 
+        public DbSet<PostReaction> PostReactions { get; set; }
+
         public DbSet<PostReport> PostReports { get; set; }
 
         public DbSet<PostTag> PostsTags { get; set; }
 
         public DbSet<Reply> Replies { get; set; }
+
+        public DbSet<ReplyReaction> ReplyReactions { get; set; }
 
         public DbSet<ReplyReport> ReplyReports { get; set; }
 

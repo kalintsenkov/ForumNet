@@ -11,10 +11,6 @@
 
         Task DeleteAsync(int id);
 
-        Task<int> LikeAsync(int id);
-
-        Task<int> DislikeAsync(int id);
-
         Task<bool> IsExisting(int id);
 
         Task<string> GetAuthorIdById(int id);

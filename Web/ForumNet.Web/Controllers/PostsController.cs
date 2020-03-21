@@ -154,33 +154,19 @@
             return this.RedirectToAction(nameof(Details), new { id = input.Id });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Like(int id)
-        {
-            var isExisting = await this.postsService.IsExisting(id);
-            if (!isExisting)
-            {
-                return this.NotFound();
-            }
+        //[HttpPost]
+        //public async Task<IActionResult> Like(int id)
+        //{
+        //    var isExisting = await this.postsService.IsExisting(id);
+        //    if (!isExisting)
+        //    {
+        //        return this.NotFound();
+        //    }
 
-            var likes = await this.postsService.LikeAsync(id);
+        //    var likes = await this.postsService.LikeAsync(id);
 
-            return this.Json(new { Likes = likes });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Dislike(int id)
-        {
-            var isExisting = await this.postsService.IsExisting(id);
-            if (!isExisting)
-            {
-                return this.NotFound();
-            }
-
-            var likes = await this.postsService.DislikeAsync(id);
-
-            return this.Json(new { Likes = likes });
-        }
+        //    return this.Json(new { Likes = likes });
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id)

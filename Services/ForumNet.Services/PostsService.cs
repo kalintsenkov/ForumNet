@@ -89,28 +89,6 @@
             return post.IsPinned;
         }
 
-        public async Task<int> LikeAsync(int id)
-        {
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
-
-            post.Likes++;
-
-            await this.db.SaveChangesAsync();
-
-            return post.Likes;
-        }
-
-        public async Task<int> DislikeAsync(int id)
-        {
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
-
-            post.Likes--;
-
-            await this.db.SaveChangesAsync();
-
-            return post.Likes;
-        }
-
         public async Task AddTagsAsync(int id, IEnumerable<int> tagIds)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);

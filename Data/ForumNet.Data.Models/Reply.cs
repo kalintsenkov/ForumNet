@@ -11,7 +11,13 @@
 
         public string Description { get; set; }
 
-        public int Likes { get; set; }
+        public int PostId { get; set; }
+
+        public Post Post { get; set; }
+
+        public string AuthorId { get; set; }
+
+        public ForumUser Author { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
@@ -21,14 +27,8 @@
 
         public DateTime? DeletedOn { get; set; }
 
-        public int PostId { get; set; }
-
-        public Post Post { get; set; }
-
-        public string AuthorId { get; set; }
-
-        public ForumUser Author { get; set; }
-
         public ICollection<ReplyReport> Reports { get; set; } = new HashSet<ReplyReport>();
+
+        public ICollection<ReplyReaction> Reactions { get; set; } = new HashSet<ReplyReaction>();
     }
 }

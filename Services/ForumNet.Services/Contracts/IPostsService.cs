@@ -17,10 +17,6 @@
 
         Task<bool> PinAsync(int id);
 
-        Task<int> LikeAsync(int id);
-
-        Task<int> DislikeAsync(int id);
-
         Task AddTagsAsync(int id, IEnumerable<int> tagIds);
 
         Task<bool> IsExisting(int id);

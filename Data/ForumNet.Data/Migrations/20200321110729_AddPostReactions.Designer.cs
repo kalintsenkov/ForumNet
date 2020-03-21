@@ -4,14 +4,16 @@ using ForumNet.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ForumNet.Data.Migrations
 {
     [DbContext(typeof(ForumDbContext))]
-    partial class ForumDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200321110729_AddPostReactions")]
+    partial class AddPostReactions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -270,7 +272,7 @@ namespace ForumNet.Data.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("PostReactions");
+                    b.ToTable("PostReaction");
                 });
 
             modelBuilder.Entity("ForumNet.Data.Models.PostReport", b =>
@@ -347,6 +349,9 @@ namespace ForumNet.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
@@ -362,38 +367,6 @@ namespace ForumNet.Data.Migrations
                     b.HasIndex("PostId");
 
                     b.ToTable("Replies");
-                });
-
-            modelBuilder.Entity("ForumNet.Data.Models.ReplyReaction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AuthorId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ReactionType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ReplyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("ReplyId");
-
-                    b.ToTable("ReplyReactions");
                 });
 
             modelBuilder.Entity("ForumNet.Data.Models.ReplyReport", b =>
@@ -640,21 +613,6 @@ namespace ForumNet.Data.Migrations
                     b.HasOne("ForumNet.Data.Models.Post", "Post")
                         .WithMany("Replies")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ForumNet.Data.Models.ReplyReaction", b =>
-                {
-                    b.HasOne("ForumNet.Data.Models.ForumUser", "Author")
-                        .WithMany("ReplyReactions")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ForumNet.Data.Models.Reply", "Reply")
-                        .WithMany("Reactions")
-                        .HasForeignKey("ReplyId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

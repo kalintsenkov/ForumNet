@@ -59,28 +59,6 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<int> LikeAsync(int id)
-        {
-            var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id);
-
-            reply.Likes++;
-
-            await this.db.SaveChangesAsync();
-
-            return reply.Likes;
-        }
-
-        public async Task<int> DislikeAsync(int id)
-        {
-            var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id);
-
-            reply.Likes--;
-
-            await this.db.SaveChangesAsync();
-
-            return reply.Likes;
-        }
-
         public Task<bool> IsExisting(int id)
         {
             return this.db.Replies.AnyAsync(r => r.Id == id && !r.IsDeleted);
@@ -124,7 +102,7 @@
             queryable = sort switch
             {
                 "recent" => queryable.OrderByDescending(r => r.CreatedOn),
-                "most liked" => queryable.OrderByDescending(r => r.Likes),
+                //"most liked" => queryable.OrderByDescending(r => r.Likes),
                 "longest" => queryable.OrderByDescending(r => r.Description.Length),
                 "shortest" => queryable.OrderBy(r => r.Description.Length),
                 _ => queryable.OrderByDescending(r => r.CreatedOn)
