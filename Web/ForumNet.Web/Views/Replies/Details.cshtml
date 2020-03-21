@@ -26,12 +26,43 @@
                     <p>@Html.Raw(Model.SanitizedDescription)</p>
                 </div>
                 <div class="tt-item-info info-bottom">
-                    <a asp-area="" asp-controller="Replies" asp-action="Like" asp-route-id="@Model.Id" class="tt-icon-btn">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="likeReaction(@Model.Id)">
                         <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
-                    </a>
-                    <a asp-area="" asp-controller="Replies" asp-action="Dislike" asp-route-id="@Model.Id" class="tt-icon-btn">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
-                    </a>
+                    </button>
+                    &nbsp;
+                    <span id="reply-likes-@Model.Id" class="tt-text">@Model.Likes</span>
+                    &nbsp;
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="loveReaction(@Model.Id)">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    &nbsp;
+                    <span id="reply-loves-@Model.Id" class="tt-text">@Model.Loves</span>
+                    &nbsp;
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="hahaReaction(@Model.Id)">
+                        <i class="fas fa-grin-tears"></i>
+                    </button>
+                    &nbsp;
+                    <span id="reply-haha-@Model.Id" class="tt-text">@Model.HahaCount</span>
+                    &nbsp;
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="wowReaction(@Model.Id)">
+                        <i class="fas fa-surprise"></i>
+                    </button>
+                    &nbsp;
+                    <span id="reply-wow-@Model.Id" class="tt-text">@Model.WowCount</span>
+                    &nbsp;
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="sadReaction(@Model.Id)">
+                        <i class="fas fa-sad-tear"></i>
+                    </button>
+                    &nbsp;
+                    <span id="reply-sad-@Model.Id" class="tt-text">@Model.SadCount</span>
+                    &nbsp;
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="angryReaction(@Model.Id)">
+                        <i class="fas fa-angry"></i>
+                    </button>
+                    &nbsp;
+                    <span id="reply-angry-@Model.Id" class="tt-text">@Model.AngryCount</span>
+                    &nbsp;
+                    <div class="col-separator"></div>
 
                     @if (Model.Author.Id == (string)this.ViewData["UserId"] || this.User.IsAdministrator())
                     {
@@ -43,7 +74,6 @@
                         </a>
                     }
 
-                    <div class="col-separator"></div>
                     <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                         <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
                     </a>
@@ -64,3 +94,97 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        function likeReaction(id) {
+            $.ajax({
+                type: "POST",
+                url: "/api/reply-reactions/" + id + "/like",
+                success: function (json) {
+                    $("#reply-likes-" + id).html(json.likes);
+                    $("#reply-loves-" + id).html(json.loves);
+                    $("#reply-haha-" + id).html(json.haha);
+                    $("#reply-wow-" + id).html(json.wow);
+                    $("#reply-sad-" + id).html(json.sad);
+                    $("#reply-angry-" + id).html(json.angry);
+                }
+            });
+        }
+
+        function loveReaction(id) {
+            $.ajax({
+                type: "POST",
+                url: "/api/reply-reactions/" + id + "/love",
+                success: function (json) {
+                    $("#reply-likes-" + id).html(json.likes);
+                    $("#reply-loves-" + id).html(json.loves);
+                    $("#reply-haha-" + id).html(json.haha);
+                    $("#reply-wow-" + id).html(json.wow);
+                    $("#reply-sad-" + id).html(json.sad);
+                    $("#reply-angry-" + id).html(json.angry);
+                }
+            });
+        }
+
+        function hahaReaction(id) {
+            $.ajax({
+                type: "POST",
+                url: "/api/reply-reactions/" + id + "/haha",
+                success: function (json) {
+                    $("#reply-likes-" + id).html(json.likes);
+                    $("#reply-loves-" + id).html(json.loves);
+                    $("#reply-haha-" + id).html(json.haha);
+                    $("#reply-wow-" + id).html(json.wow);
+                    $("#reply-sad-" + id).html(json.sad);
+                    $("#reply-angry-" + id).html(json.angry);
+                }
+            });
+        }
+
+        function wowReaction(id) {
+            $.ajax({
+                type: "POST",
+                url: "/api/reply-reactions/" + id + "/wow",
+                success: function (json) {
+                    $("#reply-likes-" + id).html(json.likes);
+                    $("#reply-loves-" + id).html(json.loves);
+                    $("#reply-haha-" + id).html(json.haha);
+                    $("#reply-wow-" + id).html(json.wow);
+                    $("#reply-sad-" + id).html(json.sad);
+                    $("#reply-angry-" + id).html(json.angry);
+                }
+            });
+        }
+
+        function sadReaction(id) {
+            $.ajax({
+                type: "POST",
+                url: "/api/reply-reactions/" + id + "/sad",
+                success: function (json) {
+                    $("#reply-likes-" + id).html(json.likes);
+                    $("#reply-loves-" + id).html(json.loves);
+                    $("#reply-haha-" + id).html(json.haha);
+                    $("#reply-wow-" + id).html(json.wow);
+                    $("#reply-sad-" + id).html(json.sad);
+                    $("#reply-angry-" + id).html(json.angry);
+                }
+            });
+        }
+
+        function angryReaction(id) {
+            $.ajax({
+                type: "POST",
+                url: "/api/reply-reactions/" + id + "/angry",
+                success: function (json) {
+                    $("#reply-likes-" + id).html(json.likes);
+                    $("#reply-loves-" + id).html(json.loves);
+                    $("#reply-haha-" + id).html(json.haha);
+                    $("#reply-wow-" + id).html(json.wow);
+                    $("#reply-sad-" + id).html(json.sad);
+                    $("#reply-angry-" + id).html(json.angry);
+                }
+            });
+        }
+    </script>
+}

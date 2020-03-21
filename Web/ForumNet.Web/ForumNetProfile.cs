@@ -65,14 +65,50 @@
             #region Replies
             this.CreateMap<Reply, RepliesDeleteDetailsViewModel>();
             this.CreateMap<Reply, RepliesEditInputModel>();
-            this.CreateMap<Reply, PostsRepliesDetailsViewModel>()
-                .ForMember(
-                    dest => dest.CreatedOn,
-                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)));
             this.CreateMap<Reply, RepliesDetailsViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
-                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)));
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)))
+                .ForMember(
+                    dest => dest.Likes,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Like)))
+                .ForMember(
+                    dest => dest.Loves,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Love)))
+                .ForMember(
+                    dest => dest.HahaCount,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Haha)))
+                .ForMember(
+                    dest => dest.WowCount,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Wow)))
+                .ForMember(
+                    dest => dest.SadCount,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Sad)))
+                .ForMember(
+                    dest => dest.AngryCount,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Angry)));
+            this.CreateMap<Reply, PostsRepliesDetailsViewModel>()
+                .ForMember(
+                    dest => dest.CreatedOn,
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)))
+                .ForMember(
+                    dest => dest.Likes,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Like)))
+                .ForMember(
+                    dest => dest.Loves,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Love)))
+                .ForMember(
+                    dest => dest.HahaCount,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Haha)))
+                .ForMember(
+                    dest => dest.WowCount,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Wow)))
+                .ForMember(
+                    dest => dest.SadCount,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Sad)))
+                .ForMember(
+                    dest => dest.AngryCount,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Angry)));
             #endregion
 
             #region Users

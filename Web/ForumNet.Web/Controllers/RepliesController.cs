@@ -83,20 +83,6 @@
             return this.View(reply);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Like(int id)
-        //{
-        //    var isExisting = await this.repliesService.IsExisting(id);
-        //    if (!isExisting)
-        //    {
-        //        return this.NotFound();
-        //    }
-
-        //    var likes = await this.repliesService.LikeAsync(id);
-
-        //    return this.Json(new { Likes = likes });
-        //}
-
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {

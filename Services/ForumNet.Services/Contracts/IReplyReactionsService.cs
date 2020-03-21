@@ -8,16 +8,6 @@
     {
         Task ReactAsync(ReactionType reactionType, int replyId, string authorId);
 
-        Task<int> GetLikesCountByReplyIdAsync(int replyId);
-
-        Task<int> GetLovesCountByReplyIdAsync(int replyId);
-
-        Task<int> GetWowCountByReplyIdAsync(int replyId);
-
-        Task<int> GetHahaCountByReplyIdAsync(int replyId);
-
-        Task<int> GetSadCountByReplyIdAsync(int replyId);
-
-        Task<int> GetAngryCountByReplyIdAsync(int replyId);
+        Task<(int Likes, int Loves, int Haha, int Wow, int Sad, int Angry)> GetCountByReplyIdAsync(int replyId);
     }
 }

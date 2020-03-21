@@ -1,6 +1,6 @@
-﻿namespace ForumNet.Web.ViewModels.Posts
+﻿namespace ForumNet.Web.ViewModels.Reactions
 {
-    public class PostsReactionsCountViewModel
+    public class ReactionsCountViewModel
     {
         public int Likes { get; set; }
 

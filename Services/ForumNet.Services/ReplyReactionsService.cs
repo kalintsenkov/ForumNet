@@ -47,58 +47,25 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<int> GetLikesCountByReplyIdAsync(int replyId)
+        public async Task<(int Likes, int Loves, int Haha, int Wow, int Sad, int Angry)> GetCountByReplyIdAsync(int replyId)
         {
-            var likes = await this.db.ReplyReactions
-                .Where(rr => !rr.Reply.IsDeleted && rr.ReplyId == replyId)
-                .CountAsync(rr => rr.ReactionType == ReactionType.Like);
+            var likes = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Like, replyId);
+            var loves = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Love, replyId);
+            var haha = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Haha, replyId);
+            var wow = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Wow, replyId);
+            var sad = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Sad, replyId);
+            var angry = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Angry, replyId);
 
-            return likes;
+            return (likes, loves, haha, wow, sad, angry);
         }
 
-        public async Task<int> GetLovesCountByReplyIdAsync(int replyId)
+        private async Task<int> GetCountByTypeAndReplyIdAsync(ReactionType reactionType, int replyId)
         {
-            var loves = await this.db.ReplyReactions
-                .Where(rr => !rr.Reply.IsDeleted && rr.ReplyId == replyId)
-                .CountAsync(rr => rr.ReactionType == ReactionType.Love);
+            var count = await this.db.ReplyReactions
+                .Where(pr => !pr.Reply.IsDeleted && pr.ReplyId == replyId)
+                .CountAsync(pr => pr.ReactionType == reactionType);
 
-            return loves;
-        }
-
-        public async Task<int> GetWowCountByReplyIdAsync(int replyId)
-        {
-            var wowCount = await this.db.ReplyReactions
-                .Where(rr => !rr.Reply.IsDeleted && rr.ReplyId == replyId)
-                .CountAsync(rr => rr.ReactionType == ReactionType.Wow);
-
-            return wowCount;
-        }
-
-        public async Task<int> GetHahaCountByReplyIdAsync(int replyId)
-        {
-            var hahaCount = await this.db.ReplyReactions
-                .Where(rr => !rr.Reply.IsDeleted && rr.ReplyId == replyId)
-                .CountAsync(rr => rr.ReactionType == ReactionType.Haha);
-
-            return hahaCount;
-        }
-
-        public async Task<int> GetSadCountByReplyIdAsync(int replyId)
-        {
-            var sadCount = await this.db.ReplyReactions
-                .Where(rr => !rr.Reply.IsDeleted && rr.ReplyId == replyId)
-                .CountAsync(rr => rr.ReactionType == ReactionType.Sad);
-
-            return sadCount;
-        }
-
-        public async Task<int> GetAngryCountByReplyIdAsync(int replyId)
-        {
-            var angryCount = await this.db.ReplyReactions
-                .Where(rr => !rr.Reply.IsDeleted && rr.ReplyId == replyId)
-                .CountAsync(rr => rr.ReactionType == ReactionType.Angry);
-
-            return angryCount;
+            return count;
         }
     }
 }

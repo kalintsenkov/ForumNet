@@ -51,22 +51,22 @@
                     <p>@Html.Raw(Model.SanitizedDescription)</p>
                 </div>
                 <div class="tt-item-info info-bottom">
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="likeReactPost(@Model.Id)">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="likeReaction(@Model.Id, 'post-reactions', 'post')">
                         <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
                     </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="loveReactPost(@Model.Id)">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="loveReaction(@Model.Id, 'post-reactions', 'post')">
                         <i class="fas fa-heart"></i>
                     </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="hahaReactPost(@Model.Id)">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="hahaReaction(@Model.Id, 'post-reactions', 'post')">
                         <i class="fas fa-grin-tears"></i>
                     </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="wowReactPost(@Model.Id)">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="wowReaction(@Model.Id, 'post-reactions', 'post')">
                         <i class="fas fa-surprise"></i>
                     </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="sadReactPost(@Model.Id)">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="sadReaction(@Model.Id, 'post-reactions', 'post')">
                         <i class="fas fa-sad-tear"></i>
                     </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="angryReactPost(@Model.Id)">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="angryReaction(@Model.Id, 'post-reactions', 'post')">
                         <i class="fas fa-angry"></i>
                     </button>
                     <div class="col-separator"></div>
@@ -165,31 +165,31 @@
                         <ul class="tt-list-badge tt-size-lg">
                             @{
                                 this.Context.Request.Query.TryGetValue("sort", out var value);
-                                if (value == "most liked")
+                                if (value == "most reacted")
                                 {
                                     <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="recent"><span class="tt-badge">Recent</span></a></li>
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="most liked"><span class="tt-color02 tt-badge">Most Liked</span></a></li>
+                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="most reacted"><span class="tt-color02 tt-badge">Most Reacted</span></a></li>
                                     <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="longest"><span class="tt-badge">Longest</span></a></li>
                                     <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="shortest"><span class="tt-badge">Shortest</span></a></li>
                                 }
                                 else if (value == "longest")
                                 {
                                     <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="recent"><span class="tt-badge">Recent</span></a></li>
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="most liked"><span class="tt-badge">Most Liked</span></a></li>
+                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="most reacted"><span class="tt-badge">Most Reacted</span></a></li>
                                     <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="longest"><span class="tt-color02 tt-badge">Longest</span></a></li>
                                     <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="shortest"><span class="tt-badge">Shortest</span></a></li>
                                 }
                                 else if (value == "shortest")
                                 {
                                     <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="recent"><span class="tt-badge">Recent</span></a></li>
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="most liked"><span class="tt-badge">Most Liked</span></a></li>
+                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="most reacted"><span class="tt-badge">Most Reacted</span></a></li>
                                     <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="longest"><span class="tt-badge">Longest</span></a></li>
                                     <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="shortest"><span class="tt-color02 tt-badge">Shortest</span></a></li>
                                 }
                                 else
                                 {
                                     <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="recent"><span class="tt-color02 tt-badge">Recent</span></a></li>
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="most liked"><span class="tt-badge">Most Liked</span></a></li>
+                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="most reacted"><span class="tt-badge">Most Reacted</span></a></li>
                                     <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="longest"><span class="tt-badge">Longest</span></a></li>
                                     <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="shortest"><span class="tt-badge">Shortest</span></a></li>
                                 }
@@ -197,7 +197,7 @@
                         </ul>
                         <select class="tt-select form-control" onchange="location = this.value">
                             <option value="/Posts/Details/@Model.Id?sort=recent">Recent</option>
-                            <option value="/Posts/Details/@Model.Id?sort=most%20liked">Most Liked</option>
+                            <option value="/Posts/Details/@Model.Id?sort=most%20reacted">Most Reacted</option>
                             <option value="/Posts/Details/@Model.Id?sort=longest">Longest</option>
                             <option value="/Posts/Details/@Model.Id?sort=shortest">Shortest</option>
                         </select>
@@ -227,18 +227,46 @@
                         <p>@Html.Raw(reply.SanitizedDescription)</p>
                     </div>
                     <div class="tt-item-info info-bottom">
-                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="likeReply(@reply.Id)">
+                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="likeReaction(@reply.Id, 'reply-reactions', 'reply')">
                             <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
                         </button>
-                        <span class="tt-text">&nbsp;</span>
+                        &nbsp;
                         <span id="reply-likes-@reply.Id" class="tt-text">@reply.Likes</span>
-                        <span class="tt-text">&nbsp;</span>
-                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline:none" onclick="dislikeReply(@reply.Id)">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
+                        &nbsp;
+                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="loveReaction(@reply.Id, 'reply-reactions', 'reply')">
+                            <i class="fas fa-heart"></i>
                         </button>
+                        &nbsp;
+                        <span id="reply-loves-@reply.Id" class="tt-text">@reply.Loves</span>
+                        &nbsp;
+                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="hahaReaction(@reply.Id, 'reply-reactions', 'reply')">
+                            <i class="fas fa-grin-tears"></i>
+                        </button>
+                        &nbsp;
+                        <span id="reply-haha-@reply.Id" class="tt-text">@reply.HahaCount</span>
+                        &nbsp;
+                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="wowReaction(@reply.Id, 'reply-reactions', 'reply')">
+                            <i class="fas fa-surprise"></i>
+                        </button>
+                        &nbsp;
+                        <span id="reply-wow-@reply.Id" class="tt-text">@reply.WowCount</span>
+                        &nbsp;
+                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="sadReaction(@reply.Id, 'reply-reactions', 'reply')">
+                            <i class="fas fa-sad-tear"></i>
+                        </button>
+                        &nbsp;
+                        <span id="reply-sad-@reply.Id" class="tt-text">@reply.SadCount</span>
+                        &nbsp;
+                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="angryReaction(@reply.Id, 'reply-reactions', 'reply')">
+                            <i class="fas fa-angry"></i>
+                        </button>
+                        &nbsp;
+                        <span id="reply-angry-@reply.Id" class="tt-text">@reply.AngryCount</span>
+                        &nbsp;
                         <a asp-area="" asp-controller="Replies" asp-action="Details" asp-route-id="@reply.Id" class="tt-icon-btn">
                             <i class="tt-icon"><svg><use xlink:href="#icon-view"></use></svg></i>
                         </a>
+                        <div class="col-separator"></div>
                         @if (reply.Author.Id == this.Model.CurrentUserId || this.User.IsAdministrator())
                         {
                             <a asp-area="" asp-controller="Replies" asp-action="Edit" asp-route-id="@reply.Id" class="tt-icon-btn" style="color: #666f74">
@@ -248,7 +276,6 @@
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         }
-                        <div class="col-separator"></div>
                         <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                             <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
                         </a>
@@ -295,130 +322,164 @@
     <script>
         function animateButton() {
             $('html, body').animate({
-                scrollTop: $("#reply-box").offset().top
-            }, 1500);
+                    scrollTop: $("#reply-box").offset().top
+                },
+                1500);
         }
 
         function pinPost(id) {
             $.ajax({
                 type: "POST",
                 url: "/Administration/Posts/Pin/" + id,
-                success: function (json) {
+                success: function(json) {
                     $('#isPinned').html(json.pinOrUnpin);
                 }
             });
         }
 
-        function likeReactPost(id) {
+        function likeReaction(id, controller, type) {
             $.ajax({
                 type: "POST",
-                url: "/api/post-reactions/" + id + "/like",
-                success: function (json) {
-                    $("#post-likes").html(json.likes);
-                    $("#post-loves").html(json.loves);
-                    $("#post-haha").html(json.haha);
-                    $("#post-wow").html(json.wow);
-                    $("#post-sad").html(json.sad);
-                    $("#post-angry").html(json.angry);
+                url: "/api/" + controller + "/" + id + "/like",
+                success: function(json) {
+                    if (type === 'post') {
+                        $("#post-likes").html(json.likes);
+                        $("#post-loves").html(json.loves);
+                        $("#post-haha").html(json.haha);
+                        $("#post-wow").html(json.wow);
+                        $("#post-sad").html(json.sad);
+                        $("#post-angry").html(json.angry);
+                    } else {
+                        $("#reply-likes-" + id).html(json.likes);
+                        $("#reply-loves-" + id).html(json.loves);
+                        $("#reply-haha-" + id).html(json.haha);
+                        $("#reply-wow-" + id).html(json.wow);
+                        $("#reply-sad-" + id).html(json.sad);
+                        $("#reply-angry-" + id).html(json.angry);
+                    }
                 }
             });
         }
 
-        function loveReactPost(id) {
+        function loveReaction(id, controller, type) {
             $.ajax({
                 type: "POST",
-                url: "/api/post-reactions/" + id + "/love",
-                success: function (json) {
-                    $("#post-likes").html(json.likes);
-                    $("#post-loves").html(json.loves);
-                    $("#post-haha").html(json.haha);
-                    $("#post-wow").html(json.wow);
-                    $("#post-sad").html(json.sad);
-                    $("#post-angry").html(json.angry);
+                url: "/api/" + controller + "/" + id + "/love",
+                success: function(json) {
+                    if (type === 'post') {
+                        $("#post-likes").html(json.likes);
+                        $("#post-loves").html(json.loves);
+                        $("#post-haha").html(json.haha);
+                        $("#post-wow").html(json.wow);
+                        $("#post-sad").html(json.sad);
+                        $("#post-angry").html(json.angry);
+                    } else {
+                        $("#reply-likes-" + id).html(json.likes);
+                        $("#reply-loves-" + id).html(json.loves);
+                        $("#reply-haha-" + id).html(json.haha);
+                        $("#reply-wow-" + id).html(json.wow);
+                        $("#reply-sad-" + id).html(json.sad);
+                        $("#reply-angry-" + id).html(json.angry);
+                    }
                 }
             });
         }
 
-        function hahaReactPost(id) {
+        function hahaReaction(id, controller, type) {
             $.ajax({
                 type: "POST",
-                url: "/api/post-reactions/" + id + "/haha",
-                success: function (json) {
-                    $("#post-likes").html(json.likes);
-                    $("#post-loves").html(json.loves);
-                    $("#post-haha").html(json.haha);
-                    $("#post-wow").html(json.wow);
-                    $("#post-sad").html(json.sad);
-                    $("#post-angry").html(json.angry);
+                url: "/api/" + controller + "/" + id + "/haha",
+                success: function(json) {
+                    if (type === 'post') {
+                        $("#post-likes").html(json.likes);
+                        $("#post-loves").html(json.loves);
+                        $("#post-haha").html(json.haha);
+                        $("#post-wow").html(json.wow);
+                        $("#post-sad").html(json.sad);
+                        $("#post-angry").html(json.angry);
+                    } else {
+                        $("#reply-likes-" + id).html(json.likes);
+                        $("#reply-loves-" + id).html(json.loves);
+                        $("#reply-haha-" + id).html(json.haha);
+                        $("#reply-wow-" + id).html(json.wow);
+                        $("#reply-sad-" + id).html(json.sad);
+                        $("#reply-angry-" + id).html(json.angry);
+                    }
                 }
             });
         }
 
-        function wowReactPost(id) {
+        function wowReaction(id, controller, type) {
             $.ajax({
                 type: "POST",
-                url: "/api/post-reactions/" + id + "/wow",
-                success: function (json) {
-                    $("#post-likes").html(json.likes);
-                    $("#post-loves").html(json.loves);
-                    $("#post-haha").html(json.haha);
-                    $("#post-wow").html(json.wow);
-                    $("#post-sad").html(json.sad);
-                    $("#post-angry").html(json.angry);
+                url: "/api/" + controller + "/" + id + "/wow",
+                success: function(json) {
+                    if (type === 'post') {
+                        $("#post-likes").html(json.likes);
+                        $("#post-loves").html(json.loves);
+                        $("#post-haha").html(json.haha);
+                        $("#post-wow").html(json.wow);
+                        $("#post-sad").html(json.sad);
+                        $("#post-angry").html(json.angry);
+                    } else {
+                        $("#reply-likes-" + id).html(json.likes);
+                        $("#reply-loves-" + id).html(json.loves);
+                        $("#reply-haha-" + id).html(json.haha);
+                        $("#reply-wow-" + id).html(json.wow);
+                        $("#reply-sad-" + id).html(json.sad);
+                        $("#reply-angry-" + id).html(json.angry);
+                    }
                 }
             });
         }
 
-        function sadReactPost(id) {
+        function sadReaction(id, controller, type) {
             $.ajax({
                 type: "POST",
-                url: "/api/post-reactions/" + id + "/sad",
-                success: function (json) {
-                    $("#post-likes").html(json.likes);
-                    $("#post-loves").html(json.loves);
-                    $("#post-haha").html(json.haha);
-                    $("#post-wow").html(json.wow);
-                    $("#post-sad").html(json.sad);
-                    $("#post-angry").html(json.angry);
+                url: "/api/" + controller + "/" + id + "/sad",
+                success: function(json) {
+                    if (type === 'post') {
+                        $("#post-likes").html(json.likes);
+                        $("#post-loves").html(json.loves);
+                        $("#post-haha").html(json.haha);
+                        $("#post-wow").html(json.wow);
+                        $("#post-sad").html(json.sad);
+                        $("#post-angry").html(json.angry);
+                    } else {
+                        $("#reply-likes-" + id).html(json.likes);
+                        $("#reply-loves-" + id).html(json.loves);
+                        $("#reply-haha-" + id).html(json.haha);
+                        $("#reply-wow-" + id).html(json.wow);
+                        $("#reply-sad-" + id).html(json.sad);
+                        $("#reply-angry-" + id).html(json.angry);
+                    }
                 }
             });
         }
 
-        function angryReactPost(id) {
+        function angryReaction(id, controller, type) {
             $.ajax({
                 type: "POST",
-                url: "/api/post-reactions/" + id + "/angry",
-                success: function (json) {
-                    $("#post-likes").html(json.likes);
-                    $("#post-loves").html(json.loves);
-                    $("#post-haha").html(json.haha);
-                    $("#post-wow").html(json.wow);
-                    $("#post-sad").html(json.sad);
-                    $("#post-angry").html(json.angry);
+                url: "/api/" + controller + "/" + id + "/angry",
+                success: function(json) {
+                    if (type === 'post') {
+                        $("#post-likes").html(json.likes);
+                        $("#post-loves").html(json.loves);
+                        $("#post-haha").html(json.haha);
+                        $("#post-wow").html(json.wow);
+                        $("#post-sad").html(json.sad);
+                        $("#post-angry").html(json.angry);
+                    } else {
+                        $("#reply-likes-" + id).html(json.likes);
+                        $("#reply-loves-" + id).html(json.loves);
+                        $("#reply-haha-" + id).html(json.haha);
+                        $("#reply-wow-" + id).html(json.wow);
+                        $("#reply-sad-" + id).html(json.sad);
+                        $("#reply-angry-" + id).html(json.angry);
+                    }
                 }
             });
         }
     </script>
-    <script>
-        function likeReply(replyId) {
-            $.ajax({
-                type: "POST",
-                url: "/Replies/Like/" + replyId,
-                success: function (json) {
-                    $("#reply-likes-" + replyId).html(json.likes);
-                }
-            });
-        }
-
-        function dislikeReply(replyId) {
-            $.ajax({
-                type: "POST",
-                url: "/Replies/Dislike/" + replyId,
-                success: function (json) {
-                    $("#reply-likes-" + replyId).html(json.likes);
-                }
-            });
-        }
-    </script>
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }

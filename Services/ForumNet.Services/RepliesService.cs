@@ -102,7 +102,7 @@
             queryable = sort switch
             {
                 "recent" => queryable.OrderByDescending(r => r.CreatedOn),
-                //"most liked" => queryable.OrderByDescending(r => r.Likes),
+                "most reacted" => queryable.OrderByDescending(r => r.Reactions.Count),
                 "longest" => queryable.OrderByDescending(r => r.Description.Length),
                 "shortest" => queryable.OrderBy(r => r.Description.Length),
                 _ => queryable.OrderByDescending(r => r.CreatedOn)
