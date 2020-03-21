@@ -51,22 +51,22 @@
                     <p>@Html.Raw(Model.SanitizedDescription)</p>
                 </div>
                 <div class="tt-item-info info-bottom">
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="likePost(@Model.Id)">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="likeReactPost(@Model.Id)">
                         <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
                     </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="dislikePost(@Model.Id)">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="loveReactPost(@Model.Id)">
                         <i class="fas fa-heart"></i>
                     </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="dislikePost(@Model.Id)">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="hahaReactPost(@Model.Id)">
                         <i class="fas fa-grin-tears"></i>
                     </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="dislikePost(@Model.Id)">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="wowReactPost(@Model.Id)">
                         <i class="fas fa-surprise"></i>
                     </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="dislikePost(@Model.Id)">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="sadReactPost(@Model.Id)">
                         <i class="fas fa-sad-tear"></i>
                     </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="dislikePost(@Model.Id)">
+                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="angryReactPost(@Model.Id)">
                         <i class="fas fa-angry"></i>
                     </button>
                     <div class="col-separator"></div>
@@ -113,12 +113,37 @@
                             <span id="post-likes" class="tt-text">@Model.Likes</span>
                         </div>
                     </div>
-                    @*<div class="tt-item">
-                            <a href="#" class="tt-icon-btn tt-position-bottom">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
-                                <span class="tt-text">32</span>
-                            </a>
-                        </div>*@
+                    <div class="tt-item">
+                        <div class="tt-icon-btn tt-position-bottom">
+                            <i class="tt-icon fas fa-heart"></i>
+                            <span id="post-loves" class="tt-text">@Model.Loves</span>
+                        </div>
+                    </div>
+                    <div class="tt-item">
+                        <div class="tt-icon-btn tt-position-bottom">
+                            <i class="tt-icon fas fa-grin-tears"></i>
+                            <span id="post-haha" class="tt-text">@Model.HahaCount</span>
+                        </div>
+                    </div>
+                    <div class="tt-item">
+                        <div class="tt-icon-btn tt-position-bottom">
+                            <i class="tt-icon fas fa-surprise"></i>
+                            <span id="post-wow" class="tt-text">@Model.WowCount</span>
+                        </div>
+                    </div>
+                    <div class="tt-item">
+                        <div class="tt-icon-btn tt-position-bottom">
+                            <i class="tt-icon fas fa-sad-tear"></i>
+                            <span id="post-sad" class="tt-text">@Model.SadCount</span>
+                        </div>
+                    </div>
+                    <div class="tt-item">
+                        <div class="tt-icon-btn tt-position-bottom">
+                            <i class="tt-icon fas fa-angry"></i>
+                            <span id="post-angry" class="tt-text">@Model.AngryCount</span>
+                        </div>
+                    </div>
+
                 </div>
                 @if (Model.Replies.Any())
                 {
@@ -284,26 +309,97 @@
             });
         }
 
-        function likePost(id) {
+        function likeReactPost(id) {
             $.ajax({
                 type: "POST",
-                url: "/Posts/Like/" + id,
+                url: "/Posts/LikeReact/" + id,
                 success: function (json) {
                     $("#post-likes").html(json.likes);
+                    $("#post-loves").html(json.loves);
+                    $("#post-haha").html(json.haha);
+                    $("#post-wow").html(json.wow);
+                    $("#post-sad").html(json.sad);
+                    $("#post-angry").html(json.angry);
                 }
             });
         }
 
-        function dislikePost(id) {
+        function loveReactPost(id) {
             $.ajax({
                 type: "POST",
-                url: "/Posts/Dislike/" + id,
+                url: "/Posts/LoveReact/" + id,
                 success: function (json) {
                     $("#post-likes").html(json.likes);
+                    $("#post-loves").html(json.loves);
+                    $("#post-haha").html(json.haha);
+                    $("#post-wow").html(json.wow);
+                    $("#post-sad").html(json.sad);
+                    $("#post-angry").html(json.angry);
                 }
             });
         }
 
+        function hahaReactPost(id) {
+            $.ajax({
+                type: "POST",
+                url: "/Posts/HahaReact/" + id,
+                success: function (json) {
+                    $("#post-likes").html(json.likes);
+                    $("#post-loves").html(json.loves);
+                    $("#post-haha").html(json.haha);
+                    $("#post-wow").html(json.wow);
+                    $("#post-sad").html(json.sad);
+                    $("#post-angry").html(json.angry);
+                }
+            });
+        }
+
+        function wowReactPost(id) {
+            $.ajax({
+                type: "POST",
+                url: "/Posts/WowReact/" + id,
+                success: function (json) {
+                    $("#post-likes").html(json.likes);
+                    $("#post-loves").html(json.loves);
+                    $("#post-haha").html(json.haha);
+                    $("#post-wow").html(json.wow);
+                    $("#post-sad").html(json.sad);
+                    $("#post-angry").html(json.angry);
+                }
+            });
+        }
+
+        function sadReactPost(id) {
+            $.ajax({
+                type: "POST",
+                url: "/Posts/SadReact/" + id,
+                success: function (json) {
+                    $("#post-likes").html(json.likes);
+                    $("#post-loves").html(json.loves);
+                    $("#post-haha").html(json.haha);
+                    $("#post-wow").html(json.wow);
+                    $("#post-sad").html(json.sad);
+                    $("#post-angry").html(json.angry);
+                }
+            });
+        }
+
+        function angryReactPost(id) {
+            $.ajax({
+                type: "POST",
+                url: "/Posts/AngryReact/" + id,
+                success: function (json) {
+                    $("#post-likes").html(json.likes);
+                    $("#post-loves").html(json.loves);
+                    $("#post-haha").html(json.haha);
+                    $("#post-wow").html(json.wow);
+                    $("#post-sad").html(json.sad);
+                    $("#post-angry").html(json.angry);
+                }
+            });
+        }
+    </script>
+    <script>
         function likeReply(replyId) {
             $.ajax({
                 type: "POST",

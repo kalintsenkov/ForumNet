@@ -6,7 +6,7 @@
 
     public interface IReplyReactionsService
     {
-        Task<int> ReactAsync(ReactionType reactionType, int replyId, string authorId);
+        Task ReactAsync(ReactionType reactionType, int replyId, string authorId);
 
         Task<int> GetLikesCountByReplyIdAsync(int replyId);
 

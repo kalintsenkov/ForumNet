@@ -21,7 +21,7 @@
             this.dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task<int> ReactAsync(ReactionType reactionType, int replyId, string authorId)
+        public async Task ReactAsync(ReactionType reactionType, int replyId, string authorId)
         {
             var replyReaction = await this.db.ReplyReactions
                 .FirstOrDefaultAsync(rr => rr.ReplyId == replyId && rr.AuthorId == authorId);
@@ -45,8 +45,6 @@
             }
 
             await this.db.SaveChangesAsync();
-
-            return (int)reactionType;
         }
 
         public async Task<int> GetLikesCountByReplyIdAsync(int replyId)
