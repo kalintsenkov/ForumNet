@@ -44,11 +44,13 @@
 
             foreach (var post in viewModel.PinnedPosts)
             {
+                post.Activity = await this.postsService.GetLatestActivityById(post.Id);
                 post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(post.Id);
             }
 
             foreach (var post in viewModel.Posts)
             {
+                post.Activity = await this.postsService.GetLatestActivityById(post.Id);
                 post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(post.Id);
             }
 

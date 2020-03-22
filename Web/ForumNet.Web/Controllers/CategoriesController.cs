@@ -17,7 +17,7 @@
 
         public CategoriesController(
             ICategoriesService categoriesService,
-            IPostsService postsService, 
+            IPostsService postsService,
             ITagsService tagsService)
         {
             this.categoriesService = categoriesService;
@@ -49,6 +49,7 @@
             var posts = await this.postsService.GetAllByCategoryIdAsync<PostsListingViewModel>(id, search);
             foreach (var post in posts)
             {
+                post.Activity = await this.postsService.GetLatestActivityById(post.Id);
                 post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(post.Id);
             }
 

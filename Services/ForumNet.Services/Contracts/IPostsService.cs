@@ -1,5 +1,6 @@
 ﻿namespace ForumNet.Services.Contracts
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -22,6 +23,8 @@
         Task<bool> IsExisting(int id);
 
         Task<string> GetAuthorIdById(int id);
+
+        Task<string> GetLatestActivityById(int id);
 
         Task<TModel> GetByIdAsync<TModel>(int id);
 

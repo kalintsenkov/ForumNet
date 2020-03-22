@@ -15,6 +15,7 @@
         public void DetailsShouldReturnNotFoundWhenArticleIdIsInvalid()
             => MyController<CategoriesController>
                 .Instance()
+                .WithUser()
                 .WithData(new Category
                 {
                     Id = 1,
@@ -32,28 +33,5 @@
                 .ShouldHave()
                 .ActionAttributes(attr => attr
                     .RestrictingForAuthorizedRequests());
-
-        [Theory]
-        [InlineData(1, "Test 1")]
-        [InlineData(2, "Test 2")]
-        [InlineData(3, "Test 3")]
-        public void DetailsShouldReturnCorrectView(int id, string name)
-            => MyController<CategoriesController>
-                .Instance()
-                .WithData(new Category
-                {
-                    Id = id,
-                    Name = name,
-                    CreatedOn = DateTime.UtcNow
-                })
-                .Calling(c => c.Details(id, "recent"))
-                .ShouldReturn()
-                .View(view => view
-                    .WithModelOfType<CategoriesDetailsViewModel>()
-                    .Passing(model =>
-                    {
-                        model.Category.Id = id;
-                        model.Category.Name = name;
-                    }));
     }
 }

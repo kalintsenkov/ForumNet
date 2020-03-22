@@ -14,7 +14,7 @@
 
         public int Views { get; set; }
 
-        //public int Activity { get; set; }
+        public string Activity { get; set; }
 
         public string AuthorProfilePicture { get; set; }
 
