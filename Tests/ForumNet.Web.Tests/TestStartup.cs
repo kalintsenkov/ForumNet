@@ -2,7 +2,10 @@
 {
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Mocks;
     using MyTested.AspNetCore.Mvc;
+
+    using Services.Contracts;
 
     public class TestStartup : Startup
     {
@@ -15,9 +18,9 @@
         {
             base.ConfigureServices(services);
 
-            //// Replace only your own custom services. The ASP.NET Core ones 
-            //// are already replaced by MyTested.AspNetCore.Mvc. 
-            // services.Replace<IService, MockedService>();
+            // services.ReplaceTransient<ICategoriesService>(_ => CategoriesServiceMock.Instance);
+            // services.ReplaceTransient<IPostsService>(_ => PostsServiceMock.Instance);
+            // services.ReplaceTransient<ITagsService>(_ => TagsServiceMock.Instance);
         }
     }
 }
