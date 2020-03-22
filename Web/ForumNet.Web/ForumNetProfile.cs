@@ -26,7 +26,13 @@
             #region Posts
             this.CreateMap<PostsEditInputModel, PostsEditViewModel>();
             this.CreateMap<Post, PostsDeleteDetailsViewModel>();
-            this.CreateMap<Post, PostsListingViewModel>();
+            this.CreateMap<Post, PostsListingViewModel>()
+                .ForMember(
+                    dest => dest.Likes,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Like)))
+                .ForMember(
+                    dest => dest.RepliesCount,
+                    dest => dest.MapFrom(src => src.Replies.Count(r => !r.IsDeleted)));
             this.CreateMap<Post, PostsEditViewModel>()
                 .ForMember(
                     dest => dest.TagIds,
