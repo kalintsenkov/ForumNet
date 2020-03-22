@@ -84,10 +84,11 @@
             return reply;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId)
+        public async Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId)
         {
             var replies = await this.db.Replies
-                .Where(r => r.PostId == postId && !r.IsDeleted)
+                .Where(r => r.AuthorId == userId && !r.IsDeleted)
+                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -109,16 +110,7 @@
             };
 
             var replies = await queryable
-                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
-                .ToListAsync();
-
-            return replies;
-        }
-
-        public async Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId)
-        {
-            var replies = await this.db.Replies
-                .Where(r => r.AuthorId == userId && !r.IsDeleted)
+                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -131,6 +123,7 @@
                 .Where(r => r.PostId == postId &&
                             r.AuthorId == userId &&
                             !r.IsDeleted)
+                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
     using Microsoft.Extensions.DependencyInjection;
+
     using Services.Contracts;
 
     public class ValidateTagIdsAttribute : ValidationAttribute

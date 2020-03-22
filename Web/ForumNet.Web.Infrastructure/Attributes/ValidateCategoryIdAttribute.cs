@@ -1,7 +1,9 @@
 ﻿namespace ForumNet.Web.Infrastructure.Attributes
 {
     using System.ComponentModel.DataAnnotations;
+
     using Microsoft.Extensions.DependencyInjection;
+
     using Services.Contracts;
 
     public class ValidateCategoryIdAttribute : ValidationAttribute
