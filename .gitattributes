@@ -1,1 +1,3 @@
-wwwroot/* linguist-vendored
+* linguist-vendored
+*.cs linguist-vendored=false
+*.cs.html linguist-vendored=false
