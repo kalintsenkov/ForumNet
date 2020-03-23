@@ -5,7 +5,7 @@
 
     public interface IRepliesService
     {
-        Task CreateAsync(string description, int postId, string authorId);
+        Task CreateAsync(string description, int? parentId, int postId, string authorId);
 
         Task EditAsync(int id, string description);
 
@@ -20,6 +20,8 @@
         Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId);
 
         Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId, string sort);
+
+        Task<IEnumerable<TModel>> GetAllNestedByPostIdAndReplyIdAsync<TModel>(int postId, int? parentId);
 
         Task<IEnumerable<TModel>> GetAllByPostIdAndUserIdAsync<TModel>(int postId, string userId);
     }

@@ -29,6 +29,13 @@
                 .OnDelete(DeleteBehavior.Restrict);
 
             reply
+                .HasOne(r => r.Parent)
+                .WithMany()
+                .HasForeignKey(r => r.ParentId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            reply
                 .HasIndex(r => r.IsDeleted);
         }
     }

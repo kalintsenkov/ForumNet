@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200321110615_AddPostReactions.cs" />
     <Compile Remove="Migrations\20200321110615_AddPostReactions.Designer.cs" />
+    <Compile Remove="Migrations\20200323112307_AddParentReply.cs" />
+    <Compile Remove="Migrations\20200323112307_AddParentReply.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

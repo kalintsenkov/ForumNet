@@ -25,7 +25,7 @@
             this.dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task CreateAsync(string description, int postId, string authorId)
+        public async Task CreateAsync(string description, int? parentId, int postId, string authorId)
         {
             var reply = new Reply
             {
@@ -115,6 +115,17 @@
                 .ToListAsync();
 
             return replies;
+        }
+
+        public async Task<IEnumerable<TModel>> GetAllNestedByPostIdAndReplyIdAsync<TModel>(int postId, int? parentId)
+        {
+            var nestedReplies = await this.db.Replies
+                .Where(r => r.PostId == postId && !r.IsDeleted && r.ParentId == parentId)
+                .AsNoTracking()
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return nestedReplies;
         }
 
         public async Task<IEnumerable<TModel>> GetAllByPostIdAndUserIdAsync<TModel>(int postId, string userId)
