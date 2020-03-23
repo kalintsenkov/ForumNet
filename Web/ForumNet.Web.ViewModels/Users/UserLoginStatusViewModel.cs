@@ -1,6 +1,6 @@
 ﻿namespace ForumNet.Web.ViewModels.Users
 {
-    public class UserDetailsNavBarComponentViewModel
+    public class UserLoginStatusViewModel
     {
         public string UserName { get; set; }
 

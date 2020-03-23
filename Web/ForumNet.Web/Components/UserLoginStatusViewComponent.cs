@@ -8,12 +8,12 @@
     using Data.Models;
     using ViewModels.Users;
 
-    [ViewComponent(Name = "UserDetailsNavBar")]
-    public class UserDetailsNavBarViewComponent : ViewComponent
+    [ViewComponent(Name = "UserLoginStatus")]
+    public class UserLoginStatusViewComponent : ViewComponent
     {
         private readonly UserManager<ForumUser> userManager;
 
-        public UserDetailsNavBarViewComponent(UserManager<ForumUser> userManager)
+        public UserLoginStatusViewComponent(UserManager<ForumUser> userManager)
         {
             this.userManager = userManager;
         }
@@ -22,7 +22,7 @@
         {
             var user = await this.userManager.GetUserAsync(this.UserClaimsPrincipal);
 
-            var viewModel = new UserDetailsNavBarComponentViewModel
+            var viewModel = new UserLoginStatusViewModel
             {
                 UserName = user.UserName,
                 ProfilePicture = user.ProfilePicture
