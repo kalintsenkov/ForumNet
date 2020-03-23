@@ -1,0 +1,77 @@
+﻿@model ForumNet.Web.ViewModels.Posts.PostsDetailsViewModel
+
+<div class="tt-item">
+    <div class="tt-info-box">
+        <h6 class="tt-title">Thread Status</h6>
+        <div class="tt-row-icon">
+            <div class="tt-item">
+                <div class="tt-icon-btn tt-position-bottom">
+                    <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
+                    <span class="tt-text">@Model.RepliesCount</span>
+                </div>
+            </div>
+            <div class="tt-item">
+                <div class="tt-icon-btn tt-position-bottom">
+                    <i class="tt-icon"><svg><use xlink:href="#icon-view"></use></svg></i>
+                    <span class="tt-text">@Model.Views</span>
+                </div>
+            </div>
+            <div class="tt-item">
+                <div class="tt-icon-btn tt-position-bottom">
+                    <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
+                    <span id="post-likes" class="tt-text">@Model.Likes</span>
+                </div>
+            </div>
+            <div class="tt-item">
+                <div class="tt-icon-btn tt-position-bottom">
+                    <i class="tt-icon fas fa-heart"></i>
+                    <span id="post-loves" class="tt-text">@Model.Loves</span>
+                </div>
+            </div>
+            <div class="tt-item">
+                <div class="tt-icon-btn tt-position-bottom">
+                    <i class="tt-icon fas fa-grin-tears"></i>
+                    <span id="post-haha" class="tt-text">@Model.HahaCount</span>
+                </div>
+            </div>
+            <div class="tt-item">
+                <div class="tt-icon-btn tt-position-bottom">
+                    <i class="tt-icon fas fa-surprise"></i>
+                    <span id="post-wow" class="tt-text">@Model.WowCount</span>
+                </div>
+            </div>
+            <div class="tt-item">
+                <div class="tt-icon-btn tt-position-bottom">
+                    <i class="tt-icon fas fa-sad-tear"></i>
+                    <span id="post-sad" class="tt-text">@Model.SadCount</span>
+                </div>
+            </div>
+            <div class="tt-item">
+                <div class="tt-icon-btn tt-position-bottom">
+                    <i class="tt-icon fas fa-angry"></i>
+                    <span id="post-angry" class="tt-text">@Model.AngryCount</span>
+                </div>
+            </div>
+
+        </div>
+        @if (Model.Replies.Any())
+        {
+            <hr />
+            <h6 class="tt-title">Frequent Posters</h6>
+            <div class="tt-row-icon">
+                @foreach (var profilePicture in Model.Replies.Select(r => r.Author.ProfilePicture).Distinct())
+                {
+                    <div class="tt-item">
+                        <a href="#" class="tt-icon-avatar">
+                            <svg><use xlink:href="#@profilePicture"></use></svg>
+                        </a>
+                    </div>
+                }
+            </div>
+            <hr />
+
+            <partial name="~/Views/Posts/_DetailsSortPartial.cshtml" model="@Model" />
+        }
+
+    </div>
+</div>

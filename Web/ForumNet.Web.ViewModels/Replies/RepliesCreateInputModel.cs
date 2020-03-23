@@ -6,6 +6,8 @@
 
     public class RepliesCreateInputModel
     {
+        public int? ParentId { get; set; }
+
         public int PostId { get; set; }
 
         [Required]

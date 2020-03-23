@@ -6,6 +6,7 @@
         <form class="form-default form-create-topic" asp-area="" asp-controller="Replies" asp-action="Create" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
+                <input asp-for="ParentId" value="@Model.ParentId" hidden class="form-control" />
                 <input asp-for="PostId" value="@Model.PostId" hidden class="form-control" />
             </div>
             <div class="form-group">

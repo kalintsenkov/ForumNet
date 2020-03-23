@@ -91,121 +91,7 @@
                 </div>
             </div>
         </div>
-        <div class="tt-item">
-            <div class="tt-info-box">
-                <h6 class="tt-title">Thread Status</h6>
-                <div class="tt-row-icon">
-                    <div class="tt-item">
-                        <div class="tt-icon-btn tt-position-bottom">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
-                            <span class="tt-text">@Model.RepliesCount</span>
-                        </div>
-                    </div>
-                    <div class="tt-item">
-                        <div class="tt-icon-btn tt-position-bottom">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-view"></use></svg></i>
-                            <span class="tt-text">@Model.Views</span>
-                        </div>
-                    </div>
-                    <div class="tt-item">
-                        <div class="tt-icon-btn tt-position-bottom">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
-                            <span id="post-likes" class="tt-text">@Model.Likes</span>
-                        </div>
-                    </div>
-                    <div class="tt-item">
-                        <div class="tt-icon-btn tt-position-bottom">
-                            <i class="tt-icon fas fa-heart"></i>
-                            <span id="post-loves" class="tt-text">@Model.Loves</span>
-                        </div>
-                    </div>
-                    <div class="tt-item">
-                        <div class="tt-icon-btn tt-position-bottom">
-                            <i class="tt-icon fas fa-grin-tears"></i>
-                            <span id="post-haha" class="tt-text">@Model.HahaCount</span>
-                        </div>
-                    </div>
-                    <div class="tt-item">
-                        <div class="tt-icon-btn tt-position-bottom">
-                            <i class="tt-icon fas fa-surprise"></i>
-                            <span id="post-wow" class="tt-text">@Model.WowCount</span>
-                        </div>
-                    </div>
-                    <div class="tt-item">
-                        <div class="tt-icon-btn tt-position-bottom">
-                            <i class="tt-icon fas fa-sad-tear"></i>
-                            <span id="post-sad" class="tt-text">@Model.SadCount</span>
-                        </div>
-                    </div>
-                    <div class="tt-item">
-                        <div class="tt-icon-btn tt-position-bottom">
-                            <i class="tt-icon fas fa-angry"></i>
-                            <span id="post-angry" class="tt-text">@Model.AngryCount</span>
-                        </div>
-                    </div>
-
-                </div>
-                @if (Model.Replies.Any())
-                {
-                    <hr />
-                    <h6 class="tt-title">Frequent Posters</h6>
-                    <div class="tt-row-icon">
-                        @foreach (var reply in Model.Replies)
-                        {
-                            <div class="tt-item">
-                                <a href="#" class="tt-icon-avatar">
-                                    <svg><use xlink:href="#@reply.Author.ProfilePicture"></use></svg>
-                                </a>
-                            </div>
-                        }
-                    </div>
-                    <hr />
-                    <div class="row-object-inline form-default">
-                        <h6 class="tt-title">Sort replies by:</h6>
-                        <ul class="tt-list-badge tt-size-lg">
-                            @{
-                                this.Context.Request.Query.TryGetValue("sort", out var value);
-                                if (value == "most reacted")
-                                {
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="recent"><span class="tt-badge">Recent</span></a></li>
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="most reacted"><span class="tt-color02 tt-badge">Most Reacted</span></a></li>
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="longest"><span class="tt-badge">Longest</span></a></li>
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="shortest"><span class="tt-badge">Shortest</span></a></li>
-                                }
-                                else if (value == "longest")
-                                {
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="recent"><span class="tt-badge">Recent</span></a></li>
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="most reacted"><span class="tt-badge">Most Reacted</span></a></li>
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="longest"><span class="tt-color02 tt-badge">Longest</span></a></li>
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="shortest"><span class="tt-badge">Shortest</span></a></li>
-                                }
-                                else if (value == "shortest")
-                                {
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="recent"><span class="tt-badge">Recent</span></a></li>
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="most reacted"><span class="tt-badge">Most Reacted</span></a></li>
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="longest"><span class="tt-badge">Longest</span></a></li>
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="shortest"><span class="tt-color02 tt-badge">Shortest</span></a></li>
-                                }
-                                else
-                                {
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="recent"><span class="tt-color02 tt-badge">Recent</span></a></li>
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="most reacted"><span class="tt-badge">Most Reacted</span></a></li>
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="longest"><span class="tt-badge">Longest</span></a></li>
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-route-sort="shortest"><span class="tt-badge">Shortest</span></a></li>
-                                }
-                            }
-                        </ul>
-                        <select class="tt-select form-control" onchange="location = this.value">
-                            <option value="/Posts/Details/@Model.Id?sort=recent">Recent</option>
-                            <option value="/Posts/Details/@Model.Id?sort=most%20reacted">Most Reacted</option>
-                            <option value="/Posts/Details/@Model.Id?sort=longest">Longest</option>
-                            <option value="/Posts/Details/@Model.Id?sort=shortest">Shortest</option>
-                        </select>
-                    </div>
-                }
-
-            </div>
-        </div>
+        <partial name="~/Views/Posts/_DetailsThreadStatusPartial.cshtml" model="@Model" />
         @foreach (var reply in Model.Replies)
         {
             <div class="tt-item">
@@ -282,9 +168,9 @@
                         <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                             <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
                         </a>
-                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74">
                             <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -322,16 +208,15 @@
     <script>
         function animateButton() {
             $('html, body').animate({
-                    scrollTop: $("#reply-box").offset().top
-                },
-                1500);
+                scrollTop: $("#reply-box").offset().top
+            }, 1500);
         }
 
         function pinPost(id) {
             $.ajax({
                 type: "POST",
                 url: "/Administration/Posts/Pin/" + id,
-                success: function(json) {
+                success: function (json) {
                     $('#isPinned').html(json.pinOrUnpin);
                 }
             });
@@ -341,7 +226,7 @@
             $.ajax({
                 type: "POST",
                 url: "/api/" + controller + "/" + id + "/like",
-                success: function(json) {
+                success: function (json) {
                     if (type === 'post') {
                         $("#post-likes").html(json.likes);
                         $("#post-loves").html(json.loves);
@@ -365,7 +250,7 @@
             $.ajax({
                 type: "POST",
                 url: "/api/" + controller + "/" + id + "/love",
-                success: function(json) {
+                success: function (json) {
                     if (type === 'post') {
                         $("#post-likes").html(json.likes);
                         $("#post-loves").html(json.loves);
@@ -389,7 +274,7 @@
             $.ajax({
                 type: "POST",
                 url: "/api/" + controller + "/" + id + "/haha",
-                success: function(json) {
+                success: function (json) {
                     if (type === 'post') {
                         $("#post-likes").html(json.likes);
                         $("#post-loves").html(json.loves);
@@ -413,7 +298,7 @@
             $.ajax({
                 type: "POST",
                 url: "/api/" + controller + "/" + id + "/wow",
-                success: function(json) {
+                success: function (json) {
                     if (type === 'post') {
                         $("#post-likes").html(json.likes);
                         $("#post-loves").html(json.loves);
@@ -437,7 +322,7 @@
             $.ajax({
                 type: "POST",
                 url: "/api/" + controller + "/" + id + "/sad",
-                success: function(json) {
+                success: function (json) {
                     if (type === 'post') {
                         $("#post-likes").html(json.likes);
                         $("#post-loves").html(json.loves);
@@ -461,7 +346,7 @@
             $.ajax({
                 type: "POST",
                 url: "/api/" + controller + "/" + id + "/angry",
-                success: function(json) {
+                success: function (json) {
                     if (type === 'post') {
                         $("#post-likes").html(json.likes);
                         $("#post-loves").html(json.loves);
@@ -481,5 +366,5 @@
             });
         }
     </script>
-    <partial name="_ValidationScriptsPartial"/>
+    <partial name="_ValidationScriptsPartial" />
 }

@@ -30,9 +30,10 @@
             var reply = new Reply
             {
                 Description = description,
-                CreatedOn = this.dateTimeProvider.Now(),
+                ParentId = parentId,
                 PostId = postId,
-                AuthorId = authorId
+                AuthorId = authorId,
+                CreatedOn = this.dateTimeProvider.Now(),
             };
 
             await this.db.Replies.AddAsync(reply);

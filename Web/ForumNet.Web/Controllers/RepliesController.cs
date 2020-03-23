@@ -28,7 +28,7 @@
             }
 
             var authorId = this.User.GetId();
-            await this.repliesService.CreateAsync(input.Description, input.PostId, authorId);
+            await this.repliesService.CreateAsync(input.Description, input.ParentId, input.PostId, authorId);
 
             return this.RedirectToAction("Details", "Posts", new { id = input.PostId });
         }
