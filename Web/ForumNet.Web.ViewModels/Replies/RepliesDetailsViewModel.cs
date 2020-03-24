@@ -28,6 +28,8 @@
 
         public int PostId { get; set; }
 
+        public string CurrentUserId { get; set; }
+
         public RepliesAuthorDetailsViewModel Author { get; set; }
     }
 }

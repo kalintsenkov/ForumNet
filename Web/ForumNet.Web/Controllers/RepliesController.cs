@@ -78,7 +78,7 @@
                 return this.NotFound();
             }
 
-            this.ViewData["UserId"] = this.User.GetId();
+            reply.CurrentUserId = this.User.GetId();
 
             return this.View(reply);
         }
