@@ -40,8 +40,6 @@
 
         public int AngryCount { get; set; }
 
-        public string CurrentUserId { get; set; }
-
         public PostsAuthorDetailsViewModel Author { get; set; }
 
         public PostsCategoryDetailsViewModel Category { get; set; }

@@ -78,8 +78,6 @@
                 return this.NotFound();
             }
 
-            reply.CurrentUserId = this.User.GetId();
-
             return this.View(reply);
         }
 

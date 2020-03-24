@@ -104,7 +104,6 @@
 
             await this.postsService.ViewAsync(id);
 
-            post.CurrentUserId = this.User.GetId();
             post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(id);
             post.Replies = await this.repliesService.GetAllByPostIdAsync<PostsRepliesDetailsViewModel>(id, sort);
 
