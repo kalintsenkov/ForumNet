@@ -51,24 +51,8 @@
                     <p>@Html.Raw(Model.SanitizedDescription)</p>
                 </div>
                 <div class="tt-item-info info-bottom">
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="likeReaction(@Model.Id, 'post-reactions', 'post')">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
-                    </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="loveReaction(@Model.Id, 'post-reactions', 'post')">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="hahaReaction(@Model.Id, 'post-reactions', 'post')">
-                        <i class="fas fa-grin-tears"></i>
-                    </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="wowReaction(@Model.Id, 'post-reactions', 'post')">
-                        <i class="fas fa-surprise"></i>
-                    </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="sadReaction(@Model.Id, 'post-reactions', 'post')">
-                        <i class="fas fa-sad-tear"></i>
-                    </button>
-                    <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="angryReaction(@Model.Id, 'post-reactions', 'post')">
-                        <i class="fas fa-angry"></i>
-                    </button>
+                    <partial name="_DetailsReactionsPartial" model="Model" />
+
                     <div class="col-separator"></div>
                     @if (this.Model.Author.Id == this.Model.CurrentUserId || this.User.IsAdministrator())
                     {
@@ -91,7 +75,9 @@
                 </div>
             </div>
         </div>
-        <partial name="~/Views/Posts/_DetailsThreadStatusPartial.cshtml" model="@Model" />
+
+        <partial name="_DetailsThreadStatusPartial.cshtml" model="@Model" />
+
         @foreach (var reply in Model.Replies)
         {
             <div class="tt-item">
@@ -113,42 +99,8 @@
                         <p>@Html.Raw(reply.SanitizedDescription)</p>
                     </div>
                     <div class="tt-item-info info-bottom">
-                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="likeReaction(@reply.Id, 'reply-reactions', 'reply')">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
-                        </button>
-                        &nbsp;
-                        <span id="reply-likes-@reply.Id" class="tt-text">@reply.Likes</span>
-                        &nbsp;
-                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="loveReaction(@reply.Id, 'reply-reactions', 'reply')">
-                            <i class="fas fa-heart"></i>
-                        </button>
-                        &nbsp;
-                        <span id="reply-loves-@reply.Id" class="tt-text">@reply.Loves</span>
-                        &nbsp;
-                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="hahaReaction(@reply.Id, 'reply-reactions', 'reply')">
-                            <i class="fas fa-grin-tears"></i>
-                        </button>
-                        &nbsp;
-                        <span id="reply-haha-@reply.Id" class="tt-text">@reply.HahaCount</span>
-                        &nbsp;
-                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="wowReaction(@reply.Id, 'reply-reactions', 'reply')">
-                            <i class="fas fa-surprise"></i>
-                        </button>
-                        &nbsp;
-                        <span id="reply-wow-@reply.Id" class="tt-text">@reply.WowCount</span>
-                        &nbsp;
-                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="sadReaction(@reply.Id, 'reply-reactions', 'reply')">
-                            <i class="fas fa-sad-tear"></i>
-                        </button>
-                        &nbsp;
-                        <span id="reply-sad-@reply.Id" class="tt-text">@reply.SadCount</span>
-                        &nbsp;
-                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="angryReaction(@reply.Id, 'reply-reactions', 'reply')">
-                            <i class="fas fa-angry"></i>
-                        </button>
-                        &nbsp;
-                        <span id="reply-angry-@reply.Id" class="tt-text">@reply.AngryCount</span>
-                        &nbsp;
+                        <partial name="_DetailsRepliesReactionsPartial" model="reply" />
+
                         <a asp-area="" asp-controller="Replies" asp-action="Details" asp-route-id="@reply.Id" class="tt-icon-btn">
                             <i class="tt-icon"><svg><use xlink:href="#icon-view"></use></svg></i>
                         </a>
@@ -184,6 +136,8 @@
     }
     <div id="reply-box">
         <partial name="~/Views/Replies/_CreatePartial.cshtml" model="new RepliesCreateInputModel { PostId = Model.Id }" />
+        @*  <vc:post-reply description="@Model.Description" post-id="@Model.Id" parent-id="">
+            </vc:post-reply>*@
     </div>
 </div>
 
