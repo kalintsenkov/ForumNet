@@ -1,7 +1,10 @@
 ﻿namespace ForumNet.Services
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
 
     using Contracts;
@@ -11,11 +14,16 @@
     {
         private readonly ForumDbContext db;
         private readonly IDateTimeProvider dateTimeProvider;
+        private readonly IMapper mapper;
 
-        public UsersService(ForumDbContext db, IDateTimeProvider dateTimeProvider)
+        public UsersService(
+            ForumDbContext db, 
+            IDateTimeProvider dateTimeProvider, 
+            IMapper mapper)
         {
             this.db = db;
             this.dateTimeProvider = dateTimeProvider;
+            this.mapper = mapper;
         }
 
         public async Task ModifyAsync(string id)
@@ -66,6 +74,16 @@
         public async Task<bool> IsUserDeleted(string username)
         {
             return await this.db.Users.AnyAsync(u => u.UserName == username && u.IsDeleted);
+        }
+
+        public async Task<TModel> GetByIdAsync<TModel>(string id)
+        {
+            var user = await this.db.Users
+                .Where(u => u.Id == id && !u.IsDeleted)
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+
+            return user;
         }
     }
 }

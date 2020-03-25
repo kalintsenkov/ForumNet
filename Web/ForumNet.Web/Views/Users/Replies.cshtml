@@ -1,0 +1,110 @@
+﻿@model ForumNet.Web.ViewModels.Users.UsersRepliesViewModel
+@{
+    ViewData["Title"] = Model.UserName;
+}
+
+<div class="tt-wrapper-section">
+    <div class="container">
+        <div class="tt-user-header">
+            <div class="tt-col-avatar">
+                <div class="tt-icon">
+                    <svg class="tt-icon">
+                        <use xlink:href="#@Model.ProfilePicture"></use>
+                    </svg>
+                </div>
+            </div>
+            <div class="tt-col-title">
+                <div class="tt-title">
+                    <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Id">@Model.UserName</a>
+                </div>
+                <ul class="tt-list-badge">
+                    <li><a href="#"><span class="tt-color14 tt-badge">LVL : @Model.Level</span></a></li>
+                </ul>
+            </div>
+            <div class="tt-col-btn" id="js-settings-btn">
+                <div class="tt-list-btn">
+                    <a asp-area="Identity" asp-page="/Account/Manage" class="tt-btn-icon">
+                        <svg class="tt-icon">
+                            <use xlink:href="#icon-settings_fill"></use>
+                        </svg>
+                    </a>
+                    <a href="#" class="btn btn-primary">Message</a>
+                    <a href="#" class="btn btn-secondary">Follow</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="tt-tab-wrapper">
+        <div class="tt-wrapper-inner">
+            <ul class="nav nav-tabs pt-tabs-default" role="tablist">
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Users" asp-action="Activity" asp-route-id="@Model.Id"><span>Activity</span></a>
+                </li>
+                <li class="nav-item show">
+                    <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Id"><span>Threads</span></a>
+                </li>
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Users" asp-action="Replies" asp-route-id="@Model.Id"><span>Replies</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-pane tt-indent-none" id="tt-tab-03" role="tabpanel">
+            <div class="tt-topic-list">
+                <div class="tt-list-header">
+                    <div class="tt-col-topic">Topic</div>
+                    <div class="tt-col-category">Category</div>
+                    <div class="tt-col-value">Activity</div>
+                </div>
+                @foreach (var reply in Model.Replies)
+                {
+                    <div class="tt-item">
+                        <div class="tt-col-avatar">
+                            <svg class="tt-icon">
+                                <use xlink:href="#@Model.ProfilePicture"></use>
+                            </svg>
+                        </div>
+                        <div class="tt-col-description">
+                            <h6 class="tt-title">
+                                <a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@reply.PostId">
+                                    @reply.PostTitle
+                                </a>
+                            </h6>
+                            <div class="row align-items-center no-gutters hide-desktope">
+                                <div class="col-9">
+                                    <ul class="tt-list-badge">
+                                        <li class="show-mobile">
+                                            <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@reply.PostCategoryId">
+                                                <span class="tt-color01 tt-badge">@reply.PostCategoryName</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-3 ml-auto show-mobile">
+                                    <div class="tt-value">@reply.Activity</div>
+                                </div>
+                            </div>
+                            <div class="tt-content">
+                                @Html.Raw(reply.SanitizedDescription)
+                            </div>
+                        </div>
+                        <div class="tt-col-category">
+                            <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@reply.PostCategoryId">
+                                <span class="tt-color01 tt-badge">@reply.PostCategoryName</span>
+                            </a>
+                        </div>
+                        <div class="tt-col-value-large hide-mobile">@reply.Activity</div>
+                    </div>
+                }
+                <div class="tt-row-btn">
+                    <button type="button" class="btn-icon js-topiclist-showmore">
+                        <svg class="tt-icon">
+                            <use xlink:href="#icon-load_lore_icon"></use>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

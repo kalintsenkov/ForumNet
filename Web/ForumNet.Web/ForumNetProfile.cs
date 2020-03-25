@@ -21,11 +21,19 @@
             this.CreateMap<Category, CategoriesInfoViewModel>();
             this.CreateMap<Category, CategoriesEditInputModel>();
             this.CreateMap<Category, PostsCategoryDetailsViewModel>();
+            this.CreateMap<Category, UsersThreadsCategoryViewModel>();
             #endregion
 
             #region Posts
             this.CreateMap<PostsEditInputModel, PostsEditViewModel>();
             this.CreateMap<Post, PostsDeleteConfirmedViewModel>();
+            this.CreateMap<Post, UsersThreadsAllViewModel>()
+                .ForMember(
+                    dest => dest.Likes,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Like)))
+                .ForMember(
+                    dest => dest.RepliesCount,
+                    dest => dest.MapFrom(src => src.Replies.Count(r => !r.IsDeleted)));
             this.CreateMap<Post, PostsDeleteDetailsViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
@@ -86,12 +94,15 @@
             #region Tags
             this.CreateMap<Tag, TagsInfoViewModel>();
             this.CreateMap<Tag, PostsTagsDetailsViewModel>();
+            this.CreateMap<Tag, UsersThreadsTagsViewModel>();
             this.CreateMap<PostTag, TagsInfoViewModel>();
             this.CreateMap<PostTag, PostsTagsDetailsViewModel>();
+            this.CreateMap<PostTag, UsersThreadsTagsViewModel>();
             #endregion
 
             #region Replies
             this.CreateMap<Reply, RepliesEditInputModel>();
+            this.CreateMap<Reply, UsersRepliesAllViewModel>();
             this.CreateMap<Reply, RepliesDeleteConfirmedViewModel>();
             this.CreateMap<Reply, RepliesDeleteDetailsViewModel>()
                 .ForMember(
@@ -164,10 +175,8 @@
             #region Users
             this.CreateMap<ForumUser, RepliesAuthorDetailsViewModel>();
             this.CreateMap<ForumUser, PostsAuthorDetailsViewModel>();
-            this.CreateMap<ForumUser, UsersInfoViewModel>()
-                .ForMember(
-                    dest => dest.Name,
-                    dest => dest.MapFrom(src => src.UserName));
+            this.CreateMap<ForumUser, UsersThreadsViewModel>();
+            this.CreateMap<ForumUser, UsersRepliesViewModel>();
             #endregion
         }
     }

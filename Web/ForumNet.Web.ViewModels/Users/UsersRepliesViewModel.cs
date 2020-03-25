@@ -1,6 +1,8 @@
 ﻿namespace ForumNet.Web.ViewModels.Users
 {
-    public class UsersInfoViewModel
+    using System.Collections.Generic;
+
+    public class UsersRepliesViewModel
     {
         public string Id { get; set; }
 
@@ -9,5 +11,7 @@
         public string ProfilePicture { get; set; }
 
         public int Level { get; set; }
+
+        public IEnumerable<UsersRepliesAllViewModel> Replies { get; set; }
     }
 }

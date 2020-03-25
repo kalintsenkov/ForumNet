@@ -15,5 +15,7 @@
         Task<bool> IsUsernameUsed(string username);
 
         Task<bool> IsUserDeleted(string username);
+
+        Task<TModel> GetByIdAsync<TModel>(string id);
     }
 }
