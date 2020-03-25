@@ -25,7 +25,28 @@
 
             #region Posts
             this.CreateMap<PostsEditInputModel, PostsEditViewModel>();
-            this.CreateMap<Post, PostsDeleteDetailsViewModel>();
+            this.CreateMap<Post, PostsDeleteDetailsViewModel>()
+                .ForMember(
+                    dest => dest.CreatedOn,
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)))
+                .ForMember(
+                    dest => dest.Likes,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Like)))
+                .ForMember(
+                    dest => dest.Loves,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Love)))
+                .ForMember(
+                    dest => dest.HahaCount,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Haha)))
+                .ForMember(
+                    dest => dest.WowCount,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Wow)))
+                .ForMember(
+                    dest => dest.SadCount,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Sad)))
+                .ForMember(
+                    dest => dest.AngryCount,
+                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Angry)));
             this.CreateMap<Post, PostsListingViewModel>()
                 .ForMember(
                     dest => dest.Likes,

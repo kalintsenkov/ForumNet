@@ -1,6 +1,5 @@
 ﻿@using ForumNet.Web.Infrastructure.Extensions
 @using ForumNet.Web.ViewModels.Posts
-@using ForumNet.Web.ViewModels.Replies
 @model PostsDetailsViewModel
 @{
     ViewData["Title"] = Model.Title;
@@ -120,7 +119,7 @@
                         <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                             <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
                         </a>
-                        <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74">
+                        <button class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="animateButton()">
                             <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
                         </button>
                     </div>
@@ -135,9 +134,7 @@
         </div>
     }
     <div id="reply-box">
-        <partial name="~/Views/Replies/_CreatePartial.cshtml" model="new RepliesCreateInputModel { PostId = Model.Id }" />
-        @*  <vc:post-reply description="@Model.Description" post-id="@Model.Id" parent-id="">
-            </vc:post-reply>*@
+        <vc:create-reply post-id="@Model.Id" parent-id="null"></vc:create-reply>
     </div>
 </div>
 

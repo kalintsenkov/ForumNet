@@ -30,7 +30,9 @@
             var authorId = this.User.GetId();
             await this.repliesService.CreateAsync(input.Description, input.ParentId, input.PostId, authorId);
 
-            return this.RedirectToAction("Details", "Posts", new { id = input.PostId });
+            return !input.ParentId.HasValue
+                ? this.RedirectToAction("Details", "Posts", new { id = input.PostId })
+                : this.RedirectToAction(nameof(Details), new { id = input.ParentId.Value });
         }
 
         public async Task<IActionResult> Edit(int id)

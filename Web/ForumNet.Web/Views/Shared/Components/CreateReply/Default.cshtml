@@ -4,13 +4,14 @@
     <div class="pt-editor form-default">
         <h6 class="pt-title">Post Your Reply</h6>
         <form class="form-default form-create-topic" asp-area="" asp-controller="Replies" asp-action="Create" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
+            <div asp-validation-summary="All"></div>
             <div class="form-group">
-                <input asp-for="ParentId" value="@Model.ParentId" hidden class="form-control" />
-                <input asp-for="PostId" value="@Model.PostId" hidden class="form-control" />
+                <input asp-for="ParentId" value="@Model.ParentId" hidden />
+                <input asp-for="PostId" value="@Model.PostId" hidden />
             </div>
             <div class="form-group">
                 <textarea id="reply-create" asp-for="Description" placeholder="Lets get started"></textarea>
+                <span asp-validation-for="Description"></span>
             </div>
             <div class="pt-row">
                 <div class="col-auto ml-md-auto">

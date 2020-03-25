@@ -155,7 +155,6 @@
             return this.RedirectToAction(nameof(Details), new { id = input.Id });
         }
 
-        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             var post = await this.postsService.GetByIdAsync<PostsDeleteDetailsViewModel>(id);
@@ -165,10 +164,31 @@
             }
 
             var currentUserId = this.User.GetId();
-            if (post.AuthorId != currentUserId && !this.User.IsAdministrator())
+            if (post.Author.Id != currentUserId && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();
             }
+
+            post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(id);
+
+            return this.View(post);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var post = await this.postsService.GetByIdAsync<PostsDeleteDetailsViewModel>(id);
+            if (post == null)
+            {
+                return this.NotFound();
+            }
+
+            //var currentUserId = this.User.GetId();
+            //if (post.AuthorId != currentUserId && !this.User.IsAdministrator())
+            //{
+            //    return this.Unauthorized();
+            //}
 
             await this.postsService.DeleteAsync(id);
 
