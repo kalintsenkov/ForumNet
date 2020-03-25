@@ -83,10 +83,28 @@
             return this.View(reply);
         }
 
-        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             var reply = await this.repliesService.GetByIdAsync<RepliesDeleteDetailsViewModel>(id);
+            if (reply == null)
+            {
+                return this.NotFound();
+            }
+
+            var currentUserId = this.User.GetId();
+            if (reply.Author.Id != currentUserId && !this.User.IsAdministrator())
+            {
+                return this.Unauthorized();
+            }
+
+            return this.View(reply);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var reply = await this.repliesService.GetByIdAsync<RepliesDeleteConfirmedViewModel>(id);
             if (reply == null)
             {
                 return this.NotFound();

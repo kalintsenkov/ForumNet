@@ -1,9 +1,31 @@
 ﻿namespace ForumNet.Web.ViewModels.Replies
 {
+    using Ganss.XSS;
+
     public class RepliesDeleteDetailsViewModel
     {
-        public int PostId { get; set; }
+        public int Id { get; set; }
 
-        public string AuthorId { get; set; }
+        public string Description { get; set; }
+
+        public string SanitizedDescription
+            => new HtmlSanitizer()
+                .Sanitize(this.Description);
+
+        public int Likes { get; set; }
+
+        public int Loves { get; set; }
+
+        public int HahaCount { get; set; }
+
+        public int WowCount { get; set; }
+
+        public int SadCount { get; set; }
+
+        public int AngryCount { get; set; }
+
+        public string CreatedOn { get; set; }
+
+        public RepliesAuthorDetailsViewModel Author { get; set; }
     }
 }

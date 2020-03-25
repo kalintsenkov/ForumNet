@@ -1,4 +1,7 @@
 ﻿@model ForumNet.Web.ViewModels.Posts.PostsDeleteDetailsViewModel
+@{
+    ViewData["Title"] = "Delete";
+}
 
 <br />
 <div class="container">
@@ -49,6 +52,6 @@
             </div>
         </div>
 
-        <partial name="_DeleteThreadStatusPartial.cshtml" model="@Model"/>
+        <partial name="_DeleteThreadStatusPartial.cshtml" model="@Model" />
     </div>
 </div>
