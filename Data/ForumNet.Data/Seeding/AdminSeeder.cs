@@ -11,7 +11,7 @@
     using Microsoft.EntityFrameworkCore;
     using Models;
 
-    public class AdminSeeder : ISeeder
+    internal class AdminSeeder : ISeeder
     {
         public async Task SeedAsync(ForumDbContext dbContext, IServiceProvider serviceProvider)
         {

@@ -66,7 +66,12 @@ namespace ForumNet.Web
         {
             using var serviceScope = app.ApplicationServices.CreateScope();
             using var dbContext = serviceScope.ServiceProvider.GetRequiredService<ForumDbContext>();
-            dbContext.Database.Migrate();
+
+            if (env.IsDevelopment())
+            {
+                dbContext.Database.Migrate();
+            }
+
             new ForumDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
 
             if (env.IsDevelopment())

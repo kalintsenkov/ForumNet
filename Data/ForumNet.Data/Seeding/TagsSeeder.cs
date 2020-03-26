@@ -25,7 +25,7 @@
                 new Tag { Name = "Football", CreatedOn = DateTime.UtcNow },
                 new Tag { Name = "Soccer", CreatedOn = DateTime.UtcNow },
                 new Tag { Name = "PS4", CreatedOn = DateTime.UtcNow },
-                new Tag { Name = "XboxOne", CreatedOn = DateTime.UtcNow },
+                new Tag { Name = "Xbox One", CreatedOn = DateTime.UtcNow },
                 new Tag { Name = "iPhone", CreatedOn = DateTime.UtcNow },
                 new Tag { Name = "Basketball", CreatedOn = DateTime.UtcNow },
                 new Tag { Name = "NBA", CreatedOn = DateTime.UtcNow },
@@ -36,7 +36,7 @@
                 new Tag { Name = "Audi", CreatedOn = DateTime.UtcNow },
                 new Tag { Name = "Mercedes", CreatedOn = DateTime.UtcNow },
                 new Tag { Name = "BMW", CreatedOn = DateTime.UtcNow },
-                new Tag { Name = "League of Legends", CreatedOn = DateTime.UtcNow },
+                new Tag { Name = "League Of Legends", CreatedOn = DateTime.UtcNow },
                 new Tag { Name = "Dota", CreatedOn = DateTime.UtcNow },
             };
 

@@ -10,7 +10,7 @@
     using ForumNet.Common;
     using Models;
 
-    public class RolesSeeder : ISeeder
+    internal class RolesSeeder : ISeeder
     {
         public async Task SeedAsync(ForumDbContext dbContext, IServiceProvider serviceProvider)
         {
