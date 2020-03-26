@@ -12,16 +12,29 @@
     public class CategoriesControllerTest
     {
         [Fact]
+        public void AllShouldReturnCorrectViewModel()
+            => MyController<CategoriesController>
+                .Instance()
+                .WithUser()
+                .Calling(c => c.All("recent"))
+                .ShouldReturn()
+                .View(v => v
+                    .WithModelOfType<CategoriesAllViewModel>()
+                    .Passing(c => c.Search == "recent"));
+
+        [Fact]
         public void DetailsShouldReturnNotFoundWhenArticleIdIsInvalid()
             => MyController<CategoriesController>
                 .Instance()
                 .WithUser()
-                .WithData(new Category
-                {
-                    Id = 1,
-                    Name = "Test category",
-                    CreatedOn = DateTime.UtcNow
-                })
+                .WithData(entities => entities
+                    .WithSet<Category>(set => set
+                        .Add(new Category
+                        {
+                            Id = 1,
+                            Name = "Test",
+                            CreatedOn = DateTime.UtcNow
+                        })))
                 .Calling(c => c.Details(2, "recent"))
                 .ShouldReturn()
                 .NotFound();
