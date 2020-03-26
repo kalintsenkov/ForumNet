@@ -55,10 +55,6 @@
             }
 
             user.Replies = await this.repliesService.GetAllByUserIdAsync<UsersRepliesAllViewModel>(id);
-            foreach (var reply in user.Replies)
-            {
-                reply.Activity = await this.postsService.GetLatestActivityById(reply.PostId);
-            }
 
             return this.View(user);
         }

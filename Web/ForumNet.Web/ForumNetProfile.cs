@@ -102,8 +102,11 @@
 
             #region Replies
             this.CreateMap<Reply, RepliesEditInputModel>();
-            this.CreateMap<Reply, UsersRepliesAllViewModel>();
             this.CreateMap<Reply, RepliesDeleteConfirmedViewModel>();
+            this.CreateMap<Reply, UsersRepliesAllViewModel>()
+                .ForMember(
+                    dest => dest.Activity,
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)));
             this.CreateMap<Reply, RepliesDeleteDetailsViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
