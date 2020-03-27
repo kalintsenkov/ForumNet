@@ -64,7 +64,11 @@
                     <div class="row align-items-center no-gutters">
                         <div class="col-11">
                             <ul class="tt-list-badge">
-                                <li class="show-mobile"><a asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id"><span class="tt-color01 tt-badge">@post.Category.Name</span></a></li>
+                                <li class="show-mobile">
+                                    <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
+                                        <span class="tt-color01 tt-badge">@post.Category.Name</span>
+                                    </a>
+                                </li>
 
                                 @foreach (var tag in post.Tags.Take(4))
                                 {
@@ -77,7 +81,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="tt-col-category"><span class="tt-color01 tt-badge">@post.Category.Name</span></div>
+                <div class="tt-col-category">
+                    <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
+                        <span class="tt-color01 tt-badge">@post.Category.Name</span>
+                    </a>
+                </div>
                 <div class="tt-col-value hide-mobile">@post.Likes</div>
                 <div class="tt-col-value tt-color-select hide-mobile">@post.RepliesCount</div>
                 <div class="tt-col-value hide-mobile">@post.Views</div>
@@ -95,14 +103,18 @@
                 </div>
                 <div class="tt-col-description">
                     <h6 class="tt-title">
-                        <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.Id">
+                        <a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@post.Id">
                             @post.Title
                         </a>
                     </h6>
                     <div class="row align-items-center no-gutters">
                         <div class="col-11">
                             <ul class="tt-list-badge">
-                                <li class="show-mobile"><a asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id"><span class="tt-color01 tt-badge">@post.Category.Name</span></a></li>
+                                <li class="show-mobile">
+                                    <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
+                                        <span class="tt-color01 tt-badge">@post.Category.Name</span>
+                                    </a>
+                                </li>
 
                                 @foreach (var tag in post.Tags.Take(4))
                                 {
@@ -115,7 +127,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="tt-col-category"><span class="tt-color01 tt-badge">@post.Category.Name</span></div>
+                <div class="tt-col-category">
+                    <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
+                        <span class="tt-color01 tt-badge">@post.Category.Name</span>
+                    </a>
+                </div>
                 <div class="tt-col-value hide-mobile">@post.Likes</div>
                 <div class="tt-col-value tt-color-select hide-mobile">@post.RepliesCount</div>
                 <div class="tt-col-value hide-mobile">@post.Views</div>
