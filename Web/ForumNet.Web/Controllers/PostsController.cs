@@ -81,12 +81,11 @@
                 return this.View(input);
             }
 
-            var authorId = this.User.GetId();
             var postId = await this.postsService.CreateAsync(
                 input.Title,
                 input.PostType,
                 input.Description,
-                authorId,
+                this.User.GetId(),
                 input.CategoryId);
 
             await this.postsService.AddTagsAsync(postId, input.TagIds);
@@ -118,8 +117,7 @@
                 return this.NotFound();
             }
 
-            var currentUserId = this.User.GetId();
-            if (post.AuthorId != currentUserId && !this.User.IsAdministrator())
+            if (post.AuthorId != this.User.GetId() && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();
             }
@@ -143,9 +141,8 @@
                 return this.View(viewModel);
             }
 
-            var currentUserId = this.User.GetId();
             var postAuthorId = await this.postsService.GetAuthorIdById(input.Id);
-            if (postAuthorId != currentUserId && !this.User.IsAdministrator())
+            if (postAuthorId != this.User.GetId() && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();
             }
@@ -163,8 +160,7 @@
                 return this.NotFound();
             }
 
-            var currentUserId = this.User.GetId();
-            if (post.Author.Id != currentUserId && !this.User.IsAdministrator())
+            if (post.Author.Id != this.User.GetId() && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();
             }
@@ -184,8 +180,7 @@
                 return this.NotFound();
             }
 
-            var currentUserId = this.User.GetId();
-            if (post.AuthorId != currentUserId && !this.User.IsAdministrator())
+            if (post.AuthorId != this.User.GetId() && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();
             }

@@ -27,8 +27,7 @@
                 return this.RedirectToAction("Details", "Posts", new { id = input.PostId });
             }
 
-            var authorId = this.User.GetId();
-            await this.repliesService.CreateAsync(input.Description, input.ParentId, input.PostId, authorId);
+            await this.repliesService.CreateAsync(input.Description, input.ParentId, input.PostId, this.User.GetId());
 
             return !input.ParentId.HasValue
                 ? this.RedirectToAction("Details", "Posts", new { id = input.PostId })
@@ -43,8 +42,7 @@
                 return this.NotFound();
             }
 
-            var currentUserId = this.User.GetId();
-            if (reply.AuthorId != currentUserId && !this.User.IsAdministrator())
+            if (reply.AuthorId != this.User.GetId() && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();
             }
@@ -60,9 +58,8 @@
                 return this.View(input);
             }
 
-            var currentUserId = this.User.GetId();
             var replyAuthorId = await this.repliesService.GetAuthorIdById(input.Id);
-            if (replyAuthorId != currentUserId && !this.User.IsAdministrator())
+            if (replyAuthorId != this.User.GetId() && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();
             }
@@ -91,8 +88,7 @@
                 return this.NotFound();
             }
 
-            var currentUserId = this.User.GetId();
-            if (reply.Author.Id != currentUserId && !this.User.IsAdministrator())
+            if (reply.Author.Id != this.User.GetId() && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();
             }
@@ -110,8 +106,7 @@
                 return this.NotFound();
             }
 
-            var currentUserId = this.User.GetId();
-            if (reply.AuthorId != currentUserId && !this.User.IsAdministrator())
+            if (reply.AuthorId != this.User.GetId() && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();
             }
