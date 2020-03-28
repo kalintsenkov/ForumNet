@@ -163,7 +163,7 @@
         function likeReaction(id, controller, type) {
             $.ajax({
                 type: "POST",
-                url: "/api/" + controller + "/" + id + "/like",
+                url: "/api/" + controller + "/like/" + id,
                 success: function (json) {
                     if (type === 'post') {
                         $("#post-likes").html(json.likes);
@@ -187,7 +187,7 @@
         function loveReaction(id, controller, type) {
             $.ajax({
                 type: "POST",
-                url: "/api/" + controller + "/" + id + "/love",
+                url: "/api/" + controller + "/love/" + id,
                 success: function (json) {
                     if (type === 'post') {
                         $("#post-likes").html(json.likes);
@@ -211,7 +211,7 @@
         function hahaReaction(id, controller, type) {
             $.ajax({
                 type: "POST",
-                url: "/api/" + controller + "/" + id + "/haha",
+                url: "/api/" + controller + "/haha/" + id,
                 success: function (json) {
                     if (type === 'post') {
                         $("#post-likes").html(json.likes);
@@ -235,7 +235,7 @@
         function wowReaction(id, controller, type) {
             $.ajax({
                 type: "POST",
-                url: "/api/" + controller + "/" + id + "/wow",
+                url: "/api/" + controller + "/wow/" + id,
                 success: function (json) {
                     if (type === 'post') {
                         $("#post-likes").html(json.likes);
@@ -259,7 +259,7 @@
         function sadReaction(id, controller, type) {
             $.ajax({
                 type: "POST",
-                url: "/api/" + controller + "/" + id + "/sad",
+                url: "/api/" + controller + "/sad/" + id,
                 success: function (json) {
                     if (type === 'post') {
                         $("#post-likes").html(json.likes);
@@ -283,7 +283,7 @@
         function angryReaction(id, controller, type) {
             $.ajax({
                 type: "POST",
-                url: "/api/" + controller + "/" + id + "/angry",
+                url: "/api/" + controller + "/angry/" + id,
                 success: function (json) {
                     if (type === 'post') {
                         $("#post-likes").html(json.likes);

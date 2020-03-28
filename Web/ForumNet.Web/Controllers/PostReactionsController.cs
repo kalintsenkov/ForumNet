@@ -27,7 +27,7 @@
         }
 
         [HttpPost]
-        [Route("{postId}/like")]
+        [Route("like/{postId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Like(int postId)
         {
             var isExisting = await this.postsService.IsExisting(postId);
@@ -36,15 +36,14 @@
                 return this.NotFound();
             }
 
-            var userId = this.User.GetId();
-            await this.postReactionsService.ReactAsync(ReactionType.Like, postId, userId);
+            await this.postReactionsService.ReactAsync(ReactionType.Like, postId, this.User.GetId());
             var viewModel = await this.GetPostReactionsCountByIdAsync(postId);
 
             return viewModel;
         }
 
         [HttpPost]
-        [Route("{postId}/love")]
+        [Route("love/{postId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Love(int postId)
         {
             var isExisting = await this.postsService.IsExisting(postId);
@@ -53,15 +52,14 @@
                 return this.NotFound();
             }
 
-            var userId = this.User.GetId();
-            await this.postReactionsService.ReactAsync(ReactionType.Love, postId, userId);
+            await this.postReactionsService.ReactAsync(ReactionType.Love, postId, this.User.GetId());
             var viewModel = await this.GetPostReactionsCountByIdAsync(postId);
 
             return viewModel;
         }
 
         [HttpPost]
-        [Route("{postId}/haha")]
+        [Route("haha/{postId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Haha(int postId)
         {
             var isExisting = await this.postsService.IsExisting(postId);
@@ -70,15 +68,14 @@
                 return this.NotFound();
             }
 
-            var userId = this.User.GetId();
-            await this.postReactionsService.ReactAsync(ReactionType.Haha, postId, userId);
+            await this.postReactionsService.ReactAsync(ReactionType.Haha, postId, this.User.GetId());
             var viewModel = await this.GetPostReactionsCountByIdAsync(postId);
 
             return viewModel;
         }
 
         [HttpPost]
-        [Route("{postId}/wow")]
+        [Route("wow/{postId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Wow(int postId)
         {
             var isExisting = await this.postsService.IsExisting(postId);
@@ -87,15 +84,14 @@
                 return this.NotFound();
             }
 
-            var userId = this.User.GetId();
-            await this.postReactionsService.ReactAsync(ReactionType.Wow, postId, userId);
+            await this.postReactionsService.ReactAsync(ReactionType.Wow, postId, this.User.GetId());
             var viewModel = await this.GetPostReactionsCountByIdAsync(postId);
 
             return viewModel;
         }
 
         [HttpPost]
-        [Route("{postId}/sad")]
+        [Route("sad/{postId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Sad(int postId)
         {
             var isExisting = await this.postsService.IsExisting(postId);
@@ -104,15 +100,14 @@
                 return this.NotFound();
             }
 
-            var userId = this.User.GetId();
-            await this.postReactionsService.ReactAsync(ReactionType.Sad, postId, userId);
+            await this.postReactionsService.ReactAsync(ReactionType.Sad, postId, this.User.GetId());
             var viewModel = await this.GetPostReactionsCountByIdAsync(postId);
 
             return viewModel;
         }
 
         [HttpPost]
-        [Route("{postId}/angry")]
+        [Route("angry/{postId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Angry(int postId)
         {
             var isExisting = await this.postsService.IsExisting(postId);
@@ -121,8 +116,7 @@
                 return this.NotFound();
             }
 
-            var userId = this.User.GetId();
-            await this.postReactionsService.ReactAsync(ReactionType.Angry, postId, userId);
+            await this.postReactionsService.ReactAsync(ReactionType.Angry, postId, this.User.GetId());
             var viewModel = await this.GetPostReactionsCountByIdAsync(postId);
 
             return viewModel;
