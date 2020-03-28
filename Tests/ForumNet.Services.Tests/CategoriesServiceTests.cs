@@ -1,9 +1,12 @@
 ﻿namespace ForumNet.Services.Tests
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using AutoMapper;
+    using FluentAssertions;
     using Microsoft.EntityFrameworkCore;
     using Moq;
     using Xunit;
@@ -55,10 +58,7 @@
 
             var actual = await db.Categories.FirstOrDefaultAsync();
 
-            Assert.Equal(expected.Id, actual.Id);
-            Assert.Equal(expected.Name, actual.Name);
-            Assert.Equal(expected.CreatedOn, actual.CreatedOn);
-            Assert.Equal(expected.IsDeleted, actual.IsDeleted);
+            expected.Should().BeEquivalentTo(actual);
         }
 
         [Theory]
@@ -233,7 +233,7 @@
             });
 
             var mapper = config.CreateMapper();
-            
+
             var dateTimeProvider = new Mock<IDateTimeProvider>();
             dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
 
@@ -254,7 +254,7 @@
         }
 
         [Fact]
-        public async Task GetByIdMethodShouldReturnModelWichIsNotDeleted()
+        public async Task GetByIdMethodShouldReturnModelWhichIsNotDeleted()
         {
             var options = new DbContextOptionsBuilder<ForumDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
@@ -343,6 +343,70 @@
             var category = await categoriesService.GetByIdAsync<Category>(1);
 
             Assert.Null(category);
+        }
+
+        [Fact]
+        public async Task GetAllMethodShouldReturnCorrectModel()
+        {
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+
+            var db = new ForumDbContext(options);
+
+            var config = new MapperConfiguration(options =>
+            {
+                options.CreateMap<Category, Category>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            var dateTimeProvider = new Mock<IDateTimeProvider>();
+            dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
+
+            var expectedCategories = new List<Category>();
+
+            for (int i = 0; i < 10; i++)
+            {
+                expectedCategories.Add(new Category
+                {
+                    Name = $"Test {i}",
+                    CreatedOn = dateTimeProvider.Object.Now()
+                });
+            }
+
+            await db.Categories.AddRangeAsync(expectedCategories);
+            await db.SaveChangesAsync();
+
+            var categoriesService = new CategoriesService(db, mapper, dateTimeProvider.Object);
+            var actualCategories = await categoriesService.GetAllAsync<Category>();
+
+            expectedCategories.Should().BeEquivalentTo(actualCategories);
+        }
+
+        [Fact]
+        public async Task GetAllMethodShouldReturnZeroItemsIfThereAreNotAnyCategories()
+        {
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+
+            var db = new ForumDbContext(options);
+
+            var config = new MapperConfiguration(options =>
+            {
+                options.CreateMap<Category, Category>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            var dateTimeProvider = new Mock<IDateTimeProvider>();
+            dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
+
+            var categoriesService = new CategoriesService(db, mapper, dateTimeProvider.Object);
+            var categories = await categoriesService.GetAllAsync<Category>();
+
+            Assert.Empty(categories);
         }
     }
 }
