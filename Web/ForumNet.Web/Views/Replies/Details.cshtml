@@ -15,7 +15,9 @@
                             <i class="tt-icon"><svg><use xlink:href="#@Model.Author.ProfilePicture"></use></svg></i>
                         </div>
                         <div class="tt-avatar-title">
-                            <a href="#">@Model.Author.UserName</a>
+                            <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Author.Id">
+                                @Model.Author.UserName
+                            </a>
                         </div>
                         <a href="#" class="tt-info-time">
                             <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>@Model.CreatedOn

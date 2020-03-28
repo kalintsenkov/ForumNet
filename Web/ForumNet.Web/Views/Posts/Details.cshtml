@@ -16,7 +16,9 @@
                             <i class="tt-icon"><svg><use xlink:href="#@Model.Author.ProfilePicture"></use></svg></i>
                         </div>
                         <div class="tt-avatar-title">
-                            <a href="#">@Model.Author.UserName</a>
+                            <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Author.Id">
+                                @Model.Author.UserName
+                            </a>
                         </div>
                         <div class="tt-info-time">
                             @if (this.User.IsAdministrator())
@@ -65,7 +67,7 @@
                     <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                         <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
                     </a>
-                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                    <a asp-area="" asp-controller="PostReports" asp-action="Create" asp-route-id="@Model.Id" class="tt-icon-btn tt-hover-02 tt-small-indent">
                         <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
                     </a>
                     <button style="padding: 0; border:none; background:none; outline:none" class="tt-icon-btn tt-hover-02 tt-small-indent" onclick="animateButton()">
@@ -87,7 +89,9 @@
                                 <i class="tt-icon"><svg><use xlink:href="#@reply.Author.ProfilePicture"></use></svg></i>
                             </div>
                             <div class="tt-avatar-title">
-                                <a href="#">@reply.Author.UserName</a>
+                                <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@reply.Author.Id">
+                                    @reply.Author.UserName
+                                </a>
                             </div>
                             <a href="#" class="tt-info-time">
                                 <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>@reply.CreatedOn

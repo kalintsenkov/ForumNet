@@ -8,6 +8,7 @@
     using Data.Models;
     using Data.Models.Enums;
     using ViewModels.Categories;
+    using ViewModels.PostReports;
     using ViewModels.Posts;
     using ViewModels.Replies;
     using ViewModels.Tags;
@@ -27,6 +28,10 @@
             #region Posts
             this.CreateMap<PostsEditInputModel, PostsEditViewModel>();
             this.CreateMap<Post, PostsDeleteConfirmedViewModel>();
+            this.CreateMap<Post, PostReportsInputModel>()
+                .ForMember(
+                dest => dest.Description, 
+                dest => dest.Ignore());
             this.CreateMap<Post, UsersThreadsAllViewModel>()
                 .ForMember(
                     dest => dest.Likes,

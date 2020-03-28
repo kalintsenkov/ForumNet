@@ -68,7 +68,6 @@
                 <div class="tt-item">
                     <div class="tt-col-avatar">
                         <svg class="tt-icon">
-                            @*TODO: author profile pic*@
                             <use xlink:href="#@post.AuthorProfilePicture"></use>
                         </svg>
                     </div>
@@ -97,7 +96,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tt-col-category"><span class="tt-color01 tt-badge">@post.Category.Name</span></div>
+                    <div class="tt-col-category">
+                        <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
+                            <span class="tt-color01 tt-badge">@post.Category.Name</span>
+                        </a>
+                    </div>
                     <div class="tt-col-value  hide-mobile">@post.Likes</div>
                     <div class="tt-col-value tt-color-select  hide-mobile">@post.RepliesCount</div>
                     <div class="tt-col-value  hide-mobile">@post.Views</div>
