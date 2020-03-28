@@ -13,17 +13,17 @@
     public class UsersService : IUsersService
     {
         private readonly ForumDbContext db;
-        private readonly IDateTimeProvider dateTimeProvider;
         private readonly IMapper mapper;
+        private readonly IDateTimeProvider dateTimeProvider;
 
         public UsersService(
-            ForumDbContext db, 
-            IDateTimeProvider dateTimeProvider, 
-            IMapper mapper)
+            ForumDbContext db,
+            IMapper mapper,
+            IDateTimeProvider dateTimeProvider)
         {
             this.db = db;
-            this.dateTimeProvider = dateTimeProvider;
             this.mapper = mapper;
+            this.dateTimeProvider = dateTimeProvider;
         }
 
         public async Task ModifyAsync(string id)

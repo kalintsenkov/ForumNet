@@ -35,6 +35,7 @@
                 </div>
                 <div class="tt-item-info info-bottom">
                     <a asp-area="" asp-controller="Posts" asp-action="Delete" asp-route-id="@Model.PostId" class="btn btn-secondary">Approve</a>
+                    &nbsp;
                     <form asp-area="Administration" asp-controller="PostReports" asp-action="Delete" asp-route-id="@Model.PostId" method="post">
                         <button type="submit" class="btn btn-primary">Disapprove</button>
                     </form>
