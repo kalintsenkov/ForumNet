@@ -144,23 +144,6 @@
 
 @section Scripts {
     <script>
-        tinymce.init({
-            selector: '#reply-create',
-            height: 300,
-            plugins: [
-                'lists advlist link autolink image media preview hr anchor',
-                'code codesample paste',
-                'table emoticons help'
-            ],
-            toolbar: [
-                'undo redo | styleselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent bullist numlist |',
-                'forecolor backcolor emoticons | link image media codesample preview | help'
-            ],
-            link_default_protocol: "https",
-            menubar: 'file edit view insert format table'
-        });
-    </script>
-    <script>
         function animateButton() {
             $('html, body').animate({
                 scrollTop: $("#reply-box").offset().top

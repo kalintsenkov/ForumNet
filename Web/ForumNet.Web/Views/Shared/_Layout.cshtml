@@ -85,6 +85,23 @@
     <script src="~/js/bundle.js" type="text/javascript"></script>
     <script src="~/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
     <script src="~/lib/selectize/dist/js/standalone/selectize.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: 'textarea',
+            height: 400,
+            plugins: [
+                'lists advlist link autolink image media preview hr anchor',
+                'code codesample paste',
+                'table emoticons help'
+            ],
+            toolbar: [
+                'undo redo | styleselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent bullist numlist |',
+                'forecolor backcolor emoticons | link image media codesample preview | help'
+            ],
+            link_default_protocol: "https",
+            menubar: 'file edit view insert format table'
+        });
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -11,7 +11,7 @@
         </h1>
         <form class="form-default form-create-topic" asp-area="" asp-controller="Replies" asp-action="Edit">
             <div class="form-group">
-                <textarea id="reply-edit" asp-for="Description"></textarea>
+                <textarea asp-for="Description"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="row">
@@ -26,22 +26,5 @@
 
 
 @section Scripts {
-    <script>
-    tinymce.init({
-        selector: '#reply-edit',
-        height: 400,
-        plugins: [
-            'lists advlist link autolink image media preview hr anchor',
-            'code codesample paste',
-            'table emoticons help'
-        ],
-        toolbar: [
-            'undo redo | styleselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent bullist numlist |',
-            'forecolor backcolor emoticons | link image media codesample preview | help'
-        ],
-        link_default_protocol: "https",
-        menubar: 'file edit view insert format table'
-    });
-</script>
     <partial name="_ValidationScriptsPartial" />
 }
