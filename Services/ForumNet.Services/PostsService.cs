@@ -106,9 +106,9 @@
             await this.db.SaveChangesAsync();
         }
 
-        public Task<bool> IsExisting(int id)
+        public async Task<bool> IsExisting(int id)
         {
-            return this.db.Posts.AnyAsync(p => p.Id == id && !p.IsDeleted);
+            return await this.db.Posts.AnyAsync(p => p.Id == id && !p.IsDeleted);
         }
 
         public async Task<string> GetAuthorIdById(int id)

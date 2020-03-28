@@ -1,7 +1,12 @@
 ﻿namespace ForumNet.Services
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
+
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+    using Microsoft.EntityFrameworkCore;
 
     using Contracts;
     using Data;
@@ -10,11 +15,16 @@
     public class ReplyReportsService : IReplyReportsService
     {
         private readonly ForumDbContext db;
+        private readonly IMapper mapper;
         private readonly IDateTimeProvider dateTimeProvider;
 
-        public ReplyReportsService(ForumDbContext db, IDateTimeProvider dateTimeProvider)
+        public ReplyReportsService(
+            ForumDbContext db,
+            IMapper mapper,
+            IDateTimeProvider dateTimeProvider)
         {
             this.db = db;
+            this.mapper = mapper;
             this.dateTimeProvider = dateTimeProvider;
         }
 
@@ -23,18 +33,50 @@
             var replyReport = new ReplyReport
             {
                 Description = description,
-                CreatedOn = this.dateTimeProvider.Now(),
                 ReplyId = replyId,
-                AuthorId = authorId
+                AuthorId = authorId,
+                CreatedOn = this.dateTimeProvider.Now()
             };
 
             await this.db.ReplyReports.AddAsync(replyReport);
             await this.db.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            var replyReport = await this.db.ReplyReports.FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
+
+            replyReport.IsDeleted = true;
+            replyReport.DeletedOn = this.dateTimeProvider.Now();
+
+            await this.db.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsExisting(int id)
+        {
+            return await this.db.ReplyReports.AnyAsync(r => r.Id == id && !r.IsDeleted);
+        }
+
+        public async Task<TModel> GetById<TModel>(int id)
+        {
+            var replyReport = await this.db.ReplyReports
+                .Where(r => r.Id == id && !r.IsDeleted)
+                .AsNoTracking()
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+
+            return replyReport;
+        }
+
         public async Task<IEnumerable<TModel>> GetAll<TModel>()
         {
-            throw new System.NotImplementedException();
+            var reports = await this.db.ReplyReports
+                .Where(pr => !pr.Reply.IsDeleted)
+                .AsNoTracking()
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return reports;
         }
     }
 }

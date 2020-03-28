@@ -7,6 +7,12 @@
     {
         Task CreateAsync(string description, int replyId, string authorId);
 
+        Task DeleteAsync(int id);
+
+        Task<bool> IsExisting(int id);
+
+        Task<TModel> GetById<TModel>(int id);
+
         Task<IEnumerable<TModel>> GetAll<TModel>();
     }
 }

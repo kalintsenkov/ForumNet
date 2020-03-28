@@ -1,0 +1,64 @@
+﻿@model ForumNet.Web.ViewModels.PostReports.PostReportAllViewModel
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<div class="container">
+    <div class="tt-tab-wrapper">
+        <div class="tt-wrapper-inner">
+            <ul class="nav nav-tabs pt-tabs-default" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" asp-area="Administration" asp-controller="PostReports" asp-action="All" role="tab">
+                        <span>Post Reports</span>
+                    </a>
+                </li>
+                <li class="nav-item show">
+                    <a class="nav-link" asp-area="Administration" asp-controller="ReplyReports" asp-action="All" role="tab">
+                        <span>Reply Reports</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-pane tt-indent-none" id="tt-tab-03" role="tabpanel">
+            <div class="tt-topic-list">
+                <div class="tt-list-header">
+                    <div class="tt-col-topic">Topic</div>
+                    <div class="tt-col-value">Activity</div>
+                </div>
+                @foreach (var report in Model.PostReports)
+                {
+                    <div class="tt-item">
+                        <div class="tt-col-avatar">
+                            <svg class="tt-icon">
+                                <use xlink:href="#@report.AuthorProfilePicture"></use>
+                            </svg>
+                        </div>
+                        <div class="tt-col-description">
+                            <h6 class="tt-title">
+                                <a asp-area="Administration" asp-controller="PostReports" asp-action="Details" asp-route-id="@report.Id">
+                                    @report.PostTitle
+                                </a>
+                            </h6>
+                            <div class="row align-items-center no-gutters hide-desktope">
+                                <div class="col-3 ml-auto show-mobile">
+                                    <div class="tt-value">@report.CreatedOn</div>
+                                </div>
+                            </div>
+                            <div class="tt-content">
+                                @Html.Raw(report.ShortDescription)
+                            </div>
+                        </div>
+                        <div class="tt-col-value-large hide-mobile">@report.CreatedOn</div>
+                    </div>
+                }
+                <div class="tt-row-btn">
+                    <button type="button" class="btn-icon js-topiclist-showmore">
+                        <svg class="tt-icon">
+                            <use xlink:href="#icon-load_lore_icon"></use>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

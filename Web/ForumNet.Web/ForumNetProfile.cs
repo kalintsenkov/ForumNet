@@ -31,7 +31,7 @@
             this.CreateMap<Post, PostsDeleteConfirmedViewModel>();
             this.CreateMap<Post, PostReportsInputModel>()
                 .ForMember(
-                dest => dest.Description, 
+                dest => dest.Description,
                 dest => dest.Ignore());
             this.CreateMap<Post, UsersThreadsAllViewModel>()
                 .ForMember(
@@ -95,6 +95,17 @@
                 .ForMember(
                     dest => dest.AngryCount,
                     dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Angry)));
+            #endregion
+
+            #region PostReports
+            this.CreateMap<PostReport, PostReportsListingViewModel>()
+                .ForMember(
+                    dest => dest.CreatedOn,
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)));
+            this.CreateMap<PostReport, PostReportsDetailsViewModel>()
+                .ForMember(
+                    dest => dest.CreatedOn,
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)));
             #endregion
 
             #region Tags

@@ -1,0 +1,51 @@
+﻿@model ForumNet.Web.ViewModels.PostReports.PostReportsDetailsViewModel
+@{
+    ViewData["Title"] = "Post Report Details";
+}
+
+<br />
+<div class="container">
+    <div class="tt-single-topic-list">
+        <div class="tt-item">
+            <div class="tt-info-box">
+                <h6 class="tt-title">
+                    Report for <a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.PostId">@Model.PostTitle</a>
+                </h6>
+            </div>
+        </div>
+        <div class="tt-item">
+            <div class="tt-single-topic">
+                <div class="tt-item-header pt-noborder">
+                    <div class="tt-item-info info-top">
+                        <div class="tt-avatar-icon">
+                            <i class="tt-icon"><svg><use xlink:href="#@Model.AuthorProfilePicture"></use></svg></i>
+                        </div>
+                        <div class="tt-avatar-title">
+                            <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.AuthorId">
+                                @Model.AuthorUserName
+                            </a>
+                        </div>
+                        <a href="#" class="tt-info-time">
+                            <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>@Model.CreatedOn
+                        </a>
+                    </div>
+                </div>
+                <div class="tt-item-description">
+                    <p>@Html.Raw(Model.SanitizedDescription)</p>
+                </div>
+                <div class="tt-item-info info-bottom">
+                    <a asp-area="" asp-controller="Posts" asp-action="Delete" asp-route-id="@Model.PostId" class="btn btn-secondary">Approve</a>
+                    <form asp-area="Administration" asp-controller="PostReports" asp-action="Delete" asp-route-id="@Model.PostId" method="post">
+                        <button type="submit" class="btn btn-primary">Disapprove</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-auto ml-md-auto">
+                <a asp-area="Administration" asp-controller="PostReports" asp-action="All" class="btn btn-primary">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
