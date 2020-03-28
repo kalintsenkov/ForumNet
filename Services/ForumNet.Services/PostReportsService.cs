@@ -1,5 +1,6 @@
 ﻿namespace ForumNet.Services
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     
     using Contracts;
@@ -29,6 +30,11 @@
 
             await this.db.PostReports.AddAsync(postReport);
             await this.db.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<TModel>> GetAll<TModel>()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

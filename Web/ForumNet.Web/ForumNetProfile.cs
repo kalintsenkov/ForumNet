@@ -11,6 +11,7 @@
     using ViewModels.PostReports;
     using ViewModels.Posts;
     using ViewModels.Replies;
+    using ViewModels.ReplyReports;
     using ViewModels.Tags;
     using ViewModels.Users;
 
@@ -108,6 +109,10 @@
             #region Replies
             this.CreateMap<Reply, RepliesEditInputModel>();
             this.CreateMap<Reply, RepliesDeleteConfirmedViewModel>();
+            this.CreateMap<Reply, ReplyReportsInputModel>()
+                .ForMember(
+                    dest => dest.Description,
+                    dest => dest.Ignore());
             this.CreateMap<Reply, UsersRepliesAllViewModel>()
                 .ForMember(
                     dest => dest.Activity,

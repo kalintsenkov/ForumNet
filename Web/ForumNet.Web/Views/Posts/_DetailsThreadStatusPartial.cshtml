@@ -59,7 +59,7 @@
             <hr />
             <h6 class="tt-title">Frequent Posters</h6>
             <div class="tt-row-icon">
-                @foreach (var profilePicture in Model.Replies.Select(r => r.Author.ProfilePicture).Distinct())
+                @foreach (var profilePicture in Model.Replies.OrderByDescending(r =>r.CreatedOn).Select(r => r.Author.ProfilePicture).Distinct())
                 {
                     <div class="tt-item">
                         <a href="#" class="tt-icon-avatar">
