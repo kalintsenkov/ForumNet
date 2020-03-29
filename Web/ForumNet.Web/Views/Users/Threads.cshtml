@@ -55,69 +55,80 @@
         <div class="tab-content">
             <div class="tab-pane tt-indent-none show active" id="tt-tab-02" role="tabpanel">
                 <div class="tt-topic-list">
-                    <div class="tt-list-header">
-                        <div class="tt-col-topic">Topic</div>
-                        <div class="tt-col-category">Category</div>
-                        <div class="tt-col-value hide-mobile">Likes</div>
-                        <div class="tt-col-value hide-mobile">Replies</div>
-                        <div class="tt-col-value hide-mobile">Views</div>
-                        <div class="tt-col-value">Activity</div>
-                    </div>
-                    @foreach (var thread in Model.Threads)
+                    @if (Model.Threads.Any())
                     {
-                        <div class="tt-item">
-                            <div class="tt-col-avatar">
-                                <svg class="tt-icon">
-                                    <use xlink:href="#@Model.ProfilePicture"></use>
-                                </svg>
-                            </div>
-                            <div class="tt-col-description">
-                                <h6 class="tt-title">
-                                    <a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@thread.Id">
-                                        @if (thread.IsPinned)
-                                        {
-                                            <svg class="tt-icon">
-                                                <use xlink:href="#icon-pinned"></use>
-                                            </svg>
-                                        }
-                                        @thread.Title
-                                    </a>
-                                </h6>
-                                <div class="row align-items-center no-gutters">
-                                    <div class="col-11">
-                                        <ul class="tt-list-badge">
-                                            <li class="show-mobile">
-                                                <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@thread.Category.Id">
-                                                    <span class="tt-color01 tt-badge">@thread.Category.Name</span>
-                                                </a>
-                                            </li>
-                                            @foreach (var tag in thread.Tags)
+                        <div class="tt-list-header">
+                            <div class="tt-col-topic">Topic</div>
+                            <div class="tt-col-category">Category</div>
+                            <div class="tt-col-value hide-mobile">Likes</div>
+                            <div class="tt-col-value hide-mobile">Replies</div>
+                            <div class="tt-col-value hide-mobile">Views</div>
+                            <div class="tt-col-value">Activity</div>
+                        </div>
+
+                        foreach (var thread in Model.Threads)
+                        {
+                            <div class="tt-item">
+                                <div class="tt-col-avatar">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#@Model.ProfilePicture"></use>
+                                    </svg>
+                                </div>
+                                <div class="tt-col-description">
+                                    <h6 class="tt-title">
+                                        <a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@thread.Id">
+                                            @if (thread.IsPinned)
                                             {
-                                                <li><a href="#"><span class="tt-badge">@tag.Name</span></a></li>
+                                                <svg class="tt-icon">
+                                                    <use xlink:href="#icon-pinned"></use>
+                                                </svg>
                                             }
-                                        </ul>
-                                    </div>
-                                    <div class="col-1 ml-auto show-mobile">
-                                        <div class="tt-value">@thread.Activity</div>
+                                            @thread.Title
+                                        </a>
+                                    </h6>
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col-11">
+                                            <ul class="tt-list-badge">
+                                                <li class="show-mobile">
+                                                    <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@thread.Category.Id">
+                                                        <span class="tt-color01 tt-badge">@thread.Category.Name</span>
+                                                    </a>
+                                                </li>
+                                                @foreach (var tag in thread.Tags)
+                                                {
+                                                    <li><a href="#"><span class="tt-badge">@tag.Name</span></a></li>
+                                                }
+                                            </ul>
+                                        </div>
+                                        <div class="col-1 ml-auto show-mobile">
+                                            <div class="tt-value">@thread.Activity</div>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="tt-col-category">
+                                    <span class="tt-color01 tt-badge">@thread.Category.Name</span>
+                                </div>
+                                <div class="tt-col-value hide-mobile">@thread.Likes</div>
+                                <div class="tt-col-value tt-color-select  hide-mobile">@thread.RepliesCount</div>
+                                <div class="tt-col-value hide-mobile">@thread.Views</div>
+                                <div class="tt-col-value hide-mobile">@thread.Activity</div>
                             </div>
-                            <div class="tt-col-category">
-                                <span class="tt-color01 tt-badge">@thread.Category.Name</span>
-                            </div>
-                            <div class="tt-col-value hide-mobile">@thread.Likes</div>
-                            <div class="tt-col-value tt-color-select  hide-mobile">@thread.RepliesCount</div>
-                            <div class="tt-col-value hide-mobile">@thread.Views</div>
-                            <div class="tt-col-value hide-mobile">@thread.Activity</div>
+                        }
+
+                        <div class="tt-row-btn">
+                            <button type="button" class="btn-icon js-topiclist-showmore">
+                                <svg class="tt-icon">
+                                    <use xlink:href="#icon-load_lore_icon"></use>
+                                </svg>
+                            </button>
                         </div>
                     }
-                    <div class="tt-row-btn">
-                        <button type="button" class="btn-icon js-topiclist-showmore">
-                            <svg class="tt-icon">
-                                <use xlink:href="#icon-load_lore_icon"></use>
-                            </svg>
-                        </button>
-                    </div>
+                    else
+                    {
+                        <div class="tt-layout-404">
+                            <h6 class="tt-title">@Model.UserName has no threads.</h6>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

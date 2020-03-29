@@ -37,7 +37,10 @@
                 return this.NotFound();
             }
 
+            user.FollowersCount = await this.usersService.GetFollowersCount(id);
+            user.FollowingCount = await this.usersService.GetFollowingCount(id);
             user.Threads = await this.postsService.GetAllByUserIdAsync<UsersThreadsAllViewModel>(id);
+
             foreach (var thread in user.Threads)
             {
                 thread.Activity = await this.postsService.GetLatestActivityById(thread.Id);
@@ -55,6 +58,8 @@
                 return this.NotFound();
             }
 
+            user.FollowersCount = await this.usersService.GetFollowersCount(id);
+            user.FollowingCount = await this.usersService.GetFollowingCount(id);
             user.Replies = await this.repliesService.GetAllByUserIdAsync<UsersRepliesAllViewModel>(id);
 
             return this.View(user);
@@ -68,6 +73,8 @@
                 return this.NotFound();
             }
 
+            user.FollowersCount = await this.usersService.GetFollowersCount(id);
+            user.FollowingCount = await this.usersService.GetFollowingCount(id);
             user.Followers = await this.usersService.GetFollowers<UsersFollowersAllViewModel>(id);
 
             return this.View(user);
@@ -81,6 +88,8 @@
                 return this.NotFound();
             }
 
+            user.FollowersCount = await this.usersService.GetFollowersCount(id);
+            user.FollowingCount = await this.usersService.GetFollowingCount(id);
             user.Followers = await this.usersService.GetFollowing<UsersFollowersAllViewModel>(id);
 
             return this.View(user);
@@ -89,13 +98,14 @@
         [HttpPost]
         public async Task<IActionResult> Follow(string id)
         {
-            // User should not follow himself
-            if (this.User.GetId() == id)
+            // User should not be able to follow himself
+            var followerId = this.User.GetId();
+            if (followerId == id)
             {
                 return this.BadRequest();
             }
 
-            var isFollowed = await this.usersService.FollowAsync(id, this.User.GetId());
+            var isFollowed = await this.usersService.FollowAsync(id, followerId);
 
             return this.Ok(isFollowed);
         }

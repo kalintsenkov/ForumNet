@@ -61,36 +61,43 @@
             </ul>
         </div>
         <div class="tab-pane tt-indent-none show active" id="tt-tab-04" role="tabpanel">
-            @foreach (var follower in Model.Followers)
+            @if (Model.Followers.Any())
             {
-                <div class="tt-followers-list">
-                    <div class="tt-list-header">
-                        <div class="tt-col-name">User</div>
-                        <div class="tt-col-value-large hide-mobile">Follow date</div>
-                        <div class="tt-col-value-large hide-mobile">Threads</div>
-                        <div class="tt-col-value-large hide-mobile">Replies</div>
-                        <div class="tt-col-value">Level</div>
-                    </div>
-                    <div class="tt-item">
-                        <div class="tt-col-merged">
-                            <div class="tt-col-avatar">
-                                <svg class="tt-icon">
-                                    <use xlink:href="#@follower.ProfilePicture"></use>
-                                </svg>
-                            </div>
-                            <div class="tt-col-description">
-                                <h6 class="tt-title">
-                                    <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@follower.Id">
-                                        @follower.UserName
-                                    </a>
-                                </h6>
-                            </div>
+                foreach (var following in Model.Followers)
+                {
+                    <div class="tt-followers-list">
+                        <div class="tt-list-header">
+                            <div class="tt-col-name">User</div>
+                            <div class="tt-col-value-large hide-mobile">Threads</div>
+                            <div class="tt-col-value-large hide-mobile">Replies</div>
+                            <div class="tt-col-value">Level</div>
                         </div>
-                        <div class="tt-col-value-large hide-mobile">@follower.CreatedOn</div>
-                        <div class="tt-col-value-large hide-mobile">@follower.ThreadsCount</div>
-                        <div class="tt-col-value-large hide-mobile">@follower.RepliesCount</div>
-                        <div class="tt-col-value"><span class="tt-color16 tt-badge">LVL : @follower.Level</span></div>
+                        <div class="tt-item">
+                            <div class="tt-col-merged">
+                                <div class="tt-col-avatar">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#@following.ProfilePicture"></use>
+                                    </svg>
+                                </div>
+                                <div class="tt-col-description">
+                                    <h6 class="tt-title">
+                                        <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@following.Id">
+                                            @following.UserName
+                                        </a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="tt-col-value-large hide-mobile">@following.ThreadsCount</div>
+                            <div class="tt-col-value-large hide-mobile">@following.RepliesCount</div>
+                            <div class="tt-col-value"><span class="tt-color16 tt-badge">LVL : @following.Level</span></div>
+                        </div>
                     </div>
+                }
+            }
+            else
+            {
+                <div class="tt-layout-404">
+                    <h6 class="tt-title">@Model.UserName is not following anyone.</h6>
                 </div>
             }
         </div>

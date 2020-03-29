@@ -19,6 +19,10 @@
 
         Task<bool> IsUserDeleted(string username);
 
+        Task<int> GetFollowersCount(string id);
+
+        Task<int> GetFollowingCount(string id);
+
         Task<TModel> GetByIdAsync<TModel>(string id);
 
         Task<IEnumerable<TModel>> GetFollowers<TModel>(string id);

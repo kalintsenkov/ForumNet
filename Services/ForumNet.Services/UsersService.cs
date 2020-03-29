@@ -118,6 +118,16 @@
             return await this.db.Users.AnyAsync(u => u.UserName == username && u.IsDeleted);
         }
 
+        public async Task<int> GetFollowersCount(string id)
+        {
+            return await this.db.UsersFollowers.CountAsync(u => !u.IsDeleted && u.UserId == id);
+        }
+
+        public async Task<int> GetFollowingCount(string id)
+        {
+            return await this.db.UsersFollowers.CountAsync(u => !u.IsDeleted && u.FollowerId == id);
+        }
+
         public async Task<TModel> GetByIdAsync<TModel>(string id)
         {
             var user = await this.db.Users
