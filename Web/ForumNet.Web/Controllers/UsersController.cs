@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using Infrastructure.Extensions;
     using Services.Contracts;
     using ViewModels.Users;
 
@@ -17,9 +18,9 @@
         private readonly IRepliesService repliesService;
 
         public UsersController(
-            IUsersService usersService, 
-            IPostsService postsService, 
-            ITagsService tagsService, 
+            IUsersService usersService,
+            IPostsService postsService,
+            ITagsService tagsService,
             IRepliesService repliesService)
         {
             this.usersService = usersService;
@@ -57,6 +58,46 @@
             user.Replies = await this.repliesService.GetAllByUserIdAsync<UsersRepliesAllViewModel>(id);
 
             return this.View(user);
+        }
+
+        public async Task<IActionResult> Followers(string id)
+        {
+            var user = await this.usersService.GetByIdAsync<UsersFollowersViewModel>(id);
+            if (user == null)
+            {
+                return this.NotFound();
+            }
+
+            user.Followers = await this.usersService.GetFollowers<UsersFollowersAllViewModel>(id);
+
+            return this.View(user);
+        }
+
+        public async Task<IActionResult> Following(string id)
+        {
+            var user = await this.usersService.GetByIdAsync<UsersFollowersViewModel>(id);
+            if (user == null)
+            {
+                return this.NotFound();
+            }
+
+            user.Followers = await this.usersService.GetFollowing<UsersFollowersAllViewModel>(id);
+
+            return this.View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Follow(string id)
+        {
+            // User should not follow himself
+            if (this.User.GetId() == id)
+            {
+                return this.BadRequest();
+            }
+
+            var isFollowed = await this.usersService.FollowAsync(id, this.User.GetId());
+
+            return this.Ok(isFollowed);
         }
     }
 }

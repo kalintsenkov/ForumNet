@@ -171,7 +171,7 @@
         }
 
         [HttpPost]
-        [ActionName("Delete")]
+        [ActionName(nameof(Delete))]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var post = await this.postsService.GetByIdAsync<PostsDeleteConfirmedViewModel>(id);

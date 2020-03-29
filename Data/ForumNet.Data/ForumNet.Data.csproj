@@ -9,6 +9,8 @@
     <Compile Remove="Migrations\20200321110615_AddPostReactions.Designer.cs" />
     <Compile Remove="Migrations\20200323112307_AddParentReply.cs" />
     <Compile Remove="Migrations\20200323112307_AddParentReply.Designer.cs" />
+    <Compile Remove="Migrations\20200329111408_AddUsersFollowersTable.cs" />
+    <Compile Remove="Migrations\20200329111408_AddUsersFollowersTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

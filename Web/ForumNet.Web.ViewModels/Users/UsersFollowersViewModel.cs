@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class UsersThreadsViewModel
+    public class UsersFollowersViewModel
     {
         public string Id { get; set; }
 
@@ -16,6 +16,6 @@
 
         public int FollowingCount { get; set; }
 
-        public IEnumerable<UsersThreadsAllViewModel> Threads { get; set; }
+        public IEnumerable<UsersFollowersAllViewModel> Followers { get; set; }
     }
 }

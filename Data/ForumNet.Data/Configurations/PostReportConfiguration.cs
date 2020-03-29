@@ -27,6 +27,9 @@
                 .WithMany(p => p.Reports)
                 .HasForeignKey(pr => pr.PostId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            postReport
+                 .HasIndex(pr => pr.IsDeleted);
         }
     }
 }

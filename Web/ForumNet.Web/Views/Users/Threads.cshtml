@@ -1,4 +1,5 @@
-﻿@model ForumNet.Web.ViewModels.Users.UsersThreadsViewModel
+﻿@using ForumNet.Web.Infrastructure.Extensions
+@model ForumNet.Web.ViewModels.Users.UsersThreadsViewModel
 @{
     ViewData["Title"] = Model.UserName;
 }
@@ -21,12 +22,15 @@
                     <li><a href="#"><span class="tt-color14 tt-badge">LVL : @Model.Level</span></a></li>
                 </ul>
             </div>
-            <div class="tt-col-btn">
-                <div class="tt-list-btn">
-                    <a href="#" class="btn btn-primary">Message</a>
-                    <a href="#" class="btn btn-secondary">Follow</a>
+            @if (Model.Id != this.User.GetId())
+            {
+                <div class="tt-col-btn">
+                    <div class="tt-list-btn">
+                        <a href="#" class="btn btn-primary">Message</a>
+                        <a id="follow-button" href="#" class="btn btn-secondary" onclick="follow('@Model.Id')">Follow</a>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
 </div>
@@ -34,14 +38,17 @@
     <div class="tt-tab-wrapper">
         <div class="tt-wrapper-inner">
             <ul class="nav nav-tabs pt-tabs-default" role="tablist">
-                <li class="nav-item">
-                    <a asp-area="" asp-controller="Users" asp-action="Activity" asp-route-id="@Model.Id"><span>Activity</span></a>
-                </li>
                 <li class="nav-item show">
-                    <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Id"><span>Threads</span></a>
+                    <a class="nav-link active" asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Id"><span>Threads</span></a>
                 </li>
                 <li class="nav-item">
-                    <a asp-area="" asp-controller="Users" asp-action="Replies" asp-route-id="@Model.Id"><span>Replies</span></a>
+                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Replies" asp-route-id="@Model.Id"><span>Replies</span></a>
+                </li>
+                <li class="nav-item tt-hide-xs show">
+                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Followers" asp-route-id="@Model.Id"><span>@Model.FollowersCount Followers</span></a>
+                </li>
+                <li class="nav-item tt-hide-md">
+                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Following" asp-route-id="@Model.Id"><span>@Model.FollowingCount Following</span></a>
                 </li>
             </ul>
         </div>
@@ -116,3 +123,21 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        function follow(id) {
+            $.ajax({
+                type: "POST",
+                url: "/Users/Follow/" + id,
+                success: function (json) {
+                    if (json == true) {
+                        $('#follow-button').html('Following');
+                    } else {
+                        $('#follow-button').html('Follow');
+                    }
+                }
+            });
+        }
+    </script>
+}

@@ -46,6 +46,8 @@ namespace ForumNet.Data.Models
 
         public ICollection<ReplyReport> ReplyReports { get; set; } = new HashSet<ReplyReport>();
 
+        public ICollection<UserFollower> Followers { get; set; } = new HashSet<UserFollower>();
+
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; } = new HashSet<IdentityUserRole<string>>();
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; } = new HashSet<IdentityUserClaim<string>>();

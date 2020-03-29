@@ -6,7 +6,7 @@
     using Common;
     using Models;
 
-    public class ReplyReportConfiguration: IEntityTypeConfiguration<ReplyReport>
+    public class ReplyReportConfiguration : IEntityTypeConfiguration<ReplyReport>
     {
         public void Configure(EntityTypeBuilder<ReplyReport> replyReport)
         {
@@ -27,6 +27,9 @@
                 .WithMany(r => r.Reports)
                 .HasForeignKey(rr => rr.ReplyId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            replyReport
+                .HasIndex(rr => rr.IsDeleted);
         }
     }
 }

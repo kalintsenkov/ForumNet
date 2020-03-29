@@ -30,6 +30,8 @@
 
         public DbSet<Tag> Tags { get; set; }
 
+        public DbSet<UserFollower> UsersFollowers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
