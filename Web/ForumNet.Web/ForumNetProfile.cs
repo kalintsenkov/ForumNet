@@ -208,6 +208,7 @@
             #endregion
 
             #region Users
+            this.CreateMap<ForumUser, UserLoginStatusViewModel>();
             this.CreateMap<ForumUser, RepliesAuthorDetailsViewModel>();
             this.CreateMap<ForumUser, PostsAuthorDetailsViewModel>();
             this.CreateMap<ForumUser, UsersThreadsViewModel>();

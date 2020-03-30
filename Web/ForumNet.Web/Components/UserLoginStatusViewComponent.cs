@@ -2,33 +2,28 @@
 {
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-    using Data.Models;
+    using Infrastructure.Extensions;
+    using Services.Contracts;
     using ViewModels.Users;
 
     [ViewComponent(Name = "UserLoginStatus")]
     public class UserLoginStatusViewComponent : ViewComponent
     {
-        private readonly UserManager<ForumUser> userManager;
+        private readonly IUsersService usersService;
 
-        public UserLoginStatusViewComponent(UserManager<ForumUser> userManager)
+        public UserLoginStatusViewComponent(IUsersService usersService)
         {
-            this.userManager = userManager;
+            this.usersService = usersService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var user = await this.userManager.GetUserAsync(this.UserClaimsPrincipal);
+            var id = this.UserClaimsPrincipal.GetId();
+            var user = await this.usersService.GetByIdAsync<UserLoginStatusViewModel>(id);
 
-            var viewModel = new UserLoginStatusViewModel
-            {
-                UserName = user.UserName,
-                ProfilePicture = user.ProfilePicture
-            };
-
-            return this.View(viewModel);
+            return this.View(user);
         }
     }
 }
