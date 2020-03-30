@@ -71,7 +71,7 @@
         public async Task<IEnumerable<TModel>> GetAll<TModel>()
         {
             var reports = await this.db.ReplyReports
-                .Where(pr => !pr.Reply.IsDeleted)
+                .Where(r => !r.IsDeleted && !r.Reply.IsDeleted)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();

@@ -1,8 +1,8 @@
-﻿namespace ForumNet.Web.ViewModels.PostReports
+﻿namespace ForumNet.Web.ViewModels.ReplyReports
 {
     using Ganss.XSS;
 
-    public class PostReportsListingViewModel
+    public class ReplyReportsListingViewModel
     {
         public int Id { get; set; }
 
@@ -22,7 +22,21 @@
 
         public string CreatedOn { get; set; }
 
-        public string PostTitle { get; set; }
+        public string ReplyPostTitle { get; set; }
+
+        public string ReplyDescription { get; set; }
+
+        public string ShortReplyDescription
+        {
+            get
+            {
+                var sanitized = new HtmlSanitizer().Sanitize(this.ReplyDescription);
+
+                return this.ReplyDescription.Length > 44
+                   ? sanitized.Substring(0, 44) + "..."
+                   : sanitized;
+            }
+        }
 
         public string AuthorUserName { get; set; }
 

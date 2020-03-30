@@ -196,6 +196,17 @@
                     dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Angry)));
             #endregion
 
+            #region ReplyReports
+            this.CreateMap<ReplyReport, ReplyReportsListingViewModel>()
+                .ForMember(
+                    dest => dest.CreatedOn,
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)));
+            this.CreateMap<ReplyReport, ReplyReportsDetailsViewModel>()
+                .ForMember(
+                    dest => dest.CreatedOn,
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)));
+            #endregion
+
             #region Users
             this.CreateMap<ForumUser, RepliesAuthorDetailsViewModel>();
             this.CreateMap<ForumUser, PostsAuthorDetailsViewModel>();
