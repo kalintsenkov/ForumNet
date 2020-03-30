@@ -1,0 +1,23 @@
+﻿namespace ForumNet.Web.ViewModels.Users
+{
+    using System.Collections.Generic;
+
+    public class UsersFollowingViewModel
+    {
+        public string Id { get; set; }
+
+        public string UserName { get; set; }
+
+        public string ProfilePicture { get; set; }
+
+        public int Level { get; set; }
+
+        public bool IsFollowedAlready { get; set; }
+
+        public int FollowersCount { get; set; }
+
+        public int FollowingCount { get; set; }
+
+        public IEnumerable<UsersFollowingAllViewModel> Following { get; set; }
+    }
+}

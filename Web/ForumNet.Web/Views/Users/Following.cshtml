@@ -1,5 +1,5 @@
 ﻿@using ForumNet.Web.Infrastructure.Extensions
-@model ForumNet.Web.ViewModels.Users.UsersFollowersViewModel
+@model ForumNet.Web.ViewModels.Users.UsersFollowingViewModel
 @{
     ViewData["Title"] = Model.UserName;
 }
@@ -61,9 +61,9 @@
             </ul>
         </div>
         <div class="tab-pane tt-indent-none show active" id="tt-tab-04" role="tabpanel">
-            @if (Model.Followers.Any())
+            @if (Model.Following.Any())
             {
-                foreach (var following in Model.Followers)
+                foreach (var following in Model.Following)
                 {
                     <div class="tt-followers-list">
                         <div class="tt-list-header">

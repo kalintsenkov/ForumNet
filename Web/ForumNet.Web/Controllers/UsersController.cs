@@ -37,9 +37,9 @@
                 return this.NotFound();
             }
 
-            user.IsFollowedAlready = await this.usersService.IsFollowedAlready(id, this.User.GetId());
             user.FollowersCount = await this.usersService.GetFollowersCount(id);
             user.FollowingCount = await this.usersService.GetFollowingCount(id);
+            user.IsFollowedAlready = await this.usersService.IsFollowedAlready(id, this.User.GetId());
             user.Threads = await this.postsService.GetAllByUserIdAsync<UsersThreadsAllViewModel>(id);
 
             foreach (var thread in user.Threads)
@@ -59,9 +59,9 @@
                 return this.NotFound();
             }
 
-            user.IsFollowedAlready = await this.usersService.IsFollowedAlready(id, this.User.GetId());
             user.FollowersCount = await this.usersService.GetFollowersCount(id);
             user.FollowingCount = await this.usersService.GetFollowingCount(id);
+            user.IsFollowedAlready = await this.usersService.IsFollowedAlready(id, this.User.GetId());
             user.Replies = await this.repliesService.GetAllByUserIdAsync<UsersRepliesAllViewModel>(id);
 
             return this.View(user);
@@ -75,9 +75,9 @@
                 return this.NotFound();
             }
 
-            user.IsFollowedAlready = await this.usersService.IsFollowedAlready(id, this.User.GetId());
             user.FollowersCount = await this.usersService.GetFollowersCount(id);
             user.FollowingCount = await this.usersService.GetFollowingCount(id);
+            user.IsFollowedAlready = await this.usersService.IsFollowedAlready(id, this.User.GetId());
             user.Followers = await this.usersService.GetFollowers<UsersFollowersAllViewModel>(id);
 
             return this.View(user);
@@ -85,16 +85,16 @@
 
         public async Task<IActionResult> Following(string id)
         {
-            var user = await this.usersService.GetByIdAsync<UsersFollowersViewModel>(id);
+            var user = await this.usersService.GetByIdAsync<UsersFollowingViewModel>(id);
             if (user == null)
             {
                 return this.NotFound();
             }
 
-            user.IsFollowedAlready = await this.usersService.IsFollowedAlready(id, this.User.GetId());
             user.FollowersCount = await this.usersService.GetFollowersCount(id);
             user.FollowingCount = await this.usersService.GetFollowingCount(id);
-            user.Followers = await this.usersService.GetFollowing<UsersFollowersAllViewModel>(id);
+            user.IsFollowedAlready = await this.usersService.IsFollowedAlready(id, this.User.GetId());
+            user.Following = await this.usersService.GetFollowing<UsersFollowingAllViewModel>(id);
 
             return this.View(user);
         }

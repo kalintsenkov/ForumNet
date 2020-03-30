@@ -42,13 +42,13 @@
                         <div class="tt-item-header">
                             <ul class="tt-list-badge">
                                 <li>
-                                    <a asp-area="" asp-controller="Categories" asp-action="Details">
+                                    <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id">
                                         <span class="tt-color01 tt-badge">@category.Name</span>
                                     </a>
                                 </li>
                             </ul>
                             <h6 class="tt-title">
-                                <a asp-area="" asp-controller="Categories" asp-action="Details">Threads - @category.PostsCount</a>
+                                <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id">Threads - @category.PostsCount</a>
                             </h6>
                         </div>
                         <div class="tt-item-layout">
