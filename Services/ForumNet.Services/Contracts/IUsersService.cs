@@ -19,6 +19,8 @@
 
         Task<bool> IsUserDeleted(string username);
 
+        Task<bool> IsFollowedAlready(string id, string followerId);
+
         Task<int> GetFollowersCount(string id);
 
         Task<int> GetFollowingCount(string id);

@@ -37,6 +37,7 @@
                 return this.NotFound();
             }
 
+            user.IsFollowedAlready = await this.usersService.IsFollowedAlready(id, this.User.GetId());
             user.FollowersCount = await this.usersService.GetFollowersCount(id);
             user.FollowingCount = await this.usersService.GetFollowingCount(id);
             user.Threads = await this.postsService.GetAllByUserIdAsync<UsersThreadsAllViewModel>(id);
@@ -58,6 +59,7 @@
                 return this.NotFound();
             }
 
+            user.IsFollowedAlready = await this.usersService.IsFollowedAlready(id, this.User.GetId());
             user.FollowersCount = await this.usersService.GetFollowersCount(id);
             user.FollowingCount = await this.usersService.GetFollowingCount(id);
             user.Replies = await this.repliesService.GetAllByUserIdAsync<UsersRepliesAllViewModel>(id);
@@ -73,6 +75,7 @@
                 return this.NotFound();
             }
 
+            user.IsFollowedAlready = await this.usersService.IsFollowedAlready(id, this.User.GetId());
             user.FollowersCount = await this.usersService.GetFollowersCount(id);
             user.FollowingCount = await this.usersService.GetFollowingCount(id);
             user.Followers = await this.usersService.GetFollowers<UsersFollowersAllViewModel>(id);
@@ -88,6 +91,7 @@
                 return this.NotFound();
             }
 
+            user.IsFollowedAlready = await this.usersService.IsFollowedAlready(id, this.User.GetId());
             user.FollowersCount = await this.usersService.GetFollowersCount(id);
             user.FollowingCount = await this.usersService.GetFollowingCount(id);
             user.Followers = await this.usersService.GetFollowing<UsersFollowersAllViewModel>(id);

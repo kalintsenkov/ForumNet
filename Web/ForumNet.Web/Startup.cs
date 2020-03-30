@@ -44,6 +44,11 @@ namespace ForumNet.Web
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+            });
+
             services.AddAutoMapper(typeof(ForumNetProfile).Assembly);
 
             services.AddSingleton(this.configuration);

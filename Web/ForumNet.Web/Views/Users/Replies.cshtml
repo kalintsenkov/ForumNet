@@ -27,7 +27,7 @@
                 <div class="tt-col-btn">
                     <div class="tt-list-btn">
                         <a href="#" class="btn btn-primary">Message</a>
-                        <a id="follow-button" href="#" class="btn btn-secondary" onclick="follow('@Model.Id')">Follow</a>
+                        <a id="follow-button" href="#" class="btn btn-secondary" onclick="follow('@Model.Id')">@(Model.IsFollowedAlready ? "Following" : "Follow")</a>
                     </div>
                 </div>
             }

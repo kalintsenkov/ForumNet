@@ -12,6 +12,8 @@
 
         public int Level { get; set; }
 
+        public bool IsFollowedAlready { get; set; }
+
         public int FollowersCount { get; set; }
 
         public int FollowingCount { get; set; }

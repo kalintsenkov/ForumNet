@@ -118,6 +118,12 @@
             return await this.db.Users.AnyAsync(u => u.UserName == username && u.IsDeleted);
         }
 
+        public async Task<bool> IsFollowedAlready(string id, string followerId)
+        {
+            return await this.db.UsersFollowers
+                .AnyAsync(uf => uf.UserId == id && uf.FollowerId == followerId && !uf.IsDeleted);
+        }
+
         public async Task<int> GetFollowersCount(string id)
         {
             return await this.db.UsersFollowers.CountAsync(u => !u.IsDeleted && u.UserId == id);
