@@ -29,7 +29,7 @@
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null);
 
-        Task<IEnumerable<TModel>> GetAllPinnedAsync<TModel>();
+        Task<IEnumerable<TModel>> GetAllPinnedAsync<TModel>(string search = null);
 
         Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId);
 

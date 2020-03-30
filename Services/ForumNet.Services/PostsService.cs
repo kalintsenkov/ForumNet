@@ -175,10 +175,17 @@
             return posts;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllPinnedAsync<TModel>()
+        public async Task<IEnumerable<TModel>> GetAllPinnedAsync<TModel>(string search = null)
         {
-            var posts = await this.db.Posts
-                .Where(p => p.IsPinned && !p.IsDeleted)
+            var queryable = this.db.Posts
+                .Where(p => p.IsPinned && !p.IsDeleted);
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                queryable = queryable.Where(p => p.Title.Contains(search));
+            }
+
+            var posts = await queryable
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();

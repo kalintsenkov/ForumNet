@@ -39,7 +39,7 @@
             var viewModel = new PostsAllViewModel
             {
                 Posts = await this.postsService.GetAllAsync<PostsListingViewModel>(search),
-                PinnedPosts = await this.postsService.GetAllPinnedAsync<PostsListingViewModel>()
+                PinnedPosts = await this.postsService.GetAllPinnedAsync<PostsListingViewModel>(search)
             };
 
             foreach (var post in viewModel.PinnedPosts)
