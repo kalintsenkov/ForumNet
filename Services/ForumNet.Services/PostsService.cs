@@ -21,8 +21,8 @@
         private readonly IDateTimeProvider dateTimeProvider;
 
         public PostsService(
-            ForumDbContext db, 
-            IMapper mapper, 
+            ForumDbContext db,
+            IMapper mapper,
             IDateTimeProvider dateTimeProvider)
         {
             this.db = db;
@@ -191,6 +191,27 @@
             var posts = await this.db.Posts
                 .Where(p => p.AuthorId == userId && !p.IsDeleted)
                 .AsNoTracking()
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return posts;
+        }
+
+        public async Task<IEnumerable<TModel>> GetAllFollowingByUserIdAsync<TModel>(string userId, string search = null)
+        {
+            var queryable = this.db.Posts
+                .Where(p => p.Author.Followers
+                    .Select(f => f.FollowerId).FirstOrDefault() == userId)
+                .AsNoTracking();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                queryable = queryable.Where(p => p.Title.Contains(search));
+            }
+
+            var posts = await queryable
+                .AsNoTracking()
+                .Where(p => !p.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

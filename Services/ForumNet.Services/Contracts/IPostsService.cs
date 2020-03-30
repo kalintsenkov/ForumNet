@@ -33,6 +33,8 @@
 
         Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId);
 
+        Task<IEnumerable<TModel>> GetAllFollowingByUserIdAsync<TModel>(string userId, string search = null);
+
         Task<IEnumerable<TModel>> GetAllByCategoryIdAsync<TModel>(int categoryId, string search = null);
 
         Task<IEnumerable<TModel>> GetAllWithDeletedAsync<TModel>();

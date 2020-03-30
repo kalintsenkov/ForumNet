@@ -57,6 +57,22 @@
             return this.View(viewModel);
         }
 
+        public async Task<IActionResult> Feed(int id, string search)
+        {
+            var viewModel = new PostsAllViewModel
+            {
+                Posts = await this.postsService.GetAllFollowingByUserIdAsync<PostsListingViewModel>(this.User.GetId(), search)
+            };
+
+            foreach (var post in viewModel.Posts)
+            {
+                post.Activity = await this.postsService.GetLatestActivityById(post.Id);
+                post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(post.Id);
+            }
+
+            return this.View(viewModel);
+        }
+
         public async Task<IActionResult> Create()
         {
             var categories = await this.categoriesService.GetAllAsync<PostsCategoryDetailsViewModel>();

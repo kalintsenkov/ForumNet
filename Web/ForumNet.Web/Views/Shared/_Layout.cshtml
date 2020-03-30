@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using ForumNet.Web.Infrastructure.Extensions
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -37,17 +39,21 @@
                     <!-- /toggle mobile menu -->
                     <!-- desktop menu -->
                     <div class="tt-logo">
-                        <a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/logo.png" alt="logo"></a>
+                        <a asp-area="" asp-controller="Posts" asp-action="All"><img src="~/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="tt-desktop-menu">
                         <nav>
                             <ul>
-                                <li><a asp-area="" asp-controller="Home" asp-action="Index"><span>Home</span></a></li>
+                                <li><a asp-area="" asp-controller="Posts" asp-action="All"><span>All</span></a></li>
+                                <li><a asp-area="" asp-controller="Posts" asp-action="Feed"><span>Feed</span></a></li>
                                 <li><a asp-area="" asp-controller="Categories" asp-action="All"><span>Categories</span></a></li>
-                                <li><a asp-area="" asp-controller="Posts" asp-action="Trending"><span>Trending</span></a></li>
                                 @if (this.User.Identity.IsAuthenticated)
                                 {
                                     <li><a asp-area="" asp-controller="Posts" asp-action="Create"><span>New</span></a></li>
+                                }
+                                @if (this.User.IsAdministrator())
+                                {
+                                    <li><a asp-area="Administration" asp-controller="PostReports" asp-action="All"><span>Reports</span></a></li>
                                 }
                             </ul>
                         </nav>
