@@ -1,6 +1,6 @@
 ﻿@model ForumNet.Web.ViewModels.Posts.PostsAllViewModel
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "All";
 }
 
 <div class="container">
@@ -13,11 +13,7 @@
             <div class="tt-col-value hide-mobile">Views</div>
             <div class="tt-col-value">Activity</div>
         </div>
-        @*Think how to resolve this
-            <div class="tt-topic-alert tt-alert-default" role="alert">
-                <a asp-controller="Home" asp-action="Index" target="_blank">4 new posts</a> are added recently, click here to load them.
-            </div>*@
-
+        
         @if (!this.User.Identity.IsAuthenticated)
         {
             <div class="tt-item tt-item-popup" id="not-logged-in-user">
@@ -44,58 +40,15 @@
             </div>
         }
 
-        @foreach (var post in Model.PinnedPosts)
-        {
-            <div class="tt-item tt-itemselect">
-                <div class="tt-col-avatar">
-                    <svg class="tt-icon">
-                        <use xlink:href="#@post.AuthorProfilePicture"></use>
-                    </svg>
-                </div>
-                <div class="tt-col-description">
-                    <h6 class="tt-title">
-                        <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.Id">
-                            <svg class="tt-icon">
-                                <use xlink:href="#icon-pinned"></use>
-                            </svg>
-                            @post.Title
-                        </a>
-                    </h6>
-                    <div class="row align-items-center no-gutters">
-                        <div class="col-11">
-                            <ul class="tt-list-badge">
-                                <li class="show-mobile">
-                                    <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
-                                        <span class="tt-color01 tt-badge">@post.Category.Name</span>
-                                    </a>
-                                </li>
-
-                                @foreach (var tag in post.Tags.Take(4))
-                                {
-                                    <li><a href="#"><span class="tt-badge">@tag.Name</span></a></li>
-                                }
-                            </ul>
-                        </div>
-                        <div class="col-1 ml-auto show-mobile">
-                            <div class="tt-value">@post.Activity</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tt-col-category">
-                    <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
-                        <span class="tt-color01 tt-badge">@post.Category.Name</span>
-                    </a>
-                </div>
-                <div class="tt-col-value hide-mobile">@post.Likes</div>
-                <div class="tt-col-value tt-color-select hide-mobile">@post.RepliesCount</div>
-                <div class="tt-col-value hide-mobile">@post.Views</div>
-                <div class="tt-col-value hide-mobile">@post.Activity</div>
-            </div>
-        }
-
         @foreach (var post in Model.Posts)
         {
-            <div class="tt-item">
+            var className = "tt-item";
+            @if (post.IsPinned)
+            {
+                className += " tt-itemselect";
+            }
+
+            <div class="@className">
                 <div class="tt-col-avatar">
                     <svg class="tt-icon">
                         <use xlink:href="#@post.AuthorProfilePicture"></use>
@@ -104,6 +57,12 @@
                 <div class="tt-col-description">
                     <h6 class="tt-title">
                         <a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@post.Id">
+                            @if (post.IsPinned)
+                            {
+                                <svg class="tt-icon">
+                                    <use xlink:href="#icon-pinned"></use>
+                                </svg>
+                            }
                             @post.Title
                         </a>
                     </h6>
@@ -138,6 +97,7 @@
                 <div class="tt-col-value hide-mobile">@post.Activity</div>
             </div>
         }
+
         <div class="tt-row-btn">
             <button type="button" class="btn-icon js-topiclist-showmore">
                 <svg class="tt-icon">

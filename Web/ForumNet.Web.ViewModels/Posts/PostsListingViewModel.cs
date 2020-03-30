@@ -16,6 +16,8 @@
 
         public string Activity { get; set; }
 
+        public bool IsPinned { get; set; }
+
         public string AuthorProfilePicture { get; set; }
 
         public PostsCategoryDetailsViewModel Category { get; set; }

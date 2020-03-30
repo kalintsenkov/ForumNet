@@ -160,7 +160,7 @@
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null)
         {
             var queryable = this.db.Posts
-                .Where(p => !p.IsPinned && !p.IsDeleted);
+                .Where(p => !p.IsDeleted);
 
             if (!string.IsNullOrWhiteSpace(search))
             {
@@ -168,24 +168,8 @@
             }
 
             var posts = await queryable
-                .AsNoTracking()
-                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
-                .ToListAsync();
-
-            return posts;
-        }
-
-        public async Task<IEnumerable<TModel>> GetAllPinnedAsync<TModel>(string search = null)
-        {
-            var queryable = this.db.Posts
-                .Where(p => p.IsPinned && !p.IsDeleted);
-
-            if (!string.IsNullOrWhiteSpace(search))
-            {
-                queryable = queryable.Where(p => p.Title.Contains(search));
-            }
-
-            var posts = await queryable
+                .OrderByDescending(p => p.IsPinned)
+                .ThenByDescending(p => p.CreatedOn)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
