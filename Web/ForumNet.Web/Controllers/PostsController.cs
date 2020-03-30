@@ -57,11 +57,12 @@
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> Feed(int id, string search)
+        public async Task<IActionResult> Following(int id, string search)
         {
             var viewModel = new PostsAllViewModel
             {
-                Posts = await this.postsService.GetAllFollowingByUserIdAsync<PostsListingViewModel>(this.User.GetId(), search)
+                Posts = await this.postsService
+                    .GetAllFollowingByUserIdAsync<PostsListingViewModel>(this.User.GetId(), search)
             };
 
             foreach (var post in viewModel.Posts)
@@ -75,12 +76,10 @@
 
         public async Task<IActionResult> Create()
         {
-            var categories = await this.categoriesService.GetAllAsync<PostsCategoryDetailsViewModel>();
-            var tags = await this.tagsService.GetAllAsync<PostsTagsDetailsViewModel>();
             var viewModel = new PostsCreateInputModel
             {
-                Categories = categories,
-                Tags = tags
+                Tags = await this.tagsService.GetAllAsync<PostsTagsDetailsViewModel>(),
+                Categories = await this.categoriesService.GetAllAsync<PostsCategoryDetailsViewModel>()
             };
 
             return this.View(viewModel);
