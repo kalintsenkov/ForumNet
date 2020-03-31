@@ -102,7 +102,7 @@
         public async Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId, string sort)
         {
             var queryable = this.db.Replies
-                .Where(r => r.PostId == postId && !r.IsDeleted);
+                .Where(r => r.PostId == postId && !r.IsDeleted && !r.ParentId.HasValue);
 
             queryable = sort switch
             {
@@ -124,7 +124,7 @@
         public async Task<IEnumerable<TModel>> GetAllNestedByPostIdAndReplyIdAsync<TModel>(int postId, int? parentId)
         {
             var nestedReplies = await this.db.Replies
-                .Where(r => r.PostId == postId && !r.IsDeleted && r.ParentId == parentId)
+                .Where(r => r.PostId == postId && !r.IsDeleted && r.ParentId == parentId && r.ParentId.HasValue)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
@@ -135,9 +135,7 @@
         public async Task<IEnumerable<TModel>> GetAllByPostIdAndUserIdAsync<TModel>(int postId, string userId)
         {
             var replies = await this.db.Replies
-                .Where(r => r.PostId == postId &&
-                            r.AuthorId == userId &&
-                            !r.IsDeleted)
+                .Where(r => r.PostId == postId && r.AuthorId == userId && !r.IsDeleted)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();

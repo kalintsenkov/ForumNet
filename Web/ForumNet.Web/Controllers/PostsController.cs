@@ -113,6 +113,11 @@
 
             post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(id);
             post.Replies = await this.repliesService.GetAllByPostIdAsync<PostsRepliesDetailsViewModel>(id, sort);
+            foreach (var reply in post.Replies)
+            {
+                reply.Nested = await this.repliesService
+                    .GetAllNestedByPostIdAndReplyIdAsync<PostsRepliesDetailsViewModel>(id, reply.Id);
+            }
 
             return this.View(post);
         }

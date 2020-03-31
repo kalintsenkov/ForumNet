@@ -48,9 +48,9 @@
                     <a asp-area="" asp-controller="ReplyReports" asp-action="Create" asp-route-id="@Model.Id" class="tt-icon-btn tt-hover-02 tt-small-indent">
                         <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
                     </a>
-                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                    <button class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="animateButton()">
                         <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -61,10 +61,19 @@
             </div>
         </div>
     </div>
+    <div id="reply-box">
+        <vc:create-reply post-id="@Model.PostId" parent-id="@Model.Id"></vc:create-reply>
+    </div>
 </div>
 
 @section Scripts {
     <script>
+        function animateButton() {
+            $('html, body').animate({
+                scrollTop: $("#reply-box").offset().top
+            }, 1500);
+        }
+
         function likeReaction(id) {
             $.ajax({
                 type: "POST",

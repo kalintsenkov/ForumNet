@@ -100,13 +100,13 @@
                     </div>
                     <div class="tt-item-description">
                         <p>@Html.Raw(reply.SanitizedDescription)</p>
+                        @foreach (var nested in reply.Nested)
+                        {
+                            <partial name="_DetailsNestedRepliesPartial" model="nested" />
+                        }
                     </div>
                     <div class="tt-item-info info-bottom">
                         <partial name="_DetailsRepliesReactionsPartial" model="reply" />
-
-                        <a asp-area="" asp-controller="Replies" asp-action="Details" asp-route-id="@reply.Id" class="tt-icon-btn">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-view"></use></svg></i>
-                        </a>
                         <div class="col-separator"></div>
                         @if (reply.Author.Id == this.User.GetId() || this.User.IsAdministrator())
                         {
@@ -123,9 +123,9 @@
                         <a asp-area="" asp-controller="ReplyReports" asp-action="Create" asp-route-id="@reply.Id" class="tt-icon-btn tt-hover-02 tt-small-indent">
                             <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
                         </a>
-                        <button class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="animateButton()">
+                        <a asp-area="" asp-controller="Replies" asp-action="Details" asp-route-id="@reply.Id" class="tt-icon-btn tt-hover-02 tt-small-indent">
                             <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
