@@ -2,6 +2,8 @@
 {
     public class ModelConstants
     {
+        public const int ShortDescriptionAllowedLength = 44;
+
         public const string IFrameAllowedTag = "iframe";
 
         public const string PostTypeDisplayName = "Post Type";
