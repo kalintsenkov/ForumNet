@@ -26,6 +26,10 @@
                 </div>
                 <div class="tt-item-description">
                     <p>@Html.Raw(Model.SanitizedDescription)</p>
+                    @foreach (var nested in Model.Nested)
+                    {
+                        <partial name="_DetailsNestedPartial" model="nested" />
+                    }
                 </div>
                 <div class="tt-item-info info-bottom">
                     <partial name="_DetailsReactionsPartial" model="Model" />
@@ -57,7 +61,7 @@
         <br />
         <div class="row">
             <div class="col-auto ml-md-auto">
-                <a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.PostId" class="btn btn-primary">Back</a>
+                <a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.PostId" class="btn btn-primary">Back to post</a>
             </div>
         </div>
     </div>

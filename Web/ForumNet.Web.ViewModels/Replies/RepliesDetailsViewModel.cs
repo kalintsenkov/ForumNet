@@ -1,5 +1,7 @@
 ﻿namespace ForumNet.Web.ViewModels.Replies
 {
+    using System.Collections.Generic;
+
     using Ganss.XSS;
 
     using Infrastructure;
@@ -38,5 +40,7 @@
         public int PostId { get; set; }
 
         public RepliesAuthorDetailsViewModel Author { get; set; }
+
+        public IEnumerable<RepliesDetailsViewModel> Nested { get; set; }
     }
 }

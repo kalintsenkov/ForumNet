@@ -8347,6 +8347,11 @@ hr {
     height: 40px;
 }
 
+.tt-icon-avatar img {
+    width: 40px;
+    height: 40px;
+}
+
 .row-object-inline {
     display: -webkit-box;
     display: -ms-flexbox;

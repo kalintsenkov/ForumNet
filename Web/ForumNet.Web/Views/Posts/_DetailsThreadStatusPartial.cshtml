@@ -62,14 +62,13 @@
                 @foreach (var profilePicture in Model.Replies.OrderByDescending(r =>r.CreatedOn).Select(r => r.Author.ProfilePicture).Distinct())
                 {
                     <div class="tt-item">
-                        <a href="#" class="tt-icon-avatar">
+                        <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Author.Id" class="tt-icon-avatar">
                             <svg><use xlink:href="#@profilePicture"></use></svg>
                         </a>
                     </div>
                 }
             </div>
             <hr />
-
             <partial name="~/Views/Posts/_DetailsSortPartial.cshtml" model="@Model" />
         }
 
