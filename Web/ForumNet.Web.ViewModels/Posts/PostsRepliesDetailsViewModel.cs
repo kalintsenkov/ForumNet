@@ -4,15 +4,24 @@
 
     using Ganss.XSS;
 
+    using Infrastructure;
+
     public class PostsRepliesDetailsViewModel
     {
+        private readonly IHtmlSanitizer htmlSanitizer;
+
+        public PostsRepliesDetailsViewModel()
+        {
+            this.htmlSanitizer = new HtmlSanitizer();
+            this.htmlSanitizer.AllowedTags.Add(ModelConstants.IFrameAllowedTag);
+        }
+
         public int Id { get; set; }
 
         public string Description { get; set; }
 
         public string SanitizedDescription
-            => new HtmlSanitizer()
-                .Sanitize(this.Description);
+            => this.htmlSanitizer.Sanitize(this.Description);
 
         public int Likes { get; set; }
 

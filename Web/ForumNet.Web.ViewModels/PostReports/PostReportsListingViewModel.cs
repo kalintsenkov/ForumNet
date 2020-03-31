@@ -2,6 +2,8 @@
 {
     using Ganss.XSS;
 
+    using Infrastructure;
+
     public class PostReportsListingViewModel
     {
         public int Id { get; set; }
@@ -12,7 +14,10 @@
         {
             get
             {
-                var sanitized = new HtmlSanitizer().Sanitize(this.Description);
+                var sanitizer = new HtmlSanitizer();
+                sanitizer.AllowedTags.Add(ModelConstants.IFrameAllowedTag);
+
+                var sanitized = sanitizer.Sanitize(this.Description);
 
                 return this.Description.Length > 44
                    ? sanitized.Substring(0, 44) + "..."

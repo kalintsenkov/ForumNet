@@ -1,10 +1,21 @@
 ﻿namespace ForumNet.Web.ViewModels.Posts
 {
     using System.Collections.Generic;
+
     using Ganss.XSS;
+
+    using Infrastructure;
 
     public class PostsDeleteDetailsViewModel
     {
+        private readonly IHtmlSanitizer htmlSanitizer;
+
+        public PostsDeleteDetailsViewModel()
+        {
+            this.htmlSanitizer = new HtmlSanitizer();
+            this.htmlSanitizer.AllowedTags.Add(ModelConstants.IFrameAllowedTag);
+        }
+
         public int Id { get; set; }
 
         public string Title { get; set; }
@@ -14,8 +25,7 @@
         public string Description { get; set; }
 
         public string SanitizedDescription
-            => new HtmlSanitizer()
-                .Sanitize(this.Description);
+            => this.htmlSanitizer.Sanitize(this.Description);
 
         public int RepliesCount { get; set; }
 

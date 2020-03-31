@@ -2,6 +2,8 @@
 {
     public class ModelConstants
     {
+        public const string IFrameAllowedTag = "iframe";
+
         public const string PostTypeDisplayName = "Post Type";
 
         public const string TagsDisplayName = "Tags";

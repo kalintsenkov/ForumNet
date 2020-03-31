@@ -137,6 +137,12 @@
             <h4 class="tt-title-separator"><span>You’ve reached the end of replies</span></h4>
         </div>
     }
+    else
+    {
+        <div class="tt-wrapper-inner">
+            <h4 class="tt-title-separator"><span>There are no replies in this post</span></h4>
+        </div>
+    }
     <div id="reply-box">
         <vc:create-reply post-id="@Model.Id" parent-id="null"></vc:create-reply>
     </div>

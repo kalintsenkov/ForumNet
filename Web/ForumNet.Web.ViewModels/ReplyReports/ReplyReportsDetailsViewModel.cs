@@ -2,14 +2,24 @@
 {
     using Ganss.XSS;
 
+    using Infrastructure;
+
     public class ReplyReportsDetailsViewModel
     {
+        private readonly IHtmlSanitizer htmlSanitizer;
+
+        public ReplyReportsDetailsViewModel()
+        {
+            this.htmlSanitizer = new HtmlSanitizer();
+            this.htmlSanitizer.AllowedTags.Add(ModelConstants.IFrameAllowedTag);
+        }
+
         public int Id { get; set; }
 
         public string Description { get; set; }
 
         public string SanitizedDescription
-            => new HtmlSanitizer().Sanitize(this.Description);
+            => this.htmlSanitizer.Sanitize(this.Description);
 
         public string CreatedOn { get; set; }
 
@@ -24,6 +34,6 @@
         public string ReplyDescription { get; set; }
 
         public string SanitizedReplyDescription
-            => new HtmlSanitizer().Sanitize(this.ReplyDescription);
+            => this.htmlSanitizer.Sanitize(this.ReplyDescription);
     }
 }
