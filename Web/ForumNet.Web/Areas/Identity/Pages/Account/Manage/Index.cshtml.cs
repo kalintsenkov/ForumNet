@@ -42,7 +42,7 @@
             public DateTime BirthDate { get; set; }
 
             [Required]
-            [EnumDataType(typeof(GenderType), ErrorMessage = "Not valid gender.")]
+            [EnumDataType(typeof(GenderType), ErrorMessage = ErrorMessages.InvalidGenderType)]
             [Display(Name = ModelConstants.GenderDisplayName)]
             public GenderType Gender { get; set; }
 

@@ -28,17 +28,20 @@
     {
         private readonly SignInManager<ForumUser> signInManager;
         private readonly UserManager<ForumUser> userManager;
+        private readonly IDateTimeProvider dateTimeProvider;
         private readonly IUsersService usersService;
         private readonly IEmailSender emailSender;
 
         public RegisterModel(
-            UserManager<ForumUser> userManager,
             SignInManager<ForumUser> signInManager,
+            UserManager<ForumUser> userManager,
+            IDateTimeProvider dateTimeProvider,
             IUsersService usersService,
             IEmailSender emailSender)
         {
-            this.userManager = userManager;
             this.signInManager = signInManager;
+            this.userManager = userManager;
+            this.dateTimeProvider = dateTimeProvider;
             this.usersService = usersService;
             this.emailSender = emailSender;
         }
@@ -53,7 +56,7 @@
         public class InputModel
         {
             [Required]
-            [StringLength(DataConstants.UserUsernameMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = DataConstants.UserUsernameMinLength)]
+            [StringLength(DataConstants.UserUsernameMaxLength, ErrorMessage = ErrorMessages.UsernameLengthErrorMessage, MinimumLength = DataConstants.UserUsernameMinLength)]
             [Display(Name = ModelConstants.UsernameDisplayName)]
             public string Username { get; set; }
 
@@ -62,13 +65,13 @@
             public string Email { get; set; }
 
             [Required]
-            [StringLength(DataConstants.UserPasswordMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = DataConstants.UserPasswordMinLength)]
+            [StringLength(DataConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.PasswordLengthErrorMessage, MinimumLength = DataConstants.UserPasswordMinLength)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = ModelConstants.ConfirmPasswordDisplayName)]
-            [Compare(nameof(Password), ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare(nameof(Password), ErrorMessage = ErrorMessages.PasswordsDoNotMatchErrorMessage)]
             public string ConfirmPassword { get; set; }
 
             [Required]
@@ -77,7 +80,7 @@
             public DateTime BirthDate { get; set; }
 
             [Required]
-            [EnumDataType(typeof(GenderType), ErrorMessage = "Not valid gender.")]
+            [EnumDataType(typeof(GenderType), ErrorMessage = ErrorMessages.InvalidGenderType)]
             [Display(Name = ModelConstants.GenderDisplayName)]
             public GenderType Gender { get; set; }
         }
@@ -112,7 +115,7 @@
                     ProfilePicture = profilePicture,
                     BirthDate = Input.BirthDate,
                     Gender = Input.Gender,
-                    CreatedOn = DateTime.UtcNow
+                    CreatedOn = this.dateTimeProvider.Now()
                 };
 
                 var result = await this.userManager.CreateAsync(user, Input.Password);

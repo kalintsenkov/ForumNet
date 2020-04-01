@@ -42,14 +42,14 @@
             public string OldPassword { get; set; }
 
             [Required]
-            [StringLength(DataConstants.UserPasswordMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = DataConstants.UserPasswordMinLength)]
+            [StringLength(DataConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.PasswordLengthErrorMessage, MinimumLength = DataConstants.UserPasswordMinLength)]
             [DataType(DataType.Password)]
             [Display(Name = ModelConstants.NewPasswordDisplayName)]
             public string NewPassword { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = ModelConstants.ConfirmNewPasswordDisplayName)]
-            [Compare(nameof(NewPassword), ErrorMessage = "The new password and confirmation password do not match.")]
+            [Compare(nameof(NewPassword), ErrorMessage = ErrorMessages.ChangePasswordPasswordsDoNotMatchErrorMessage)]
             public string ConfirmPassword { get; set; }
         }
 
