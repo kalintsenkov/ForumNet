@@ -10,6 +10,8 @@
 
         public const string NonExistingTagIdErrorMessage = "Invalid tag";
 
+        public const string RequiredTagErrorMessage = "At least one tag needs to be selected";
+
         public const string UsernameLengthErrorMessage = "The {0} must be at least {2} and at max {1} characters long.";
 
         public const string PasswordLengthErrorMessage = "The {0} must be at least {2} and at max {1} characters long.";

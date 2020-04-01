@@ -28,7 +28,6 @@
         [NonExistingCategoryId(ErrorMessage = ErrorMessages.NonExistingCategoryIdErrorMessage)]
         public int CategoryId { get; set; }
 
-        [Required]
         [NonExistingTagIds(ErrorMessage = ErrorMessages.NonExistingTagIdErrorMessage)]
         [Display(Name = ModelConstants.TagsDisplayName)]
         public IEnumerable<int> TagIds { get; set; }

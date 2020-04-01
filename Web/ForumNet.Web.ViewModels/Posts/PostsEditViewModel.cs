@@ -26,7 +26,6 @@
 
         public string AuthorId { get; set; }
 
-        [Required]
         [NonExistingTagIds]
         [Display(Name = ModelConstants.TagsDisplayName)]
         public IEnumerable<int> TagIds { get; set; }

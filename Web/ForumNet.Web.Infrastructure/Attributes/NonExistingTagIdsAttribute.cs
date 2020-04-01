@@ -5,14 +5,20 @@
 
     using Microsoft.Extensions.DependencyInjection;
 
+    using Infrastructure;
     using Services.Contracts;
 
     public class NonExistingTagIdsAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            if (!(value is IEnumerable<int> collection))
+            {
+                return new ValidationResult(ErrorMessages.RequiredTagErrorMessage);
+            }
+
             var tagsService = validationContext.GetService<ITagsService>();
-            var areExisting = tagsService.AreExisting((IEnumerable<int>) value).GetAwaiter().GetResult();
+            var areExisting = tagsService.AreExisting(collection).GetAwaiter().GetResult();
             if (!areExisting)
             {
                 return new ValidationResult(this.ErrorMessage);
