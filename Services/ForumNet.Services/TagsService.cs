@@ -42,12 +42,22 @@
 
         public async Task DeleteAsync(int id)
         {
-            var tag = await this.db.Tags.FirstOrDefaultAsync(t => t.Id == id);
+            var tag = await this.db.Tags.FirstOrDefaultAsync(t => t.Id == id && !t.IsDeleted);
 
             tag.IsDeleted = true;
             tag.DeletedOn = this.dateTimeProvider.Now();
 
             await this.db.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsExisting(int id)
+        {
+            return await this.db.Tags.AnyAsync(t => t.Id == id && !t.IsDeleted);
+        }
+
+        public async Task<bool> IsExisting(string name)
+        {
+            return await this.db.Tags.AnyAsync(t => t.Name == name && !t.IsDeleted);
         }
 
         public async Task<bool> AreExisting(IEnumerable<int> ids)
@@ -75,13 +85,19 @@
             return tag;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null)
         {
-            var tags = await this.db.Tags
-                .Where(t => !t.IsDeleted)
-                .AsNoTracking()
-                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
-                .ToListAsync();
+            var queryable = this.db.Tags.Where(t => !t.IsDeleted);
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                queryable = queryable.Where(t => t.Name.Contains(search));
+            }
+
+            var tags = await queryable
+                 .AsNoTracking()
+                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                 .ToListAsync();
 
             return tags;
         }
