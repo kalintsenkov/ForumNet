@@ -53,18 +53,18 @@
 
     @if (Model.Posts.Any())
     {
-        foreach (var post in Model.Posts)
-        {
-            <div class="tt-topic-list">
-                <div class="tt-list-header">
-                    <div class="tt-col-topic">Topic</div>
-                    <div class="tt-col-category">Category</div>
-                    <div class="tt-col-value hide-mobile">Likes</div>
-                    <div class="tt-col-value hide-mobile">Replies</div>
-                    <div class="tt-col-value hide-mobile">Views</div>
-                    <div class="tt-col-value">Activity</div>
-                </div>
+        <div class="tt-topic-list">
+            <div class="tt-list-header">
+                <div class="tt-col-topic">Topic</div>
+                <div class="tt-col-category">Category</div>
+                <div class="tt-col-value hide-mobile">Likes</div>
+                <div class="tt-col-value hide-mobile">Replies</div>
+                <div class="tt-col-value hide-mobile">Views</div>
+                <div class="tt-col-value">Activity</div>
+            </div>
 
+            @foreach (var post in Model.Posts)
+            {
                 <div class="tt-item">
                     <div class="tt-col-avatar">
                         <svg class="tt-icon">
@@ -87,7 +87,11 @@
                                     </li>
                                     @foreach (var tag in post.Tags)
                                     {
-                                        <li><a href="#"><span class="tt-badge">@tag.Name</span></a></li>
+                                        <li>
+                                            <a asp-area="" asp-controller="Tags" asp-action="Details" asp-route-id="@tag.Id">
+                                                <span class="tt-badge">@tag.Name</span>
+                                            </a>
+                                        </li>
                                     }
                                 </ul>
                             </div>
@@ -106,15 +110,15 @@
                     <div class="tt-col-value  hide-mobile">@post.Views</div>
                     <div class="tt-col-value hide-mobile">@post.Activity</div>
                 </div>
-                <div class="tt-row-btn">
-                    <button type="button" class="btn-icon js-topiclist-showmore">
-                        <svg class="tt-icon">
-                            <use xlink:href="#icon-load_lore_icon"></use>
-                        </svg>
-                    </button>
-                </div>
+            }
+            <div class="tt-row-btn">
+                <button type="button" class="btn-icon js-topiclist-showmore">
+                    <svg class="tt-icon">
+                        <use xlink:href="#icon-load_lore_icon"></use>
+                    </svg>
+                </button>
             </div>
-        }
+        </div>
     }
     else
     {

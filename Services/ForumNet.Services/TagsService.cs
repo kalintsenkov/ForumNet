@@ -64,10 +64,22 @@
             return true;
         }
 
+        public async Task<TModel> GetById<TModel>(int id)
+        {
+            var tag = await this.db.Tags
+                .Where(t => t.Id == id && !t.IsDeleted)
+                .AsNoTracking()
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+
+            return tag;
+        }
+
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
         {
             var tags = await this.db.Tags
                 .Where(t => !t.IsDeleted)
+                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -80,6 +92,7 @@
                 .Where(pt => pt.PostId == postId)
                 .Select(pt => pt.Tag)
                 .Where(t => !t.IsDeleted)
+                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

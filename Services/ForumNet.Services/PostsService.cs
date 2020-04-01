@@ -177,10 +177,24 @@
             return posts;
         }
 
+        public async Task<IEnumerable<TModel>> GetAllByTagIdAsync<TModel>(int tagId)
+        {
+            var posts = await this.db.Posts
+                .Where(p => !p.IsDeleted && p.Tags
+                    .Select(t => t.TagId).Contains(tagId))
+                .OrderByDescending(p => p.CreatedOn)
+                .AsNoTracking()
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return posts;
+        }
+
         public async Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId)
         {
             var posts = await this.db.Posts
                 .Where(p => p.AuthorId == userId && !p.IsDeleted)
+                .OrderByDescending(p => p.CreatedOn)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
@@ -192,8 +206,7 @@
         {
             var queryable = this.db.Posts
                 .Where(p => p.Author.Followers
-                    .Select(f => f.FollowerId).FirstOrDefault() == userId)
-                .AsNoTracking();
+                    .Select(f => f.FollowerId).FirstOrDefault() == userId);
 
             if (!string.IsNullOrWhiteSpace(search))
             {
@@ -201,6 +214,7 @@
             }
 
             var posts = await queryable
+                .OrderByDescending(p => p.CreatedOn)
                 .AsNoTracking()
                 .Where(p => !p.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
@@ -222,6 +236,7 @@
             var posts = await queryable
                 .AsNoTracking()
                 .Where(p => p.CategoryId == categoryId && !p.IsDeleted)
+                .OrderByDescending(p => p.CreatedOn)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -231,6 +246,7 @@
         public async Task<IEnumerable<TModel>> GetAllWithDeletedAsync<TModel>()
         {
             var posts = await this.db.Posts
+                .OrderByDescending(p => p.CreatedOn)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();

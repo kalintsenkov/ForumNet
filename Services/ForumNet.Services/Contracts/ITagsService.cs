@@ -11,6 +11,8 @@
 
         Task<bool> AreExisting(IEnumerable<int> ids);
 
+        Task<TModel> GetById<TModel>(int id);
+
         Task<IEnumerable<TModel>> GetAllAsync<TModel>();
 
         Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId);

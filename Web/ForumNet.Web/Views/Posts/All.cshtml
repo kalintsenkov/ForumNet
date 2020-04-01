@@ -13,7 +13,7 @@
             <div class="tt-col-value hide-mobile">Views</div>
             <div class="tt-col-value">Activity</div>
         </div>
-        
+
         @if (!this.User.Identity.IsAuthenticated)
         {
             <div class="tt-item tt-item-popup" id="not-logged-in-user">
@@ -77,7 +77,11 @@
 
                                 @foreach (var tag in post.Tags.Take(4))
                                 {
-                                    <li><a href="#"><span class="tt-badge">@tag.Name</span></a></li>
+                                    <li>
+                                        <a asp-area="" asp-controller="Tags" asp-action="Details" asp-route-id="@tag.Id">
+                                            <span class="tt-badge">@tag.Name</span>
+                                        </a>
+                                    </li>
                                 }
                             </ul>
                         </div>
