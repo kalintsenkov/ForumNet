@@ -50,7 +50,7 @@
 
         public async Task EditAsync(int id, string title, string description, int categoryId, IEnumerable<int> tagIds)
         {
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
+            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
 
             await this.RemoveTagsAsync(id, post);
 
@@ -65,7 +65,7 @@
 
         public async Task DeleteAsync(int id)
         {
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
+            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
 
             post.IsDeleted = true;
             post.DeletedOn = this.dateTimeProvider.Now();
@@ -75,7 +75,7 @@
 
         public async Task ViewAsync(int id)
         {
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
+            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
 
             post.Views++;
 
@@ -83,7 +83,7 @@
         }
         public async Task<bool> PinAsync(int id)
         {
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
+            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
 
             post.IsPinned = !post.IsPinned;
             post.ModifiedOn = this.dateTimeProvider.Now();
@@ -95,7 +95,7 @@
 
         public async Task AddTagsAsync(int id, IEnumerable<int> tagIds)
         {
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id);
+            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
 
             foreach (var tagId in tagIds)
             {

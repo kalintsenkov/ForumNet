@@ -25,11 +25,11 @@
         public string Description { get; set; }
 
         [Required]
-        [ValidateCategoryId]
+        [NonExistingCategoryId(ErrorMessage = ErrorMessages.NonExistingCategoryIdErrorMessage)]
         public int CategoryId { get; set; }
 
         [Required]
-        [ValidateTagIds]
+        [NonExistingTagIds(ErrorMessage = ErrorMessages.NonExistingTagIdErrorMessage)]
         [Display(Name = ModelConstants.TagsDisplayName)]
         public IEnumerable<int> TagIds { get; set; }
 

@@ -1,18 +1,19 @@
 ﻿namespace ForumNet.Web.Infrastructure.Attributes
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using Microsoft.Extensions.DependencyInjection;
 
     using Services.Contracts;
 
-    public class ValidateCategoryIdAttribute : ValidationAttribute
+    public class NonExistingTagIdsAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var categoriesService = validationContext.GetService<ICategoriesService>();
-            var isExisting = categoriesService.IsExisting((int) value).GetAwaiter().GetResult();
-            if (!isExisting)
+            var tagsService = validationContext.GetService<ITagsService>();
+            var areExisting = tagsService.AreExisting((IEnumerable<int>) value).GetAwaiter().GetResult();
+            if (!areExisting)
             {
                 return new ValidationResult(this.ErrorMessage);
             }

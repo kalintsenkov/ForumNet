@@ -3,13 +3,14 @@
     using System.ComponentModel.DataAnnotations;
 
     using Data.Common;
+    using Infrastructure;
     using Infrastructure.Attributes;
 
     public class TagsCreateInputModel
     {
         [Required]
         [MaxLength(DataConstants.TagNameMaxLength)]
-        [ValidateTagName]
+        [ExistingTagName(ErrorMessage = ErrorMessages.ExistingTagNameErrorMessage)]
         public string Name { get; set; }
     }
 }

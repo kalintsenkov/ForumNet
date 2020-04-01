@@ -31,7 +31,7 @@
 
             await this.categoriesService.CreateAsync(input.Name);
 
-            return this.RedirectToAction("All", "Categories");
+            return this.RedirectToAction("All", "Categories", new { area = string.Empty });
         }
 
         public async Task<IActionResult> Edit(int id)
@@ -55,7 +55,7 @@
 
             await this.categoriesService.EditAsync(input.Id, input.Name);
 
-            return this.RedirectToAction("Details", "Categories");
+            return this.RedirectToAction("Details", "Categories", new { area = string.Empty });
         }
 
         [HttpPost]
@@ -69,7 +69,7 @@
 
             await this.categoriesService.DeleteAsync(id);
 
-            return this.RedirectToAction("All", "Categories");
+            return this.RedirectToAction("All", "Categories", new { area = string.Empty });
         }
     }
 }

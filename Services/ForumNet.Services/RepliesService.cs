@@ -45,7 +45,7 @@
 
         public async Task EditAsync(int id, string description)
         {
-            var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id);
+            var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
 
             reply.Description = description;
             reply.ModifiedOn = this.dateTimeProvider.Now();
@@ -55,7 +55,7 @@
 
         public async Task DeleteAsync(int id)
         {
-            var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id);
+            var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
 
             reply.IsDeleted = true;
             reply.DeletedOn = this.dateTimeProvider.Now();

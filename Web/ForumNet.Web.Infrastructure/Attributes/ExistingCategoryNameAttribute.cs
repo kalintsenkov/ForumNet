@@ -6,7 +6,7 @@
 
     using Services.Contracts;
 
-    public class ValidateCategoryNameAttribute : ValidationAttribute
+    public class ExistingCategoryNameAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

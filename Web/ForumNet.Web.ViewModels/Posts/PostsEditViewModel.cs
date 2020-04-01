@@ -21,13 +21,13 @@
         public string Description { get; set; }
 
         [Required]
-        [ValidateCategoryId]
+        [NonExistingCategoryId]
         public int CategoryId { get; set; }
 
         public string AuthorId { get; set; }
 
         [Required]
-        [ValidateTagIds]
+        [NonExistingTagIds]
         [Display(Name = ModelConstants.TagsDisplayName)]
         public IEnumerable<int> TagIds { get; set; }
 

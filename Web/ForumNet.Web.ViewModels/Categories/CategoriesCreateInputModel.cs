@@ -3,13 +3,14 @@
     using System.ComponentModel.DataAnnotations;
 
     using Data.Common;
+    using Infrastructure;
     using Infrastructure.Attributes;
 
     public class CategoriesCreateInputModel
     {
         [Required]
         [MaxLength(DataConstants.CategoryNameMaxLength)]
-        [ValidateCategoryName]
+        [ExistingCategoryName(ErrorMessage = ErrorMessages.ExistingCategoryNameErrorMessage)]
         public string Name { get; set; }
     }
 }

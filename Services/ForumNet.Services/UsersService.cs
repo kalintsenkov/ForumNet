@@ -30,7 +30,7 @@
 
         public async Task ModifyAsync(string id)
         {
-            var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id);
+            var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
 
             user.ModifiedOn = this.dateTimeProvider.Now();
 
@@ -39,7 +39,7 @@
 
         public async Task DeleteAsync(string id)
         {
-            var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id);
+            var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
 
             user.IsDeleted = true;
             user.DeletedOn = this.dateTimeProvider.Now();
@@ -49,7 +49,7 @@
 
         public async Task UndeleteAsync(string id)
         {
-            var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id);
+            var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
 
             user.IsDeleted = false;
             user.DeletedOn = null;
@@ -59,7 +59,7 @@
 
         public async Task<int> LevelUpAsync(string id)
         {
-            var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id);
+            var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
 
             user.Level++;
 
@@ -110,7 +110,7 @@
 
         public async Task<bool> IsUsernameUsed(string username)
         {
-            return await this.db.Users.AnyAsync(u => u.UserName == username);
+            return await this.db.Users.AnyAsync(u => u.UserName == username && !u.IsDeleted);
         }
 
         public async Task<bool> IsUserDeleted(string username)
