@@ -34,7 +34,7 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All(int id, string search)
+        public async Task<IActionResult> All(int id, string search = null)
         {
             var viewModel = new PostsAllViewModel
             {
@@ -50,7 +50,7 @@
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> Following(int id, string search)
+        public async Task<IActionResult> Following(int id, string search = null)
         {
             var viewModel = new PostsAllViewModel
             {
@@ -101,7 +101,7 @@
             return this.RedirectToAction(nameof(Details), new { id = postId });
         }
 
-        public async Task<IActionResult> Details(int id, string sort)
+        public async Task<IActionResult> Details(int id, string sort = null)
         {
             var post = await this.postsService.GetByIdAsync<PostsDetailsViewModel>(id);
             if (post == null)

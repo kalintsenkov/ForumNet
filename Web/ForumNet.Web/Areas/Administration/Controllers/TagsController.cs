@@ -16,7 +16,7 @@
             this.tagsService = tagsService;
         }
 
-        public async Task<IActionResult> All(string search)
+        public async Task<IActionResult> All(string search = null)
         {
             var tags = await this.tagsService.GetAllAsync<TagsInfoViewModel>(search);
             var viewModel = new TagsAllViewModel

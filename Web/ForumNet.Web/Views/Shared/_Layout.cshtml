@@ -46,7 +46,14 @@
                             <ul>
                                 <li><a asp-area="" asp-controller="Posts" asp-action="All"><span>All</span></a></li>
                                 <li><a asp-area="" asp-controller="Posts" asp-action="Following"><span>Following</span></a></li>
-                                <li><a asp-area="" asp-controller="Categories" asp-action="All"><span>Categories</span></a></li>
+                                @if (this.User.IsAdministrator())
+                                {
+                                    <li><a asp-area="Administration" asp-controller="Categories" asp-action="All"><span>Categories</span></a></li>
+                                }
+                                else
+                                {
+                                    <li><a asp-area="" asp-controller="Categories" asp-action="All"><span>Categories</span></a></li>
+                                }
                                 @if (this.User.Identity.IsAuthenticated)
                                 {
                                     <li><a asp-area="" asp-controller="Posts" asp-action="Create"><span>New</span></a></li>

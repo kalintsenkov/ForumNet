@@ -25,7 +25,7 @@
             this.tagsService = tagsService;
         }
 
-        public async Task<IActionResult> All(string search)
+        public async Task<IActionResult> All(string search = null)
         {
             var categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>(search);
             var viewModel = new CategoriesAllViewModel
@@ -38,7 +38,7 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> Details(int id, string search)
+        public async Task<IActionResult> Details(int id, string search = null)
         {
             var category = await this.categoriesService.GetByIdAsync<CategoriesInfoViewModel>(id);
             if (category == null)

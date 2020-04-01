@@ -7,6 +7,8 @@
 <div class="tt-custom-mobile-indent container">
     <div class="tt-categories-title">
         <div class="tt-title">@ViewData["Title"]</div>
+        <a asp-area="Administration" asp-controller="Categories" asp-action="Create" class="btn btn-secondary ml-auto">Create</a>
+        &nbsp;
         <div class="tt-search">
             <form class="search-wrapper" asp-area="" asp-controller="Categories" asp-action="All" method="get">
                 <div class="search-form">
@@ -49,7 +51,15 @@
                                 Lets discuss about @category.Name.
                             </div>
                             <hr />
-                            <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id" class="btn btn-primary">Details</a>
+                            <div class="row">
+                                <div class="col-auto ml-md-auto">
+                                    <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id" class="btn btn-primary">Details</a>
+                                    <a asp-area="Administration" asp-controller="Categories" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-secondary">Edit</a>
+                                    <form asp-area="Administration" asp-controller="Categories" asp-action="Delete" asp-route-id="@category.Id" method="post" class="btn">
+                                        <button type="submit" class="btn btn-secondary">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

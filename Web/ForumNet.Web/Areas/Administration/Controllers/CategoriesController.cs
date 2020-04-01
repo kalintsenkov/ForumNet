@@ -16,6 +16,18 @@
             this.categoriesService = categoriesService;
         }
 
+        public async Task<IActionResult> All(string search = null)
+        {
+            var categories = await this.categoriesService.GetAllAsync<CategoriesInfoViewModel>(search);
+            var viewModel = new CategoriesAllViewModel
+            {
+                Search = search,
+                Categories = categories
+            };
+
+            return View(viewModel);
+        }
+
         public IActionResult Create()
         {
             return this.View();
@@ -31,7 +43,7 @@
 
             await this.categoriesService.CreateAsync(input.Name);
 
-            return this.RedirectToAction("All", "Categories", new { area = string.Empty });
+            return this.RedirectToAction(nameof(All));
         }
 
         public async Task<IActionResult> Edit(int id)
@@ -55,7 +67,7 @@
 
             await this.categoriesService.EditAsync(input.Id, input.Name);
 
-            return this.RedirectToAction("Details", "Categories", new { area = string.Empty });
+            return this.RedirectToAction("Details", "Categories", new { area = "" });
         }
 
         [HttpPost]
@@ -69,7 +81,7 @@
 
             await this.categoriesService.DeleteAsync(id);
 
-            return this.RedirectToAction("All", "Categories", new { area = string.Empty });
+            return this.RedirectToAction(nameof(All));
         }
     }
 }
