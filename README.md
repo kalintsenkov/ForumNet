@@ -1,5 +1,5 @@
 # ForumNet
-<p>Forum application built for ASP.NET Core course at SoftUni</p>
+<p>Forum application built for <a href="https://softuni.bg/trainings/2796/asp-net-core-february-2020">ASP.NET Core course</a> at SoftUni</p>
 
 # 🛠 Built with:
 * .NET Core 3.1
