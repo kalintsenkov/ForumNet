@@ -6,8 +6,17 @@
 * ASP.NET Core 3.1
 * ASP.NET Core WebAPI 3.1
 * Entity Framework Core 3.1
-* xUnit, MyTested.AspNetCore.Mvc
-* Automapper, SendGrid, jQuery, Bootstrap
+* xUnit, MyTested.AspNetCore.Mvc, Moq
+* Automapper
+* SendGrid
+* BuildBundlerMinifier
+* LibraryManager
+* jQuery
+* Bootstrap
+* TinyMCE
+* Selectize.js
+* FluentAssertions
+* HtmlSanitizer
 
 # License
 
