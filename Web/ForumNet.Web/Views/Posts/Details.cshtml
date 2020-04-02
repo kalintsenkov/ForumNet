@@ -3,6 +3,62 @@
 @model PostsDetailsViewModel
 @{
     ViewData["Title"] = Model.Title;
+    async Task GetReplies(int? parentId)
+    {
+        var replies = this.Model.Replies.Where(r => r.ParentId == parentId);
+        if (!replies.Any())
+        {
+            return;
+        }
+
+        foreach (var reply in replies)
+        {
+            <div class="topic-inner-list">
+                <div class="topic-inner">
+                    <div class="topic-inner-title">
+                        <div class="topic-inner-avatar">
+                            <i class="tt-icon">
+                                <svg>
+                                    <use xlink:href="#@reply.Author.ProfilePicture"></use>
+                                </svg>
+                            </i>
+                        </div>
+                        <div class="topic-inner-title">
+                            <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@reply.Author.Id">
+                                @reply.Author.UserName
+                            </a>
+                        </div>
+                    </div>
+                    <div class="topic-inner-description">
+                        @Html.Raw(reply.SanitizedDescription)
+                        <div class="tt-item-info info-bottom">
+                            <partial name="_DetailsRepliesReactionsPartial" model="reply" />
+                            <div class="col-separator"></div>
+                            @if (reply.Author.Id == this.User.GetId() || this.User.IsAdministrator())
+                            {
+                                <a asp-area="" asp-controller="Replies" asp-action="Edit" asp-route-id="@reply.Id" class="tt-icon-btn" style="color: #666f74">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                                <a asp-area="" asp-controller="Replies" asp-action="Delete" asp-route-id="@reply.Id" class="tt-icon-btn" style="color: #666f74">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            }
+                            <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                                <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
+                            </a>
+                            <a asp-area="" asp-controller="ReplyReports" asp-action="Create" asp-route-id="@reply.Id" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                                <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
+                            </a>
+                            <a asp-area="" asp-controller="Replies" asp-action="Details" asp-route-id="@reply.Id" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                                <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
+                            </a>
+                        </div>
+                        @{ await GetReplies(reply.Id); }
+                    </div>
+                </div>
+            </div>
+        }
+    }
 }
 
 <br />
@@ -83,7 +139,7 @@
 
         <partial name="_DetailsThreadStatusPartial.cshtml" model="@Model" />
 
-        @foreach (var reply in Model.Replies)
+        @foreach (var reply in Model.Replies.Where(r => r.ParentId == null))
         {
             <div class="tt-item">
                 <div class="tt-single-topic">
@@ -104,10 +160,7 @@
                     </div>
                     <div class="tt-item-description">
                         <p>@Html.Raw(reply.SanitizedDescription)</p>
-                        @foreach (var nested in Model.Replies.Where(r => r.ParentId == reply.Id))
-                        {
-                            <partial name="_DetailsNestedRepliesPartial" model="nested" />
-                        }
+                        @{ await GetReplies(reply.Id); }
                     </div>
                     <div class="tt-item-info info-bottom">
                         <partial name="_DetailsRepliesReactionsPartial" model="reply" />

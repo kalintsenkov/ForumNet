@@ -39,8 +39,10 @@
 
         public int PostId { get; set; }
 
+        public int? ParentId { get; set; }
+
         public RepliesAuthorDetailsViewModel Author { get; set; }
 
-        public IEnumerable<RepliesDetailsViewModel> Nested { get; set; }
+        public IEnumerable<RepliesDetailsViewModel> Replies { get; set; }
     }
 }

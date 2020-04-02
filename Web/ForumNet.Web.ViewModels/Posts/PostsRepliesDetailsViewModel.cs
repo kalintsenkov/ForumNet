@@ -1,7 +1,5 @@
 ﻿namespace ForumNet.Web.ViewModels.Posts
 {
-    using System.Collections.Generic;
-
     using Ganss.XSS;
 
     using Infrastructure;
@@ -37,10 +35,8 @@
 
         public string CreatedOn { get; set; }
 
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
 
         public PostsAuthorDetailsViewModel Author { get; set; }
-
-        public IEnumerable<PostsRepliesDetailsViewModel> Nested { get; set; }
     }
 }

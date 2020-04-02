@@ -138,11 +138,6 @@
 
             post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(id);
             post.Replies = await this.repliesService.GetAllByPostIdAsync<PostsRepliesDetailsViewModel>(id, sort);
-            //foreach (var reply in post.Replies)
-            //{
-            //    reply.Nested = await this.repliesService
-            //        .GetAllNestedByPostIdAndReplyIdAsync<PostsRepliesDetailsViewModel>(id, reply.Id);
-            //}
 
             return this.View(post);
         }
@@ -160,8 +155,8 @@
                 return this.Unauthorized();
             }
 
-            post.Categories = await this.categoriesService.GetAllAsync<PostsCategoryDetailsViewModel>();
             post.Tags = await this.tagsService.GetAllAsync<PostsTagsDetailsViewModel>();
+            post.Categories = await this.categoriesService.GetAllAsync<PostsCategoryDetailsViewModel>();
 
             return this.View(post);
         }
@@ -173,8 +168,8 @@
             {
                 var viewModel = this.mapper.Map<PostsEditViewModel>(input);
 
-                viewModel.Categories = await this.categoriesService.GetAllAsync<PostsCategoryDetailsViewModel>();
                 viewModel.Tags = await this.tagsService.GetAllAsync<PostsTagsDetailsViewModel>();
+                viewModel.Categories = await this.categoriesService.GetAllAsync<PostsCategoryDetailsViewModel>();
 
                 return this.View(viewModel);
             }

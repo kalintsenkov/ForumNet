@@ -100,10 +100,10 @@
             return replies;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId, string sort)
+        public async Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId, string sort = null)
         {
             var queryable = this.db.Replies
-                .Where(r => r.PostId == postId && !r.IsDeleted && !r.ParentId.HasValue);
+                .Where(r => r.PostId == postId && !r.IsDeleted);
 
             queryable = sort switch
             {
@@ -120,18 +120,6 @@
                 .ToListAsync();
 
             return replies;
-        }
-
-        public async Task<IEnumerable<TModel>> GetAllNestedByPostIdAndReplyIdAsync<TModel>(int postId, int? parentId)
-        {
-            var nestedReplies = await this.db.Replies
-                .Where(r => r.PostId == postId && !r.IsDeleted && r.ParentId == parentId && r.ParentId.HasValue)
-                .OrderByDescending(p => p.CreatedOn)
-                .AsNoTracking()
-                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
-                .ToListAsync();
-
-            return nestedReplies;
         }
 
         public async Task<IEnumerable<TModel>> GetAllByPostIdAndUserIdAsync<TModel>(int postId, string userId)

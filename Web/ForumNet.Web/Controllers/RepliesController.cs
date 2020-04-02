@@ -77,8 +77,7 @@
                 return this.NotFound();
             }
 
-            reply.Nested = await this.repliesService
-                .GetAllNestedByPostIdAndReplyIdAsync<RepliesDetailsViewModel>(reply.PostId, reply.Id);
+            reply.Replies = await this.repliesService.GetAllByPostIdAsync<RepliesDetailsViewModel>(reply.PostId);
 
             return this.View(reply);
         }
