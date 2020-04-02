@@ -1,14 +1,19 @@
-﻿<div class="container">
+﻿@{ 
+    ViewData["Title"] = "ERROR 404";
+}
+
+<div class="container">
     <div class="tt-layout-404">
         <span class="tt-icon">
             <svg class="icon">
                 <use xlink:href="#icon-error_404"></use>
             </svg>
         </span>
-        <h6 class="tt-title">ERROR 404</h6>
+        <h6 class="tt-title">@ViewData["Title"]</h6>
         <p>
             Sorry we can’t find what you are looking for, here’s some<br>
             <a asp-controller="Home" asp-action="Index" class="tt-color-dark tt-underline-02">suggested posts</a> for you.
         </p>
     </div>
+    <vc:suggested-topics></vc:suggested-topics>
 </div>

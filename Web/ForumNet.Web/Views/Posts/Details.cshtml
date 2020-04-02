@@ -104,7 +104,7 @@
                     </div>
                     <div class="tt-item-description">
                         <p>@Html.Raw(reply.SanitizedDescription)</p>
-                        @foreach (var nested in reply.Nested)
+                        @foreach (var nested in Model.Replies.Where(r => r.ParentId == reply.Id))
                         {
                             <partial name="_DetailsNestedRepliesPartial" model="nested" />
                         }

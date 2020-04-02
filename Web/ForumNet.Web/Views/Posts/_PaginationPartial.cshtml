@@ -1,0 +1,43 @@
+﻿@model ForumNet.Web.ViewModels.Posts.PostsAllViewModel
+
+<nav>
+    <ul class="pagination">
+        @if (this.Model.PageIndex > 1)
+        {
+            <li>
+                <a asp-area=""
+                   asp-controller="Posts"
+                   asp-action="All"
+                   asp-route-page="@(this.Model.PageIndex - 1)">
+                    &laquo;
+                </a>
+            </li>
+        }
+
+        @for (int i = 1; i <= this.Model.TotalPages; i++)
+        {
+            var active = i == this.Model.PageIndex ? "active" : string.Empty;
+            <li>
+                <a class="@active"
+                   asp-area=""
+                   asp-controller="Posts"
+                   asp-action="All"
+                   asp-route-page="@i">
+                    @i
+                </a>
+            </li>
+        }
+
+        @if (this.Model.PageIndex < this.Model.TotalPages)
+        {
+            <li>
+                <a asp-area=""
+                   asp-controller="Posts"
+                   asp-action="All"
+                   asp-route-page="@(this.Model.PageIndex + 1)">
+                    &raquo;
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

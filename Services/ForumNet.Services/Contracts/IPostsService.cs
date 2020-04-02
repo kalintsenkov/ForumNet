@@ -21,19 +21,25 @@
 
         Task<bool> IsExisting(int id);
 
+        Task<int> GetCount();
+
+        Task<int> GetFollowingCount(string userId);
+
         Task<string> GetAuthorIdById(int id);
 
         Task<string> GetLatestActivityById(int id);
 
         Task<TModel> GetByIdAsync<TModel>(int id);
 
-        Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null);
+        Task<IEnumerable<TModel>> GetSuggestedAsync<TModel>(int take);
+
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null, int skip = 0, int? take = null);
 
         Task<IEnumerable<TModel>> GetAllByTagIdAsync<TModel>(int tagId);
 
         Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId);
 
-        Task<IEnumerable<TModel>> GetAllFollowingByUserIdAsync<TModel>(string userId, string search = null);
+        Task<IEnumerable<TModel>> GetAllFollowingByUserIdAsync<TModel>(string userId, string search = null, int skip = 0, int? take = null);
 
         Task<IEnumerable<TModel>> GetAllByCategoryIdAsync<TModel>(int categoryId, string search = null);
 

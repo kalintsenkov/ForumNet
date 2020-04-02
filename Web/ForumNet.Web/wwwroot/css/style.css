@@ -44,6 +44,34 @@
  */
 @import url(../../node_modules/magnific-popup/dist/magnific-popup.css);
 
+ul.pagination {
+    display: inline-block;
+    padding: 20px;
+    margin: 0;
+}
+
+    ul.pagination li {
+        display: inline;
+    }
+
+        ul.pagination li a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+            ul.pagination li a.active {
+                background-color: #2e3192;
+                color: white;
+                border-radius: 5px;
+            }
+
+            ul.pagination li a:hover:not(.active) {
+                background-color: #ddd;
+            }
+
 *,
 *::before,
 *::after {
@@ -54,7 +82,7 @@
 .responsive-image {
     width: 100%;
     max-width: 600px;
-} 
+}
 
 html {
     font-family: sans-serif;

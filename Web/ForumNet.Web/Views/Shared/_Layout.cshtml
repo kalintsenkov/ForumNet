@@ -44,8 +44,11 @@
                     <div class="tt-desktop-menu">
                         <nav>
                             <ul>
-                                <li><a asp-area="" asp-controller="Posts" asp-action="All"><span>All</span></a></li>
-                                <li><a asp-area="" asp-controller="Posts" asp-action="Following"><span>Following</span></a></li>
+                                <li><a asp-area="" asp-controller="Posts" asp-action="All"><span>Trending</span></a></li>
+                                @if (this.User.Identity.IsAuthenticated)
+                                {
+                                    <li><a asp-area="" asp-controller="Posts" asp-action="Following"><span>Following</span></a></li>
+                                }
                                 @if (this.User.IsAdministrator())
                                 {
                                     <li><a asp-area="Administration" asp-controller="Categories" asp-action="All"><span>Categories</span></a></li>
@@ -62,6 +65,7 @@
                                 {
                                     <li><a asp-area="Administration" asp-controller="PostReports" asp-action="All"><span>Reports</span></a></li>
                                 }
+                                <li><a asp-area="" asp-controller="Home" asp-action="About"><span>About</span></a></li>
                             </ul>
                         </nav>
                     </div>

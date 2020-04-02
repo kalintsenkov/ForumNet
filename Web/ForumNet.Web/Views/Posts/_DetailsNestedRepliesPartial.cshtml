@@ -19,6 +19,13 @@
         </div>
         <div class="topic-inner-description">
             @Html.Raw(Model.SanitizedDescription)
+            @if (Model.Nested.Count == 0)
+            {
+                foreach (var nested in Model.Nested)
+                {
+                    <partial name="_DetailsNestedRepliesPartial" model="nested" />
+                }
+            }
         </div>
         <div class="tt-item-info info-bottom">
             <partial name="_DetailsRepliesReactionsPartial" model="Model" />

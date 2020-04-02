@@ -4,7 +4,7 @@
 }
 
 <div class="container">
-    <div class="tt-topic-list">
+    <nav class="tt-topic-list">
         <div class="tt-list-header">
             <div class="tt-col-topic">Topic</div>
             <div class="tt-col-category">Category</div>
@@ -102,12 +102,6 @@
             </div>
         }
 
-        <div class="tt-row-btn">
-            <button type="button" class="btn-icon js-topiclist-showmore">
-                <svg class="tt-icon">
-                    <use xlink:href="#icon-load_lore_icon"></use>
-                </svg>
-            </button>
-        </div>
-    </div>
+        <partial name="_PaginationPartial.cshtml" model="Model" />
+    </nav>
 </div>

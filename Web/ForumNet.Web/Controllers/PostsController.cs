@@ -1,5 +1,6 @@
 ﻿namespace ForumNet.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using AutoMapper;
@@ -13,6 +14,8 @@
     [Authorize]
     public class PostsController : Controller
     {
+        private const int PostsPerPage = 6;
+
         private readonly IMapper mapper;
         private readonly ITagsService tagsService;
         private readonly IPostsService postsService;
@@ -34,11 +37,21 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All(int id, string search = null)
+        public async Task<IActionResult> All(int page = 1, string search = null)
         {
+            var count = await this.postsService.GetCount();
+            var totalPages = (int)Math.Ceiling(count / (double)PostsPerPage);
+            if (totalPages == 0)
+            {
+                totalPages = 1;
+            }
+
+            var posts = await this.postsService.GetAllAsync<PostsListingViewModel>(search, (page - 1) * PostsPerPage, PostsPerPage);
             var viewModel = new PostsAllViewModel
             {
-                Posts = await this.postsService.GetAllAsync<PostsListingViewModel>(search)
+                PageIndex = page,
+                TotalPages = totalPages,
+                Posts = posts
             };
 
             foreach (var post in viewModel.Posts)
@@ -50,12 +63,24 @@
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> Following(int id, string search = null)
+        public async Task<IActionResult> Following(int page = 1, string search = null)
         {
+            var userId = this.User.GetId();
+            var count = await this.postsService.GetFollowingCount(userId);
+            var totalPages = (int)Math.Ceiling(count / (double)PostsPerPage);
+            if (totalPages == 0)
+            {
+                totalPages = 1;
+            }
+
+            var posts = await this.postsService
+                .GetAllFollowingByUserIdAsync<PostsListingViewModel>(userId, search, (page - 1) * PostsPerPage, PostsPerPage);
+
             var viewModel = new PostsAllViewModel
             {
-                Posts = await this.postsService
-                    .GetAllFollowingByUserIdAsync<PostsListingViewModel>(this.User.GetId(), search)
+                PageIndex = page,
+                TotalPages = totalPages,
+                Posts = posts
             };
 
             foreach (var post in viewModel.Posts)
@@ -113,11 +138,11 @@
 
             post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(id);
             post.Replies = await this.repliesService.GetAllByPostIdAsync<PostsRepliesDetailsViewModel>(id, sort);
-            foreach (var reply in post.Replies)
-            {
-                reply.Nested = await this.repliesService
-                    .GetAllNestedByPostIdAndReplyIdAsync<PostsRepliesDetailsViewModel>(id, reply.Id);
-            }
+            //foreach (var reply in post.Replies)
+            //{
+            //    reply.Nested = await this.repliesService
+            //        .GetAllNestedByPostIdAndReplyIdAsync<PostsRepliesDetailsViewModel>(id, reply.Id);
+            //}
 
             return this.View(post);
         }
