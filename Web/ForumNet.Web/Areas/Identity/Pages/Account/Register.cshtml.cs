@@ -106,7 +106,7 @@
                 }
 
                 var usernameFirstLetter = char.ToLower(Input.Username[0]);
-                var profilePicture = $"icon-ava-{usernameFirstLetter}";
+                var profilePicture = $"#icon-ava-{usernameFirstLetter}";
 
                 var user = new ForumUser
                 {

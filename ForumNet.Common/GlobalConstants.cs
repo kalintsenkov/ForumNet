@@ -16,6 +16,6 @@
 
         public const string AdministratorPassword = "admin123456";
 
-        public const string AdministratorProfilePicture = "icon-ava-a";
+        public const string AdministratorProfilePicture = "#icon-ava-a";
     }
 }

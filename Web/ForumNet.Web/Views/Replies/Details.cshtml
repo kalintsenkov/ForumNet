@@ -18,7 +18,7 @@
                         <div class="topic-inner-avatar">
                             <i class="tt-icon">
                                 <svg>
-                                    <use xlink:href="#@reply.Author.ProfilePicture"></use>
+                                    <use xlink:href="@reply.Author.ProfilePicture"></use>
                                 </svg>
                             </i>
                         </div>
@@ -68,7 +68,7 @@
                 <div class="tt-item-header pt-noborder">
                     <div class="tt-item-info info-top">
                         <div class="tt-avatar-icon">
-                            <i class="tt-icon"><svg><use xlink:href="#@Model.Author.ProfilePicture"></use></svg></i>
+                            <i class="tt-icon"><svg><use xlink:href="@Model.Author.ProfilePicture"></use></svg></i>
                         </div>
                         <div class="tt-avatar-title">
                             <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Author.Id">
@@ -149,7 +149,7 @@
         function loveReaction(id) {
             $.ajax({
                 type: "POST",
-                url: "/api/reply-reactions/love" + id,
+                url: "/api/reply-reactions/love/" + id,
                 success: function (json) {
                     $("#reply-likes-" + id).html(json.likes);
                     $("#reply-loves-" + id).html(json.loves);
@@ -164,7 +164,7 @@
         function hahaReaction(id) {
             $.ajax({
                 type: "POST",
-                url: "/api/reply-reactions/haha" + id,
+                url: "/api/reply-reactions/haha/" + id,
                 success: function (json) {
                     $("#reply-likes-" + id).html(json.likes);
                     $("#reply-loves-" + id).html(json.loves);
@@ -179,7 +179,7 @@
         function wowReaction(id) {
             $.ajax({
                 type: "POST",
-                url: "/api/reply-reactions/wow" + id,
+                url: "/api/reply-reactions/wow/" + id,
                 success: function (json) {
                     $("#reply-likes-" + id).html(json.likes);
                     $("#reply-loves-" + id).html(json.loves);
@@ -194,7 +194,7 @@
         function sadReaction(id) {
             $.ajax({
                 type: "POST",
-                url: "/api/reply-reactions/sad" + id,
+                url: "/api/reply-reactions/sad/" + id,
                 success: function (json) {
                     $("#reply-likes-" + id).html(json.likes);
                     $("#reply-loves-" + id).html(json.loves);
@@ -209,7 +209,7 @@
         function angryReaction(id) {
             $.ajax({
                 type: "POST",
-                url: "/api/reply-reactions/angry" + id,
+                url: "/api/reply-reactions/angry/" + id,
                 success: function (json) {
                     $("#reply-likes-" + id).html(json.likes);
                     $("#reply-loves-" + id).html(json.loves);

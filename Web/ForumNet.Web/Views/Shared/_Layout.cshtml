@@ -61,10 +61,6 @@
                                 {
                                     <li><a asp-area="" asp-controller="Posts" asp-action="Create"><span>New</span></a></li>
                                 }
-                                @if (this.User.IsAdministrator())
-                                {
-                                    <li><a asp-area="Administration" asp-controller="PostReports" asp-action="All"><span>Reports</span></a></li>
-                                }
                                 <li><a asp-area="" asp-controller="Home" asp-action="About"><span>About</span></a></li>
                             </ul>
                         </nav>
