@@ -18,10 +18,7 @@
         private readonly IMapper mapper;
         private readonly IDateTimeProvider dateTimeProvider;
 
-        public ReplyReportsService(
-            ForumDbContext db,
-            IMapper mapper,
-            IDateTimeProvider dateTimeProvider)
+        public ReplyReportsService(ForumDbContext db, IMapper mapper, IDateTimeProvider dateTimeProvider)
         {
             this.db = db;
             this.mapper = mapper;

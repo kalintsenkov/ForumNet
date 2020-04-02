@@ -11,6 +11,7 @@
     using Contracts;
     using Data;
     using ForumNet.Data.Models;
+    using ForumNet.Common;
 
     public class UsersService : IUsersService
     {
@@ -18,10 +19,7 @@
         private readonly IMapper mapper;
         private readonly IDateTimeProvider dateTimeProvider;
 
-        public UsersService(
-            ForumDbContext db,
-            IMapper mapper,
-            IDateTimeProvider dateTimeProvider)
+        public UsersService(ForumDbContext db, IMapper mapper, IDateTimeProvider dateTimeProvider)
         {
             this.db = db;
             this.mapper = mapper;
@@ -124,12 +122,17 @@
                 .AnyAsync(uf => uf.UserId == id && uf.FollowerId == followerId && !uf.IsDeleted);
         }
 
-        public async Task<int> GetFollowersCount(string id)
+        public async Task<int> GetTotalCountAsync()
+        {
+            return await this.db.Users.Where(u => !u.IsDeleted).CountAsync();
+        }
+
+        public async Task<int> GetFollowersCountAsync(string id)
         {
             return await this.db.UsersFollowers.CountAsync(u => !u.IsDeleted && u.UserId == id);
         }
 
-        public async Task<int> GetFollowingCount(string id)
+        public async Task<int> GetFollowingCountAsync(string id)
         {
             return await this.db.UsersFollowers.CountAsync(u => !u.IsDeleted && u.FollowerId == id);
         }
@@ -144,7 +147,23 @@
             return user;
         }
 
-        public async Task<IEnumerable<TModel>> GetFollowers<TModel>(string id)
+        public async Task<IEnumerable<TModel>> GetAdminsAsync<TModel>()
+        {
+            var adminRoleId = await this.db.Roles
+                .Where(r => r.Name == GlobalConstants.AdministratorRoleName)
+                .Select(r => r.Id)
+                .FirstOrDefaultAsync();
+
+            var admins = await this.db.Users
+                .Where(u => !u.IsDeleted && u.Roles
+                    .Select(r => r.RoleId).FirstOrDefault() == adminRoleId)
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return admins;
+        }
+
+        public async Task<IEnumerable<TModel>> GetFollowersAsync<TModel>(string id)
         {
             var followers = await this.db.UsersFollowers
                 .Where(uf => uf.UserId == id && !uf.IsDeleted)
@@ -156,7 +175,7 @@
             return followers;
         }
 
-        public async Task<IEnumerable<TModel>> GetFollowing<TModel>(string id)
+        public async Task<IEnumerable<TModel>> GetFollowingAsync<TModel>(string id)
         {
             var following = await this.db.UsersFollowers
                 .Where(uf => uf.FollowerId == id && !uf.IsDeleted)

@@ -1,16 +1,62 @@
 ﻿namespace ForumNet.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
 
+    using Services.Contracts;
     using ViewModels;
+    using ViewModels.Home;
 
     public class HomeController : Controller
     {
+        private readonly IUsersService usersService;
+        private readonly IPostsService postsService;
+        private readonly IPostReactionsService postReactionsService;
+        private readonly IReplyReactionsService replyReactionsService;
+
+        public HomeController(
+            IUsersService usersService,
+            IPostsService postsService,
+            IPostReactionsService postReactionsService,
+            IReplyReactionsService replyReactionsService)
+        {
+            this.usersService = usersService;
+            this.postsService = postsService;
+            this.postReactionsService = postReactionsService;
+            this.replyReactionsService = replyReactionsService;
+        }
+
         public IActionResult Index()
         {
             return this.RedirectToAction("All", "Posts");
+        }
+
+        public async Task<IActionResult> About()
+        {
+            var postsReactionsCount = await this.postReactionsService.GetTotalCount();
+            var repliesReactionsCount = await this.replyReactionsService.GetTotalCount();
+
+            var reactionsCount = postsReactionsCount + repliesReactionsCount;
+            var postsCount = await this.postsService.GetCount();
+            var usersCount = await this.usersService.GetTotalCountAsync();
+            var admins = await this.usersService.GetAdminsAsync<HomeAboutAdminViewModel>();
+
+            var viewModel = new HomeAboutViewModel
+            {
+                ReactionsCount = reactionsCount,
+                PostsCount = postsCount,
+                UsersCount = usersCount,
+                Admins = admins,
+            };
+
+            return View(viewModel);
+        }
+
+        public IActionResult Guidelines()
+        {
+            return View();
         }
 
         public IActionResult Privacy()

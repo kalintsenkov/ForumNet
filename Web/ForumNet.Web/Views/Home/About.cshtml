@@ -1,0 +1,83 @@
+﻿@using ForumNet.Common
+@model ForumNet.Web.ViewModels.Home.HomeAboutViewModel
+@{
+    ViewData["Title"] = "About";
+}
+
+<div class="container">
+    <div class="tt-tab-wrapper">
+        <div class="tt-wrapper-inner">
+            <ul class="nav nav-tabs pt-tabs-default" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link show active" asp-area="" asp-controller="Home" asp-action="About"><span>About</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Guidelines"><span>Guidelines</span></a>
+                </li>
+                <li class="nav-item tt-hide-md">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy"><span>Privacy</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane show fade active" id="tt-tab-01" role="tabpanel">
+                <div class="tt-layout-tab">
+                    <div class="tt-wrapper-inner">
+                        <h2 class="tt-title">
+                            About @GlobalConstants.SystemName
+                        </h2>
+                        @GlobalConstants.SystemName is a community of creatives who come together to share ideas and help each other succeed.
+                        <h3 class="tt-title">
+                            Admins
+                        </h3>
+                        <div class="tt-list-avatar">
+                            <div class="row">
+                                @foreach (var admin in Model.Admins)
+                                {
+                                    <div class="col-6 col-md-4 col-lg-3">
+                                        <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@admin.Id" class="tt-avatar">
+                                            <div class="tt-col-icon">
+                                                <svg class="tt-icon">
+                                                    <use xlink:href="#@admin.ProfilePicture"></use>
+                                                </svg>
+                                            </div>
+                                            <div class="tt-col-description">
+                                                <h6 class="tt-title">@admin.UserName</h6>
+                                                <div class="tt-value">@admin.Email</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive-sm tt-indent-top">
+                        <table class="table-01">
+                            <caption>Site Statistics</caption>
+                            <thead>
+                                <tr>
+                                    <th>Topic</th>
+                                    <th>All Time</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-zebra">
+                                <tr>
+                                    <td>Posts</td>
+                                    <td>@Model.PostsCount</td>
+                                </tr>
+                                <tr>
+                                    <td>Users</td>
+                                    <td>@Model.UsersCount</td>
+                                </tr>
+                                <tr>
+                                    <td>Reactions</td>
+                                    <td>@Model.ReactionsCount</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

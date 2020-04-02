@@ -8,6 +8,7 @@
     using Data.Models;
     using Data.Models.Enums;
     using ViewModels.Categories;
+    using ViewModels.Home;
     using ViewModels.PostReports;
     using ViewModels.Posts;
     using ViewModels.Replies;
@@ -209,6 +210,7 @@
 
             #region Users
             this.CreateMap<ForumUser, UserLoginStatusViewModel>();
+            this.CreateMap<ForumUser, HomeAboutAdminViewModel>();
             this.CreateMap<ForumUser, RepliesAuthorDetailsViewModel>();
             this.CreateMap<ForumUser, PostsAuthorDetailsViewModel>();
             this.CreateMap<ForumUser, UsersThreadsViewModel>();

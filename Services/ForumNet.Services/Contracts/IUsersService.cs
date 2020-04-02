@@ -21,14 +21,18 @@
 
         Task<bool> IsFollowedAlready(string id, string followerId);
 
-        Task<int> GetFollowersCount(string id);
+        Task<int> GetTotalCountAsync();
 
-        Task<int> GetFollowingCount(string id);
+        Task<int> GetFollowersCountAsync(string id);
+
+        Task<int> GetFollowingCountAsync(string id);
 
         Task<TModel> GetByIdAsync<TModel>(string id);
 
-        Task<IEnumerable<TModel>> GetFollowers<TModel>(string id);
+        Task<IEnumerable<TModel>> GetAdminsAsync<TModel>();
 
-        Task<IEnumerable<TModel>> GetFollowing<TModel>(string id);
+        Task<IEnumerable<TModel>> GetFollowersAsync<TModel>(string id);
+
+        Task<IEnumerable<TModel>> GetFollowingAsync<TModel>(string id);
     }
 }
