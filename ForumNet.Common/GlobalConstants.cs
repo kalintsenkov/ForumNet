@@ -6,6 +6,8 @@
 
         public const string SystemEmail = "no-reply@forum.net";
 
+        public const string AdministratorAreaName = "Administration";
+
         public const string AdministratorRoleName = "Admin";
 
         public const string AdministratorUserName = "Admin";

@@ -6,7 +6,7 @@
     using Common;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-    [Area("Administration")]
+    [Area(GlobalConstants.AdministratorAreaName)]
     public class AdminController : Controller
     {
     }
