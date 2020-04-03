@@ -40,11 +40,7 @@
         public async Task<IActionResult> All(int page = 1, string search = null)
         {
             var count = await this.postsService.GetCount();
-            var totalPages = (int)Math.Ceiling(count / (double)PostsPerPage);
-            if (totalPages == 0)
-            {
-                totalPages = 1;
-            }
+            var totalPages = (int)Math.Ceiling(count / (decimal)PostsPerPage);
 
             var posts = await this.postsService.GetAllAsync<PostsListingViewModel>(search, (page - 1) * PostsPerPage, PostsPerPage);
             var viewModel = new PostsAllViewModel
@@ -67,11 +63,7 @@
         {
             var userId = this.User.GetId();
             var count = await this.postsService.GetFollowingCount(userId);
-            var totalPages = (int)Math.Ceiling(count / (double)PostsPerPage);
-            if (totalPages == 0)
-            {
-                totalPages = 1;
-            }
+            var totalPages = (int)Math.Ceiling(count / (decimal)PostsPerPage);
 
             var posts = await this.postsService
                 .GetAllFollowingByUserIdAsync<PostsListingViewModel>(userId, search, (page - 1) * PostsPerPage, PostsPerPage);

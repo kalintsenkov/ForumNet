@@ -10,7 +10,7 @@
     [ViewComponent(Name = "SuggestedTopics")]
     public class SuggestedTopicsViewComponent : ViewComponent
     {
-        private const int ItemsToTake = 5;
+        private const int PostsToTake = 5;
 
         private readonly IPostsService postsService;
         private readonly ITagsService tagsService;
@@ -23,7 +23,7 @@
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var suggestedPosts = await this.postsService.GetSuggestedAsync<PostsListingViewModel>(ItemsToTake);
+            var suggestedPosts = await this.postsService.GetSuggestedAsync<PostsListingViewModel>(PostsToTake);
             var viewModel = new PostsAllViewModel
             {
                 Posts = suggestedPosts

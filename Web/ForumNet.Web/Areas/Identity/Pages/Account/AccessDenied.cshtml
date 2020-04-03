@@ -1,0 +1,20 @@
+﻿@page
+@model AccessDeniedModel
+@{
+    ViewData["Title"] = "Access denied";
+}
+
+<div class="container">
+    <div class="tt-layout-404">
+        <span class="tt-icon">
+            <svg class="icon">
+                <use xlink:href="#icon-error_404"></use>
+            </svg>
+        </span>
+        <h6 class="tt-title">@ViewData["Title"]</h6>
+        <p>
+            You do not have access to this resource.
+        </p>
+    </div>
+    <vc:suggested-topics></vc:suggested-topics>
+</div>
