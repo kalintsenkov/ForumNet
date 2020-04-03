@@ -59,13 +59,24 @@
             <hr />
             <h6 class="tt-title">Frequent Posters</h6>
             <div class="tt-row-icon">
-                @foreach (var profilePicture in Model.Replies.OrderByDescending(r =>r.CreatedOn).Select(r => r.Author.ProfilePicture).Distinct())
-                {
-                    <div class="tt-item">
-                        <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Author.Id" class="tt-icon-avatar">
-                            <svg><use xlink:href="@profilePicture"></use></svg>
-                        </a>
-                    </div>
+                @{ 
+                    var replies = this.Model.Replies
+                        .OrderByDescending(r => r.CreatedOn)
+                        .Select(r => new 
+                        { 
+                            AuthorId = r.Author.Id, 
+                            AuthorProfilePicture = r.Author.ProfilePicture 
+                        })
+                        .Distinct();
+
+                    foreach (var reply in replies)
+                    {
+                        <div class="tt-item">
+                            <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@reply.AuthorId" class="tt-icon-avatar">
+                                <svg><use xlink:href="@reply.AuthorProfilePicture"></use></svg>
+                            </a>
+                        </div>
+                    }
                 }
             </div>
             <hr />

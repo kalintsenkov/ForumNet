@@ -11,34 +11,28 @@
     using ForumNet.Common;
     using Models;
 
-    internal class AdminSeeder : ISeeder
+    internal class TestUserSeeder : ISeeder
     {
         public async Task SeedAsync(ForumDbContext dbContext, IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetService<UserManager<ForumUser>>();
             var roleManager = serviceProvider.GetService<RoleManager<ForumRole>>();
 
-            var isExisting = await userManager.Users.AnyAsync(u => u.UserName == GlobalConstants.AdministratorUserName);
+            var isExisting = await userManager.Users.AnyAsync(u => u.UserName == GlobalConstants.TestUserUserName);
             if (!isExisting)
             {
-                var admin = new ForumUser
+                var testUser = new ForumUser
                 {
-                    UserName = GlobalConstants.AdministratorUserName,
-                    Email = GlobalConstants.AdministratorEmail,
-                    ProfilePicture = GlobalConstants.AdministratorProfilePicture,
+                    UserName = GlobalConstants.TestUserUserName,
+                    Email = GlobalConstants.TestUserEmail,
+                    ProfilePicture = GlobalConstants.TestUserProfilePicture,
                     EmailConfirmed = true
                 };
 
-                var result = await userManager.CreateAsync(admin, GlobalConstants.AdministratorPassword);
+                var result = await userManager.CreateAsync(testUser, GlobalConstants.TestUserPassword);
                 if (!result.Succeeded)
                 {
                     throw new Exception(string.Join(Environment.NewLine, result.Errors.Select(e => e.Description)));
-                }
-
-                var isRoleExists = await roleManager.RoleExistsAsync(GlobalConstants.AdministratorRoleName);
-                if (isRoleExists)
-                {
-                    await userManager.AddToRoleAsync(admin, GlobalConstants.AdministratorRoleName);
                 }
             }
         }

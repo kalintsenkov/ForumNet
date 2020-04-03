@@ -22,8 +22,10 @@
             {
                 new RolesSeeder(),
                 new AdminSeeder(),
+                new TestUserSeeder(),
                 new TagsSeeder(),
-                new CategoriesSeeder()
+                new CategoriesSeeder(),
+                new PostsSeeder()
             };
 
             foreach (var seeder in seeders)
