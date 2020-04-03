@@ -2,12 +2,15 @@
 
 <div class="col-auto ml-auto">
     <div class="tt-user-info d-flex justify-content-center">
-        <div class="tt-avatar-icon tt-size-md">
-            <i class="tt-icon"><svg><use xlink:href="@Model.ProfilePicture"></use></svg></i>
-        </div>
+        <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Id">
+            <div class="tt-avatar-icon tt-size-md">
+                <i class="tt-icon"><svg><use xlink:href="@Model.ProfilePicture"></use></svg></i>
+            </div>
+        </a>
         <div class="custom-select-01">
             <select onchange="location = this.value;">
-                <option value="Default Sorting" selected>@Model.UserName</option>
+                <option disabled selected hidden>@Model.UserName</option>
+                <option value="/Users/Threads/@Model.Id">View Account</option>
                 <option value="/Identity/Account/Manage">Manage Account</option>
                 <option value="/Identity/Account/Logout">Logout</option>
             </select>
