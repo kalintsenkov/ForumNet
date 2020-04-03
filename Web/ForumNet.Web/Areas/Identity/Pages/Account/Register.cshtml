@@ -1,4 +1,5 @@
 ﻿@page
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 @using ForumNet.Data.Models.Enums
 @model RegisterModel
 
@@ -54,6 +55,7 @@
                         <option value="@GenderType.Female">Female</option>
                     </select>
                 </div>
+                <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
                 <div class="form-group">
                     <button type="submit" class="btn btn-secondary btn-block">Sign up</button>
                 </div>
@@ -87,15 +89,22 @@
                 <p>Already have an account? <a asp-area="Identity" asp-page="/Account/Login">Login here</a></p>
                 <div class="tt-notes">
                     By signing up, signing in or continuing, I agree to
-                    Forum.NET’s <a href="#" class="tt-underline">Terms of Use</a> and <a asp-area="" asp-controller="Home" asp-action="Privacy" class="tt-underline">Privacy Policy.</a>
+                    Forum.NET’s <a asp-area="" asp-controller="Home" asp-action="Guidelines" class="tt-underline">Terms of Use</a> and <a asp-area="" asp-controller="Home" asp-action="Privacy" class="tt-underline">Privacy Policy.</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-
 @section Scripts {
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:Key"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:Key"]', { action: '/Identity/Account/Register' }).then(function (token) {
+                document.getElementById("RecaptchaValue").value = token;
+            });
+        });
+    </script>
     <partial name="_ValidationScriptsPartial" />
 }
 

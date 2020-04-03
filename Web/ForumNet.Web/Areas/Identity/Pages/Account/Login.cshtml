@@ -1,4 +1,5 @@
 ﻿@page
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 @model LoginModel
 
 @{
@@ -46,6 +47,7 @@
                         <a asp-page="./ForgotPassword" class="tt-underline">Forgot password?</a>
                     </div>
                 </div>
+                <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
                 <div class="form-group">
                     <button type="submit" class="btn btn-secondary btn-block">Log in</button>
                 </div>
@@ -79,7 +81,7 @@
                 <p>Don’t have an account? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="tt-underline">Sign up here</a></p>
                 <div class="tt-notes">
                     By Logging in, signing in or continuing, I agree to
-                    Forum.NET’s <a href="#" class="tt-underline">Terms of Use</a> and <a asp-controller="Home" asp-action="Privacy" class="tt-underline">Privacy Policy.</a>
+                    Forum.NET’s <a asp-area="" asp-controller="Home" asp-action="Guidelines" class="tt-underline">Terms of Use</a> and <a asp-area="" asp-controller="Home" asp-action="Privacy" class="tt-underline">Privacy Policy.</a>
                 </div>
             </form>
         </div>
@@ -87,6 +89,14 @@
 </div>
 
 @section Scripts {
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:Key"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:Key"]', { action: '/Identity/Account/Login' }).then(function (token) {
+                document.getElementById("RecaptchaValue").value = token;
+            });
+        });
+    </script>
     <partial name="_ValidationScriptsPartial" />
 }
 
