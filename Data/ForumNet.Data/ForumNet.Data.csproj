@@ -11,6 +11,8 @@
     <Compile Remove="Migrations\20200323112307_AddParentReply.Designer.cs" />
     <Compile Remove="Migrations\20200329111408_AddUsersFollowersTable.cs" />
     <Compile Remove="Migrations\20200329111408_AddUsersFollowersTable.Designer.cs" />
+    <Compile Remove="Migrations\20200404104012_AddMessages.cs" />
+    <Compile Remove="Migrations\20200404104012_AddMessages.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

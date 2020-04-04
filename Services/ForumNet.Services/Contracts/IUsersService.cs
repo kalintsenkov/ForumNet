@@ -29,6 +29,8 @@
 
         Task<TModel> GetByIdAsync<TModel>(string id);
 
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>();
+
         Task<IEnumerable<TModel>> GetAdminsAsync<TModel>();
 
         Task<IEnumerable<TModel>> GetFollowersAsync<TModel>(string id);

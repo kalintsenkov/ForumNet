@@ -1,0 +1,103 @@
+﻿@using ForumNet.Web.ViewModels.Messages
+@model MessagesWithUserViewModel
+@{
+    ViewData["Title"] = "Messages";
+}
+
+<div class="container">
+    <div class="tt-messages-layout">
+        <div class="row no-gutters">
+            <div class="col-md-4 tt-aside" id="js-aside">
+                <a asp-area="" asp-controller="Messages" asp-action="Create" class="tt-title-aside">
+                    <h2 class="tt-title">
+                        @ViewData["Title"]
+                    </h2>
+                    <i class="tt-icon">
+                        <svg class="icon">
+                            <use xlink:href="#icon-pencil"></use>
+                        </svg>
+                    </i>
+                </a>
+                <div class="tt-all-avatar">
+                    <div class="tt-list-avatar js-init-scroll">
+                        @if (Model.All.Any())
+                        {
+                            foreach (var conversation in Model.All)
+                            {
+                                <a onclick="location.href = '/Messages/WithUser/@conversation.Id';" href="#" class="tt-item">
+                                    <div class="tt-col-avatar">
+                                        <svg class="tt-icon">
+                                            <use xlink:href="@conversation.ProfilePicture"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="tt-col-description">
+                                        <h4 class="tt-title"><span>@conversation.UserName</span> <span class="time">@conversation.CreatedOn</span></h4>
+                                        @*<div class="tt-message tt-select">Taylor: need to see that</div>*@
+                                </div>
+                                </a>
+                            }
+                        }
+                        else
+                        {
+                            <div class="tt-layout-404">
+                                <p>
+                                    You don't have any messages<br>
+                                    But you can <a asp-area="" asp-controller="Messages" asp-action="Create" class="tt-color-dark tt-underline-02">send</a> one now.
+                                </p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="tt-title-content">
+                    <a href="#" class="tt-toggle-aside">
+                        <i class="tt-icon">
+                            <svg class="icon">
+                                <use xlink:href="#icon-arrow_left"></use>
+                            </svg>
+                        </i>
+                    </a>
+                    <h2 class="tt-title">
+                        @*TODO: fix this bug*@
+                        @Model.AllWithUser.Select(m => m.AuthorUserName).FirstOrDefault()
+                    </h2>
+                    <a href="#" class="tt-icon-link">
+                        <i class="tt-icon">
+                            <svg class="icon">
+                                <use xlink:href="#notification"></use>
+                            </svg>
+                        </i>
+                    </a>
+                </div>
+                <div class="tt-list-time-topic js-init-scroll">
+
+                    @foreach (var message in Model.AllWithUser)
+                    {
+                        <div class="tt-item">
+                            <div class="tt-col-avatar">
+                                <svg class="tt-icon">
+                                    <use xlink:href="@message.AuthorProfilePicture"></use>
+                                </svg>
+                            </div>
+                            <div class="tt-col-description">
+                                <h4 class="tt-title">
+                                    <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@message.AuthorId">@message.AuthorUserName</a>
+                                    <span class="time">@message.CreatedOn</span>
+                                </h4>
+                                @Html.Raw(message.Content)
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+                <partial name="_SendPartial" model="new MessagesSendInputModel { ReceiverId = Model.ReceiverId }" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

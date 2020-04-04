@@ -1,0 +1,23 @@
+﻿@model ForumNet.Web.ViewModels.Messages.MessagesSendInputModel
+
+<div class="tt-wrapper-inner">
+    <div class="pt-editor form-default">
+        <form id="addMessageForm" asp-area="" asp-controller="Messages" asp-action="Send" method="post">
+            <div asp-validation-summary="All"></div>
+            <input asp-for="ReceiverId" value="@Model.ReceiverId" name="ReceiverId" hidden />
+            <div class="form-group">
+                <textarea id="messageBox" asp-for="Content" class="form-control" placeholder="Write your message here"></textarea>
+                <span asp-validation-for="Content"></span>
+            </div>
+            <div class="pt-row">
+                <div class="col-auto ml-auto">
+                    <button type="submit" class="btn btn-secondary btn-custom">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

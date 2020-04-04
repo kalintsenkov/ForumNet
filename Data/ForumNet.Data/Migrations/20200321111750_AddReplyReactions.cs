@@ -1,6 +1,7 @@
 ﻿namespace ForumNet.Data.Migrations
 {
     using System;
+
     using Microsoft.EntityFrameworkCore.Migrations;
 
     public partial class AddReplyReactions : Migration

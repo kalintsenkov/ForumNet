@@ -147,6 +147,16 @@
             return user;
         }
 
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
+        {
+            var users = await this.db.Users
+                .Where(u => !u.IsDeleted)
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return users;
+        }
+
         public async Task<IEnumerable<TModel>> GetAdminsAsync<TModel>()
         {
             var adminRoleId = await this.db.Roles

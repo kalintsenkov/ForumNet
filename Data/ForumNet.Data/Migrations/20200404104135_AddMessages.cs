@@ -4,65 +4,61 @@
 
     using Microsoft.EntityFrameworkCore.Migrations;
 
-    public partial class AddPostReactions : Migration
+    public partial class AddMessages : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Likes",
-                table: "Posts");
-
             migrationBuilder.CreateTable(
-                name: "PostReaction",
+                name: "Messages",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ReactionType = table.Column<int>(nullable: false),
-                    PostId = table.Column<int>(nullable: false),
+                    Content = table.Column<string>(maxLength: 300, nullable: false),
                     AuthorId = table.Column<string>(nullable: false),
+                    ReceiverId = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true)
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PostReaction", x => x.Id);
+                    table.PrimaryKey("PK_Messages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PostReaction_AspNetUsers_AuthorId",
+                        name: "FK_Messages_AspNetUsers_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_PostReaction_Posts_PostId",
-                        column: x => x.PostId,
-                        principalTable: "Posts",
+                        name: "FK_Messages_AspNetUsers_ReceiverId",
+                        column: x => x.ReceiverId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_PostReaction_AuthorId",
-                table: "PostReaction",
+                name: "IX_Messages_AuthorId",
+                table: "Messages",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PostReaction_PostId",
-                table: "PostReaction",
-                column: "PostId");
+                name: "IX_Messages_IsDeleted",
+                table: "Messages",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Messages_ReceiverId",
+                table: "Messages",
+                column: "ReceiverId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PostReaction");
-
-            migrationBuilder.AddColumn<int>(
-                name: "Likes",
-                table: "Posts",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
+                name: "Messages");
         }
     }
 }

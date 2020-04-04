@@ -6,6 +6,8 @@
 
         public const int CategoryNameMaxLength = 50;
 
+        public const int MessageContentMaxLength = 300;
+
         public const int UserUsernameMaxLength = 25;
 
         public const int UserUsernameMinLength = 4;

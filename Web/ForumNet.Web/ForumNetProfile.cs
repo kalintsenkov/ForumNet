@@ -8,6 +8,7 @@
     using Data.Models;
     using Data.Models.Enums;
     using ViewModels.Categories;
+    using ViewModels.Messages;
     using ViewModels.Home;
     using ViewModels.PostReports;
     using ViewModels.Posts;
@@ -25,6 +26,13 @@
             this.CreateMap<Category, CategoriesEditInputModel>();
             this.CreateMap<Category, PostsCategoryDetailsViewModel>();
             this.CreateMap<Category, UsersThreadsCategoryViewModel>();
+            #endregion
+
+            #region Messages
+            this.CreateMap<Message, MessagesDetailsAllViewModel>()
+                .ForMember(
+                    dest => dest.CreatedOn,
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy HH:mm", CultureInfo.InvariantCulture)));
             #endregion
 
             #region Posts
@@ -209,6 +217,11 @@
             #endregion
 
             #region Users
+            this.CreateMap<ForumUser, MessagesAllViewModel>()
+                .ForMember(
+                    dest => dest.CreatedOn,
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("MMM dd", CultureInfo.InvariantCulture)));
+            this.CreateMap<ForumUser, MessagesCreateUserViewModel>();
             this.CreateMap<ForumUser, UserLoginStatusViewModel>();
             this.CreateMap<ForumUser, HomeAboutAdminViewModel>();
             this.CreateMap<ForumUser, RepliesAuthorDetailsViewModel>();

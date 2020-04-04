@@ -14,6 +14,8 @@
 
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<Message> Messages { get; set; }
+
         public DbSet<Post> Posts { get; set; }
 
         public DbSet<PostReaction> PostReactions { get; set; }

@@ -34,6 +34,10 @@ namespace ForumNet.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
+        public ICollection<Message> SentMessages { get; set; } = new HashSet<Message>();
+
+        public ICollection<Message> ReceivedMessages { get; set; } = new HashSet<Message>();
+
         public ICollection<Post> Posts { get; set; } = new HashSet<Post>();
 
         public ICollection<Reply> Replies { get; set; } = new HashSet<Reply>();
