@@ -16,8 +16,8 @@
             <div class="form-group">
                 <label asp-for="Title">Post Title</label>
                 <div class="tt-value-wrapper">
-                    <input asp-for="Title" type="text" class="form-control" id="inputTopicTitle" placeholder="Subject of your post">
-                    <span class="tt-value-input">@DataConstants.PostTitleMaxLength</span>
+                    <input asp-for="Title" type="text" class="form-control" id="inputTopicTitle" placeholder="Subject of your post" onkeyup="changeRemainingLength()">
+                    <span id="remainingLength" class="tt-value-input">@DataConstants.PostTitleMaxLength</span>
                     <span asp-validation-for="Title"></span>
                 </div>
                 <div class="tt-note">Describe your post well, while keeping the subject as short as possible.</div>
@@ -105,6 +105,10 @@
 
 @section Scripts {
     <script>
+        function changeRemainingLength() {
+            var value = $('#inputTopicTitle').val();
+            $('#remainingLength').html(@DataConstants.PostTitleMaxLength - value.length);
+        }
         var $select = $('#input-category').selectize({
             create: false,
             sortField: 'text',

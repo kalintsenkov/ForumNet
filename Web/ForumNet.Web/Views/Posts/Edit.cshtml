@@ -1,4 +1,5 @@
-﻿@model ForumNet.Web.ViewModels.Posts.PostsEditViewModel
+﻿@using ForumNet.Data.Common
+@model ForumNet.Web.ViewModels.Posts.PostsEditViewModel
 @{
     ViewData["Title"] = "Edit Post";
 }
@@ -14,8 +15,8 @@
             <div class="form-group">
                 <label asp-for="Title">Post Title</label>
                 <div class="tt-value-wrapper">
-                    <input asp-for="Title" type="text" class="form-control" id="inputTopicTitle" placeholder="Subject of your post">
-                    <span class="tt-value-input">100</span>
+                    <input asp-for="Title" type="text" class="form-control" id="inputTopicTitle" placeholder="Subject of your post" onkeyup="changeRemainingLength()">
+                    <span id="remainingLength" class="tt-value-input"></span>
                     <span asp-validation-for="Title"></span>
                 </div>
                 <div class="tt-note">Describe your post well, while keeping the subject as short as possible.</div>
@@ -54,7 +55,7 @@
                 </div>
                 <div class="row">
                     <div class="col-auto ml-md-auto">
-                        <a asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary btn-width-lg">Back</a>
+                        <a asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary btn-width-lg">Cancel</a>
                         <button type="submit" class="btn btn-secondary btn-width-lg">Edit Post</button>
                     </div>
                 </div>
@@ -65,6 +66,14 @@
 
 @section Scripts {
     <script>
+        window.onload = function () {
+            var value = $('#inputTopicTitle').val();
+            $('#remainingLength').html(@DataConstants.PostTitleMaxLength - value.length);
+        }
+        function changeRemainingLength() {
+            var value = $('#inputTopicTitle').val();
+            $('#remainingLength').html(@DataConstants.PostTitleMaxLength - value.length);
+        }
         var $select = $('#input-category').selectize({
             create: false,
             sortField: 'text',
