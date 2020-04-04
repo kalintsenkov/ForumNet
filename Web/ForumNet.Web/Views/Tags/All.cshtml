@@ -1,0 +1,53 @@
+﻿@model ForumNet.Web.ViewModels.Tags.TagsAllViewModel
+@{
+    ViewData["Title"] = "Tags";
+}
+
+<br />
+<div class="tt-custom-mobile-indent container">
+    <div class="tt-categories-title">
+        <div class="tt-title">@ViewData["Title"]</div>
+        <div class="tt-search">
+            <form class="search-wrapper" asp-area="" asp-controller="Tags" asp-action="All" method="get">
+                <div class="search-form">
+                    <input type="text" asp-for="Search" class="tt-search__input" placeholder="Search Tags">
+                    <button class="tt-search__btn" type="submit">
+                        <svg class="tt-icon">
+                            <use xlink:href="#icon-search"></use>
+                        </svg>
+                    </button>
+                    <button class="tt-search__close">
+                        <svg class="tt-icon">
+                            <use xlink:href="#icon-cancel"></use>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="tt-categories-list">
+        <div class="row">
+
+            @foreach (var tag in Model.Tags)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="tt-item">
+                        <div class="tt-item-header">
+                            <ul class="tt-list-badge">
+                                <li>
+                                    <a asp-area="" asp-controller="Tags" asp-action="Details" asp-route-id="@tag.Id">
+                                        <span class="tt-badge">@tag.Name</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <h6 class="tt-title">
+                                <a asp-area="" asp-controller="Tags" asp-action="Details" asp-route-id="@tag.Id">Threads - @tag.PostsCount</a>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

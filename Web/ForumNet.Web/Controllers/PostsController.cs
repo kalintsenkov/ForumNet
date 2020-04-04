@@ -37,7 +37,7 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All(int page = 1, string search = null)
+        public async Task<IActionResult> Trending(int page = 1, string search = null)
         {
             var count = await this.postsService.GetCount();
             var totalPages = (int)Math.Ceiling(count / (decimal)PostsPerPage);
@@ -212,7 +212,7 @@
 
             await this.postsService.DeleteAsync(id);
 
-            return this.RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(Trending));
         }
     }
 }

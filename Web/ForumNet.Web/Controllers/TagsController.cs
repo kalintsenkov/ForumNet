@@ -9,7 +9,6 @@
     using ViewModels.Posts;
     using ViewModels.Tags;
 
-    [Authorize]
     public class TagsController : Controller
     {
         private readonly ITagsService tagsService;
@@ -23,6 +22,19 @@
             this.postsService = postsService;
         }
 
+        public async Task<IActionResult> All(string search = null)
+        {
+            var tags = await this.tagsService.GetAllAsync<TagsInfoViewModel>(search);
+            var viewModel = new TagsAllViewModel
+            {
+                Tags = tags,
+                Search = search
+            };
+
+            return this.View(viewModel);
+        }
+
+        [Authorize]
         public async Task<IActionResult> Details(int id)
         {
             var tag = await this.tagsService.GetById<TagsInfoViewModel>(id);

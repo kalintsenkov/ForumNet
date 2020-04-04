@@ -2,6 +2,14 @@
 
 <div class="col-auto ml-auto">
     <div class="tt-user-info d-flex justify-content-center">
+        <a class="tt-btn-icon" 
+           style="color: #666f74"
+           asp-area="" 
+           asp-controller="Messages" 
+           asp-action="All" 
+           asp-route-id="@Model.Id">
+            <i class="tt-icon fas fa-comments"></i>
+        </a>
         <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Id">
             <div class="tt-avatar-icon tt-size-md">
                 <i class="tt-icon"><svg><use xlink:href="@Model.ProfilePicture"></use></svg></i>

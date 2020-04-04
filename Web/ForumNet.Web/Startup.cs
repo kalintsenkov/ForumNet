@@ -109,7 +109,7 @@ namespace ForumNet.Web
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Posts}/{action=All}/{id?}");
+                    pattern: "{controller=Posts}/{action=Trending}/{id?}");
 
                 endpoints.MapRazorPages();
             });

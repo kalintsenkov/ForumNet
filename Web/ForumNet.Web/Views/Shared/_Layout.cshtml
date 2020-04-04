@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8">
     <title>@ViewData["Title"] - @ForumNet.Common.GlobalConstants.SystemName</title>
-    <meta name="description" content="Forum.NET">
+    <meta name="description" content="@ForumNet.Common.GlobalConstants.SystemName">
+    <meta name="keywords" content="">
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link href="~/lib/fontawesome/css/all.min.css" rel="stylesheet" asp-append-version="true" />
@@ -37,35 +38,45 @@
                         <svg class="tt-icon"><use xlink:href="#icon-menu_icon"></use></svg>
                     </a>
                     <!-- /toggle mobile menu -->
-                    <!-- desktop menu -->
                     <div class="tt-logo">
-                        <a asp-area="" asp-controller="Posts" asp-action="All"><img src="~/images/logo.png" alt="logo"></a>
+                        <a asp-area="" asp-controller="Posts" asp-action="Trending"><img src="~/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="tt-desktop-menu">
                         <nav>
                             <ul>
-                                <li><a asp-area="" asp-controller="Posts" asp-action="All"><span>Trending</span></a></li>
-                                @if (this.User.Identity.IsAuthenticated)
-                                {
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Following"><span>Following</span></a></li>
-                                }
-                                @if (this.User.IsAdministrator())
-                                {
-                                    <li><a asp-area="Administration" asp-controller="Categories" asp-action="All"><span>Categories</span></a></li>
-                                }
-                                else
-                                {
-                                    <li><a asp-area="" asp-controller="Categories" asp-action="All"><span>Categories</span></a></li>
-                                }
-                                @if (this.User.Identity.IsAuthenticated)
-                                {
-                                    <li><a asp-area="" asp-controller="Posts" asp-action="Create"><span>New</span></a></li>
-                                }
-                                <li><a asp-area="" asp-controller="Home" asp-action="About"><span>About</span></a></li>
+                                <li><a asp-area="" asp-controller="Posts" asp-action="Trending"><span>Trending</span></a></li>
+                                <li><a asp-area="" asp-controller="Posts" asp-action="Following"><span>Following</span></a></li>
+                                <li><a asp-area="" asp-controller="Posts" asp-action="Create"><span>New</span></a></li>
+                                <li>
+                                    <a href="#"><span>More</span></a>
+                                    <ul>
+                                        @if (this.User.IsAdministrator())
+                                        {
+                                            <li><a asp-area="Administration" asp-controller="PostReports" asp-action="All"><span>Reports</span></a></li>
+                                            <li><a asp-area="Administration" asp-controller="Tags" asp-action="All"><span>Tags</span></a></li>
+                                            <li><a asp-area="Administration" asp-controller="Categories" asp-action="All"><span>Categories</span></a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a asp-area="" asp-controller="Tags" asp-action="All"><span>Tags</span></a></li>
+                                            <li><a asp-area="" asp-controller="Categories" asp-action="All"><span>Categories</span></a></li>
+                                        }
+                                        @if (this.User.Identity.IsAuthenticated)
+                                        {
+                                            <li>
+                                                <a asp-area="" asp-controller="Messages" asp-action="All" asp-route-id="@this.User.GetId()">
+                                                    Messages
+                                                </a>
+                                            </li>
+                                        }
+                                        <li><a asp-area="" asp-controller="Home" asp-action="About"><span>About</span></a></li>
+                                        <li><a asp-area="" asp-controller="Home" asp-action="Guidelines">Guidelines</a></li>
+                                        <li><a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </nav>
                     </div>
-                    <!-- /desktop menu -->
                     <partial name="_LayoutSearchPartial" />
                 </div>
                 <partial name="_LoginPartial" />
