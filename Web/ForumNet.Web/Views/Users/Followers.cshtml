@@ -1,34 +1,10 @@
-﻿@using ForumNet.Web.Infrastructure.Extensions
-@model ForumNet.Web.ViewModels.Users.UsersDetailsViewModel
+﻿@model ForumNet.Web.ViewModels.Users.UsersDetailsViewModel
 @{
     ViewData["Title"] = Model.UserName;
 }
 
-<div class="tt-wrapper-section">
-    <div class="container">
-        <div class="tt-user-header">
-            <div class="tt-col-avatar">
-                <div class="tt-icon">
-                    <svg class="tt-icon">
-                        <use xlink:href="@Model.ProfilePicture"></use>
-                    </svg>
-                </div>
-            </div>
-            <div class="tt-col-title">
-                <div class="tt-title">
-                    <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Id">@Model.UserName</a>
-                </div>
-                <ul class="tt-list-badge">
-                    <li><a href="#"><span class="tt-color14 tt-badge">LVL : @Model.Level</span></a></li>
-                </ul>
-            </div>
-            @if (Model.Id != this.User.GetId())
-            {
-                <vc:users-follow-button user-id="@Model.Id"></vc:users-follow-button>
-            }
-        </div>
-    </div>
-</div>
+<partial name="_DetailsPartial" model="Model"/>
+
 <div class="container">
     <div class="tt-tab-wrapper">
         <vc:users-details user-id="@Model.Id"></vc:users-details>
