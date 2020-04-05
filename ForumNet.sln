@@ -31,7 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2BBD12C3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumNet.Web.Tests", "Tests\ForumNet.Web.Tests\ForumNet.Web.Tests.csproj", "{805A154E-2C1F-4137-8114-DDC01C5DFA6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumNet.Services.Tests", "Tests\ForumNet.Services.Tests\ForumNet.Services.Tests.csproj", "{AA72D1F1-379A-45F7-9E9E-EBBF116F13B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumNet.Services.Tests", "Tests\ForumNet.Services.Tests\ForumNet.Services.Tests.csproj", "{AA72D1F1-379A-45F7-9E9E-EBBF116F13B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

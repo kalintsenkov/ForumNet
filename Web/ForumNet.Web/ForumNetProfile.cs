@@ -226,10 +226,7 @@
             this.CreateMap<ForumUser, HomeAboutAdminViewModel>();
             this.CreateMap<ForumUser, RepliesAuthorDetailsViewModel>();
             this.CreateMap<ForumUser, PostsAuthorDetailsViewModel>();
-            this.CreateMap<ForumUser, UsersThreadsViewModel>();
-            this.CreateMap<ForumUser, UsersRepliesViewModel>();
-            this.CreateMap<ForumUser, UsersFollowersViewModel>();
-            this.CreateMap<ForumUser, UsersFollowingViewModel>();
+            this.CreateMap<ForumUser, UsersDetailsViewModel>();
             this.CreateMap<ForumUser, UsersFollowersAllViewModel>()
                 .ForMember(
                     dest => dest.ThreadsCount,

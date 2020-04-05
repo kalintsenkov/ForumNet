@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class UsersFollowersViewModel
+    public class UsersDetailsViewModel
     {
         public string Id { get; set; }
 
@@ -12,12 +12,18 @@
 
         public int Level { get; set; }
 
-        public bool IsFollowedAlready { get; set; }
+        public bool IsFollowed { get; set; }
 
         public int FollowersCount { get; set; }
 
         public int FollowingCount { get; set; }
 
+        public IEnumerable<UsersThreadsAllViewModel> Threads { get; set; }
+
+        public IEnumerable<UsersRepliesAllViewModel> Replies { get; set; }
+
         public IEnumerable<UsersFollowersAllViewModel> Followers { get; set; }
+
+        public IEnumerable<UsersFollowingAllViewModel> Following { get; set; }
     }
 }

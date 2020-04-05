@@ -1,5 +1,5 @@
 ﻿@using ForumNet.Web.Infrastructure.Extensions
-@model ForumNet.Web.ViewModels.Users.UsersFollowersViewModel
+@model ForumNet.Web.ViewModels.Users.UsersDetailsViewModel
 @{
     ViewData["Title"] = Model.UserName;
 }
@@ -24,42 +24,14 @@
             </div>
             @if (Model.Id != this.User.GetId())
             {
-                <div class="tt-col-btn">
-                    <div class="tt-list-btn">
-                        <a href="#" class="btn btn-primary">Message</a>
-                        <a id="follow-button" href="#" class="btn btn-secondary" onclick="follow('@Model.Id')">@(Model.IsFollowedAlready ? "Following" : "Follow")</a>
-                    </div>
-                </div>
+                <vc:users-follow-button user-id="@Model.Id"></vc:users-follow-button>
             }
         </div>
     </div>
 </div>
 <div class="container">
     <div class="tt-tab-wrapper">
-        <div class="tt-wrapper-inner">
-            <ul class="nav nav-tabs pt-tabs-default" role="tablist">
-                <li class="nav-item show">
-                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Id">
-                        <span>Threads</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Replies" asp-route-id="@Model.Id">
-                        <span>Replies</span>
-                    </a>
-                </li>
-                <li class="nav-item tt-hide-xs show">
-                    <a class="nav-link active" asp-area="" asp-controller="Users" asp-action="Followers" asp-route-id="@Model.Id">
-                        <span>@Model.FollowersCount Followers</span>
-                    </a>
-                </li>
-                <li class="nav-item tt-hide-md">
-                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Following" asp-route-id="@Model.Id">
-                        <span>@Model.FollowingCount Following</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <vc:users-details user-id="@Model.Id"></vc:users-details>
         <div class="tab-pane tt-indent-none show active" id="tt-tab-04" role="tabpanel">
             @if (Model.Followers.Any())
             {
