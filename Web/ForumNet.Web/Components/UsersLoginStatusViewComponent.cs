@@ -8,12 +8,12 @@
     using Services.Contracts;
     using ViewModels.Users;
 
-    [ViewComponent(Name = "UserLoginStatus")]
-    public class UserLoginStatusViewComponent : ViewComponent
+    [ViewComponent(Name = "UsersLoginStatus")]
+    public class UsersLoginStatusViewComponent : ViewComponent
     {
         private readonly IUsersService usersService;
 
-        public UserLoginStatusViewComponent(IUsersService usersService)
+        public UsersLoginStatusViewComponent(IUsersService usersService)
         {
             this.usersService = usersService;
         }
@@ -21,7 +21,7 @@
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var id = this.UserClaimsPrincipal.GetId();
-            var user = await this.usersService.GetByIdAsync<UserLoginStatusViewModel>(id);
+            var user = await this.usersService.GetByIdAsync<UsersLoginStatusViewModel>(id);
 
             return this.View(user);
         }

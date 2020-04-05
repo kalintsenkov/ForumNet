@@ -1,6 +1,6 @@
 ﻿namespace ForumNet.Web.ViewModels.Users
 {
-    public class UserLoginStatusViewModel
+    public class UsersLoginStatusViewModel
     {
         public string Id { get; set; }
 

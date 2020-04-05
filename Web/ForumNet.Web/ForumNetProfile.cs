@@ -222,7 +222,7 @@
                     dest => dest.CreatedOn,
                     dest => dest.MapFrom(src => src.CreatedOn.ToString("MMM dd", CultureInfo.InvariantCulture)));
             this.CreateMap<ForumUser, MessagesCreateUserViewModel>();
-            this.CreateMap<ForumUser, UserLoginStatusViewModel>();
+            this.CreateMap<ForumUser, UsersLoginStatusViewModel>();
             this.CreateMap<ForumUser, HomeAboutAdminViewModel>();
             this.CreateMap<ForumUser, RepliesAuthorDetailsViewModel>();
             this.CreateMap<ForumUser, PostsAuthorDetailsViewModel>();
