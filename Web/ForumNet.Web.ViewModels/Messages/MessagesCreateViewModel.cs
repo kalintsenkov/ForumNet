@@ -8,6 +8,6 @@
 
         public IEnumerable<MessagesCreateUserViewModel> Users { get; set; }
 
-        public IEnumerable<MessagesAllViewModel> All { get; set; }
+        public IEnumerable<MessagesConversationsViewModel> Conversations { get; set; }
     }
 }

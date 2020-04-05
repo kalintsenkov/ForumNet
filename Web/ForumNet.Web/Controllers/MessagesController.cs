@@ -23,20 +23,31 @@
             this.messagesService = messagesService;
         }
 
+        public async Task<IActionResult> All()
+        {
+            var userId = this.User.GetId();
+            var viewModel = new MessagesAllViewModel
+            {
+                Conversations = await this.messagesService.GetAllConversationsAsync<MessagesConversationsViewModel>(userId),
+            };
+
+            return this.View(viewModel);
+        }
+
         public async Task<IActionResult> Create()
         {
             var userId = this.User.GetId();
             var viewModel = new MessagesCreateViewModel
             {
                 Users = await this.usersService.GetAllAsync<MessagesCreateUserViewModel>(),
-                All = await this.messagesService.GetAllConversationsAsync<MessagesAllViewModel>(userId),
+                Conversations = await this.messagesService.GetAllConversationsAsync<MessagesConversationsViewModel>(userId),
             };
 
             return this.View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Send(MessagesSendInputModel input)
+        public async Task<IActionResult> Create(MessagesCreateInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
@@ -54,8 +65,8 @@
             var viewModel = new MessagesWithUserViewModel
             {
                 ReceiverId = id,
-                All = await this.messagesService.GetAllConversationsAsync<MessagesAllViewModel>(userId),
-                AllWithUser = await this.messagesService.GetAllWithUserAsync<MessagesDetailsAllViewModel>(userId, id)
+                AllWithUser = await this.messagesService.GetAllWithUserAsync<MessagesAllWithUserViewModel>(userId, id),
+                Conversations = await this.messagesService.GetAllConversationsAsync<MessagesConversationsViewModel>(userId),
             };
 
             return this.View(viewModel);

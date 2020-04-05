@@ -4,11 +4,11 @@
 
     using Infrastructure;
 
-    public class MessagesDetailsAllViewModel
+    public class MessagesAllWithUserViewModel
     {
         private readonly IHtmlSanitizer htmlSanitizer;
 
-        public MessagesDetailsAllViewModel()
+        public MessagesAllWithUserViewModel()
         {
             this.htmlSanitizer = new HtmlSanitizer();
             this.htmlSanitizer.AllowedTags.Add(ModelConstants.IFrameAllowedTag);

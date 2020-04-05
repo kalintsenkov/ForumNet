@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ForumNet.Web.ViewModels.Messages.MessagesConversationsViewModel>
+
+<div class="tt-all-avatar">
+    <div class="tt-list-avatar js-init-scroll">
+        @if (Model.Any())
+        {
+            foreach (var conversation in Model)
+            {
+                <a onclick="location.href = '/Messages/WithUser/@conversation.Id';" href="#" class="tt-item">
+                    <div class="tt-col-avatar">
+                        <svg class="tt-icon">
+                            <use xlink:href="@conversation.ProfilePicture"></use>
+                        </svg>
+                    </div>
+                    <div class="tt-col-description">
+                        <h4 class="tt-title"><span>@conversation.UserName</span> <span class="time">@conversation.CreatedOn</span></h4>
+                    </div>
+                </a>
+            }
+        }
+        else
+        {
+            <div class="tt-layout-404">
+                <p>
+                    You don't have any messages<br />
+                    But you can <a asp-area="" asp-controller="Messages" asp-action="Create" class="tt-color-dark tt-underline-02">send</a> one now.
+                </p>
+            </div>
+        }
+    </div>
+</div>

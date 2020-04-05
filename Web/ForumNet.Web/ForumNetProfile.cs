@@ -29,10 +29,10 @@
             #endregion
 
             #region Messages
-            this.CreateMap<Message, MessagesDetailsAllViewModel>()
+            this.CreateMap<Message, MessagesAllWithUserViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
-                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy HH:mm", CultureInfo.InvariantCulture)));
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM yyyy HH:mm", CultureInfo.InvariantCulture)));
             #endregion
 
             #region Posts
@@ -217,7 +217,7 @@
             #endregion
 
             #region Users
-            this.CreateMap<ForumUser, MessagesAllViewModel>()
+            this.CreateMap<ForumUser, MessagesConversationsViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
                     dest => dest.MapFrom(src => src.CreatedOn.ToString("MMM dd", CultureInfo.InvariantCulture)));

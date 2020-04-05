@@ -1,0 +1,26 @@
+﻿@model ForumNet.Web.ViewModels.Messages.MessagesAllViewModel
+@{
+    ViewData["Title"] = "Messages";
+}
+
+<div class="container">
+    <div class="tt-messages-layout">
+        <div class="row no-gutters">
+            <div class="col-md-4 tt-aside" id="js-aside">
+                <a asp-area="" asp-controller="Messages" asp-action="Create" class="tt-title-aside">
+                    <h2 class="tt-title">
+                        @ViewData["Title"]
+                    </h2>
+                    <i class="tt-icon">
+                        <svg class="icon">
+                            <use xlink:href="#icon-pencil"></use>
+                        </svg>
+                    </i>
+                </a>
+
+                <partial name="_ConversationsPartial" model="Model.Conversations" />
+
+            </div>
+        </div>
+    </div>
+</div>
