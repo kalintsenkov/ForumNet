@@ -28,10 +28,13 @@
             this.replyReactionsService = replyReactionsService;
         }
 
-        public IActionResult Index()
-        {
-            return this.RedirectToAction("All", "Posts");
-        }
+        public IActionResult Index() => this.RedirectToAction("Trending", "Posts");
+
+        public IActionResult Guidelines() => this.View();
+
+        public IActionResult Privacy() => this.View();
+
+        public IActionResult NotFound404() => this.View();
 
         public async Task<IActionResult> About()
         {
@@ -52,21 +55,6 @@
             };
 
             return View(viewModel);
-        }
-
-        public IActionResult Guidelines()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        public IActionResult NotFound404()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

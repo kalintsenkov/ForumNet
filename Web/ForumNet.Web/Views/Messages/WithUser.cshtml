@@ -32,8 +32,7 @@
                                     </div>
                                     <div class="tt-col-description">
                                         <h4 class="tt-title"><span>@conversation.UserName</span> <span class="time">@conversation.CreatedOn</span></h4>
-                                        @*<div class="tt-message tt-select">Taylor: need to see that</div>*@
-                                </div>
+                                    </div>
                                 </a>
                             }
                         }
@@ -41,7 +40,7 @@
                         {
                             <div class="tt-layout-404">
                                 <p>
-                                    You don't have any messages<br>
+                                    You don't have any messages<br />
                                     But you can <a asp-area="" asp-controller="Messages" asp-action="Create" class="tt-color-dark tt-underline-02">send</a> one now.
                                 </p>
                             </div>
@@ -59,7 +58,6 @@
                         </i>
                     </a>
                     <h2 class="tt-title">
-                        @*TODO: fix this bug*@
                         @Model.AllWithUser.Select(m => m.AuthorUserName).FirstOrDefault()
                     </h2>
                     <a href="#" class="tt-icon-link">

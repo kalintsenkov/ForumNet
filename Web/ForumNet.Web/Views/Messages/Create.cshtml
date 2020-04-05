@@ -1,4 +1,5 @@
-﻿@using ForumNet.Web.ViewModels.Messages
+﻿@using ForumNet.Web.Infrastructure.Extensions
+@using ForumNet.Web.ViewModels.Messages
 @model MessagesCreateViewModel
 @{
     ViewData["Title"] = "New message";
@@ -32,7 +33,6 @@
                                     </div>
                                     <div class="tt-col-description">
                                         <h4 class="tt-title"><span>@conversation.UserName</span> <span class="time">@conversation.CreatedOn</span></h4>
-                                        @*<div class="tt-message tt-select">Taylor: need to see that</div>*@
                                     </div>
                                 </a>
                             }
@@ -41,7 +41,7 @@
                         {
                             <div class="tt-layout-404">
                                 <p>
-                                    You don't have any messages<br>
+                                    You don't have any messages<br />
                                     But you can <a href="#" class="tt-color-dark tt-underline-02">send</a> one now.
                                 </p>
                             </div>
@@ -67,7 +67,7 @@
                         <div class="form-group">
                             <h2 class="tt-title">To:</h2>
                             <select asp-for="ReceiverId" id="input-user">
-                                @foreach (var user in Model.Users)
+                                @foreach (var user in Model.Users.Where(u => u.Id != this.User.GetId()))
                                 {
                                     <option value="@user.Id">@user.UserName</option>
                                 }

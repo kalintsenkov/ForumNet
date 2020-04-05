@@ -2,7 +2,7 @@
 
 <div class="tt-col-btn">
     <div class="tt-list-btn">
-        <a href="#" class="btn btn-primary">Message</a>
+        <a asp-area="" asp-controller="Messages" asp-action="Create" class="btn btn-primary">Message</a>
         <a id="follow-button" href="#" class="btn btn-secondary" onclick="follow('@Model.Id')">@(Model.IsFollowed ? "Following" : "Follow")</a>
     </div>
 </div>
