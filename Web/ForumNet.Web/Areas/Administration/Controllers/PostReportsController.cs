@@ -19,7 +19,6 @@
         public async Task<IActionResult> All()
         {
             var postReports = await this.postReportsService.GetAllAsync<PostReportsListingViewModel>();
-
             var viewModel = new PostReportAllViewModel
             {
                 PostReports = postReports

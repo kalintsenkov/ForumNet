@@ -27,12 +27,13 @@
                         <div class="tt-col-topic">Topic</div>
                         <div class="tt-col-value">Activity</div>
                     </div>
+
                     foreach (var report in Model.PostReports)
                     {
                         <div class="tt-item">
                             <div class="tt-col-avatar">
                                 <svg class="tt-icon">
-                                    <use xlink:href="#@report.AuthorProfilePicture"></use>
+                                    <use xlink:href="@report.AuthorProfilePicture"></use>
                                 </svg>
                             </div>
                             <div class="tt-col-description">
@@ -56,13 +57,7 @@
                             <div class="tt-col-value-large hide-mobile">@report.CreatedOn</div>
                         </div>
                     }
-                    <div class="tt-row-btn">
-                        <button type="button" class="btn-icon js-topiclist-showmore">
-                            <svg class="tt-icon">
-                                <use xlink:href="#icon-load_lore_icon"></use>
-                            </svg>
-                        </button>
-                    </div>
+                    
                 }
                 else
                 {

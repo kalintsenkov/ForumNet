@@ -19,7 +19,6 @@
         public async Task<IActionResult> All()
         {
             var replyReports = await this.replyReportsService.GetAllAsync<ReplyReportsListingViewModel>();
-
             var viewModel = new ReplyReportsAllViewModel
             {
                 ReplyReports = replyReports
