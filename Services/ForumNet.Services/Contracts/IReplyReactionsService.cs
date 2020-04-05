@@ -8,7 +8,7 @@
     {
         Task ReactAsync(ReactionType reactionType, int replyId, string authorId);
 
-        Task<int> GetTotalCount();
+        Task<int> GetTotalCountAsync();
 
         Task<(int Likes, int Loves, int Haha, int Wow, int Sad, int Angry)> GetCountByReplyIdAsync(int replyId);
     }

@@ -106,17 +106,17 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<bool> IsExisting(int id)
+        public async Task<bool> IsExistingAsync(int id)
         {
             return await this.db.Posts.AnyAsync(p => p.Id == id && !p.IsDeleted);
         }
 
-        public async Task<int> GetCount()
+        public async Task<int> GetCountAsync()
         {
             return await this.db.Posts.Where(p => !p.IsDeleted).CountAsync();
         }
 
-        public async Task<int> GetFollowingCount(string userId)
+        public async Task<int> GetFollowingCountAsync(string userId)
         {
             var count = await this.db.Posts
                 .Where(p => !p.IsDeleted && p.Author.Followers
@@ -126,7 +126,7 @@
             return count;
         }
 
-        public async Task<string> GetAuthorIdById(int id)
+        public async Task<string> GetAuthorIdByIdAsync(int id)
         {
             var authorId = await this.db.Posts
                 .Where(p => p.Id == id && !p.IsDeleted)
@@ -136,7 +136,7 @@
             return authorId;
         }
 
-        public async Task<string> GetLatestActivityById(int id)
+        public async Task<string> GetLatestActivityByIdAsync(int id)
         {
             var latestPostReply = await this.db.Posts
                 .Where(p => p.Id == id && !p.IsDeleted)

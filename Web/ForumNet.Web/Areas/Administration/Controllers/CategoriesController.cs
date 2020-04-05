@@ -73,7 +73,7 @@
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            var isExisting = await this.categoriesService.IsExisting(id);
+            var isExisting = await this.categoriesService.IsExistingAsync(id);
             if (!isExisting)
             {
                 return this.NotFound();

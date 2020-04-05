@@ -98,7 +98,7 @@
 
             if (this.ModelState.IsValid)
             {
-                var isUsernameUsed = await this.usersService.IsUsernameUsed(Input.Username);
+                var isUsernameUsed = await this.usersService.IsUsernameUsedAsync(Input.Username);
                 if (isUsernameUsed)
                 {
                     this.ModelState.AddModelError(nameof(Input.Username), "There is already user with that username.");

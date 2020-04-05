@@ -57,12 +57,12 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<bool> IsExisting(int id)
+        public async Task<bool> IsExistingAsync(int id)
         {
             return await this.db.Categories.AnyAsync(c => c.Id == id && !c.IsDeleted);
         }
 
-        public async Task<bool> IsExisting(string name)
+        public async Task<bool> IsExistingAsync(string name)
         {
             return await this.db.Categories.AnyAsync(c => c.Name == name && !c.IsDeleted);
         }

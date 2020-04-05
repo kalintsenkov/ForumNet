@@ -49,7 +49,7 @@
             var posts = await this.postsService.GetAllByCategoryIdAsync<PostsListingViewModel>(id, search);
             foreach (var post in posts)
             {
-                post.Activity = await this.postsService.GetLatestActivityById(post.Id);
+                post.Activity = await this.postsService.GetLatestActivityByIdAsync(post.Id);
                 post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(post.Id);
             }
 

@@ -49,7 +49,7 @@
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            var isExisting = await this.tagsService.IsExisting(id);
+            var isExisting = await this.tagsService.IsExistingAsync(id);
             if (!isExisting)
             {
                 return this.NotFound();

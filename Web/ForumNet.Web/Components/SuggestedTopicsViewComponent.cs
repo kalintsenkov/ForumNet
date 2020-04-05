@@ -31,7 +31,7 @@
 
             foreach (var post in viewModel.Posts)
             {
-                post.Activity = await this.postsService.GetLatestActivityById(post.Id);
+                post.Activity = await this.postsService.GetLatestActivityByIdAsync(post.Id);
                 post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(post.Id);
             }
 

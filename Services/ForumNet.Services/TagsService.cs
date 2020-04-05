@@ -47,17 +47,17 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<bool> IsExisting(int id)
+        public async Task<bool> IsExistingAsync(int id)
         {
             return await this.db.Tags.AnyAsync(t => t.Id == id && !t.IsDeleted);
         }
 
-        public async Task<bool> IsExisting(string name)
+        public async Task<bool> IsExistingAsync(string name)
         {
             return await this.db.Tags.AnyAsync(t => t.Name == name && !t.IsDeleted);
         }
 
-        public async Task<bool> AreExisting(IEnumerable<int> ids)
+        public async Task<bool> AreExistingAsync(IEnumerable<int> ids)
         {
             foreach (var id in ids)
             {
@@ -71,7 +71,7 @@
             return true;
         }
 
-        public async Task<TModel> GetById<TModel>(int id)
+        public async Task<TModel> GetByIdAsync<TModel>(int id)
         {
             var tag = await this.db.Tags
                 .Where(t => t.Id == id && !t.IsDeleted)

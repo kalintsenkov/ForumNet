@@ -148,7 +148,7 @@
             await db.SaveChangesAsync();
 
             var categoriesService = new CategoriesService(db, null, dateTimeProvider.Object);
-            var isExisting = await categoriesService.IsExisting(1);
+            var isExisting = await categoriesService.IsExistingAsync(1);
 
             Assert.True(isExisting);
         }
@@ -165,7 +165,7 @@
             dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
 
             var categoriesService = new CategoriesService(db, null, dateTimeProvider.Object);
-            var isExisting = await categoriesService.IsExisting(1);
+            var isExisting = await categoriesService.IsExistingAsync(1);
 
             Assert.False(isExisting);
         }
@@ -192,7 +192,7 @@
             await db.SaveChangesAsync();
 
             var categoriesService = new CategoriesService(db, null, dateTimeProvider.Object);
-            var isExisting = await categoriesService.IsExisting(name);
+            var isExisting = await categoriesService.IsExistingAsync(name);
 
             Assert.True(isExisting);
         }
@@ -212,7 +212,7 @@
             dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
 
             var categoriesService = new CategoriesService(db, null, dateTimeProvider.Object);
-            var isExisting = await categoriesService.IsExisting(name);
+            var isExisting = await categoriesService.IsExistingAsync(name);
 
             Assert.False(isExisting);
         }

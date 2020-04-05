@@ -39,7 +39,7 @@
         [AllowAnonymous]
         public async Task<IActionResult> Trending(int page = 1, string search = null)
         {
-            var count = await this.postsService.GetCount();
+            var count = await this.postsService.GetCountAsync();
             var totalPages = (int)Math.Ceiling(count / (decimal)PostsPerPage);
 
             var posts = await this.postsService.GetAllAsync<PostsListingViewModel>(search, (page - 1) * PostsPerPage, PostsPerPage);
@@ -52,7 +52,7 @@
 
             foreach (var post in viewModel.Posts)
             {
-                post.Activity = await this.postsService.GetLatestActivityById(post.Id);
+                post.Activity = await this.postsService.GetLatestActivityByIdAsync(post.Id);
                 post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(post.Id);
             }
 
@@ -62,7 +62,7 @@
         public async Task<IActionResult> Following(int page = 1, string search = null)
         {
             var userId = this.User.GetId();
-            var count = await this.postsService.GetFollowingCount(userId);
+            var count = await this.postsService.GetFollowingCountAsync(userId);
             var totalPages = (int)Math.Ceiling(count / (decimal)PostsPerPage);
 
             var posts = await this.postsService
@@ -77,7 +77,7 @@
 
             foreach (var post in viewModel.Posts)
             {
-                post.Activity = await this.postsService.GetLatestActivityById(post.Id);
+                post.Activity = await this.postsService.GetLatestActivityByIdAsync(post.Id);
                 post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(post.Id);
             }
 
@@ -166,7 +166,7 @@
                 return this.View(viewModel);
             }
 
-            var postAuthorId = await this.postsService.GetAuthorIdById(input.Id);
+            var postAuthorId = await this.postsService.GetAuthorIdByIdAsync(input.Id);
             if (postAuthorId != this.User.GetId() && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();

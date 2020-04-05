@@ -106,17 +106,17 @@
             return isFollowed;
         }
 
-        public async Task<bool> IsUsernameUsed(string username)
+        public async Task<bool> IsUsernameUsedAsync(string username)
         {
             return await this.db.Users.AnyAsync(u => u.UserName == username && !u.IsDeleted);
         }
 
-        public async Task<bool> IsUserDeleted(string username)
+        public async Task<bool> IsUserDeletedAsync(string username)
         {
             return await this.db.Users.AnyAsync(u => u.UserName == username && u.IsDeleted);
         }
 
-        public async Task<bool> IsFollowedAlready(string id, string followerId)
+        public async Task<bool> IsFollowedAlreadyAsync(string id, string followerId)
         {
             return await this.db.UsersFollowers
                 .AnyAsync(uf => uf.UserId == id && uf.FollowerId == followerId && !uf.IsDeleted);

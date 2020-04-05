@@ -9,13 +9,13 @@
 
         Task DeleteAsync(int id);
 
-        Task<bool> IsExisting(int id);
+        Task<bool> IsExistingAsync(int id);
 
-        Task<bool> IsExisting(string name);
+        Task<bool> IsExistingAsync(string name);
 
-        Task<bool> AreExisting(IEnumerable<int> ids);
+        Task<bool> AreExistingAsync(IEnumerable<int> ids);
 
-        Task<TModel> GetById<TModel>(int id);
+        Task<TModel> GetByIdAsync<TModel>(int id);
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null);
 

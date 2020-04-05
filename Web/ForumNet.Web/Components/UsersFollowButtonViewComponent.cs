@@ -24,7 +24,7 @@
             var viewModel = new UsersDetailsViewModel
             {
                 Id = userId,
-                IsFollowed = await this.usersService.IsFollowedAlready(userId, followerId)
+                IsFollowed = await this.usersService.IsFollowedAlreadyAsync(userId, followerId)
             };
 
             return this.View(viewModel);

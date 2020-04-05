@@ -21,7 +21,7 @@
         [HttpPost]
         public async Task<IActionResult> Pin(int id)
         {
-            var isExisting = await postsService.IsExisting(id);
+            var isExisting = await postsService.IsExistingAsync(id);
             if (!isExisting)
             {
                 return this.NotFound();

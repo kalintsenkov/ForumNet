@@ -18,7 +18,7 @@
 
         public async Task<IActionResult> All()
         {
-            var postReports = await this.postReportsService.GetAll<PostReportsListingViewModel>();
+            var postReports = await this.postReportsService.GetAllAsync<PostReportsListingViewModel>();
 
             var viewModel = new PostReportAllViewModel
             {
@@ -30,7 +30,7 @@
 
         public async Task<IActionResult> Details(int id)
         {
-            var postReport = await this.postReportsService.GetById<PostReportsDetailsViewModel>(id);
+            var postReport = await this.postReportsService.GetByIdAsync<PostReportsDetailsViewModel>(id);
             if (postReport == null)
             {
                 return this.NotFound();
@@ -42,7 +42,7 @@
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            var isExisting = await this.postReportsService.IsExisting(id);
+            var isExisting = await this.postReportsService.IsExistingAsync(id);
             if (!isExisting)
             {
                 return this.NotFound();

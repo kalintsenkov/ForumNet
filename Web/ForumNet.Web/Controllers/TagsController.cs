@@ -37,7 +37,7 @@
         [Authorize]
         public async Task<IActionResult> Details(int id)
         {
-            var tag = await this.tagsService.GetById<TagsInfoViewModel>(id);
+            var tag = await this.tagsService.GetByIdAsync<TagsInfoViewModel>(id);
             if (tag == null)
             {
                 return this.NotFound();
@@ -46,7 +46,7 @@
             var posts = await this.postsService.GetAllByTagIdAsync<PostsListingViewModel>(id);
             foreach (var post in posts)
             {
-                post.Activity = await this.postsService.GetLatestActivityById(post.Id);
+                post.Activity = await this.postsService.GetLatestActivityByIdAsync(post.Id);
                 post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(post.Id);
             }
 

@@ -58,7 +58,7 @@
                 return this.View(input);
             }
 
-            var replyAuthorId = await this.repliesService.GetAuthorIdById(input.Id);
+            var replyAuthorId = await this.repliesService.GetAuthorIdByIdAsync(input.Id);
             if (replyAuthorId != this.User.GetId() && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();

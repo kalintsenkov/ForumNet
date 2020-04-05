@@ -49,12 +49,12 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<bool> IsExisting(int id)
+        public async Task<bool> IsExistingAsync(int id)
         {
             return await this.db.ReplyReports.AnyAsync(r => r.Id == id && !r.IsDeleted);
         }
 
-        public async Task<TModel> GetById<TModel>(int id)
+        public async Task<TModel> GetByIdAsync<TModel>(int id)
         {
             var replyReport = await this.db.ReplyReports
                 .Where(r => r.Id == id && !r.IsDeleted)
@@ -65,7 +65,7 @@
             return replyReport;
         }
 
-        public async Task<IEnumerable<TModel>> GetAll<TModel>()
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
         {
             var reports = await this.db.ReplyReports
                 .Where(r => !r.IsDeleted && !r.Reply.IsDeleted)

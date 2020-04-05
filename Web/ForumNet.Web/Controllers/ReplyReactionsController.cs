@@ -30,7 +30,7 @@
         [Route("like/{replyId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Like(int replyId)
         {
-            var isExisting = await this.repliesService.IsExisting(replyId);
+            var isExisting = await this.repliesService.IsExistingAsync(replyId);
             if (!isExisting)
             {
                 return this.NotFound();
@@ -46,7 +46,7 @@
         [Route("love/{replyId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Love(int replyId)
         {
-            var isExisting = await this.repliesService.IsExisting(replyId);
+            var isExisting = await this.repliesService.IsExistingAsync(replyId);
             if (!isExisting)
             {
                 return this.NotFound();
@@ -62,7 +62,7 @@
         [Route("haha/{replyId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Haha(int replyId)
         {
-            var isExisting = await this.repliesService.IsExisting(replyId);
+            var isExisting = await this.repliesService.IsExistingAsync(replyId);
             if (!isExisting)
             {
                 return this.NotFound();
@@ -78,7 +78,7 @@
         [Route("wow/{replyId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Wow(int replyId)
         {
-            var isExisting = await this.repliesService.IsExisting(replyId);
+            var isExisting = await this.repliesService.IsExistingAsync(replyId);
             if (!isExisting)
             {
                 return this.NotFound();
@@ -94,7 +94,7 @@
         [Route("sad/{replyId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Sad(int replyId)
         {
-            var isExisting = await this.repliesService.IsExisting(replyId);
+            var isExisting = await this.repliesService.IsExistingAsync(replyId);
             if (!isExisting)
             {
                 return this.NotFound();
@@ -110,7 +110,7 @@
         [Route("angry/{replyId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Angry(int replyId)
         {
-            var isExisting = await this.repliesService.IsExisting(replyId);
+            var isExisting = await this.repliesService.IsExistingAsync(replyId);
             if (!isExisting)
             {
                 return this.NotFound();

@@ -47,7 +47,7 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<int> GetTotalCount()
+        public async Task<int> GetTotalCountAsync()
         {
 
             return await this.db.PostReactions.Where(pr => !pr.Post.IsDeleted).CountAsync();

@@ -19,15 +19,15 @@
 
         Task AddTagsAsync(int id, IEnumerable<int> tagIds);
 
-        Task<bool> IsExisting(int id);
+        Task<bool> IsExistingAsync(int id);
 
-        Task<int> GetCount();
+        Task<int> GetCountAsync();
 
-        Task<int> GetFollowingCount(string userId);
+        Task<int> GetFollowingCountAsync(string userId);
 
-        Task<string> GetAuthorIdById(int id);
+        Task<string> GetAuthorIdByIdAsync(int id);
 
-        Task<string> GetLatestActivityById(int id);
+        Task<string> GetLatestActivityByIdAsync(int id);
 
         Task<TModel> GetByIdAsync<TModel>(int id);
 

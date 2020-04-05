@@ -41,7 +41,7 @@
 
             foreach (var thread in user.Threads)
             {
-                thread.Activity = await this.postsService.GetLatestActivityById(thread.Id);
+                thread.Activity = await this.postsService.GetLatestActivityByIdAsync(thread.Id);
                 thread.Tags = await this.tagsService.GetAllByPostIdAsync<UsersThreadsTagsViewModel>(thread.Id);
             }
 

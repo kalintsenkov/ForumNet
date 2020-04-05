@@ -15,11 +15,11 @@
 
         Task<bool> FollowAsync(string userId, string followerId);
 
-        Task<bool> IsUsernameUsed(string username);
+        Task<bool> IsUsernameUsedAsync(string username);
 
-        Task<bool> IsUserDeleted(string username);
+        Task<bool> IsUserDeletedAsync(string username);
 
-        Task<bool> IsFollowedAlready(string id, string followerId);
+        Task<bool> IsFollowedAlreadyAsync(string id, string followerId);
 
         Task<int> GetTotalCountAsync();
 

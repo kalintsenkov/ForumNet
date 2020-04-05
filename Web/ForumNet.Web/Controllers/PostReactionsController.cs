@@ -30,7 +30,7 @@
         [Route("like/{postId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Like(int postId)
         {
-            var isExisting = await this.postsService.IsExisting(postId);
+            var isExisting = await this.postsService.IsExistingAsync(postId);
             if (!isExisting)
             {
                 return this.NotFound();
@@ -46,7 +46,7 @@
         [Route("love/{postId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Love(int postId)
         {
-            var isExisting = await this.postsService.IsExisting(postId);
+            var isExisting = await this.postsService.IsExistingAsync(postId);
             if (!isExisting)
             {
                 return this.NotFound();
@@ -62,7 +62,7 @@
         [Route("haha/{postId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Haha(int postId)
         {
-            var isExisting = await this.postsService.IsExisting(postId);
+            var isExisting = await this.postsService.IsExistingAsync(postId);
             if (!isExisting)
             {
                 return this.NotFound();
@@ -78,7 +78,7 @@
         [Route("wow/{postId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Wow(int postId)
         {
-            var isExisting = await this.postsService.IsExisting(postId);
+            var isExisting = await this.postsService.IsExistingAsync(postId);
             if (!isExisting)
             {
                 return this.NotFound();
@@ -94,7 +94,7 @@
         [Route("sad/{postId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Sad(int postId)
         {
-            var isExisting = await this.postsService.IsExisting(postId);
+            var isExisting = await this.postsService.IsExistingAsync(postId);
             if (!isExisting)
             {
                 return this.NotFound();
@@ -110,7 +110,7 @@
         [Route("angry/{postId}")]
         public async Task<ActionResult<ReactionsCountViewModel>> Angry(int postId)
         {
-            var isExisting = await this.postsService.IsExisting(postId);
+            var isExisting = await this.postsService.IsExistingAsync(postId);
             if (!isExisting)
             {
                 return this.NotFound();

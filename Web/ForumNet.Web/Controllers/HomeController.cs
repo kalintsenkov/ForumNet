@@ -38,11 +38,11 @@
 
         public async Task<IActionResult> About()
         {
-            var postsReactionsCount = await this.postReactionsService.GetTotalCount();
-            var repliesReactionsCount = await this.replyReactionsService.GetTotalCount();
+            var postsReactionsCount = await this.postReactionsService.GetTotalCountAsync();
+            var repliesReactionsCount = await this.replyReactionsService.GetTotalCountAsync();
 
             var reactionsCount = postsReactionsCount + repliesReactionsCount;
-            var postsCount = await this.postsService.GetCount();
+            var postsCount = await this.postsService.GetCountAsync();
             var usersCount = await this.usersService.GetTotalCountAsync();
             var admins = await this.usersService.GetAdminsAsync<HomeAboutAdminViewModel>();
 

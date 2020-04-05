@@ -11,7 +11,7 @@
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var categoryService = validationContext.GetService<ICategoriesService>();
-            var isExisting = categoryService.IsExisting((string) value).GetAwaiter().GetResult();
+            var isExisting = categoryService.IsExistingAsync((string) value).GetAwaiter().GetResult();
             if (isExisting)
             {
                 return new ValidationResult(this.ErrorMessage);

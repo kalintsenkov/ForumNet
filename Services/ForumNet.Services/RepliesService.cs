@@ -60,12 +60,12 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<bool> IsExisting(int id)
+        public async Task<bool> IsExistingAsync(int id)
         {
             return await this.db.Replies.AnyAsync(r => r.Id == id && !r.IsDeleted);
         }
 
-        public async Task<string> GetAuthorIdById(int id)
+        public async Task<string> GetAuthorIdByIdAsync(int id)
         {
             var authorId = await this.db.Replies
                 .Where(r => r.Id == id && !r.IsDeleted)

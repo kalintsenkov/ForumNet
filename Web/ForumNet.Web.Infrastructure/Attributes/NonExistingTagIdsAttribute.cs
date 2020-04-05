@@ -18,7 +18,7 @@
             }
 
             var tagsService = validationContext.GetService<ITagsService>();
-            var areExisting = tagsService.AreExisting(collection).GetAwaiter().GetResult();
+            var areExisting = tagsService.AreExistingAsync(collection).GetAwaiter().GetResult();
             if (!areExisting)
             {
                 return new ValidationResult(this.ErrorMessage);

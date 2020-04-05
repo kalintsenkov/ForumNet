@@ -11,9 +11,9 @@
 
         Task DeleteAsync(int id);
 
-        Task<bool> IsExisting(int id);
+        Task<bool> IsExistingAsync(int id);
 
-        Task<bool> IsExisting(string name);
+        Task<bool> IsExistingAsync(string name);
 
         Task<TModel> GetByIdAsync<TModel>(int id);
 
