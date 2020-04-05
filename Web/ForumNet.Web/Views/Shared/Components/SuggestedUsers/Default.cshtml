@@ -1,0 +1,37 @@
+﻿@model IEnumerable<ForumNet.Web.ViewModels.Users.UsersFollowersAllViewModel>
+
+<div class="tt-topic-list tt-offset-top-30">
+    <div class="tt-list-search">
+        <div class="tt-title">Suggested Users</div>
+    </div>
+    <div class="tt-list-header tt-border-bottom">
+        <div class="tt-col-topic">User</div>
+        <div class="tt-col-value hide-mobile">Threads</div>
+        <div class="tt-col-value hide-mobile">Replies</div>
+        <div class="tt-col-value"></div>
+    </div>
+    @foreach (var user in Model)
+    {
+        <div class="tt-item">
+            <div class="tt-col-avatar">
+                <svg class="tt-icon">
+                    <use xlink:href="@user.ProfilePicture"></use>
+                </svg>
+            </div>
+            <div class="tt-col-description">
+                <h6 class="tt-title">
+                    <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@user.Id">
+                        @user.UserName
+                    </a>
+                </h6>
+                <div class="tt-content">
+                    <span>Following you</span>
+                </div>
+            </div>
+            <div class="tt-col-value tt-color-select hide-mobile">@user.ThreadsCount</div>
+            <div class="tt-col-value hide-mobile">@user.RepliesCount</div>
+            <div class="tt-col-value hide-mobile"><a id="follow-button" href="#" class="btn btn-secondary" onclick="follow('@user.Id')">Follow</a></div>
+        </div>
+    }
+</div>
+

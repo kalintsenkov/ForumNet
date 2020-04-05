@@ -1,4 +1,5 @@
-﻿@model ForumNet.Web.ViewModels.Posts.PostsAllViewModel
+﻿@using ForumNet.Web.Infrastructure.Extensions
+@model ForumNet.Web.ViewModels.Posts.PostsAllViewModel
 @{
     ViewData["Title"] = "Following";
 }
@@ -68,7 +69,7 @@
                 <h6 class="tt-title">You don't follow anyone.</h6>
                 <p>When you follow someone, their posts will appear here.</p>
             </div>
-            <vc:suggested-topics></vc:suggested-topics>
+            <vc:suggested-users user-id="@this.User.GetId()"></vc:suggested-users>
         }
 
         @if (Model.TotalPages > 0)
@@ -111,3 +112,21 @@
         }
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        function follow(id) {
+            $.ajax({
+                type: "POST",
+                url: "/Users/Follow/" + id,
+                success: function (json) {
+                    if (json == true) {
+                        $('#follow-button').html('Following');
+                    } else {
+                        $('#follow-button').html('Follow');
+                    }
+                }
+            });
+        }
+    </script>
+}
