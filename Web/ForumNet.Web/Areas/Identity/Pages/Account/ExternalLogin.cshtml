@@ -1,0 +1,66 @@
+﻿@page
+@using ForumNet.Data.Models.Enums
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@model ExternalLoginModel
+@{
+    ViewData["Title"] = $"Associate your {Model.LoginProvider} account.";
+}
+
+<div class="container">
+    <div class="tt-loginpages-wrapper">
+        <div class="tt-loginpages">
+            <a href="#" class="tt-block-title">
+                <img src="~/images/logo.png" alt="logo">
+                <div class="tt-title">
+                    @ViewData["Title"]
+                </div>
+                <div class="tt-description">
+                    You've successfully authenticated with <strong>@Model.LoginProvider</strong>.<br />
+                    Please enter an email address for this site below and click the Submit button to finish
+                    logging in.
+                </div>
+            </a>
+            <form class="form-default" asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" placeholder="Email..." />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Username"></label>
+                    <input asp-for="Input.Username" class="form-control" placeholder="Username..." />
+                    <span asp-validation-for="Input.Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.BirthDate"></label>
+                    <input asp-for="Input.BirthDate" class="form-control" />
+                    <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Gender"></label>
+                    <select class="form-control" asp-for="Input.Gender">
+                        <option disabled selected>Please select...</option>
+                        <option value="@GenderType.NotKnown">Not known</option>
+                        <option value="@GenderType.Male">Male</option>
+                        <option value="@GenderType.Female">Female</option>
+                    </select>
+                    <span asp-validation-for="Input.Gender" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:Key"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:Key"]', { action: '/Identity/Account/ExternalLogin' }).then(function (token) {
+                document.getElementById("RecaptchaValue").value = token;
+            });
+        });
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+}

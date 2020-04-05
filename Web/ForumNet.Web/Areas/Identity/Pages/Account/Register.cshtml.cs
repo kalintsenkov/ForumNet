@@ -94,7 +94,7 @@
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
-            this.ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (this.ModelState.IsValid)
             {
@@ -102,7 +102,7 @@
                 if (isUsernameUsed)
                 {
                     this.ModelState.AddModelError(nameof(Input.Username), "There is already user with that username.");
-                    return Page();
+                    return this.Page();
                 }
 
                 var usernameFirstLetter = char.ToLower(Input.Username[0]);
@@ -129,7 +129,7 @@
                         values: new { area = "Identity", userId = user.Id, code = code },
                         protocol: Request.Scheme);
 
-                    await emailSender.SendEmailAsync(
+                    await this.emailSender.SendEmailAsync(
                         GlobalConstants.SystemEmail,
                         GlobalConstants.SystemName,
                         Input.Email,
@@ -138,12 +138,12 @@
 
                     if (this.userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
+                        return this.RedirectToPage("RegisterConfirmation", new { email = Input.Email });
                     }
                     else
                     {
                         await this.signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return this.LocalRedirect(returnUrl);
                     }
                 }
                 foreach (var error in result.Errors)
@@ -153,7 +153,7 @@
             }
 
             // If we got this far, something failed, redisplay form
-            return Page();
+            return this.Page();
         }
     }
 }

@@ -49,6 +49,13 @@ namespace ForumNet.Web
                 options.EnableForHttps = true;
             });
 
+            services.AddAuthentication()
+                .AddFacebook(facebookOptions =>
+                {
+                    facebookOptions.AppId = this.configuration["Facebook:AppId"];
+                    facebookOptions.AppSecret = this.configuration["Facebook:AppSecret"];
+                });
+
             services.AddAutoMapper(typeof(ForumNetProfile).Assembly);
 
             services.AddSingleton(this.configuration);
