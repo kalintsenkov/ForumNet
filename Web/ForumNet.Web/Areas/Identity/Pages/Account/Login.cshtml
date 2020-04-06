@@ -67,13 +67,9 @@
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <a href="#" class="btn btn-color02 btn-block">
-                                <i>
-                                    <svg class="icon">
-                                        <use xlink:href="#twitter-brands"></use>
-                                    </svg>
-                                </i>
-                                Twitter
+                            <a id="google-button" href="#" class="btn btn-color02 btn-block">
+                                <i class="fab fa-google"></i>
+                                Google
                             </a>
                         </div>
                     </div>
@@ -88,10 +84,10 @@
                 <div>
                     @{
                         var fbProvider = Model.ExternalLogins.FirstOrDefault(l => l.DisplayName == "Facebook");
-                        //var twitterProvider = Model.ExternalLogins.FirstOrDefault(l => l.DisplayName == "Twitter");
+                        var googleProvider = Model.ExternalLogins.FirstOrDefault(l => l.DisplayName == "Google");
                     }
                     <button id="fb-form-button" type="submit" name="provider" value="@fbProvider.Name"></button>
-                    @*<button id="twitter-form-button" type="submit" name="provider" value="@twitterProvider.Name"></button>*@
+                    <button id="google-form-button" type="submit" name="provider" value="@googleProvider.Name"></button>
                 </div>
             </form>
         </div>
@@ -102,6 +98,9 @@
     <script>
         $("#facebook-button").on("click", function () {
             document.getElementById('fb-form-button').click();
+        });
+        $("#google-button").on("click", function () {
+            document.getElementById('google-form-button').click();
         });
     </script>
     <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:Key"]"></script>

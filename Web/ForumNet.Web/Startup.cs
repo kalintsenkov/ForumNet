@@ -54,6 +54,11 @@ namespace ForumNet.Web
                 {
                     facebookOptions.AppId = this.configuration["Facebook:AppId"];
                     facebookOptions.AppSecret = this.configuration["Facebook:AppSecret"];
+                })
+                .AddGoogle(googleOptions =>
+                {
+                    googleOptions.ClientId = this.configuration["Google:ClientId"];
+                    googleOptions.ClientSecret = this.configuration["Google:ClientSecret"];
                 });
 
             services.AddAutoMapper(typeof(ForumNetProfile).Assembly);
