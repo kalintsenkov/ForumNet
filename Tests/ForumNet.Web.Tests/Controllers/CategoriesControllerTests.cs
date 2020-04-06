@@ -46,45 +46,5 @@
                 .ShouldHave()
                 .ActionAttributes(attr => attr
                     .RestrictingForAuthorizedRequests());
-
-        [Fact]
-        public void DetailsShouldReturnCorrectViewModel()
-           => MyController<CategoriesController>
-               .Instance()
-               .WithUser()
-               .WithData(entities => entities
-                   .WithSet<Category>(set => set
-                       .Add(new Category
-                       {
-                           Id = 1,
-                           Name = "Test category",
-                           CreatedOn = DateTime.UtcNow
-                       }))
-                   .WithSet<Tag>(set => set
-                       .Add(new Tag
-                       {
-                           Id = 1,
-                           Name = "Test tag",
-                           CreatedOn = DateTime.UtcNow
-                       }))
-                   .WithSet<Post>(set => set
-                       .Add(new Post
-                       {
-                           Id = 1,
-                           Title = "Test title",
-                           Description = "Test description",
-                           AuthorId = TestUser.Identifier,
-                           CategoryId = 1,
-                           CreatedOn = DateTime.UtcNow
-                       }))
-                   .WithSet<PostTag>(set => set
-                       .Add(new PostTag
-                       {
-                           PostId = 1,
-                           TagId = 1
-                       })))
-               .Calling(c => c.Details(1, null))
-               .ShouldReturn()
-               .View();
     }
 }

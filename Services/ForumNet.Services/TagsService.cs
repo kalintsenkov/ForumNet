@@ -92,6 +92,7 @@
             }
 
             var tags = await queryable
+                 .OrderByDescending(t => t.Posts.Count)
                  .AsNoTracking()
                  .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                  .ToListAsync();

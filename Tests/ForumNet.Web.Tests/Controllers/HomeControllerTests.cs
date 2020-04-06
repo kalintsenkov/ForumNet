@@ -13,7 +13,7 @@
             => MyController<HomeController>
                 .Calling(c => c.Index())
                 .ShouldReturn()
-                .RedirectToAction("All", "Posts");
+                .RedirectToAction("Trending", "Posts");
 
         [Fact]
         public void PrivacyShouldReturnViewWithDefaultName()

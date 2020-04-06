@@ -80,14 +80,19 @@
                     Forum.NET’s <a asp-area="" asp-controller="Home" asp-action="Guidelines" class="tt-underline">Terms of Use</a> and <a asp-area="" asp-controller="Home" asp-action="Privacy" class="tt-underline">Privacy Policy.</a>
                 </div>
             </form>
+
             <form style="display: none" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
                 <div>
                     @{
-                        var fbProvider = Model.ExternalLogins.FirstOrDefault(l => l.DisplayName == "Facebook");
-                        var googleProvider = Model.ExternalLogins.FirstOrDefault(l => l.DisplayName == "Google");
+                        var fbProvider = Model.ExternalLogins?.FirstOrDefault(l => l.DisplayName == "Facebook");
+                        var googleProvider = Model.ExternalLogins?.FirstOrDefault(l => l.DisplayName == "Google");
                     }
-                    <button id="fb-form-button" type="submit" name="provider" value="@fbProvider.Name"></button>
-                    <button id="google-form-button" type="submit" name="provider" value="@googleProvider.Name"></button>
+                    @if (fbProvider != null && googleProvider != null)
+                    {
+                        <button id="fb-form-button" type="submit" name="provider" value="@fbProvider.Name"></button>
+                        <button id="google-form-button" type="submit" name="provider" value="@googleProvider.Name"></button>
+                    }
+
                 </div>
             </form>
         </div>

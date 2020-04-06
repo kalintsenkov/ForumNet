@@ -87,6 +87,7 @@
             }
 
             var categories = await queryable
+                .OrderByDescending(c => c.Posts.Count)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
