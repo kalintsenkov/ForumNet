@@ -218,7 +218,11 @@
                 type: "POST",
                 url: "/Administration/Posts/Pin/" + id,
                 success: function (json) {
-                    $('#isPinned').html(json.pinOrUnpin);
+                    if (json == true) {
+                        $('#isPinned').html('Unpin');
+                    } else {
+                        $('#isPinned').html('Pin');
+                    }
                 }
             });
         }
