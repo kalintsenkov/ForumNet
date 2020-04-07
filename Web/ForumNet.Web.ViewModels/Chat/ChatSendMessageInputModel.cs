@@ -4,7 +4,7 @@
 
     using Data.Common;
 
-    public class MessagesCreateInputModel
+    public class ChatSendMessageInputModel
     {
         [Required]
         [MaxLength(DataConstants.MessageContentMaxLength)]

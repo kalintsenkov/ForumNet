@@ -10,12 +10,12 @@
     using ViewModels.Messages;
 
     [Authorize]
-    public class MessagesController : Controller
+    public class ChatController : Controller
     {
         private readonly IUsersService usersService;
         private readonly IMessagesService messagesService;
 
-        public MessagesController(
+        public ChatController(
             IUsersService usersService,
             IMessagesService messagesService)
         {
@@ -26,28 +26,28 @@
         public async Task<IActionResult> All()
         {
             var userId = this.User.GetId();
-            var viewModel = new MessagesAllViewModel
+            var viewModel = new ChatAllViewModel
             {
-                Conversations = await this.messagesService.GetAllConversationsAsync<MessagesConversationsViewModel>(userId),
+                Conversations = await this.messagesService.GetAllConversationsAsync<ChatConversationsViewModel>(userId),
             };
 
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> SendMessage()
         {
             var userId = this.User.GetId();
-            var viewModel = new MessagesCreateViewModel
+            var viewModel = new ChatSendMessageViewModel
             {
-                Users = await this.usersService.GetAllAsync<MessagesCreateUserViewModel>(),
-                Conversations = await this.messagesService.GetAllConversationsAsync<MessagesConversationsViewModel>(userId),
+                Users = await this.usersService.GetAllAsync<ChatUserViewModel>(),
+                Conversations = await this.messagesService.GetAllConversationsAsync<ChatConversationsViewModel>(userId),
             };
 
             return this.View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(MessagesCreateInputModel input)
+        public async Task<IActionResult> SendMessage(ChatSendMessageInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
@@ -62,11 +62,11 @@
         public async Task<IActionResult> WithUser(string id)
         {
             var userId = this.User.GetId();
-            var viewModel = new MessagesWithUserViewModel
+            var viewModel = new ChatWithUserViewModel
             {
                 ReceiverId = id,
-                AllWithUser = await this.messagesService.GetAllWithUserAsync<MessagesAllWithUserViewModel>(userId, id),
-                Conversations = await this.messagesService.GetAllConversationsAsync<MessagesConversationsViewModel>(userId),
+                All = await this.messagesService.GetAllWithUserAsync<ChatMessagesWithUserViewModel>(userId, id),
+                Conversations = await this.messagesService.GetAllConversationsAsync<ChatConversationsViewModel>(userId),
             };
 
             return this.View(viewModel);

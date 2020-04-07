@@ -30,7 +30,7 @@
             var categoriesService = new CategoriesService(db, null, dateTimeProvider.Object);
             await categoriesService.CreateAsync("Test");
 
-            Assert.Equal(1, await db.Categories.CountAsync());
+            db.Categories.Should().HaveCount(1);
         }
 
         [Fact]
@@ -247,9 +247,9 @@
             var expected = await categoriesService.GetByIdAsync<Category>(1);
             var actual = await db.Categories.FirstOrDefaultAsync();
 
-            Assert.Equal(expected.Id, actual.Id);
-            Assert.Equal(expected.Name, actual.Name);
-            Assert.Equal(expected.CreatedOn, actual.CreatedOn);
+            expected.Id.Should().Be(actual.Id);
+            expected.Name.Should().BeSameAs(actual.Name);
+            expected.CreatedOn.Should().BeSameDateAs(actual.CreatedOn);
         }
 
         [Fact]
@@ -282,7 +282,7 @@
             var expected = await categoriesService.GetByIdAsync<Category>(1);
             var actual = await db.Categories.FirstOrDefaultAsync();
 
-            Assert.Equal(expected.IsDeleted, actual.IsDeleted);
+            expected.IsDeleted.Should().Be(actual.IsDeleted);
         }
 
         [Fact]
@@ -380,7 +380,10 @@
             var categoriesService = new CategoriesService(db, mapper, dateTimeProvider.Object);
             var actualCategories = await categoriesService.GetAllAsync<Category>();
 
-            expectedCategories.Should().BeEquivalentTo(actualCategories);
+            expectedCategories.Should()
+                .BeEquivalentTo(actualCategories)
+                .And
+                .AllBeOfType<Category>();
         }
 
         [Fact]

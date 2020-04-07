@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ForumNet.Web.ViewModels.Messages.MessagesConversationsViewModel>
+﻿@model IEnumerable<ForumNet.Web.ViewModels.Messages.ChatConversationsViewModel>
 
 <div class="tt-all-avatar">
     <div class="tt-list-avatar js-init-scroll">
@@ -6,7 +6,7 @@
         {
             foreach (var conversation in Model)
             {
-                <a onclick="location.href = '/Messages/WithUser/@conversation.Id';" href="#" class="tt-item">
+                <a onclick="location.href = '/Chat/WithUser/@conversation.Id';" href="#" class="tt-item">
                     <div class="tt-col-avatar">
                         <svg class="tt-icon">
                             <use xlink:href="@conversation.ProfilePicture"></use>
@@ -23,7 +23,7 @@
             <div class="tt-layout-404">
                 <p>
                     You don't have any messages<br />
-                    But you can <a asp-area="" asp-controller="Messages" asp-action="Create" class="tt-color-dark tt-underline-02">send</a> one now.
+                    But you can <a asp-area="" asp-controller="Chat" asp-action="SendMessage" class="tt-color-dark tt-underline-02">send</a> one now.
                 </p>
             </div>
         }

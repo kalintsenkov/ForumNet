@@ -29,7 +29,7 @@
             #endregion
 
             #region Messages
-            this.CreateMap<Message, MessagesAllWithUserViewModel>()
+            this.CreateMap<Message, ChatMessagesWithUserViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
                     dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM yyyy HH:mm", CultureInfo.InvariantCulture)));
@@ -217,11 +217,11 @@
             #endregion
 
             #region Users
-            this.CreateMap<ForumUser, MessagesConversationsViewModel>()
+            this.CreateMap<ForumUser, ChatConversationsViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
                     dest => dest.MapFrom(src => src.CreatedOn.ToString("MMM dd", CultureInfo.InvariantCulture)));
-            this.CreateMap<ForumUser, MessagesCreateUserViewModel>();
+            this.CreateMap<ForumUser, ChatUserViewModel>();
             this.CreateMap<ForumUser, UsersLoginStatusViewModel>();
             this.CreateMap<ForumUser, HomeAboutAdminViewModel>();
             this.CreateMap<ForumUser, RepliesAuthorDetailsViewModel>();

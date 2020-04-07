@@ -1,5 +1,5 @@
 ﻿@using ForumNet.Web.ViewModels.Messages
-@model MessagesWithUserViewModel
+@model ChatWithUserViewModel
 @{
     ViewData["Title"] = "Messages";
 }
@@ -8,7 +8,7 @@
     <div class="tt-messages-layout">
         <div class="row no-gutters">
             <div class="col-md-4 tt-aside" id="js-aside">
-                <a asp-area="" asp-controller="Messages" asp-action="Create" class="tt-title-aside">
+                <a asp-area="" asp-controller="Chat" asp-action="SendMessage" class="tt-title-aside">
                     <h2 class="tt-title">
                         @ViewData["Title"]
                     </h2>
@@ -32,7 +32,7 @@
                         </i>
                     </a>
                     <h2 class="tt-title">
-                        @Model.AllWithUser.Select(m => m.AuthorUserName).FirstOrDefault()
+                        @Model.All.Select(m => m.AuthorUserName).FirstOrDefault()
                     </h2>
                     <a href="#" class="tt-icon-link">
                         <i class="tt-icon">
@@ -44,7 +44,7 @@
                 </div>
                 <div class="tt-list-time-topic js-init-scroll">
 
-                    @foreach (var message in Model.AllWithUser)
+                    @foreach (var message in Model.All)
                     {
                         <div class="tt-item">
                             <div class="tt-col-avatar">
@@ -64,7 +64,7 @@
 
                 </div>
 
-                <partial name="_SendPartial" model="new MessagesCreateInputModel { ReceiverId = Model.ReceiverId }" />
+                <partial name="_SendPartial" model="new ChatSendMessageInputModel { ReceiverId = Model.ReceiverId }" />
             </div>
         </div>
     </div>

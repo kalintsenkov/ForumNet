@@ -1,8 +1,8 @@
-﻿@model ForumNet.Web.ViewModels.Messages.MessagesCreateInputModel
+﻿@model ForumNet.Web.ViewModels.Messages.ChatSendMessageInputModel
 
 <div class="tt-wrapper-inner">
     <div class="pt-editor form-default">
-        <form id="addMessageForm" asp-area="" asp-controller="Messages" asp-action="Create" method="post">
+        <form id="addMessageForm" asp-area="" asp-controller="Chat" asp-action="SendMessage" method="post">
             <div asp-validation-summary="All"></div>
             <input asp-for="ReceiverId" value="@Model.ReceiverId" name="ReceiverId" hidden />
             <div class="form-group">
