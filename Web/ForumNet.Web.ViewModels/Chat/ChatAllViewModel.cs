@@ -4,6 +4,6 @@
 
     public class ChatAllViewModel
     {
-        public IEnumerable<ChatConversationsViewModel> Conversations { get; set; }
+        public IEnumerable<ChatConversationsViewModel> Chats { get; set; }
     }
 }

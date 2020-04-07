@@ -5,6 +5,6 @@
 
     public interface IChatService
     {
-        Task<IEnumerable<TModel>> GetAllConversationsAsync<TModel>(string currentUserId);
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>(string currentUserId);
     }
 }

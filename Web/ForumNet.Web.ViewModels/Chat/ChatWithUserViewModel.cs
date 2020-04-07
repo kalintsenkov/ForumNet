@@ -6,8 +6,8 @@
     {
         public string ReceiverId { get; set; }
 
-        public IEnumerable<ChatConversationsViewModel> Conversations { get; set; }
+        public IEnumerable<ChatConversationsViewModel> Chats { get; set; }
 
-        public IEnumerable<ChatMessagesWithUserViewModel> All { get; set; }
+        public IEnumerable<ChatMessagesWithUserViewModel> Messages { get; set; }
     }
 }

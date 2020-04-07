@@ -72,6 +72,7 @@ namespace ForumNet.Web
             services.AddTransient<IEmailSender>(
                 serviceProvider => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services.AddTransient<IMessagesService, MessagesService>();
             services.AddTransient<IPostReactionsService, PostReactionsService>();

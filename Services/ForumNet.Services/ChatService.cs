@@ -22,7 +22,7 @@
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllConversationsAsync<TModel>(string currentUserId)
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string currentUserId)
         {
             var sentMessages = this.db.Messages
                 .Where(m => !m.IsDeleted

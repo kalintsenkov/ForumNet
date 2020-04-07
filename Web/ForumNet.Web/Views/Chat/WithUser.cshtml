@@ -19,7 +19,7 @@
                     </i>
                 </a>
 
-                <partial name="_ConversationsPartial" model="Model.Conversations" />
+                <partial name="_ConversationsPartial" model="Model.Chats" />
 
             </div>
             <div class="col-md-8">
@@ -32,7 +32,7 @@
                         </i>
                     </a>
                     <h2 class="tt-title">
-                        @Model.All.Select(m => m.AuthorUserName).FirstOrDefault()
+                        @Model.Messages.Select(m => m.AuthorUserName).FirstOrDefault()
                     </h2>
                     <a href="#" class="tt-icon-link">
                         <i class="tt-icon">
@@ -42,9 +42,9 @@
                         </i>
                     </a>
                 </div>
-                <div class="tt-list-time-topic js-init-scroll">
+                <div class="tt-list-time-topic" style="overflow-y: scroll; height:400px;">
 
-                    @foreach (var message in Model.All)
+                    @foreach (var message in Model.Messages)
                     {
                         <div class="tt-item">
                             <div class="tt-col-avatar">

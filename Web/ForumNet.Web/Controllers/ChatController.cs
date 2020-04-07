@@ -31,7 +31,7 @@
             var userId = this.User.GetId();
             var viewModel = new ChatAllViewModel
             {
-                Conversations = await this.chatService.GetAllConversationsAsync<ChatConversationsViewModel>(userId),
+                Chats = await this.chatService.GetAllAsync<ChatConversationsViewModel>(userId),
             };
 
             return this.View(viewModel);
@@ -43,7 +43,7 @@
             var viewModel = new ChatSendMessageViewModel
             {
                 Users = await this.usersService.GetAllAsync<ChatUserViewModel>(),
-                Conversations = await this.chatService.GetAllConversationsAsync<ChatConversationsViewModel>(userId),
+                Chats = await this.chatService.GetAllAsync<ChatConversationsViewModel>(userId),
             };
 
             return this.View(viewModel);
@@ -68,8 +68,8 @@
             var viewModel = new ChatWithUserViewModel
             {
                 ReceiverId = id,
-                All = await this.messagesService.GetAllWithUserAsync<ChatMessagesWithUserViewModel>(userId, id),
-                Conversations = await this.chatService.GetAllConversationsAsync<ChatConversationsViewModel>(userId),
+                Chats = await this.chatService.GetAllAsync<ChatConversationsViewModel>(userId),
+                Messages = await this.messagesService.GetAllWithUserAsync<ChatMessagesWithUserViewModel>(userId, id),
             };
 
             return this.View(viewModel);
