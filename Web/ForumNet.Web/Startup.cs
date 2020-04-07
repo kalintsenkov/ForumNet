@@ -42,10 +42,8 @@ namespace ForumNet.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddResponseCompression(options =>
-            {
-                options.EnableForHttps = true;
-            });
+            services.AddResponseCompression(options => 
+                options.EnableForHttps = true);
 
             services.AddControllersWithViews(options =>
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));

@@ -92,8 +92,8 @@
 
             var actual = await db.Categories.FirstOrDefaultAsync();
 
-            Assert.Equal(expected.Name, actual.Name);
-            Assert.Equal(expected.ModifiedOn, actual.ModifiedOn);
+            expected.Name.Should().BeSameAs(actual.Name);
+            expected.ModifiedOn.Should().Be(actual.ModifiedOn);
         }
 
         [Fact]
@@ -125,8 +125,8 @@
 
             var actual = await db.Categories.FirstOrDefaultAsync();
 
-            Assert.Equal(expected.IsDeleted, actual.IsDeleted);
-            Assert.Equal(expected.DeletedOn, actual.DeletedOn);
+            expected.IsDeleted.Should().Be(actual.IsDeleted);
+            expected.DeletedOn.Should().Be(actual.DeletedOn);
         }
 
         [Fact]
@@ -150,7 +150,7 @@
             var categoriesService = new CategoriesService(db, null, dateTimeProvider.Object);
             var isExisting = await categoriesService.IsExistingAsync(1);
 
-            Assert.True(isExisting);
+            isExisting.Should().BeTrue();
         }
 
         [Fact]
@@ -167,7 +167,7 @@
             var categoriesService = new CategoriesService(db, null, dateTimeProvider.Object);
             var isExisting = await categoriesService.IsExistingAsync(1);
 
-            Assert.False(isExisting);
+            isExisting.Should().BeFalse();
         }
 
         [Theory]
@@ -194,7 +194,7 @@
             var categoriesService = new CategoriesService(db, null, dateTimeProvider.Object);
             var isExisting = await categoriesService.IsExistingAsync(name);
 
-            Assert.True(isExisting);
+            isExisting.Should().BeTrue();
         }
 
         [Theory]
@@ -214,7 +214,7 @@
             var categoriesService = new CategoriesService(db, null, dateTimeProvider.Object);
             var isExisting = await categoriesService.IsExistingAsync(name);
 
-            Assert.False(isExisting);
+            isExisting.Should().BeFalse();
         }
 
         [Fact]
@@ -316,7 +316,7 @@
             var categoriesService = new CategoriesService(db, mapper, dateTimeProvider.Object);
             var category = await categoriesService.GetByIdAsync<Category>(1);
 
-            Assert.Null(category);
+            category.Should().BeNull();
         }
 
         [Fact]
@@ -341,7 +341,7 @@
             var categoriesService = new CategoriesService(db, mapper, dateTimeProvider.Object);
             var category = await categoriesService.GetByIdAsync<Category>(1);
 
-            Assert.Null(category);
+            category.Should().BeNull();
         }
 
         [Fact]
@@ -405,7 +405,7 @@
             var categoriesService = new CategoriesService(db, mapper, dateTimeProvider.Object);
             var categories = await categoriesService.GetAllAsync<Category>();
 
-            Assert.Empty(categories);
+            categories.Should().BeEmpty();
         }
     }
 }
