@@ -42,7 +42,7 @@
                         </i>
                     </a>
                 </div>
-                <div class="tt-list-time-topic" style="overflow-y: scroll; height:400px;">
+                <div id="messagesList" class="tt-list-time-topic" style="overflow-y: auto; height:400px; display:block; word-break:break-all">
 
                     @foreach (var message in Model.Messages)
                     {
@@ -71,5 +71,8 @@
 </div>
 
 @section Scripts {
+    <script>
+        $('#messagesList').scrollTop($('#messagesList')[0].scrollHeight);
+    </script>
     <partial name="_ValidationScriptsPartial" />
 }

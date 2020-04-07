@@ -42,7 +42,7 @@ namespace ForumNet.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddResponseCompression(options => 
+            services.AddResponseCompression(options =>
                 options.EnableForHttps = true);
 
             services.AddControllersWithViews(options =>
@@ -51,6 +51,7 @@ namespace ForumNet.Web
             services.AddAntiforgery(options =>
                 options.HeaderName = "X-CSRF-TOKEN");
 
+            services.AddSignalR();
             services.AddRazorPages();
 
             services.AddAuthentication()
