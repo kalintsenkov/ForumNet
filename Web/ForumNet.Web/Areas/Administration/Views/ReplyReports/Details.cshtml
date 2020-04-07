@@ -39,8 +39,6 @@
                     <p>@Html.Raw(Model.SanitizedDescription)</p>
                 </div>
                 <div class="tt-item-info info-bottom">
-                    <a asp-area="" asp-controller="Replies" asp-action="Delete" asp-route-id="@Model.ReplyId" class="btn btn-secondary">Approve</a>
-                    &nbsp;
                     <form asp-area="Administration" asp-controller="ReplyReports" asp-action="Delete" asp-route-id="@Model.Id" method="post">
                         <button type="submit" class="btn btn-primary">Disapprove</button>
                     </form>
