@@ -25,42 +25,18 @@
             this.dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task CreateAsync(string content, string from, string to)
+        public async Task CreateAsync(string content, string authorId, string receiverId)
         {
             var message = new Message
             {
                 Content = content,
-                AuthorId = from,
-                ReceiverId = to,
+                AuthorId = authorId,
+                ReceiverId = receiverId,
                 CreatedOn = this.dateTimeProvider.Now()
             };
 
             await this.db.Messages.AddAsync(message);
             await this.db.SaveChangesAsync();
-        }
-
-        public async Task<IEnumerable<TModel>> GetAllConversationsAsync<TModel>(string currentUserId)
-        {
-            var sentMessages = this.db.Messages
-                .Where(m => !m.IsDeleted 
-                    && (m.AuthorId == currentUserId || m.ReceiverId == currentUserId))
-                .Select(m => m.Author)
-                .OrderByDescending(m => m.CreatedOn);
-
-            var receivedMessages = this.db.Messages
-                .Where(m => !m.IsDeleted 
-                    && (m.AuthorId == currentUserId || m.ReceiverId == currentUserId))
-                .Select(m => m.Receiver)
-                .OrderByDescending(m => m.CreatedOn);
-
-            var concatenatedMessages = await sentMessages
-                .Concat(receivedMessages)
-                .Where(u => u.Id != currentUserId)
-                .Distinct()
-                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
-                .ToListAsync();
-
-            return concatenatedMessages;
         }
 
         public async Task<IEnumerable<TModel>> GetAllWithUserAsync<TModel>(string currentUserId, string userId)

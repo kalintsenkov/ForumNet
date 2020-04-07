@@ -12,13 +12,16 @@
     [Authorize]
     public class ChatController : Controller
     {
+        private readonly IChatService chatService;
         private readonly IUsersService usersService;
         private readonly IMessagesService messagesService;
 
         public ChatController(
+            IChatService chatService,
             IUsersService usersService,
             IMessagesService messagesService)
         {
+            this.chatService = chatService;
             this.usersService = usersService;
             this.messagesService = messagesService;
         }
@@ -28,7 +31,7 @@
             var userId = this.User.GetId();
             var viewModel = new ChatAllViewModel
             {
-                Conversations = await this.messagesService.GetAllConversationsAsync<ChatConversationsViewModel>(userId),
+                Conversations = await this.chatService.GetAllConversationsAsync<ChatConversationsViewModel>(userId),
             };
 
             return this.View(viewModel);
@@ -40,7 +43,7 @@
             var viewModel = new ChatSendMessageViewModel
             {
                 Users = await this.usersService.GetAllAsync<ChatUserViewModel>(),
-                Conversations = await this.messagesService.GetAllConversationsAsync<ChatConversationsViewModel>(userId),
+                Conversations = await this.chatService.GetAllConversationsAsync<ChatConversationsViewModel>(userId),
             };
 
             return this.View(viewModel);
@@ -66,7 +69,7 @@
             {
                 ReceiverId = id,
                 All = await this.messagesService.GetAllWithUserAsync<ChatMessagesWithUserViewModel>(userId, id),
-                Conversations = await this.messagesService.GetAllConversationsAsync<ChatConversationsViewModel>(userId),
+                Conversations = await this.chatService.GetAllConversationsAsync<ChatConversationsViewModel>(userId),
             };
 
             return this.View(viewModel);

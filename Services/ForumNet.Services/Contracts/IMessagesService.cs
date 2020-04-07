@@ -5,9 +5,7 @@
 
     public interface IMessagesService
     {
-        Task CreateAsync(string content, string from, string to);
-
-        Task<IEnumerable<TModel>> GetAllConversationsAsync<TModel>(string currentUserId);
+        Task CreateAsync(string content, string authorId, string receiverId);
 
         Task<IEnumerable<TModel>> GetAllWithUserAsync<TModel>(string currentUserId, string userId);
     }
