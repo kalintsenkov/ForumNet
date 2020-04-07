@@ -4,6 +4,7 @@ namespace ForumNet.Web
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -41,13 +42,18 @@ namespace ForumNet.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddControllersWithViews();
-            services.AddRazorPages();
-
             services.AddResponseCompression(options =>
             {
                 options.EnableForHttps = true;
             });
+
+            services.AddControllersWithViews(options =>
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+
+            services.AddAntiforgery(options =>
+                options.HeaderName = "X-CSRF-TOKEN");
+
+            services.AddRazorPages();
 
             services.AddAuthentication()
                 .AddFacebook(facebookOptions =>

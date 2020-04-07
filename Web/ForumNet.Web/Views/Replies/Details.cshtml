@@ -84,6 +84,7 @@
                     <p>@Html.Raw(Model.SanitizedDescription)</p>
                     @{ await GetReplies(Model.Id); }
                 </div>
+                <form id="reactions-form" method="post"></form>
                 <div class="tt-item-info info-bottom">
                     <partial name="_DetailsReactionsPartial" model="Model" />
 
@@ -125,6 +126,8 @@
 
 @section Scripts {
     <script>
+        var token = $("#reactions-form input[name=__RequestVerificationToken]").val();
+
         function animateButton() {
             $('html, body').animate({
                 scrollTop: $("#reply-box").offset().top
@@ -135,6 +138,7 @@
             $.ajax({
                 type: "POST",
                 url: "/api/reply-reactions/like/" + id,
+                headers: { 'X-CSRF-TOKEN': token },
                 success: function (json) {
                     $("#reply-likes-" + id).html(json.likes);
                     $("#reply-loves-" + id).html(json.loves);
@@ -150,6 +154,7 @@
             $.ajax({
                 type: "POST",
                 url: "/api/reply-reactions/love/" + id,
+                headers: { 'X-CSRF-TOKEN': token },
                 success: function (json) {
                     $("#reply-likes-" + id).html(json.likes);
                     $("#reply-loves-" + id).html(json.loves);
@@ -165,6 +170,7 @@
             $.ajax({
                 type: "POST",
                 url: "/api/reply-reactions/haha/" + id,
+                headers: { 'X-CSRF-TOKEN': token },
                 success: function (json) {
                     $("#reply-likes-" + id).html(json.likes);
                     $("#reply-loves-" + id).html(json.loves);
@@ -180,6 +186,7 @@
             $.ajax({
                 type: "POST",
                 url: "/api/reply-reactions/wow/" + id,
+                headers: { 'X-CSRF-TOKEN': token },
                 success: function (json) {
                     $("#reply-likes-" + id).html(json.likes);
                     $("#reply-loves-" + id).html(json.loves);
@@ -195,6 +202,7 @@
             $.ajax({
                 type: "POST",
                 url: "/api/reply-reactions/sad/" + id,
+                headers: { 'X-CSRF-TOKEN': token },
                 success: function (json) {
                     $("#reply-likes-" + id).html(json.likes);
                     $("#reply-loves-" + id).html(json.loves);
@@ -210,6 +218,7 @@
             $.ajax({
                 type: "POST",
                 url: "/api/reply-reactions/angry/" + id,
+                headers: { 'X-CSRF-TOKEN': token },
                 success: function (json) {
                     $("#reply-likes-" + id).html(json.likes);
                     $("#reply-loves-" + id).html(json.loves);
