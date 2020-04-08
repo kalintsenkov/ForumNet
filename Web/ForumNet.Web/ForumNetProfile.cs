@@ -35,7 +35,7 @@
             this.CreateMap<Message, ChatMessagesWithUserViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
-                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM yyyy HH:mm", CultureInfo.InvariantCulture)));
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd/MM/yy HH:mm", CultureInfo.InvariantCulture)));
             #endregion
 
             #region Posts
@@ -55,7 +55,7 @@
             this.CreateMap<Post, PostsDeleteDetailsViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
-                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)))
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd/MM/yy HH:mm", CultureInfo.InvariantCulture)))
                 .ForMember(
                     dest => dest.RepliesCount,
                     dest => dest.MapFrom(src => src.Replies.Count(r => !r.IsDeleted)))
@@ -91,7 +91,7 @@
             this.CreateMap<Post, PostsDetailsViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
-                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)))
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd/MM/yy HH:mm", CultureInfo.InvariantCulture)))
                 .ForMember(
                     dest => dest.RepliesCount,
                     dest => dest.MapFrom(src => src.Replies.Count(r => !r.IsDeleted)))
@@ -119,11 +119,11 @@
             this.CreateMap<PostReport, PostReportsListingViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
-                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)));
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd/MM/yy", CultureInfo.InvariantCulture)));
             this.CreateMap<PostReport, PostReportsDetailsViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
-                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)));
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd/MM/yy HH:mm", CultureInfo.InvariantCulture)));
             #endregion
 
             #region Tags
@@ -148,11 +148,11 @@
             this.CreateMap<Reply, UsersRepliesAllViewModel>()
                 .ForMember(
                     dest => dest.Activity,
-                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)));
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd/MM/yy", CultureInfo.InvariantCulture)));
             this.CreateMap<Reply, RepliesDeleteDetailsViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
-                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)))
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd/MM/yy HH:mm", CultureInfo.InvariantCulture)))
                 .ForMember(
                     dest => dest.Likes,
                     dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Like)))
@@ -174,7 +174,7 @@
             this.CreateMap<Reply, RepliesDetailsViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
-                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)))
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd/MM/yy HH:mm", CultureInfo.InvariantCulture)))
                 .ForMember(
                     dest => dest.Likes,
                     dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Like)))
@@ -196,7 +196,7 @@
             this.CreateMap<Reply, PostsRepliesDetailsViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
-                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)))
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd/MM/yy HH:mm", CultureInfo.InvariantCulture)))
                 .ForMember(
                     dest => dest.Likes,
                     dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Like)))
@@ -221,11 +221,11 @@
             this.CreateMap<ReplyReport, ReplyReportsListingViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
-                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)));
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd/MM/yy", CultureInfo.InvariantCulture)));
             this.CreateMap<ReplyReport, ReplyReportsDetailsViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
-                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)));
+                    dest => dest.MapFrom(src => src.CreatedOn.ToString("dd/MM/yy HH:mm", CultureInfo.InvariantCulture)));
             #endregion
 
             #region Users
