@@ -21,12 +21,12 @@
         public string Description { get; set; }
 
         [Required]
-        [NonExistingCategoryId]
+        [EnsureCategoryIdExists]
         public int CategoryId { get; set; }
 
         public string AuthorId { get; set; }
 
-        [NonExistingTagIds]
+        [EnsureTagIdsExists]
         [Display(Name = ModelConstants.TagsDisplayName)]
         public IEnumerable<int> TagIds { get; set; }
 

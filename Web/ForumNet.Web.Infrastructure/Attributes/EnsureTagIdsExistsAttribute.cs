@@ -8,7 +8,7 @@
     using Infrastructure;
     using Services.Contracts;
 
-    public class NonExistingTagIdsAttribute : ValidationAttribute
+    public class EnsureTagIdsExistsAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

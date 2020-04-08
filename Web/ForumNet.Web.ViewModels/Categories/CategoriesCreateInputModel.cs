@@ -10,7 +10,7 @@
     {
         [Required]
         [MaxLength(DataConstants.CategoryNameMaxLength)]
-        [ExistingCategoryName(ErrorMessage = ErrorMessages.ExistingCategoryNameErrorMessage)]
+        [EnsureCategoryNameNotExists(ErrorMessage = ErrorMessages.ExistingCategoryNameErrorMessage)]
         public string Name { get; set; }
     }
 }

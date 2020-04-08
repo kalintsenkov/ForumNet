@@ -6,13 +6,13 @@
 
     using Services.Contracts;
 
-    public class NonExistingCategoryIdAttribute : ValidationAttribute
+    public class EnsureTagNameNotExistsAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var categoriesService = validationContext.GetService<ICategoriesService>();
-            var isExisting = categoriesService.IsExistingAsync((int) value).GetAwaiter().GetResult();
-            if (!isExisting)
+            var tagsService = validationContext.GetService<ITagsService>();
+            var isExisting = tagsService.IsExistingAsync((string) value).GetAwaiter().GetResult();
+            if (isExisting)
             {
                 return new ValidationResult(this.ErrorMessage);
             }

@@ -10,7 +10,7 @@
     {
         [Required]
         [MaxLength(DataConstants.TagNameMaxLength)]
-        [ExistingTagName(ErrorMessage = ErrorMessages.ExistingTagNameErrorMessage)]
+        [EnsureTagNameNotExists(ErrorMessage = ErrorMessages.ExistingTagNameErrorMessage)]
         public string Name { get; set; }
     }
 }
