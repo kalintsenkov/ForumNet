@@ -93,7 +93,13 @@
             element.scrollTop = element.scrollHeight;
         }
 
-        setInterval(updateScroll, 1000);
+        setInterval(updateScroll, 500);
+
+        $('#messageInput').on('keypress', function (e) {
+            if (e.which == 13) {
+                $('#sendButton').click();
+            }
+        });
 
         var connection = new signalR.HubConnectionBuilder()
             	.withUrl("/chat")
