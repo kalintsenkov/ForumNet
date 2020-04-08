@@ -8,10 +8,10 @@
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
 
+    using Common;
     using Contracts;
     using Data;
-    using ForumNet.Data.Models;
-    using ForumNet.Common;
+    using Data.Models;
 
     public class UsersService : IUsersService
     {
@@ -129,12 +129,14 @@
 
         public async Task<int> GetFollowersCountAsync(string id)
         {
-            return await this.db.UsersFollowers.CountAsync(u => !u.IsDeleted && u.UserId == id);
+            return await this.db.UsersFollowers
+                .CountAsync(uf => !uf.IsDeleted && !uf.User.IsDeleted && !uf.Follower.IsDeleted && uf.UserId == id);
         }
 
         public async Task<int> GetFollowingCountAsync(string id)
         {
-            return await this.db.UsersFollowers.CountAsync(u => !u.IsDeleted && u.FollowerId == id);
+            return await this.db.UsersFollowers
+                .CountAsync(uf => !uf.IsDeleted && !uf.User.IsDeleted && !uf.Follower.IsDeleted && uf.FollowerId == id);
         }
 
         public async Task<TModel> GetByIdAsync<TModel>(string id)

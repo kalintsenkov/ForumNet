@@ -22,11 +22,9 @@
                 new Category { Name = "Sports", CreatedOn = DateTime.UtcNow },
                 new Category { Name = "Programming", CreatedOn = DateTime.UtcNow },
                 new Category { Name = "News", CreatedOn = DateTime.UtcNow },
-                new Category { Name = "Art", CreatedOn = DateTime.UtcNow },
                 new Category { Name = "Gaming", CreatedOn = DateTime.UtcNow },
                 new Category { Name = "Travel", CreatedOn = DateTime.UtcNow },
                 new Category { Name = "Tv", CreatedOn = DateTime.UtcNow },
-                new Category { Name = "Fashion", CreatedOn = DateTime.UtcNow },
                 new Category { Name = "Health & Fitness", CreatedOn = DateTime.UtcNow },
                 new Category { Name = "Music", CreatedOn = DateTime.UtcNow },
                 new Category { Name = "Cars", CreatedOn = DateTime.UtcNow }

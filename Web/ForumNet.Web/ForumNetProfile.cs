@@ -22,7 +22,10 @@
         public ForumNetProfile()
         {
             #region Categories
-            this.CreateMap<Category, CategoriesInfoViewModel>();
+            this.CreateMap<Category, CategoriesInfoViewModel>()
+                .ForMember(
+                    dest => dest.PostsCount,
+                    dest => dest.MapFrom(src => src.Posts.Count(p => !p.IsDeleted)));
             this.CreateMap<Category, CategoriesEditInputModel>();
             this.CreateMap<Category, PostsCategoryDetailsViewModel>();
             this.CreateMap<Category, UsersThreadsCategoryViewModel>();
@@ -118,7 +121,10 @@
             #endregion
 
             #region Tags
-            this.CreateMap<Tag, TagsInfoViewModel>();
+            this.CreateMap<Tag, TagsInfoViewModel>()
+                .ForMember(
+                    dest => dest.PostsCount,
+                    dest => dest.MapFrom(src => src.Posts.Count(p => !p.Post.IsDeleted)));
             this.CreateMap<Tag, PostsTagsDetailsViewModel>();
             this.CreateMap<Tag, UsersThreadsTagsViewModel>();
             this.CreateMap<PostTag, TagsInfoViewModel>();
@@ -217,10 +223,7 @@
             #endregion
 
             #region Users
-            this.CreateMap<ForumUser, ChatConversationsViewModel>()
-                .ForMember(
-                    dest => dest.CreatedOn,
-                    dest => dest.MapFrom(src => src.CreatedOn.ToString("MMM dd", CultureInfo.InvariantCulture)));
+            this.CreateMap<ForumUser, ChatConversationsViewModel>();
             this.CreateMap<ForumUser, ChatUserViewModel>();
             this.CreateMap<ForumUser, UsersLoginStatusViewModel>();
             this.CreateMap<ForumUser, HomeAboutAdminViewModel>();
