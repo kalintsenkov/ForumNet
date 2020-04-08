@@ -21,6 +21,8 @@
         public string SanitizedDescription
             => this.htmlSanitizer.Sanitize(this.Description);
 
+        public bool IsBestAnswer { get; set; }
+
         public int Likes { get; set; }
 
         public int Loves { get; set; }

@@ -55,15 +55,15 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<int> LevelUpAsync(string id)
+        public async Task<int> GivePointsAsync(string id, int points = 1)
         {
             var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
 
-            user.Level++;
+            user.Points += points;
 
             await this.db.SaveChangesAsync();
 
-            return user.Level;
+            return user.Points;
         }
 
         public async Task<bool> FollowAsync(string userId, string followerId)

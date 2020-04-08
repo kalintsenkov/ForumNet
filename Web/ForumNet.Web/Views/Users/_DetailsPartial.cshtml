@@ -16,7 +16,7 @@
                     <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Id">@Model.UserName</a>
                 </div>
                 <ul class="tt-list-badge">
-                    <li><a href="#"><span class="tt-color14 tt-badge">LVL : @Model.Level</span></a></li>
+                    <li><a href="#"><span class="tt-color14 tt-badge">Points: @Model.Points</span></a></li>
                 </ul>
             </div>
             @if (Model.Id != this.User.GetId())

@@ -60,6 +60,21 @@
             await this.db.SaveChangesAsync();
         }
 
+        public async Task MakeBestAnswerAsync(int id)
+        {
+            var bestAnswerReply = await this.db.Replies.FirstOrDefaultAsync(r => r.IsBestAnswer && !r.IsDeleted);
+            if (bestAnswerReply != null)
+            {
+                bestAnswerReply.IsBestAnswer = false;
+            }
+
+            var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
+
+            reply.IsBestAnswer = true;
+
+            await this.db.SaveChangesAsync();
+        }
+
         public async Task<bool> IsExistingAsync(int id)
         {
             return await this.db.Replies.AnyAsync(r => r.Id == id && !r.IsDeleted);

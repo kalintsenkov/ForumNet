@@ -10,7 +10,7 @@
 
         public string ProfilePicture { get; set; }
 
-        public int Level { get; set; }
+        public int Points { get; set; }
 
         public bool IsFollowed { get; set; }
 

@@ -16,7 +16,7 @@
                         <div class="tt-col-name">User</div>
                         <div class="tt-col-value-large hide-mobile">Threads</div>
                         <div class="tt-col-value-large hide-mobile">Replies</div>
-                        <div class="tt-col-value">Level</div>
+                        <div class="tt-col-value">Points</div>
                     </div>
                     @foreach (var follower in Model.Followers)
                     {
@@ -37,7 +37,7 @@
                             </div>
                             <div class="tt-col-value-large hide-mobile">@follower.ThreadsCount</div>
                             <div class="tt-col-value-large hide-mobile">@follower.RepliesCount</div>
-                            <div class="tt-col-value"><span class="tt-color16 tt-badge">LVL : @follower.Level</span></div>
+                            <div class="tt-col-value"><span class="tt-color16 tt-badge">Points: @follower.Points</span></div>
                         </div>
                     }
                 </div>

@@ -20,7 +20,7 @@ namespace ForumNet.Data.Models
 
         public DateTime? BirthDate { get; set; }
 
-        public int Level { get; set; }
+        public int Points { get; set; }
 
         public string Biography { get; set; }
 

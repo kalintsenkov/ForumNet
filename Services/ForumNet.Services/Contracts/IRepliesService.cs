@@ -11,6 +11,8 @@
 
         Task DeleteAsync(int id);
 
+        Task MakeBestAnswerAsync(int id);
+
         Task<bool> IsExistingAsync(int id);
 
         Task<string> GetAuthorIdByIdAsync(int id);

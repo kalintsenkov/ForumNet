@@ -82,6 +82,24 @@
             return this.View(reply);
         }
 
+        public async Task<IActionResult> BestAnswer(int id)
+        {
+            var reply = await this.repliesService.GetByIdAsync<RepliesDetailsViewModel>(id);
+            if (reply == null)
+            {
+                return this.NotFound();
+            }
+            
+            if (reply.Author.Id != this.User.GetId() && !this.User.IsAdministrator())
+            {
+                return this.Unauthorized();
+            }
+
+            await this.repliesService.MakeBestAnswerAsync(id);
+
+            return this.RedirectToAction("Details", "Posts", new { id = reply.PostId });
+        }
+
         public async Task<IActionResult> Delete(int id)
         {
             var reply = await this.repliesService.GetByIdAsync<RepliesDeleteDetailsViewModel>(id);
