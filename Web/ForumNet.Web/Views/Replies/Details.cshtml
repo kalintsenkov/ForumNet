@@ -33,6 +33,7 @@
                         <div class="tt-item-info info-bottom">
                             <partial name="_DetailsReactionsPartial" model="reply" />
                             <div class="col-separator"></div>
+
                             @if (reply.Author.Id == this.User.GetId() || this.User.IsAdministrator())
                             {
                                 <a asp-area="" asp-controller="Replies" asp-action="Edit" asp-route-id="@reply.Id" class="tt-icon-btn" style="color: #666f74">
@@ -42,9 +43,7 @@
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             }
-                            <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
-                            </a>
+                            
                             <a asp-area="" asp-controller="ReplyReports" asp-action="Create" asp-route-id="@reply.Id" class="tt-icon-btn tt-hover-02 tt-small-indent">
                                 <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
                             </a>
@@ -100,9 +99,6 @@
                         </a>
                     }
 
-                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
-                    </a>
                     <a asp-area="" asp-controller="ReplyReports" asp-action="Create" asp-route-id="@Model.Id" class="tt-icon-btn tt-hover-02 tt-small-indent">
                         <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
                     </a>
