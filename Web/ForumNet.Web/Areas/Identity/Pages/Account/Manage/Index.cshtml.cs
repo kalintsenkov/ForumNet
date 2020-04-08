@@ -8,10 +8,10 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
+    using Common;
     using Data.Common;
     using Data.Models;
     using Data.Models.Enums;
-    using Infrastructure;
 
     public partial class IndexModel : PageModel
     {

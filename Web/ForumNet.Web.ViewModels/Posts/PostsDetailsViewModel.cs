@@ -4,8 +4,8 @@
 
     using Ganss.XSS;
 
+    using Common;
     using Data.Models.Enums;
-    using Infrastructure;
 
     public class PostsDetailsViewModel
     {

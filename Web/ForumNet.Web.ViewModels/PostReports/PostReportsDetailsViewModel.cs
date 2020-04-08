@@ -2,7 +2,7 @@
 {
     using Ganss.XSS;
 
-    using Infrastructure;
+    using Common;
 
     public class PostReportsDetailsViewModel
     {

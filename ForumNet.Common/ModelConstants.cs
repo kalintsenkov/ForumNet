@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Web.Infrastructure
+﻿namespace ForumNet.Common
 {
     public class ModelConstants
     {

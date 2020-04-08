@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using Common;
     using Data.Common;
     using Data.Models.Enums;
-    using Infrastructure;
     using Infrastructure.Attributes;
 
     public class PostsCreateInputModel

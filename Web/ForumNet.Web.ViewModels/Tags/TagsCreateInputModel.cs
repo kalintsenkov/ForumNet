@@ -2,8 +2,8 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using Common;
     using Data.Common;
-    using Infrastructure;
     using Infrastructure.Attributes;
 
     public class TagsCreateInputModel
