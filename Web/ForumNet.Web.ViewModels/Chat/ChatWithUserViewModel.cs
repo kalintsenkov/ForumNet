@@ -6,7 +6,7 @@
     {
         public string ReceiverId { get; set; }
 
-        public IEnumerable<ChatConversationsViewModel> Chats { get; set; }
+        public IEnumerable<ChatUserViewModel> Chats { get; set; }
 
         public IEnumerable<ChatMessagesWithUserViewModel> Messages { get; set; }
     }

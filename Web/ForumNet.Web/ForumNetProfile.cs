@@ -229,7 +229,6 @@
             #endregion
 
             #region Users
-            this.CreateMap<ForumUser, ChatConversationsViewModel>();
             this.CreateMap<ForumUser, ChatUserViewModel>();
             this.CreateMap<ForumUser, UsersLoginStatusViewModel>();
             this.CreateMap<ForumUser, HomeAboutAdminViewModel>();
