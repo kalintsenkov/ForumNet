@@ -1,6 +1,5 @@
 ﻿namespace ForumNet.Web.Areas.Identity.Pages.Account
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
@@ -19,7 +18,6 @@
     using Data.Common;
     using Data.Models;
     using Data.Models.Enums;
-    using Infrastructure;
     using Services.Contracts;
     using Services.Messaging;
 
@@ -73,16 +71,6 @@
             [Display(Name = ModelConstants.ConfirmPasswordDisplayName)]
             [Compare(nameof(Password), ErrorMessage = ErrorMessages.PasswordsDoNotMatchErrorMessage)]
             public string ConfirmPassword { get; set; }
-
-            [Required]
-            [DataType(DataType.Date)]
-            [Display(Name = ModelConstants.BirthDateDisplayName)]
-            public DateTime BirthDate { get; set; }
-
-            [Required]
-            [EnumDataType(typeof(GenderType), ErrorMessage = ErrorMessages.InvalidGenderType)]
-            [Display(Name = ModelConstants.GenderDisplayName)]
-            public GenderType Gender { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -113,8 +101,7 @@
                     UserName = Input.Username,
                     Email = Input.Email,
                     ProfilePicture = profilePicture,
-                    BirthDate = Input.BirthDate,
-                    Gender = Input.Gender,
+                    Gender = GenderType.NotKnown,
                     CreatedOn = this.dateTimeProvider.Now()
                 };
 

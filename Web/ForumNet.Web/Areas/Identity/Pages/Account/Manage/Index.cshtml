@@ -29,6 +29,7 @@
                     <option value="@GenderType.Male">Male</option>
                     <option value="@GenderType.Female">Female</option>
                 </select>
+                <span asp-validation-for="Input.Gender" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Biography"></label>

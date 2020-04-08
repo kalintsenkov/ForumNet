@@ -29,14 +29,14 @@
 
         public async Task SendMessage(string message, string receiverId)
         {
-            var authorId = this.Context.User.GetId();
-            var currentTimeAsString = this.dateTimeProvider.Now();
-            var user = await this.usersService.GetByIdAsync<ChatUserViewModel>(authorId);
-
             if (string.IsNullOrWhiteSpace(message))
             {
                 return;
             }
+
+            var authorId = this.Context.User.GetId();
+            var currentTimeAsString = this.dateTimeProvider.Now();
+            var user = await this.usersService.GetByIdAsync<ChatUserViewModel>(authorId);
 
             await this.messagesService.CreateAsync(message, authorId, receiverId);
             await this.Clients.All.SendAsync(

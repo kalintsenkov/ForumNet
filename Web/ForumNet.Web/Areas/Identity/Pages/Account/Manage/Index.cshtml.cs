@@ -39,7 +39,7 @@
             [Required]
             [DataType(DataType.Date)]
             [Display(Name = ModelConstants.BirthDateDisplayName)]
-            public DateTime BirthDate { get; set; }
+            public DateTime? BirthDate { get; set; }
 
             [Required]
             [EnumDataType(typeof(GenderType), ErrorMessage = ErrorMessages.InvalidGenderType)]

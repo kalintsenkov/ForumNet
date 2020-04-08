@@ -18,7 +18,7 @@ namespace ForumNet.Data.Models
 
         public GenderType Gender { get; set; }
 
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         public int Level { get; set; }
 
