@@ -64,7 +64,20 @@
 
                 </div>
 
-                <partial name="_SendPartial" model="new ChatSendMessageInputModel { ReceiverId = Model.ReceiverId }" />
+                <div class="tt-wrapper-inner">
+                    <div class="pt-editor form-default">
+                        <div id="addMessageForm">
+                            <div class="form-group">
+                                <input id="messageInput" class="form-control" placeholder="Write your message here" />
+                            </div>
+                            <div class="pt-row">
+                                <div class="col-auto ml-auto">
+                                    <button id="sendButton" class="btn btn-secondary btn-custom">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -72,7 +85,49 @@
 
 @section Scripts {
     <script>
-        $('#messagesList').scrollTop($('#messagesList')[0].scrollHeight);
+        var element = document.getElementById("messagesList");
+        element.scrollTop = element.scrollHeight;
+
+        function updateScroll() {
+            var element = document.getElementById("messagesList");
+            element.scrollTop = element.scrollHeight;
+        }
+
+        setInterval(updateScroll, 1000);
+
+        var connection = new signalR.HubConnectionBuilder()
+            	.withUrl("/chat")
+            	.build();
+
+        connection.on("ReceiveMessage", function (message) {
+            var chatInfo = `<div class="tt-item">
+                                <div class="tt-col-avatar">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="${message.authorProfilePicture}"></use>
+                                    </svg>
+                                </div>
+                                <div class="tt-col-description">
+                                    <h4 class="tt-title">
+                                    <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="${message.authorId}">${message.authorUserName}
+                                    </a>
+                                    <span class="time">${message.createdOn}</span>
+                                    </h4>
+                                    ${message.content}
+                                </div>
+                            </div>`;
+
+            $("#messagesList").append(chatInfo);
+        });
+
+        $("#sendButton").click(function () {
+            var message = $('#messageInput').val();
+            $('#messageInput').val('');
+            connection.invoke("SendMessage", message, '@Model.ReceiverId');
+        });
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
     </script>
     <partial name="_ValidationScriptsPartial" />
 }

@@ -88,7 +88,7 @@
         public async Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId)
         {
             var replies = await this.db.Replies
-                .Where(r => r.AuthorId == userId && !r.IsDeleted)
+                .Where(r => r.AuthorId == userId && !r.IsDeleted && !r.Post.IsDeleted)
                 .OrderByDescending(p => p.CreatedOn)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)

@@ -13,6 +13,7 @@ namespace ForumNet.Web
     using Data;
     using Data.Models;
     using Data.Seeding;
+    using Hubs;
     using Services;
     using Services.Contracts;
     using Services.Messaging;
@@ -130,6 +131,7 @@ namespace ForumNet.Web
                     name: "default",
                     pattern: "{controller=Posts}/{action=Trending}/{id?}");
 
+                endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapRazorPages();
             });
         }

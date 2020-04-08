@@ -64,7 +64,7 @@
                                         @if (this.User.Identity.IsAuthenticated)
                                         {
                                             <li>
-                                                <a asp-area="" asp-controller="Messages" asp-action="All" asp-route-id="@this.User.GetId()">
+                                                <a asp-area="" asp-controller="Chat" asp-action="All" asp-route-id="@this.User.GetId()">
                                                     Messages
                                                 </a>
                                             </li>
@@ -97,6 +97,7 @@
     <partial name="_SymbolsPartial" />
     <script src="~/lib/jquery/dist/jquery.js" type="text/javascript" asp-append-version="true"></script>
     <script src="~/js/bundle.js" type="text/javascript" asp-append-version="true"></script>
+    <script src="~/lib/signalr/dist/browser/signalr.min.js" type="text/javascript" asp-append-version="true"></script>
     <script src="~/lib/tinymce/tinymce.min.js" type="text/javascript" asp-append-version="true"></script>
     <script src="~/lib/selectize/dist/js/standalone/selectize.min.js" type="text/javascript" asp-append-version="true"></script>
     <script type="text/javascript">
