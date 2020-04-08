@@ -2,6 +2,8 @@
 {
     using Ganss.XSS;
 
+    using Infrastructure;
+
     public class UsersRepliesAllViewModel
     {
         public int Id { get; set; }
@@ -18,8 +20,8 @@
             {
                 var sanitized = new HtmlSanitizer().Sanitize(this.Description);
 
-                return this.Description.Length > 44 
-                    ? sanitized.Substring(0, 44) + "..." 
+                return this.Description.Length > ModelConstants.ShortDescriptionAllowedLength
+                    ? sanitized.Substring(0, ModelConstants.ShortDescriptionAllowedLength) + "..." 
                     : sanitized;
             }
         }
