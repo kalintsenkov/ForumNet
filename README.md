@@ -1,6 +1,7 @@
 # ForumNet
 
 <p>Forum application built for <a href="https://softuni.bg/trainings/2796/asp-net-core-february-2020">ASP.NET Core course</a> at SoftUni</p>
+
 [![Build Status](https://dev.azure.com/kalintsenkov3/ForumNet/_apis/build/status/kalintsenkov.ForumNet?branchName=master)](https://dev.azure.com/kalintsenkov3/ForumNet/_build/latest?definitionId=1&branchName=master)
 
 # 🛠 Built with:
