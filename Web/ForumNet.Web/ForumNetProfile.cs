@@ -57,6 +57,9 @@
                     dest => dest.CreatedOn,
                     dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)))
                 .ForMember(
+                    dest => dest.RepliesCount,
+                    dest => dest.MapFrom(src => src.Replies.Count(r => !r.IsDeleted)))
+                .ForMember(
                     dest => dest.Likes,
                     dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Like)))
                 .ForMember(
@@ -89,6 +92,9 @@
                 .ForMember(
                     dest => dest.CreatedOn,
                     dest => dest.MapFrom(src => src.CreatedOn.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture)))
+                .ForMember(
+                    dest => dest.RepliesCount,
+                    dest => dest.MapFrom(src => src.Replies.Count(r => !r.IsDeleted)))
                 .ForMember(
                     dest => dest.Likes,
                     dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType == ReactionType.Like)))
