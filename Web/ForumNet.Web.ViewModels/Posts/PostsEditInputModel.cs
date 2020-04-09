@@ -28,5 +28,9 @@
         [EnsureTagIdsExists(ErrorMessage = ErrorMessages.TagNonExistingIdErrorMessage)]
         [Display(Name = ModelConstants.TagsDisplayName)]
         public IEnumerable<int> TagIds { get; set; }
+
+        public IEnumerable<PostsTagsDetailsViewModel> Tags { get; set; }
+
+        public IEnumerable<PostsCategoryDetailsViewModel> Categories { get; set; }
     }
 }

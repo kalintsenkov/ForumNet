@@ -136,7 +136,7 @@
 
         public async Task<IActionResult> Edit(int id)
         {
-            var post = await this.postsService.GetByIdAsync<PostsEditViewModel>(id);
+            var post = await this.postsService.GetByIdAsync<PostsEditInputModel>(id);
             if (post == null)
             {
                 return this.NotFound();
@@ -158,12 +158,10 @@
         {
             if (!this.ModelState.IsValid)
             {
-                var viewModel = this.mapper.Map<PostsEditViewModel>(input);
+                input.Tags = await this.tagsService.GetAllAsync<PostsTagsDetailsViewModel>();
+                input.Categories = await this.categoriesService.GetAllAsync<PostsCategoryDetailsViewModel>();
 
-                viewModel.Tags = await this.tagsService.GetAllAsync<PostsTagsDetailsViewModel>();
-                viewModel.Categories = await this.categoriesService.GetAllAsync<PostsCategoryDetailsViewModel>();
-
-                return this.View(viewModel);
+                return this.View(input);
             }
 
             var postAuthorId = await this.postsService.GetAuthorIdByIdAsync(input.Id);

@@ -40,7 +40,6 @@
             #endregion
 
             #region Posts
-            this.CreateMap<PostsEditInputModel, PostsEditViewModel>();
             this.CreateMap<Post, PostsDeleteConfirmedViewModel>();
             this.CreateMap<Post, PostReportsInputModel>()
                 .ForMember(
@@ -85,7 +84,7 @@
                 .ForMember(
                     dest => dest.RepliesCount,
                     dest => dest.MapFrom(src => src.Replies.Count(r => !r.IsDeleted)));
-            this.CreateMap<Post, PostsEditViewModel>()
+            this.CreateMap<Post, PostsEditInputModel>()
                 .ForMember(
                     dest => dest.TagIds,
                     dest => dest.MapFrom(src => src.Tags.Select(t => t.TagId)));
