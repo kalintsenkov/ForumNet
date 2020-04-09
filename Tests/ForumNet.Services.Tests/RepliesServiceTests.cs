@@ -296,17 +296,18 @@
 
         //    var mapper = config.CreateMapper();
 
-        //    var dateTimeProvider = new Mock<IDateTimeProvider>();
-        //    dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
+        //    var dateTimeProvider = new DateTimeProvider();
 
         //    await db.Replies.AddAsync(new Reply
         //    {
         //        Description = "Test",
-        //        CreatedOn = dateTimeProvider.Object.Now()
+        //        AuthorId = "123",
+        //        PostId = 1,
+        //        CreatedOn = dateTimeProvider.Now()
         //    });
         //    await db.SaveChangesAsync();
 
-        //    var repliesService = new RepliesService(db, mapper, null, dateTimeProvider.Object);
+        //    var repliesService = new RepliesService(db, mapper, null, dateTimeProvider);
         //    var expected = await repliesService.GetByIdAsync<Reply>(1);
         //    var actual = await db.Replies.FirstOrDefaultAsync();
 

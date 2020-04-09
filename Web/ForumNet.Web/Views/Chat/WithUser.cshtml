@@ -85,25 +85,17 @@
 
 @section Scripts {
     <script>
-        var element = document.getElementById("messagesList");
-        element.scrollTop = element.scrollHeight;
-
-        function updateScroll() {
-            var element = document.getElementById("messagesList");
-            element.scrollTop = element.scrollHeight;
-        }
-
-        setInterval(updateScroll, 500);
+        $('#messagesList')[0].scrollTop = $('#messagesList')[0].scrollHeight;
 
         $('#messageInput').on('keypress', function (e) {
-            if (e.which == 13) {
+            if (e.which === 13) {
                 $('#sendButton').click();
             }
         });
 
         var connection = new signalR.HubConnectionBuilder()
-            	.withUrl("/chat")
-            	.build();
+            .withUrl("/chat")
+            .build();
 
         connection.on("ReceiveMessage", function (message) {
             var chatInfo = `<div class="tt-item">
@@ -123,6 +115,7 @@
                             </div>`;
 
             $("#messagesList").append(chatInfo);
+            $('#messagesList')[0].scrollTop = $('#messagesList')[0].scrollHeight;
         });
 
         $("#sendButton").click(function () {
