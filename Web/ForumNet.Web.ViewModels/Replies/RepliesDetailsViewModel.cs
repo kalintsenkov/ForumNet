@@ -39,6 +39,8 @@
 
         public int PostId { get; set; }
 
+        public string PostAuthorId { get; set; }
+
         public int? ParentId { get; set; }
 
         public RepliesAuthorDetailsViewModel Author { get; set; }

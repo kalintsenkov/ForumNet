@@ -159,9 +159,18 @@
                                 <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@reply.Author.Id">
                                     @reply.Author.UserName
                                 </a>
-                                <a asp-area="" asp-controller="Replies" asp-action="BestAnswer" asp-route-id="@reply.Id">
-                                    <span class="@badgeColor tt-badge">@Html.Raw(badgeText)</span>
-                                </a>
+                                @if (Model.Author.Id == this.User.GetId() || this.User.IsAdministrator())
+                                {
+                                    <a asp-area="" asp-controller="Replies" asp-action="BestAnswer" asp-route-id="@reply.Id">
+                                        <span class="@badgeColor tt-badge">@Html.Raw(badgeText)</span>
+                                    </a>
+                                }
+                                @if (reply.IsBestAnswer) 
+                                {
+                                    <a href="#">
+                                        <span class="@badgeColor tt-badge">@Html.Raw(badgeText)</span>
+                                    </a>
+                                }
                             </div>
                             <div class="tt-info-time">
                                 <i class="tt-icon fas fa-calendar-alt"></i>@reply.CreatedOn

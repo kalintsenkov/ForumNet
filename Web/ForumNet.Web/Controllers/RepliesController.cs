@@ -90,7 +90,7 @@
                 return this.NotFound();
             }
             
-            if (reply.Author.Id != this.User.GetId() && !this.User.IsAdministrator())
+            if (reply.PostAuthorId != this.User.GetId() && !this.User.IsAdministrator())
             {
                 return this.Unauthorized();
             }

@@ -127,15 +127,16 @@
         public async Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId, string sort = null)
         {
             var queryable = this.db.Replies
-                .Where(r => r.PostId == postId && !r.IsDeleted);
+                .Where(r => r.PostId == postId && !r.IsDeleted)
+                .OrderByDescending(r => r.IsBestAnswer);
 
             queryable = sort switch
             {
-                "recent" => queryable.OrderByDescending(r => r.CreatedOn),
-                "most reacted" => queryable.OrderByDescending(r => r.Reactions.Count),
-                "longest" => queryable.OrderByDescending(r => r.Description.Length),
-                "shortest" => queryable.OrderBy(r => r.Description.Length),
-                _ => queryable.OrderByDescending(r => r.CreatedOn)
+                "recent" => queryable.ThenByDescending(r => r.CreatedOn),
+                "most reacted" => queryable.ThenByDescending(r => r.Reactions.Count),
+                "longest" => queryable.ThenByDescending(r => r.Description.Length),
+                "shortest" => queryable.ThenBy(r => r.Description.Length),
+                _ => queryable.ThenByDescending(r => r.CreatedOn)
             };
 
             var replies = await queryable
