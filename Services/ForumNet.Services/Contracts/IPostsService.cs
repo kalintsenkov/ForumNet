@@ -42,7 +42,5 @@
         Task<IEnumerable<TModel>> GetAllFollowingByUserIdAsync<TModel>(string userId, string search = null, int skip = 0, int? take = null);
 
         Task<IEnumerable<TModel>> GetAllByCategoryIdAsync<TModel>(int categoryId, string search = null);
-
-        Task<IEnumerable<TModel>> GetAllWithDeletedAsync<TModel>();
     }
 }

@@ -103,7 +103,7 @@
         public async Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId)
         {
             var tags = await this.db.PostsTags
-                .Where(pt => pt.PostId == postId)
+                .Where(pt => pt.PostId == postId && !pt.Post.IsDeleted)
                 .Select(pt => pt.Tag)
                 .Where(t => !t.IsDeleted)
                 .AsNoTracking()

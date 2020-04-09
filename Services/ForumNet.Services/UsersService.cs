@@ -45,16 +45,6 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task UndeleteAsync(string id)
-        {
-            var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
-
-            user.IsDeleted = false;
-            user.DeletedOn = null;
-
-            await this.db.SaveChangesAsync();
-        }
-
         public async Task<int> AddPointsAsync(string id, int points = 1)
         {
             var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);

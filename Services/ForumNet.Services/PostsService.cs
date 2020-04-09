@@ -285,17 +285,6 @@
             return posts;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllWithDeletedAsync<TModel>()
-        {
-            var posts = await this.db.Posts
-                .OrderByDescending(p => p.CreatedOn)
-                .AsNoTracking()
-                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
-                .ToListAsync();
-
-            return posts;
-        }
-
         private async Task RemoveTagsAsync(int id, Post post)
         {
             var postTags = await this.db.PostsTags.Where(pt => pt.PostId == id).ToListAsync();
