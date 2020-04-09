@@ -33,14 +33,12 @@
 
         public const int PostTitleMaxLength = 100;
         public const int PostTitleMinLength = 3;
-
         public const int PostDescriptionMaxLength = 30000;
-
-        public const int ReplyDescriptionMaxLength = 30000;
-
         public const int PostReportDescriptionMaxLength = 30000;
         public const int PostReportDescriptionMinLength = 3;
 
+
+        public const int ReplyDescriptionMaxLength = 30000;
         public const int ReplyReportDescriptionMaxLength = 30000;
         public const int ReplyReportDescriptionMinLength = 3;
 

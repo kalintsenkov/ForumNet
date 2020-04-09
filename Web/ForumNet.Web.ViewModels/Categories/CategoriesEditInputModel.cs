@@ -10,7 +10,7 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.CategoryNameMaxLength)]
+        [StringLength(GlobalConstants.CategoryNameMaxLength, ErrorMessage = ErrorMessages.CategoryNameLengthErrorMessage, MinimumLength = GlobalConstants.CategoryNameMinLength)]
         [EnsureCategoryNameNotExists(ErrorMessage = ErrorMessages.CategoryExistingNameErrorMessage)]
         public string Name { get; set; }
     }

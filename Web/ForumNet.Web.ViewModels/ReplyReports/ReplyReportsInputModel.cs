@@ -9,7 +9,7 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.ReplyReportDescriptionMaxLength)]
+        [StringLength(GlobalConstants.ReplyReportDescriptionMaxLength, ErrorMessage = ErrorMessages.ReplyReportDescriptionLengthErrorMessage, MinimumLength = GlobalConstants.ReplyReportDescriptionMinLength)]
         public string Description { get; set; }
     }
 }

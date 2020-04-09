@@ -11,7 +11,7 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.PostTitleMaxLength)]
+        [StringLength(GlobalConstants.PostTitleMaxLength, ErrorMessage = ErrorMessages.PostTitleLengthErrorMessage, MinimumLength = GlobalConstants.PostTitleMinLength)]
         public string Title { get; set; }
 
         [Required]

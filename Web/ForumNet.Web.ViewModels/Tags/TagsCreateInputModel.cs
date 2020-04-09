@@ -8,7 +8,7 @@
     public class TagsCreateInputModel
     {
         [Required]
-        [MaxLength(GlobalConstants.TagNameMaxLength)]
+        [StringLength(GlobalConstants.TagNameMaxLength, ErrorMessage = ErrorMessages.TagNameLengthErrorMessage, MinimumLength = GlobalConstants.TagNameMinLength)]
         [EnsureTagNameNotExists(ErrorMessage = ErrorMessages.TagExistingNameErrorMessage)]
         public string Name { get; set; }
     }
