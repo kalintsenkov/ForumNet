@@ -14,7 +14,7 @@
         {
             if (!(value is IEnumerable<int> collection))
             {
-                return new ValidationResult(ErrorMessages.RequiredTagErrorMessage);
+                return new ValidationResult(ErrorMessages.TagIsRequiredErrorMessage);
             }
 
             var tagsService = validationContext.GetService<ITagsService>();

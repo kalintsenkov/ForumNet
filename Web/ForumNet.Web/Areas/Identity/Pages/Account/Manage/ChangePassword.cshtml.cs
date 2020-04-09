@@ -41,14 +41,14 @@
             public string OldPassword { get; set; }
 
             [Required]
-            [StringLength(GlobalConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.PasswordLengthErrorMessage, MinimumLength = GlobalConstants.UserPasswordMinLength)]
+            [StringLength(GlobalConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.UserPasswordLengthErrorMessage, MinimumLength = GlobalConstants.UserPasswordMinLength)]
             [DataType(DataType.Password)]
             [Display(Name = ModelConstants.NewPasswordDisplayName)]
             public string NewPassword { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = ModelConstants.ConfirmNewPasswordDisplayName)]
-            [Compare(nameof(NewPassword), ErrorMessage = ErrorMessages.ChangePasswordPasswordsDoNotMatchErrorMessage)]
+            [Compare(nameof(NewPassword), ErrorMessage = ErrorMessages.UserChangePasswordDoNotMatchErrorMessage)]
             public string ConfirmPassword { get; set; }
         }
 

@@ -24,10 +24,10 @@
         public string Description { get; set; }
 
         [Required]
-        [EnsureCategoryIdExists(ErrorMessage = ErrorMessages.NonExistingCategoryIdErrorMessage)]
+        [EnsureCategoryIdExists(ErrorMessage = ErrorMessages.CategoryNonExistingIdErrorMessage)]
         public int CategoryId { get; set; }
 
-        [EnsureTagIdsExists(ErrorMessage = ErrorMessages.NonExistingTagIdErrorMessage)]
+        [EnsureTagIdsExists(ErrorMessage = ErrorMessages.TagNonExistingIdErrorMessage)]
         [Display(Name = ModelConstants.TagsDisplayName)]
         public IEnumerable<int> TagIds { get; set; }
 

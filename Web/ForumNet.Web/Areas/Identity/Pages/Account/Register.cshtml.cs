@@ -53,7 +53,7 @@
         public class InputModel
         {
             [Required]
-            [StringLength(GlobalConstants.UserUsernameMaxLength, ErrorMessage = ErrorMessages.UsernameLengthErrorMessage, MinimumLength = GlobalConstants.UserUsernameMinLength)]
+            [StringLength(GlobalConstants.UserUsernameMaxLength, ErrorMessage = ErrorMessages.UserUsernameLengthErrorMessage, MinimumLength = GlobalConstants.UserUsernameMinLength)]
             [Display(Name = ModelConstants.UsernameDisplayName)]
             public string Username { get; set; }
 
@@ -62,13 +62,13 @@
             public string Email { get; set; }
 
             [Required]
-            [StringLength(GlobalConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.PasswordLengthErrorMessage, MinimumLength = GlobalConstants.UserPasswordMinLength)]
+            [StringLength(GlobalConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.UserPasswordLengthErrorMessage, MinimumLength = GlobalConstants.UserPasswordMinLength)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = ModelConstants.ConfirmPasswordDisplayName)]
-            [Compare(nameof(Password), ErrorMessage = ErrorMessages.PasswordsDoNotMatchErrorMessage)]
+            [Compare(nameof(Password), ErrorMessage = ErrorMessages.UserPasswordsDoNotMatchErrorMessage)]
             public string ConfirmPassword { get; set; }
         }
 

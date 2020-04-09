@@ -9,7 +9,7 @@
     {
         [Required]
         [MaxLength(GlobalConstants.CategoryNameMaxLength)]
-        [EnsureCategoryNameNotExists(ErrorMessage = ErrorMessages.ExistingCategoryNameErrorMessage)]
+        [EnsureCategoryNameNotExists(ErrorMessage = ErrorMessages.CategoryExistingNameErrorMessage)]
         public string Name { get; set; }
     }
 }

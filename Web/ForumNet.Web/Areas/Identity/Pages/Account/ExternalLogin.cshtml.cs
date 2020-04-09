@@ -59,7 +59,7 @@
             public string Email { get; set; }
 
             [Required]
-            [StringLength(GlobalConstants.UserUsernameMaxLength, ErrorMessage = ErrorMessages.UsernameLengthErrorMessage, MinimumLength = GlobalConstants.UserUsernameMinLength)]
+            [StringLength(GlobalConstants.UserUsernameMaxLength, ErrorMessage = ErrorMessages.UserUsernameLengthErrorMessage, MinimumLength = GlobalConstants.UserUsernameMinLength)]
             [Display(Name = ModelConstants.UsernameDisplayName)]
             public string Username { get; set; }
 
@@ -69,7 +69,7 @@
             public DateTime BirthDate { get; set; }
 
             [Required]
-            [EnumDataType(typeof(GenderType), ErrorMessage = ErrorMessages.InvalidGenderType)]
+            [EnumDataType(typeof(GenderType), ErrorMessage = ErrorMessages.UserInvalidGenderType)]
             [Display(Name = ModelConstants.GenderDisplayName)]
             public GenderType Gender { get; set; }
         }

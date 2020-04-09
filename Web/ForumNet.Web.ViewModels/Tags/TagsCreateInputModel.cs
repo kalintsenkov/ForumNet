@@ -9,7 +9,7 @@
     {
         [Required]
         [MaxLength(GlobalConstants.TagNameMaxLength)]
-        [EnsureTagNameNotExists(ErrorMessage = ErrorMessages.ExistingTagNameErrorMessage)]
+        [EnsureTagNameNotExists(ErrorMessage = ErrorMessages.TagExistingNameErrorMessage)]
         public string Name { get; set; }
     }
 }
