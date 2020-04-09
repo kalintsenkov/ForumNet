@@ -2,14 +2,14 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using Data.Common;
+    using Common;
 
     public class PostReportsInputModel
     {
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(DataConstants.PostReportDescriptionMaxLength)]
+        [MaxLength(GlobalConstants.PostReportDescriptionMaxLength)]
         public string Description { get; set; }
     }
 }

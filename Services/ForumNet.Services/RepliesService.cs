@@ -16,12 +16,18 @@
     {
         private readonly ForumDbContext db;
         private readonly IMapper mapper;
+        private readonly IUsersService usersService;
         private readonly IDateTimeProvider dateTimeProvider;
 
-        public RepliesService(ForumDbContext db, IMapper mapper, IDateTimeProvider dateTimeProvider)
+        public RepliesService(
+            ForumDbContext db, 
+            IMapper mapper,
+            IUsersService usersService,
+            IDateTimeProvider dateTimeProvider)
         {
             this.db = db;
             this.mapper = mapper;
+            this.usersService = usersService;
             this.dateTimeProvider = dateTimeProvider;
         }
 
@@ -38,6 +44,8 @@
 
             await this.db.Replies.AddAsync(reply);
             await this.db.SaveChangesAsync();
+
+            await this.usersService.AddPointsAsync(authorId);
         }
 
         public async Task EditAsync(int id, string description)
@@ -63,16 +71,20 @@
         public async Task MakeBestAnswerAsync(int id)
         {
             var bestAnswerReply = await this.db.Replies.FirstOrDefaultAsync(r => r.IsBestAnswer && !r.IsDeleted);
-            if (bestAnswerReply != null)
+            if (bestAnswerReply == null)
+            {
+                var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
+
+                reply.IsBestAnswer = true;
+
+                await this.db.SaveChangesAsync();
+                await this.usersService.AddPointsAsync(reply.AuthorId, 5);
+            }
+            else
             {
                 bestAnswerReply.IsBestAnswer = false;
+                await this.db.SaveChangesAsync();
             }
-
-            var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
-
-            reply.IsBestAnswer = true;
-
-            await this.db.SaveChangesAsync();
         }
 
         public async Task<bool> IsExistingAsync(int id)

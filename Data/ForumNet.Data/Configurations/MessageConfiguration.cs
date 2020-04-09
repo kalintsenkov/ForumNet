@@ -3,7 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    using Common;
+    using ForumNet.Common;
     using Models;
 
     public class MessageConfiguration : IEntityTypeConfiguration<Message>
@@ -12,7 +12,7 @@
         {
             message
                 .Property(m => m.Content)
-                .HasMaxLength(DataConstants.MessageContentMaxLength)
+                .HasMaxLength(GlobalConstants.MessageContentMaxLength)
                 .IsRequired();
 
             message

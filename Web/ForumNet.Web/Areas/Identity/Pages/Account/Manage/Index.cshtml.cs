@@ -9,7 +9,6 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
     using Common;
-    using Data.Common;
     using Data.Models;
     using Data.Models.Enums;
 
@@ -46,7 +45,7 @@
             [Display(Name = ModelConstants.GenderDisplayName)]
             public GenderType Gender { get; set; }
 
-            [MaxLength(DataConstants.UserBiographyMaxLength)]
+            [MaxLength(GlobalConstants.UserBiographyMaxLength)]
             public string Biography { get; set; }
         }
 

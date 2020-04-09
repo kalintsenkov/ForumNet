@@ -55,7 +55,7 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<int> GivePointsAsync(string id, int points = 1)
+        public async Task<int> AddPointsAsync(string id, int points = 1)
         {
             var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
 
@@ -81,6 +81,7 @@
                     CreatedOn = this.dateTimeProvider.Now()
                 };
 
+                await this.AddPointsAsync(followerId);
                 await this.db.UsersFollowers.AddAsync(userFollower);
                 isFollowed = true;
             }

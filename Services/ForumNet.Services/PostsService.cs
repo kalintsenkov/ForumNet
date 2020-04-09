@@ -18,12 +18,18 @@
     {
         private readonly ForumDbContext db;
         private readonly IMapper mapper;
+        private readonly IUsersService usersService;
         private readonly IDateTimeProvider dateTimeProvider;
 
-        public PostsService(ForumDbContext db, IMapper mapper, IDateTimeProvider dateTimeProvider)
+        public PostsService(
+            ForumDbContext db, 
+            IMapper mapper, 
+            IUsersService usersService,
+            IDateTimeProvider dateTimeProvider)
         {
             this.db = db;
             this.mapper = mapper;
+            this.usersService = usersService;
             this.dateTimeProvider = dateTimeProvider;
         }
 
@@ -41,6 +47,8 @@
 
             await this.db.Posts.AddAsync(post);
             await this.db.SaveChangesAsync();
+
+            await this.usersService.AddPointsAsync(authorId);
 
             return post.Id;
         }

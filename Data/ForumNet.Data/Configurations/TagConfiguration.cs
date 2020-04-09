@@ -3,7 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    using Common;
+    using ForumNet.Common;
     using Models;
 
     public class TagConfiguration : IEntityTypeConfiguration<Tag>
@@ -12,7 +12,7 @@
         {
             tag
                 .Property(t => t.Name)
-                .HasMaxLength(DataConstants.TagNameMaxLength)
+                .HasMaxLength(GlobalConstants.TagNameMaxLength)
                 .IsRequired();
 
             tag

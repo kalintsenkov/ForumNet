@@ -11,7 +11,7 @@
 
         Task UndeleteAsync(string id);
 
-        Task<int> GivePointsAsync(string id, int points = 1);
+        Task<int> AddPointsAsync(string id, int points = 1);
 
         Task<bool> FollowAsync(string userId, string followerId);
 

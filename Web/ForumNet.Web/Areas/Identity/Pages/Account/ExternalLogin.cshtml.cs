@@ -16,10 +16,8 @@
     using Services.Messaging;
 
     using Common;
-    using Data.Common;
     using Data.Models;
     using Data.Models.Enums;
-    using Infrastructure;
 
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel
@@ -61,7 +59,7 @@
             public string Email { get; set; }
 
             [Required]
-            [StringLength(DataConstants.UserUsernameMaxLength, ErrorMessage = ErrorMessages.UsernameLengthErrorMessage, MinimumLength = DataConstants.UserUsernameMinLength)]
+            [StringLength(GlobalConstants.UserUsernameMaxLength, ErrorMessage = ErrorMessages.UsernameLengthErrorMessage, MinimumLength = GlobalConstants.UserUsernameMinLength)]
             [Display(Name = ModelConstants.UsernameDisplayName)]
             public string Username { get; set; }
 
@@ -179,8 +177,8 @@
                             protocol: Request.Scheme);
 
                         await this.emailSender.SendEmailAsync(
-                         GlobalConstants.SystemEmail,
-                         GlobalConstants.SystemName,
+                         Common.GlobalConstants.SystemEmail,
+                         Common.GlobalConstants.SystemName,
                          Input.Email,
                          "Confirm your email",
                          $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");

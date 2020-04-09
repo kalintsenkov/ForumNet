@@ -8,7 +8,6 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
     using Common;
-    using Data.Common;
     using Data.Models;
     using Services.Contracts;
 
@@ -42,7 +41,7 @@
             public string OldPassword { get; set; }
 
             [Required]
-            [StringLength(DataConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.PasswordLengthErrorMessage, MinimumLength = DataConstants.UserPasswordMinLength)]
+            [StringLength(GlobalConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.PasswordLengthErrorMessage, MinimumLength = GlobalConstants.UserPasswordMinLength)]
             [DataType(DataType.Password)]
             [Display(Name = ModelConstants.NewPasswordDisplayName)]
             public string NewPassword { get; set; }

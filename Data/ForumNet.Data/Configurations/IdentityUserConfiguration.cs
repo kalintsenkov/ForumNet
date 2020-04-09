@@ -3,7 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    using Common;
+    using ForumNet.Common;
     using Models;
 
     public class IdentityUserConfiguration : IEntityTypeConfiguration<ForumUser>
@@ -16,7 +16,7 @@
 
             user
                 .Property(u => u.Biography)
-                .HasMaxLength(DataConstants.UserBiographyMaxLength);
+                .HasMaxLength(GlobalConstants.UserBiographyMaxLength);
 
             user
                 .HasMany(e => e.Claims)

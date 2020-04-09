@@ -15,7 +15,6 @@
     using Microsoft.AspNetCore.WebUtilities;
 
     using Common;
-    using Data.Common;
     using Data.Models;
     using Data.Models.Enums;
     using Services.Contracts;
@@ -54,7 +53,7 @@
         public class InputModel
         {
             [Required]
-            [StringLength(DataConstants.UserUsernameMaxLength, ErrorMessage = ErrorMessages.UsernameLengthErrorMessage, MinimumLength = DataConstants.UserUsernameMinLength)]
+            [StringLength(GlobalConstants.UserUsernameMaxLength, ErrorMessage = ErrorMessages.UsernameLengthErrorMessage, MinimumLength = GlobalConstants.UserUsernameMinLength)]
             [Display(Name = ModelConstants.UsernameDisplayName)]
             public string Username { get; set; }
 
@@ -63,7 +62,7 @@
             public string Email { get; set; }
 
             [Required]
-            [StringLength(DataConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.PasswordLengthErrorMessage, MinimumLength = DataConstants.UserPasswordMinLength)]
+            [StringLength(GlobalConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.PasswordLengthErrorMessage, MinimumLength = GlobalConstants.UserPasswordMinLength)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
@@ -117,8 +116,8 @@
                         protocol: Request.Scheme);
 
                     await this.emailSender.SendEmailAsync(
-                        GlobalConstants.SystemEmail,
-                        GlobalConstants.SystemName,
+                        Common.GlobalConstants.SystemEmail,
+                        Common.GlobalConstants.SystemName,
                         Input.Email,
                         "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");

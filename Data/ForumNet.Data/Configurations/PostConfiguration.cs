@@ -3,7 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    using Common;
+    using ForumNet.Common;
     using Models;
 
     public class PostConfiguration : IEntityTypeConfiguration<Post>
@@ -12,12 +12,12 @@
         {
             post
                 .Property(p => p.Title)
-                .HasMaxLength(DataConstants.PostTitleMaxLength)
+                .HasMaxLength(GlobalConstants.PostTitleMaxLength)
                 .IsRequired();
 
             post
                 .Property(p => p.Description)
-                .HasMaxLength(DataConstants.PostDescriptionMaxLength)
+                .HasMaxLength(GlobalConstants.PostDescriptionMaxLength)
                 .IsRequired();
 
             post

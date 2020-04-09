@@ -1,4 +1,4 @@
-﻿@using ForumNet.Data.Common
+﻿@using ForumNet.Common
 @model ForumNet.Web.ViewModels.Posts.PostsEditViewModel
 @{
     ViewData["Title"] = "Edit Post";
@@ -68,11 +68,11 @@
     <script>
         window.onload = function () {
             var value = $('#inputTopicTitle').val();
-            $('#remainingLength').html(@DataConstants.PostTitleMaxLength - value.length);
+            $('#remainingLength').html(@GlobalConstants.PostTitleMaxLength - value.length);
         }
         function changeRemainingLength() {
             var value = $('#inputTopicTitle').val();
-            $('#remainingLength').html(@DataConstants.PostTitleMaxLength - value.length);
+            $('#remainingLength').html(@GlobalConstants.PostTitleMaxLength - value.length);
         }
         var $select = $('#input-category').selectize({
             create: false,

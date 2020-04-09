@@ -4,14 +4,13 @@
     using System.ComponentModel.DataAnnotations;
 
     using Common;
-    using Data.Common;
     using Data.Models.Enums;
     using Infrastructure.Attributes;
 
     public class PostsCreateInputModel
     {
         [Required]
-        [MaxLength(DataConstants.PostTitleMaxLength)]
+        [MaxLength(GlobalConstants.PostTitleMaxLength)]
         public string Title { get; set; }
 
         [Required]
@@ -20,7 +19,7 @@
         public PostType PostType { get; set; }
 
         [Required]
-        [MaxLength(DataConstants.PostDescriptionMaxLength)]
+        [MaxLength(GlobalConstants.PostDescriptionMaxLength)]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 

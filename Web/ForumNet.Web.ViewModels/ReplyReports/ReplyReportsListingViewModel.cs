@@ -19,8 +19,8 @@
 
                 var sanitized = sanitizer.Sanitize(this.Description);
 
-                return this.Description.Length > ModelConstants.ShortDescriptionAllowedLength
-                   ? sanitized.Substring(0, ModelConstants.ShortDescriptionAllowedLength) + "..."
+                return this.Description.Length > GlobalConstants.ShortDescriptionAllowedLength
+                   ? sanitized.Substring(0, GlobalConstants.ShortDescriptionAllowedLength) + "..."
                    : sanitized;
             }
         }
@@ -40,8 +40,8 @@
 
                 var sanitized = sanitizer.Sanitize(this.Description);
 
-                return this.Description.Length > ModelConstants.ShortDescriptionAllowedLength
-                   ? sanitized.Substring(0, ModelConstants.ShortDescriptionAllowedLength) + "..."
+                return this.Description.Length > GlobalConstants.ShortDescriptionAllowedLength
+                   ? sanitized.Substring(0, GlobalConstants.ShortDescriptionAllowedLength) + "..."
                    : sanitized;
             }
         }

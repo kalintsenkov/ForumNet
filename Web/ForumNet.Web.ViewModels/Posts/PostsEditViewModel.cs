@@ -4,7 +4,6 @@
     using System.ComponentModel.DataAnnotations;
 
     using Common;
-    using Data.Common;
     using Infrastructure.Attributes;
 
     public class PostsEditViewModel
@@ -12,11 +11,11 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(DataConstants.PostTitleMaxLength)]
+        [MaxLength(GlobalConstants.PostTitleMaxLength)]
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(DataConstants.PostDescriptionMaxLength)]
+        [MaxLength(GlobalConstants.PostDescriptionMaxLength)]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 

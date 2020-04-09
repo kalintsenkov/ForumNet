@@ -2,8 +2,8 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    
-    using Common;
+
+    using ForumNet.Common;
     using Models;
 
     public class CategoryConfiguration : IEntityTypeConfiguration<Category>
@@ -12,7 +12,7 @@
         {
             category
                 .Property(c => c.Name)
-                .HasMaxLength(DataConstants.CategoryNameMaxLength)
+                .HasMaxLength(GlobalConstants.CategoryNameMaxLength)
                 .IsRequired();
 
             category

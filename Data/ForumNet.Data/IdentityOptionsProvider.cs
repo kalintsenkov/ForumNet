@@ -2,7 +2,7 @@
 {
     using Microsoft.AspNetCore.Identity;
 
-    using Common;
+    using ForumNet.Common;
 
     public static class IdentityOptionsProvider
     {
@@ -12,7 +12,7 @@
             options.Password.RequireLowercase = false;
             options.Password.RequireUppercase = false;
             options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequiredLength = DataConstants.UserPasswordMinLength;
+            options.Password.RequiredLength = GlobalConstants.UserPasswordMinLength;
 
             options.User.RequireUniqueEmail = true;
 

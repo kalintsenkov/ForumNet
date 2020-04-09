@@ -11,7 +11,6 @@
     using Microsoft.AspNetCore.WebUtilities;
 
     using Common;
-    using Data.Common;
     using Data.Models;
     using Services.Contracts;
 
@@ -37,7 +36,7 @@
             public string Email { get; set; }
 
             [Required]
-            [StringLength(DataConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.PasswordLengthErrorMessage, MinimumLength = DataConstants.UserPasswordMinLength)]
+            [StringLength(GlobalConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.PasswordLengthErrorMessage, MinimumLength = GlobalConstants.UserPasswordMinLength)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 

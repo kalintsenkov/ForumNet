@@ -3,7 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    using Common;
+    using ForumNet.Common;
     using Models;
 
     public class ReplyReportConfiguration : IEntityTypeConfiguration<ReplyReport>
@@ -12,7 +12,7 @@
         {
             replyReport
                 .Property(rr => rr.Description)
-                .HasMaxLength(DataConstants.ReplyReportDescriptionMaxLength)
+                .HasMaxLength(GlobalConstants.ReplyReportDescriptionMaxLength)
                 .IsRequired();
 
             replyReport

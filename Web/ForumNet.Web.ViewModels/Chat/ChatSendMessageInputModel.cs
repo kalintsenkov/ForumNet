@@ -2,12 +2,12 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using Data.Common;
+    using Common;
 
     public class ChatSendMessageInputModel
     {
         [Required]
-        [MaxLength(DataConstants.MessageContentMaxLength)]
+        [MaxLength(GlobalConstants.MessageContentMaxLength)]
         public string Content { get; set; }
 
         [Required]
