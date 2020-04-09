@@ -7,7 +7,7 @@
 
     using Infrastructure.Extensions;
     using Services.Contracts;
-    using ViewModels.Messages;
+    using ViewModels.Chat;
 
     [Authorize]
     public class ChatController : Controller

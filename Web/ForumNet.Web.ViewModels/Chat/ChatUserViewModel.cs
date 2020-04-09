@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Web.ViewModels.Messages
+﻿namespace ForumNet.Web.ViewModels.Chat
 {
     public class ChatUserViewModel
     {

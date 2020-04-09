@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Web.ViewModels.Messages
+﻿namespace ForumNet.Web.ViewModels.Chat
 {
     using Ganss.XSS;
 
@@ -13,6 +13,7 @@
             this.htmlSanitizer = new HtmlSanitizer();
             this.htmlSanitizer.AllowedTags.Add(ModelConstants.IFrameAllowedTag);
         }
+
         public int Id { get; set; }
 
         public string Content { get; set; }

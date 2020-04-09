@@ -9,7 +9,7 @@
     using Data.Models;
     using Data.Models.Enums;
     using ViewModels.Categories;
-    using ViewModels.Messages;
+    using ViewModels.Chat;
     using ViewModels.Home;
     using ViewModels.PostReports;
     using ViewModels.Posts;

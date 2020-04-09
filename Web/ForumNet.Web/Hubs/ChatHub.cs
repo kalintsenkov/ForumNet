@@ -8,7 +8,7 @@
     using Common;
     using Infrastructure.Extensions;
     using Services.Contracts;
-    using ViewModels.Messages;
+    using ViewModels.Chat;
 
     public class ChatHub : Hub
     {

@@ -1,5 +1,4 @@
-﻿@using ForumNet.Web.ViewModels.Messages
-@model ChatWithUserViewModel
+﻿@model ForumNet.Web.ViewModels.Chat.ChatWithUserViewModel
 @{
     ViewData["Title"] = "Messages";
 }
@@ -119,7 +118,7 @@
         });
 
         $("#sendButton").click(function () {
-            var message = $('#messageInput').val();
+            var message = $.trim($('#messageInput').val());
             $('#messageInput').val('');
             connection.invoke("SendMessage", message, '@Model.ReceiverId');
         });
