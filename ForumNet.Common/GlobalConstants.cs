@@ -17,6 +17,9 @@
         public const string TestUserPassword = "user123456";
         public const string TestUserProfilePicture = "#icon-ava-t";
 
+        public const string DateTimeFormat = "dd/MM/yy HH:mm";
+        public const string DateTimeShortFormat = "dd/MM/yy";
+
         public const int UserUsernameMaxLength = 25;
         public const int UserUsernameMinLength = 4;
         public const int UserPasswordMaxLength = 100;

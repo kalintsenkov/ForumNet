@@ -5,14 +5,13 @@
 
     using Microsoft.AspNetCore.SignalR;
 
+    using Common;
     using Infrastructure.Extensions;
     using Services.Contracts;
     using ViewModels.Messages;
 
     public class ChatHub : Hub
     {
-        private const string DateTimeDefaultFormat = "dd MMM yyyy HH:mm";
-
         private readonly IUsersService usersService;
         private readonly IMessagesService messagesService;
         private readonly IDateTimeProvider dateTimeProvider;
@@ -48,7 +47,7 @@
                     AuthorProfilePicture = user.ProfilePicture,
                     Content = message,
                     CreatedOn = currentTimeAsString
-                        .ToString(DateTimeDefaultFormat, CultureInfo.InvariantCulture)
+                        .ToString(GlobalConstants.DateTimeFormat, CultureInfo.InvariantCulture)
                 });
         }
     }
