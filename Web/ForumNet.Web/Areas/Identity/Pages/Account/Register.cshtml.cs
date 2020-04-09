@@ -54,7 +54,7 @@
         {
             [Required]
             [StringLength(GlobalConstants.UserUsernameMaxLength, ErrorMessage = ErrorMessages.UserUsernameLengthErrorMessage, MinimumLength = GlobalConstants.UserUsernameMinLength)]
-            [Display(Name = ModelConstants.UsernameDisplayName)]
+            [Display(Name = GlobalConstants.UserUsernameDisplayName)]
             public string Username { get; set; }
 
             [Required]
@@ -67,7 +67,7 @@
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = ModelConstants.ConfirmPasswordDisplayName)]
+            [Display(Name = GlobalConstants.UserConfirmPasswordDisplayName)]
             [Compare(nameof(Password), ErrorMessage = ErrorMessages.UserPasswordsDoNotMatchErrorMessage)]
             public string ConfirmPassword { get; set; }
         }

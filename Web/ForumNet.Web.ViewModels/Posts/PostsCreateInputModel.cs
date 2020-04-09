@@ -15,7 +15,7 @@
 
         [Required]
         [EnumDataType(typeof(PostType))]
-        [Display(Name = ModelConstants.PostTypeDisplayName)]
+        [Display(Name = GlobalConstants.PostTypeDisplayName)]
         public PostType PostType { get; set; }
 
         [Required]
@@ -28,7 +28,7 @@
         public int CategoryId { get; set; }
 
         [EnsureTagIdsExists(ErrorMessage = ErrorMessages.TagNonExistingIdErrorMessage)]
-        [Display(Name = ModelConstants.TagsDisplayName)]
+        [Display(Name = GlobalConstants.TagsDisplayName)]
         public IEnumerable<int> TagIds { get; set; }
 
         public IEnumerable<PostsCategoryDetailsViewModel> Categories { get; set; }

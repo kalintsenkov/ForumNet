@@ -47,7 +47,7 @@
         {
             [Required]
             [EmailAddress]
-            [Display(Name = ModelConstants.NewEmailDisplayName)]
+            [Display(Name = GlobalConstants.UserNewEmailDisplayName)]
             public string NewEmail { get; set; }
         }
 

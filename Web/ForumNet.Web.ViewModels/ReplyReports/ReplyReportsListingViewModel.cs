@@ -15,7 +15,7 @@
             get
             {
                 var sanitizer = new HtmlSanitizer();
-                sanitizer.AllowedTags.Add(ModelConstants.IFrameAllowedTag);
+                sanitizer.AllowedTags.Add(GlobalConstants.IFrameAllowedTag);
 
                 var sanitized = sanitizer.Sanitize(this.Description);
 
@@ -36,7 +36,7 @@
             get
             {
                 var sanitizer = new HtmlSanitizer();
-                sanitizer.AllowedTags.Add(ModelConstants.IFrameAllowedTag);
+                sanitizer.AllowedTags.Add(GlobalConstants.IFrameAllowedTag);
 
                 var sanitized = sanitizer.Sanitize(this.Description);
 

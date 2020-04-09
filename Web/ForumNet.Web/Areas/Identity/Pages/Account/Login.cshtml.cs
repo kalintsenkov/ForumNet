@@ -51,7 +51,7 @@
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = ModelConstants.RememberMeDisplayName)]
+            [Display(Name = GlobalConstants.UserLoginRememberMeDisplayName)]
             public bool RememberMe { get; set; }
         }
 

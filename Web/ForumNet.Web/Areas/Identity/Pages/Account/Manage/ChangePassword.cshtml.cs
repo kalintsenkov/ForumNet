@@ -37,17 +37,17 @@
         {
             [Required]
             [DataType(DataType.Password)]
-            [Display(Name = ModelConstants.CurrentPasswordDisplayName)]
+            [Display(Name = GlobalConstants.UserCurrentPasswordDisplayName)]
             public string OldPassword { get; set; }
 
             [Required]
             [StringLength(GlobalConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.UserPasswordLengthErrorMessage, MinimumLength = GlobalConstants.UserPasswordMinLength)]
             [DataType(DataType.Password)]
-            [Display(Name = ModelConstants.NewPasswordDisplayName)]
+            [Display(Name = GlobalConstants.UserNewPasswordDisplayName)]
             public string NewPassword { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = ModelConstants.ConfirmNewPasswordDisplayName)]
+            [Display(Name = GlobalConstants.UserConfirmNewPasswordDisplayName)]
             [Compare(nameof(NewPassword), ErrorMessage = ErrorMessages.UserChangePasswordDoNotMatchErrorMessage)]
             public string ConfirmPassword { get; set; }
         }

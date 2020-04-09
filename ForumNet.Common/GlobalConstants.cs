@@ -20,6 +20,17 @@
         public const string DateTimeFormat = "dd/MM/yy HH:mm";
         public const string DateTimeShortFormat = "dd/MM/yy";
 
+        public const string IFrameAllowedTag = "iframe";
+
+        public const string UserUsernameDisplayName = "Display name";
+        public const string UserLoginRememberMeDisplayName = "Remember me";
+        public const string UserCurrentPasswordDisplayName = "Current password";
+        public const string UserNewPasswordDisplayName = "New password";
+        public const string UserConfirmPasswordDisplayName = "Confirm password";
+        public const string UserConfirmNewPasswordDisplayName = "Confirm new password";
+        public const string UserNewEmailDisplayName = "New email";
+        public const string UserBirthDateDisplayName = "Birthday";
+        public const string UserGenderDisplayName = "Gender";
         public const int UserUsernameMaxLength = 25;
         public const int UserUsernameMinLength = 4;
         public const int UserPasswordMaxLength = 100;
@@ -28,6 +39,7 @@
 
         public const int TagNameMaxLength = 20;
         public const int TagNameMinLength = 3;
+        public const string TagsDisplayName = "Tags";
 
         public const int CategoryNameMaxLength = 50;
         public const int CategoryNameMinLength = 3;
@@ -39,6 +51,7 @@
         public const int PostDescriptionMaxLength = 30000;
         public const int PostReportDescriptionMaxLength = 30000;
         public const int PostReportDescriptionMinLength = 3;
+        public const string PostTypeDisplayName = "Post Type";
 
 
         public const int ReplyDescriptionMaxLength = 30000;

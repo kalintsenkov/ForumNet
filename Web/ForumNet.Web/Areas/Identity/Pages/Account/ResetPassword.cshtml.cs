@@ -41,7 +41,7 @@
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = ModelConstants.ConfirmPasswordDisplayName)]
+            [Display(Name = GlobalConstants.UserConfirmPasswordDisplayName)]
             [Compare(nameof(Password), ErrorMessage = ErrorMessages.UserPasswordsDoNotMatchErrorMessage)]
             public string ConfirmPassword { get; set; }
 

@@ -13,7 +13,7 @@
         public PostsDeleteDetailsViewModel()
         {
             this.htmlSanitizer = new HtmlSanitizer();
-            this.htmlSanitizer.AllowedTags.Add(ModelConstants.IFrameAllowedTag);
+            this.htmlSanitizer.AllowedTags.Add(GlobalConstants.IFrameAllowedTag);
         }
 
         public int Id { get; set; }

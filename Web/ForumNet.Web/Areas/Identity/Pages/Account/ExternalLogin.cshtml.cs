@@ -60,17 +60,17 @@
 
             [Required]
             [StringLength(GlobalConstants.UserUsernameMaxLength, ErrorMessage = ErrorMessages.UserUsernameLengthErrorMessage, MinimumLength = GlobalConstants.UserUsernameMinLength)]
-            [Display(Name = ModelConstants.UsernameDisplayName)]
+            [Display(Name = GlobalConstants.UserUsernameDisplayName)]
             public string Username { get; set; }
 
             [Required]
             [DataType(DataType.Date)]
-            [Display(Name = ModelConstants.BirthDateDisplayName)]
+            [Display(Name = GlobalConstants.UserBirthDateDisplayName)]
             public DateTime BirthDate { get; set; }
 
             [Required]
             [EnumDataType(typeof(GenderType), ErrorMessage = ErrorMessages.UserInvalidGenderType)]
-            [Display(Name = ModelConstants.GenderDisplayName)]
+            [Display(Name = GlobalConstants.UserGenderDisplayName)]
             public GenderType Gender { get; set; }
         }
 
