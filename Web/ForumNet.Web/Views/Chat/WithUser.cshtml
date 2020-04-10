@@ -67,7 +67,7 @@
                     <div class="pt-editor form-default">
                         <div id="addMessageForm">
                             <div class="form-group">
-                                <input id="messageInput" class="form-control" placeholder="Write your message here" />
+                                <textarea id="messageInput" class="form-control" placeholder="Write your message here"></textarea>
                             </div>
                             <div class="pt-row">
                                 <div class="col-auto ml-auto">
@@ -87,7 +87,8 @@
         $('#messagesList')[0].scrollTop = $('#messagesList')[0].scrollHeight;
 
         $('#messageInput').on('keypress', function (e) {
-            if (e.which === 13) {
+            if (e.which === 13 && !e.shiftKey) {
+                e.preventDefault();
                 $('#sendButton').click();
             }
         });

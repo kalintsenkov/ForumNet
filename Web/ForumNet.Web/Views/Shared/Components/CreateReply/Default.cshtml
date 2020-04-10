@@ -10,7 +10,7 @@
                 <input asp-for="PostId" value="@Model.PostId" hidden />
             </div>
             <div class="form-group">
-                <textarea asp-for="Description" placeholder="Lets get started"></textarea>
+                <textarea id="customTextArea" asp-for="Description" placeholder="Lets get started"></textarea>
                 <span asp-validation-for="Description"></span>
             </div>
             <div class="pt-row">
