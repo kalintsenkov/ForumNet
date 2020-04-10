@@ -13,18 +13,18 @@
 
     public class DeletePersonalDataModel : PageModel
     {
+        private readonly IUsersService usersService;
         private readonly UserManager<ForumUser> userManager;
         private readonly SignInManager<ForumUser> signInManager;
-        private readonly IUsersService usersService;
 
         public DeletePersonalDataModel(
+            IUsersService usersService,
             UserManager<ForumUser> userManager,
-            SignInManager<ForumUser> signInManager, 
-            IUsersService usersService)
+            SignInManager<ForumUser> signInManager)
         {
+            this.usersService = usersService;
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.usersService = usersService;
         }
 
         [BindProperty]
@@ -71,7 +71,6 @@
 
             var userId = this.User.GetId();
             await this.usersService.DeleteAsync(userId);
-
             await this.signInManager.SignOutAsync();
 
             return Redirect("~/");

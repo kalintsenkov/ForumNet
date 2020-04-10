@@ -1,6 +1,5 @@
 ﻿namespace ForumNet.Web.Areas.Identity.Pages.Account
 {
-    using System;
     using System.ComponentModel.DataAnnotations;
     using System.Security.Claims;
     using System.Text;
@@ -64,14 +63,14 @@
             public string Username { get; set; }
 
             [Required]
-            [DataType(DataType.Date)]
-            [Display(Name = GlobalConstants.UserBirthDateDisplayName)]
-            public DateTime BirthDate { get; set; }
+            [StringLength(GlobalConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.UserPasswordLengthErrorMessage, MinimumLength = GlobalConstants.UserPasswordMinLength)]
+            [DataType(DataType.Password)]
+            public string Password { get; set; }
 
-            [Required]
-            [EnumDataType(typeof(GenderType), ErrorMessage = ErrorMessages.UserInvalidGenderType)]
-            [Display(Name = GlobalConstants.UserGenderDisplayName)]
-            public GenderType Gender { get; set; }
+            [DataType(DataType.Password)]
+            [Display(Name = GlobalConstants.UserConfirmPasswordDisplayName)]
+            [Compare(nameof(Password), ErrorMessage = ErrorMessages.UserPasswordsDoNotMatchErrorMessage)]
+            public string ConfirmPassword { get; set; }
         }
 
         public IActionResult OnGetAsync()
@@ -155,12 +154,11 @@
                     UserName = Input.Username,
                     Email = Input.Email,
                     ProfilePicture = profilePicture,
-                    BirthDate = Input.BirthDate,
-                    Gender = Input.Gender,
+                    Gender = GenderType.NotKnown,
                     CreatedOn = this.dateTimeProvider.Now()
                 };
 
-                var result = await this.userManager.CreateAsync(user);
+                var result = await this.userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
                     result = await this.userManager.AddLoginAsync(user, info);
@@ -177,8 +175,8 @@
                             protocol: Request.Scheme);
 
                         await this.emailSender.SendEmailAsync(
-                         Common.GlobalConstants.SystemEmail,
-                         Common.GlobalConstants.SystemName,
+                         GlobalConstants.SystemEmail,
+                         GlobalConstants.SystemName,
                          Input.Email,
                          "Confirm your email",
                          $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");

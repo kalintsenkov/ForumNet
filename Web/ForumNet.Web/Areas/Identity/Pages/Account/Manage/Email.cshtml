@@ -5,10 +5,9 @@
     ViewData["ActivePage"] = ManageNavPages.Email;
 }
 
-<h4>@ViewData["Title"]</h4>
 <partial name="_StatusMessage" model="@Model.StatusMessage" />
 
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-6">
         <form id="email-form" class="form-default" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>

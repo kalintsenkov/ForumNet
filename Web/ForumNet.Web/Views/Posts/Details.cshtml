@@ -165,11 +165,14 @@
                                         <span class="@badgeColor tt-badge">@Html.Raw(badgeText)</span>
                                     </a>
                                 }
-                                @if (reply.IsBestAnswer) 
+                                else
                                 {
-                                    <a href="#">
-                                        <span class="@badgeColor tt-badge">@Html.Raw(badgeText)</span>
-                                    </a>
+                                    @if (reply.IsBestAnswer)
+                                    {
+                                        <a href="#">
+                                            <span class="@badgeColor tt-badge">@Html.Raw(badgeText)</span>
+                                        </a>
+                                    }
                                 }
                             </div>
                             <div class="tt-info-time">
@@ -239,7 +242,7 @@
                 url: "/Administration/Posts/Pin/" + id,
                 headers: { 'X-CSRF-TOKEN': token },
                 success: function (json) {
-                    if (json == true) {
+                    if (json === true) {
                         $('#isPinned').html('Unpin');
                     } else {
                         $('#isPinned').html('Pin');

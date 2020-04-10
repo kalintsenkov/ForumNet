@@ -116,8 +116,8 @@
                         protocol: Request.Scheme);
 
                     await this.emailSender.SendEmailAsync(
-                        Common.GlobalConstants.SystemEmail,
-                        Common.GlobalConstants.SystemName,
+                        GlobalConstants.SystemEmail,
+                        GlobalConstants.SystemName,
                         Input.Email,
                         "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");

@@ -5,27 +5,27 @@
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
-<h4>@ViewData["Title"]</h4>
-
 <div class="alert alert-warning" role="alert">
     <p>
         <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
     </p>
 </div>
 
-<div>
-    <form id="delete-user" method="post" class="form-group">
-        <div asp-validation-summary="All" class="text-danger"></div>
-        @if (Model.RequirePassword)
-        {
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-        }
-        <button class="btn btn-danger" type="submit">Delete data and close my account</button>
-    </form>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form id="delete-user" method="post" class="form-default">
+            <div asp-validation-summary="All"></div>
+            @if (Model.RequirePassword)
+            {
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password"></span>
+                </div>
+            }
+            <button class="btn btn-primary" type="submit">Delete data and close my account</button>
+        </form>
+    </div>
 </div>
 
 @section Scripts {

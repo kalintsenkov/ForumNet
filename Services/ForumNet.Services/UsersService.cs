@@ -39,6 +39,8 @@
         {
             var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
 
+            user.Email = null;
+            user.NormalizedEmail = null;
             user.IsDeleted = true;
             user.DeletedOn = this.dateTimeProvider.Now();
 
