@@ -22,8 +22,8 @@
         private readonly IDateTimeProvider dateTimeProvider;
 
         public PostsService(
-            ForumDbContext db, 
-            IMapper mapper, 
+            ForumDbContext db,
+            IMapper mapper,
             IUsersService usersService,
             IDateTimeProvider dateTimeProvider)
         {
@@ -214,12 +214,38 @@
             return posts;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllByTagIdAsync<TModel>(int tagId)
+        public async Task<IEnumerable<TModel>> GetAllByTagIdAsync<TModel>(int tagId, string search = null)
         {
-            var posts = await this.db.Posts
+            var queryable = this.db.Posts
                 .Where(p => !p.IsDeleted && p.Tags
-                    .Select(t => t.TagId).Contains(tagId))
+                    .Select(t => t.TagId).Contains(tagId));
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                queryable = queryable.Where(p => p.Title.Contains(search));
+            }
+
+            var posts = await queryable
                 .OrderByDescending(p => p.CreatedOn)
+                .AsNoTracking()
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return posts;
+        }
+
+        public async Task<IEnumerable<TModel>> GetAllByCategoryIdAsync<TModel>(int categoryId, string search = null)
+        {
+            var queryable = this.db.Posts
+                .OrderByDescending(p => p.CreatedOn)
+                .Where(p => p.CategoryId == categoryId && !p.IsDeleted);
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                queryable = queryable.Where(p => p.Title.Contains(search));
+            }
+
+            var posts = await queryable
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
@@ -259,25 +285,6 @@
 
             var posts = await queryable
                 .Where(p => !p.IsDeleted)
-                .AsNoTracking()
-                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
-                .ToListAsync();
-
-            return posts;
-        }
-
-        public async Task<IEnumerable<TModel>> GetAllByCategoryIdAsync<TModel>(int categoryId, string search = null)
-        {
-            var queryable = this.db.Posts
-                .OrderByDescending(p => p.CreatedOn)
-                .Where(p => p.CategoryId == categoryId && !p.IsDeleted);
-
-            if (!string.IsNullOrWhiteSpace(search))
-            {
-                queryable = queryable.Where(p => p.Title.Contains(search));
-            }
-
-            var posts = await queryable
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();

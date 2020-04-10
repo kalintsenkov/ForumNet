@@ -22,11 +22,6 @@
                 </div>
                 <div class="tt-col-item">
                     <div class="tt-search">
-                        <button class="tt-search-toggle" data-toggle="modal" data-target="#modalAdvancedSearch">
-                            <svg class="tt-icon">
-                                <use xlink:href="#icon-search"></use>
-                            </svg>
-                        </button>
                         <form class="search-wrapper" asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@Model.Category.Id" method="get">
                             <div class="search-form">
                                 <input type="text" asp-for="Search" value="@Model.Search" class="tt-search__input" placeholder="Search in @Model.Category.Name">
