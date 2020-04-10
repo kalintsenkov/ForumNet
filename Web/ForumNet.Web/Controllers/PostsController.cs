@@ -3,7 +3,6 @@
     using System;
     using System.Threading.Tasks;
 
-    using AutoMapper;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -16,21 +15,21 @@
     {
         private const int PostsPerPage = 6;
 
-        private readonly IMapper mapper;
         private readonly ITagsService tagsService;
+        private readonly IUsersService usersService;
         private readonly IPostsService postsService;
         private readonly IRepliesService repliesService;
         private readonly ICategoriesService categoriesService;
 
         public PostsController(
-            IMapper mapper,
             ITagsService tagsService,
+            IUsersService usersService,
             IPostsService postsService,
             IRepliesService repliesService,
             ICategoriesService categoriesService)
         {
-            this.mapper = mapper;
             this.tagsService = tagsService;
+            this.usersService = usersService;
             this.postsService = postsService;
             this.repliesService = repliesService;
             this.categoriesService = categoriesService;
@@ -40,21 +39,20 @@
         public async Task<IActionResult> Trending(int page = 1, string search = null)
         {
             var count = await this.postsService.GetCountAsync();
-            var totalPages = (int)Math.Ceiling(count / (decimal)PostsPerPage);
 
             var posts = await this.postsService.GetAllAsync<PostsListingViewModel>(search, (page - 1) * PostsPerPage, PostsPerPage);
-            var viewModel = new PostsAllViewModel
-            {
-                PageIndex = page,
-                TotalPages = totalPages,
-                Posts = posts
-            };
-
-            foreach (var post in viewModel.Posts)
+            foreach (var post in posts)
             {
                 post.Activity = await this.postsService.GetLatestActivityByIdAsync(post.Id);
                 post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(post.Id);
             }
+
+            var viewModel = new PostsAllViewModel
+            {
+                Posts = posts,
+                PageIndex = page,
+                TotalPages = (int)Math.Ceiling(count / (decimal)PostsPerPage)
+            };
 
             return this.View(viewModel);
         }
@@ -63,23 +61,23 @@
         {
             var userId = this.User.GetId();
             var count = await this.postsService.GetFollowingCountAsync(userId);
-            var totalPages = (int)Math.Ceiling(count / (decimal)PostsPerPage);
 
             var posts = await this.postsService
                 .GetAllFollowingByUserIdAsync<PostsListingViewModel>(userId, search, (page - 1) * PostsPerPage, PostsPerPage);
 
-            var viewModel = new PostsAllViewModel
-            {
-                PageIndex = page,
-                TotalPages = totalPages,
-                Posts = posts
-            };
-
-            foreach (var post in viewModel.Posts)
+            foreach (var post in posts)
             {
                 post.Activity = await this.postsService.GetLatestActivityByIdAsync(post.Id);
                 post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(post.Id);
             }
+
+            var viewModel = new PostsAllViewModel
+            {
+                Posts = posts,
+                PageIndex = page,
+                TotalPages = (int)Math.Ceiling(count / (decimal)PostsPerPage),
+                FollowingCount = await this.usersService.GetFollowingCountAsync(userId)
+            };
 
             return this.View(viewModel);
         }

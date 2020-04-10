@@ -50,9 +50,11 @@
 
             <div class="@className">
                 <div class="tt-col-avatar">
-                    <svg class="tt-icon">
-                        <use xlink:href="@post.AuthorProfilePicture"></use>
-                    </svg>
+                    <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@post.AuthorId">
+                        <svg class="tt-icon">
+                            <use xlink:href="@post.AuthorProfilePicture"></use>
+                        </svg>
+                    </a>
                 </div>
                 <div class="tt-col-description">
                     <h6 class="tt-title">

@@ -6,6 +6,8 @@
     {
         public IEnumerable<PostsListingViewModel> Posts { get; set; }
 
+        public int FollowingCount { get; set; }
+
         public int PageIndex { get; set; }
 
         public int TotalPages { get; set; }

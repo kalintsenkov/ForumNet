@@ -244,7 +244,7 @@
             var queryable = this.db.Posts
                 .OrderByDescending(p => p.CreatedOn)
                 .Where(p => p.Author.Followers
-                    .Where(x => !x.IsDeleted)
+                    .Where(x => !x.IsDeleted && x.FollowerId == userId)
                     .Select(x => x.FollowerId)
                     .FirstOrDefault() == userId);
 

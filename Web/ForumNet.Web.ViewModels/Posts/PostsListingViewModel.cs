@@ -18,6 +18,8 @@
 
         public bool IsPinned { get; set; }
 
+        public string AuthorId { get; set; }
+
         public string AuthorProfilePicture { get; set; }
 
         public PostsCategoryDetailsViewModel Category { get; set; }

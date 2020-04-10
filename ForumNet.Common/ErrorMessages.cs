@@ -2,10 +2,9 @@
 {
     public class ErrorMessages
     {
+        public const string CategoryNameLengthErrorMessage = "The {0} must be at least {2} and at max {1} characters long.";
         public const string CategoryExistingNameErrorMessage = "This category name is already used";
         public const string CategoryNonExistingIdErrorMessage = "Invalid category";
-
-        public const string CategoryNameLengthErrorMessage = "The {0} must be at least {2} and at max {1} characters long.";
 
         public const string TagNameLengthErrorMessage = "The {0} must be at least {2} and at max {1} characters long.";
         public const string TagIsRequiredErrorMessage = "At least one tag needs to be selected";

@@ -21,9 +21,11 @@
             {
                 <div class="tt-item">
                     <div class="tt-col-avatar">
-                        <svg class="tt-icon">
-                            <use xlink:href="@post.AuthorProfilePicture"></use>
-                        </svg>
+                        <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@post.AuthorId">
+                            <svg class="tt-icon">
+                                <use xlink:href="@post.AuthorProfilePicture"></use>
+                            </svg>
+                        </a>
                     </div>
                     <div class="tt-col-description">
                         <h6 class="tt-title">
@@ -65,11 +67,22 @@
         }
         else
         {
-            <div class="tt-layout-404">
-                <h6 class="tt-title">You don't follow anyone.</h6>
-                <p>When you follow someone, their posts will appear here.</p>
-            </div>
-            <vc:suggested-users user-id="@this.User.GetId()"></vc:suggested-users>
+            if (Model.FollowingCount != 0)
+            {
+                <div class="tt-layout-404">
+                    <h6 class="tt-title">Users that you follow don't have any published posts yet.</h6>
+                </div>
+                <vc:suggested-topics></vc:suggested-topics>
+            }
+            else
+            {
+                <div class="tt-layout-404">
+                    <h6 class="tt-title">You don't follow anyone.</h6>
+                    <p>When you follow someone, their posts will appear here.</p>
+                </div>
+                <vc:suggested-topics></vc:suggested-topics>
+            }
+
         }
 
         @if (Model.TotalPages > 0)
