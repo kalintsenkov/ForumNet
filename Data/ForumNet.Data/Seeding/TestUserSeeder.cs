@@ -16,7 +16,6 @@
         public async Task SeedAsync(ForumDbContext dbContext, IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetService<UserManager<ForumUser>>();
-            var roleManager = serviceProvider.GetService<RoleManager<ForumRole>>();
 
             var isExisting = await userManager.Users.AnyAsync(u => u.UserName == GlobalConstants.TestUserUserName);
             if (!isExisting)

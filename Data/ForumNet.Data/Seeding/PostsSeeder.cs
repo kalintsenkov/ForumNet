@@ -36,7 +36,7 @@
                 .FirstOrDefaultAsync();
 
             var tagIds = await dbContext.Tags
-                .Where(t => t.Name == "C#" || t.Name == "Java" || t.Name == "Python")
+                .Where(t => t.Name == "C#" || t.Name == "MongoDB" || t.Name == "NoSQL")
                 .Select(t => t.Id)
                 .ToListAsync();
 
@@ -62,10 +62,6 @@
                     CreatedOn = DateTime.UtcNow,
                     Tags = new List<PostTag>
                     {
-                        new PostTag
-                        {
-                            TagId = tagIds[0]
-                        },
                         new PostTag
                         {
                             TagId = tagIds[1]
@@ -112,8 +108,8 @@
                 },
                 new Post
                 {
-                    Title = "ML.NET",
-                    Description = @"<p><strong><img style=""display: block; margin-left: auto; margin-right: auto;"" src=""https://habrastorage.org/webt/vz/q-/uq/vzq-uqazx-xhzjcigy-bopwteoa.png"" alt=""ML.NET image"" width=""750"" height=""375"" /></strong></p>
+                    Title = "What is ML.NET",
+                    Description = @"
 <p style=""text-align: justify;""><strong>ML.NET</strong>&nbsp;is a&nbsp;<a title=""Free software"" href=""https://en.wikipedia.org/wiki/Free_software"">free software</a>&nbsp;<a title=""Machine learning"" href=""https://en.wikipedia.org/wiki/Machine_learning"">machine learning</a>&nbsp;<a title=""Library (computing)"" href=""https://en.wikipedia.org/wiki/Library_(computing)"">library</a>&nbsp;for the&nbsp;<a title=""C Sharp (programming language)"" href=""https://en.wikipedia.org/wiki/C_Sharp_(programming_language)"">C#</a>&nbsp;and&nbsp;<a title=""F Sharp (programming language)"" href=""https://en.wikipedia.org/wiki/F_Sharp_(programming_language)"">F#</a> programming languages.&nbsp;<sup id=""cite_ref-visu_Open_4-0"" class=""reference""></sup>It also supports&nbsp;<a title=""Python (programming language)"" href=""https://en.wikipedia.org/wiki/Python_(programming_language)"">Python</a>&nbsp;models when used together with NimbusML. The preview release of ML.NET included transforms for&nbsp;<a title=""Feature engineering"" href=""https://en.wikipedia.org/wiki/Feature_engineering"">feature engineering</a>&nbsp;like&nbsp;<a title=""N-gram"" href=""https://en.wikipedia.org/wiki/N-gram"">n-gram</a> creation, and learners to handle binary classification, multi-class classification, and regression tasks.&nbsp;<sup id=""cite_ref-gith_dotn_7-0"" class=""reference""></sup>Additional ML tasks like anomaly detection and recommendation systems have since been added, and other approaches like deep learning will be included in future versions.</p>
 <hr />
 <h2 style=""text-align: justify;""><span id=""Machine_learning"" class=""mw-headline"">Machine learning</span></h2>

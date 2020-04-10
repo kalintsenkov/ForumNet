@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ForumNet.Web.ViewModels.Chat.ChatUserViewModel>
 
 <div class="tt-all-avatar">
-    <div class="tt-list-avatar" style="overflow-y: auto; height:400px; display:block; word-break:break-all">
+    <div class="tt-list-avatar" style="overflow-y: auto; height:400px; display:block; word-break: break-word;">
         @if (Model.Any())
         {
             foreach (var conversation in Model)

@@ -11,7 +11,7 @@
         </h1>
         <form class="form-default form-create-topic" asp-area="" asp-controller="Replies" asp-action="Edit">
             <div class="form-group">
-                <textarea asp-for="Description"></textarea>
+                <textarea id="customTextArea" asp-for="Description"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="row">
