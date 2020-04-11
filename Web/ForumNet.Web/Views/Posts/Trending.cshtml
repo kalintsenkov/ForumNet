@@ -5,142 +5,153 @@
 
 <div class="container">
     <nav class="tt-topic-list" style="word-break: break-word;">
-        <div class="tt-list-header">
-            <div class="tt-col-topic">Topic</div>
-            <div class="tt-col-category">Category</div>
-            <div class="tt-col-value hide-mobile">Likes</div>
-            <div class="tt-col-value hide-mobile">Replies</div>
-            <div class="tt-col-value hide-mobile">Views</div>
-            <div class="tt-col-value">Activity</div>
-        </div>
 
-        @if (!this.User.Identity.IsAuthenticated)
+        @if (Model.Posts.Any())
         {
-            <div class="tt-item tt-item-popup" id="not-logged-in-user">
-                <div class="tt-col-avatar">
-                    <svg class="tt-icon">
-                        <use xlink:href="#icon-ava-f"></use>
-                    </svg>
-                </div>
-                <div class="tt-col-message">
-                    Looks like you are new here. Register for free, learn and contribute.
-                </div>
-                <div class="tt-col-btn">
-                    <a type="button" class="btn btn-primary" asp-area="Identity" asp-page="/Account/Login">Log in</a>
-                    <a type="button" class="btn btn-secondary" asp-area="Identity" asp-page="/Account/Register">Sign up</a>
-                    <script type="text/javascript">
-                        var removeHtml = function () { document.getElementById("not-logged-in-user").remove() }
-                    </script>
-                    <button type="button" class="btn-icon" onclick="removeHtml()">
-                        <svg class="tt-icon">
-                            <use xlink:href="#icon-cancel"></use>
-                        </svg>
-                    </button>
-                </div>
+            <div class="tt-list-header">
+                <div class="tt-col-topic">Topic</div>
+                <div class="tt-col-category">Category</div>
+                <div class="tt-col-value hide-mobile">Likes</div>
+                <div class="tt-col-value hide-mobile">Replies</div>
+                <div class="tt-col-value hide-mobile">Views</div>
+                <div class="tt-col-value">Activity</div>
             </div>
-        }
 
-        @foreach (var post in Model.Posts)
-        {
-            var className = "tt-item";
-            @if (post.IsPinned)
+            @if (!this.User.Identity.IsAuthenticated)
             {
-                className += " tt-itemselect";
-            }
-
-            <div class="@className">
-                <div class="tt-col-avatar">
-                    <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@post.AuthorId">
+                <div class="tt-item tt-item-popup" id="not-logged-in-user">
+                    <div class="tt-col-avatar">
                         <svg class="tt-icon">
-                            <use xlink:href="@post.AuthorProfilePicture"></use>
+                            <use xlink:href="#icon-ava-f"></use>
                         </svg>
-                    </a>
-                </div>
-                <div class="tt-col-description">
-                    <h6 class="tt-title">
-                        <a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@post.Id">
-                            @if (post.IsPinned)
-                            {
-                                <svg class="tt-icon">
-                                    <use xlink:href="#icon-pinned"></use>
-                                </svg>
-                            }
-                            @post.Title
-                        </a>
-                    </h6>
-                    <div class="row align-items-center no-gutters">
-                        <div class="col-11">
-                            <ul class="tt-list-badge">
-                                <li class="show-mobile">
-                                    <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
-                                        <span class="tt-color01 tt-badge">@post.Category.Name</span>
-                                    </a>
-                                </li>
-
-                                @foreach (var tag in post.Tags.Take(4))
-                                {
-                                    <li>
-                                        <a asp-area="" asp-controller="Tags" asp-action="Details" asp-route-id="@tag.Id">
-                                            <span class="tt-badge">@tag.Name</span>
-                                        </a>
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                        <div class="col-1 ml-auto show-mobile">
-                            <div class="tt-value">@post.Activity</div>
-                        </div>
+                    </div>
+                    <div class="tt-col-message">
+                        Looks like you are new here. Register for free, learn and contribute.
+                    </div>
+                    <div class="tt-col-btn">
+                        <a type="button" class="btn btn-primary" asp-area="Identity" asp-page="/Account/Login">Log in</a>
+                        <a type="button" class="btn btn-secondary" asp-area="Identity" asp-page="/Account/Register">Sign up</a>
+                        <script type="text/javascript">
+                            var removeHtml = function () { document.getElementById("not-logged-in-user").remove() }
+                        </script>
+                        <button type="button" class="btn-icon" onclick="removeHtml()">
+                            <svg class="tt-icon">
+                                <use xlink:href="#icon-cancel"></use>
+                            </svg>
+                        </button>
                     </div>
                 </div>
-                <div class="tt-col-category">
-                    <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
-                        <span class="tt-color01 tt-badge">@post.Category.Name</span>
-                    </a>
-                </div>
-                <div class="tt-col-value hide-mobile">@post.Likes</div>
-                <div class="tt-col-value tt-color-select hide-mobile">@post.RepliesCount</div>
-                <div class="tt-col-value hide-mobile">@post.Views</div>
-                <div class="tt-col-value hide-mobile">@post.Activity</div>
-            </div>
-        }
+            }
 
-        @if (Model.TotalPages > 0)
-        {
-            <div class="text-center">
-                <nav>
-                    <ul class="pagination">
-                        <li>
-                            <a asp-area=""
-                               asp-controller="Posts"
-                               asp-action="Trending"
-                               asp-route-page="@Model.PreviousPage">
-                                &laquo;
+            @foreach (var post in Model.Posts)
+            {
+                var className = "tt-item";
+                @if (post.IsPinned)
+                {
+                    className += " tt-itemselect";
+                }
+
+                <div class="@className">
+                    <div class="tt-col-avatar">
+                        <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@post.AuthorId">
+                            <svg class="tt-icon">
+                                <use xlink:href="@post.AuthorProfilePicture"></use>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="tt-col-description">
+                        <h6 class="tt-title">
+                            <a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@post.Id">
+                                @if (post.IsPinned)
+                                {
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-pinned"></use>
+                                    </svg>
+                                }
+                                @post.Title
                             </a>
-                        </li>
-                        @for (int i = 1; i <= Model.TotalPages; i++)
-                        {
-                            var active = i == Model.PageIndex ? "active" : string.Empty;
+                        </h6>
+                        <div class="row align-items-center no-gutters">
+                            <div class="col-11">
+                                <ul class="tt-list-badge">
+                                    <li class="show-mobile">
+                                        <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
+                                            <span class="tt-color01 tt-badge">@post.Category.Name</span>
+                                        </a>
+                                    </li>
+
+                                    @foreach (var tag in post.Tags.Take(4))
+                                    {
+                                        <li>
+                                            <a asp-area="" asp-controller="Tags" asp-action="Details" asp-route-id="@tag.Id">
+                                                <span class="tt-badge">@tag.Name</span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-1 ml-auto show-mobile">
+                                <div class="tt-value">@post.Activity</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tt-col-category">
+                        <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
+                            <span class="tt-color01 tt-badge">@post.Category.Name</span>
+                        </a>
+                    </div>
+                    <div class="tt-col-value hide-mobile">@post.Likes</div>
+                    <div class="tt-col-value tt-color-select hide-mobile">@post.RepliesCount</div>
+                    <div class="tt-col-value hide-mobile">@post.Views</div>
+                    <div class="tt-col-value hide-mobile">@post.Activity</div>
+                </div>
+            }
+
+            @if (Model.TotalPages > 0)
+            {
+                <div class="text-center">
+                    <nav>
+                        <ul class="pagination">
                             <li>
-                                <a class="@active"
-                                   asp-area=""
+                                <a asp-area=""
                                    asp-controller="Posts"
                                    asp-action="Trending"
-                                   asp-route-page="@i">
-                                    @i
+                                   asp-route-page="@Model.PreviousPage">
+                                    &laquo;
                                 </a>
                             </li>
-                        }
-                        <li>
-                            <a asp-area=""
-                               asp-controller="Posts"
-                               asp-action="Trending"
-                               asp-route-page="@Model.NextPage">
-                                &raquo;
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                var active = i == Model.PageIndex ? "active" : string.Empty;
+                                <li>
+                                    <a class="@active"
+                                       asp-area=""
+                                       asp-controller="Posts"
+                                       asp-action="Trending"
+                                       asp-route-page="@i">
+                                        @i
+                                    </a>
+                                </li>
+                            }
+                            <li>
+                                <a asp-area=""
+                                   asp-controller="Posts"
+                                   asp-action="Trending"
+                                   asp-route-page="@Model.NextPage">
+                                    &raquo;
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="tt-layout-404">
+                <h6 class="tt-title">No posts found</h6>
             </div>
         }
+        
     </nav>
 </div>
