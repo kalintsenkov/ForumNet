@@ -62,9 +62,11 @@
             {
                 <div class="tt-item">
                     <div class="tt-col-avatar">
-                        <svg class="tt-icon">
-                            <use xlink:href="@post.AuthorProfilePicture"></use>
-                        </svg>
+                        <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@post.AuthorId">
+                            <svg class="tt-icon">
+                                <use xlink:href="@post.AuthorProfilePicture"></use>
+                            </svg>
+                        </a>
                     </div>
                     <div class="tt-col-description">
                         <h6 class="tt-title">
@@ -106,17 +108,26 @@
                     <div class="tt-col-value hide-mobile">@post.Activity</div>
                 </div>
             }
-            
+
         </div>
     }
     else
     {
-        <div class="tt-layout-404">
-            <h6 class="tt-title">Sorry, nothing here.</h6>
-            <p>
-                But you can create new post about @Model.Category.Name.<br>
-                <a asp-area="" asp-controller="Posts" asp-action="Create" class="tt-color-dark tt-underline-02">Create New Post</a>
-            </p>
-        </div>
+        if (Model.Search != null)
+        {
+            <div class="tt-layout-404">
+             <h6 class="tt-title">No posts found.</h6>
+            </div>
+        }
+        else
+        {
+            <div class="tt-layout-404">
+                <h6 class="tt-title">Sorry, nothing here.</h6>
+                <p>
+                    But you can create new post about @Model.Category.Name.<br>
+                    <a asp-area="" asp-controller="Posts" asp-action="Create" class="tt-color-dark tt-underline-02">Create New Post</a>
+                </p>
+            </div>
+        }
     }
 </div>

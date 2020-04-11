@@ -21,24 +21,24 @@
                     <h2 class="tt-value">Threads - @Model.Tag.PostsCount</h2>
                 </div>
                 <div class="tt-col-item">
-                        <div class="tt-search">
-                            <form class="search-wrapper" asp-area="" asp-controller="Tags" asp-action="Details" asp-route-id="@Model.Tag.Id" method="get">
-                                <div class="search-form">
-                                    <input type="text" asp-for="Search" value="@Model.Search" class="tt-search__input" placeholder="Search in @Model.Tag.Name">
-                                    <button class="tt-search__btn" type="submit">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="#icon-search"></use>
-                                        </svg>
-                                    </button>
-                                    <button class="tt-search__close">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="#icon-cancel"></use>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                    <div class="tt-search">
+                        <form class="search-wrapper" asp-area="" asp-controller="Tags" asp-action="Details" asp-route-id="@Model.Tag.Id" method="get">
+                            <div class="search-form">
+                                <input type="text" asp-for="Search" value="@Model.Search" class="tt-search__input" placeholder="Search in @Model.Tag.Name">
+                                <button class="tt-search__btn" type="submit">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-search"></use>
+                                    </svg>
+                                </button>
+                                <button class="tt-search__close">
+                                    <svg class="tt-icon">
+                                        <use xlink:href="#icon-cancel"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
                     </div>
+                </div>
             </div>
         </div>
         <div class="tt-innerwrapper">
@@ -61,9 +61,11 @@
             {
                 <div class="tt-item">
                     <div class="tt-col-avatar">
-                        <svg class="tt-icon">
-                            <use xlink:href="@post.AuthorProfilePicture"></use>
-                        </svg>
+                        <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@post.AuthorId">
+                            <svg class="tt-icon">
+                                <use xlink:href="@post.AuthorProfilePicture"></use>
+                            </svg>
+                        </a>
                     </div>
                     <div class="tt-col-description">
                         <h6 class="tt-title">
@@ -106,12 +108,21 @@
     }
     else
     {
-        <div class="tt-layout-404">
-            <h6 class="tt-title">Sorry, nothing here.</h6>
-            <p>
-                But you can create new post about @Model.Tag.Name.<br>
-                <a asp-area="" asp-controller="Posts" asp-action="Create" class="tt-color-dark tt-underline-02">Create New Post</a>
-            </p>
-        </div>
+        if (Model.Search != null)
+        {
+            <div class="tt-layout-404">
+                <h6 class="tt-title">No posts found.</h6>
+            </div>
+        }
+        else
+        {
+            <div class="tt-layout-404">
+                <h6 class="tt-title">Sorry, nothing here.</h6>
+                <p>
+                    But you can create new post about @Model.Tag.Name.<br>
+                    <a asp-area="" asp-controller="Posts" asp-action="Create" class="tt-color-dark tt-underline-02">Create New Post</a>
+                </p>
+            </div>
+        }
     }
 </div>

@@ -43,14 +43,11 @@ namespace ForumNet.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddResponseCompression(options =>
-                options.EnableForHttps = true);
+            services.AddResponseCompression(options => options.EnableForHttps = true);
 
-            services.AddControllersWithViews(options =>
-                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+            services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
-            services.AddAntiforgery(options =>
-                options.HeaderName = "X-CSRF-TOKEN");
+            services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 
             services.AddSignalR();
             services.AddRazorPages();
@@ -92,10 +89,7 @@ namespace ForumNet.Web
             using var serviceScope = app.ApplicationServices.CreateScope();
             using var dbContext = serviceScope.ServiceProvider.GetRequiredService<ForumDbContext>();
 
-            if (env.IsDevelopment())
-            {
-                dbContext.Database.Migrate();
-            }
+            dbContext.Database.Migrate();
 
             new ForumDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
 

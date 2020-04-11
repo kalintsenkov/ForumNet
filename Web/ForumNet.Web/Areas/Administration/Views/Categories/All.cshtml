@@ -7,10 +7,10 @@
 <div class="tt-custom-mobile-indent container">
     <div class="tt-categories-title">
         <div class="tt-title">@ViewData["Title"]</div>
-        <a asp-area="Administration" asp-controller="Categories" asp-action="Create" class="btn btn-secondary ml-auto">Create</a>
+        <a asp-area="Administration" asp-controller="Categories" asp-action="Create" class="btn btn-secondary ml-auto"><i class="fas fa-plus"></i></a>
         &nbsp;
         <div class="tt-search">
-            <form class="search-wrapper" asp-area="" asp-controller="Categories" asp-action="All" method="get">
+            <form class="search-wrapper" asp-area="Administration" asp-controller="Categories" asp-action="All" method="get">
                 <div class="search-form">
                     <input type="text" asp-for="Search" class="tt-search__input" placeholder="Search Categories">
                     <button class="tt-search__btn" type="submit">
@@ -52,11 +52,10 @@
                             </div>
                             <hr />
                             <div class="row">
-                                <div class="col-auto ml-md-auto">
-                                    <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id" class="btn btn-primary">Details</a>
+                                <div class="col-auto">
                                     <a asp-area="Administration" asp-controller="Categories" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-secondary">Edit</a>
                                     <form asp-area="Administration" asp-controller="Categories" asp-action="Delete" asp-route-id="@category.Id" method="post" class="btn">
-                                        <button type="submit" class="btn btn-secondary">Delete</button>
+                                        <button type="submit" class="btn btn-secondary"><i class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </div>
                             </div>

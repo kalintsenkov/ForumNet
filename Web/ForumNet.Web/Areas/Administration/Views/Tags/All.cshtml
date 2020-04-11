@@ -8,11 +8,7 @@
 <div class="tt-custom-mobile-indent container">
     <div class="tt-categories-title">
         <div class="tt-title">@ViewData["Title"]</div>
-
-        @if (this.User.IsAdministrator())
-        {
-            <a asp-area="Administration" asp-controller="Tags" asp-action="Create" class="btn btn-secondary ml-auto">Create</a>
-        }
+        <a asp-area="Administration" asp-controller="Tags" asp-action="Create" class="btn btn-secondary ml-auto"><i class="fas fa-plus"></i></a>
         &nbsp;
         <div class="tt-search">
             <form class="search-wrapper" asp-area="Administration" asp-controller="Tags" asp-action="All" method="get">
@@ -53,13 +49,9 @@
                         </div>
                         <hr />
                         <div class="tt-item-layout">
-                            <a asp-area="" asp-controller="Tags" asp-action="Details" asp-route-id="@tag.Id" class="btn btn-primary">Details</a>
-                            @if (this.User.IsAdministrator())
-                            {
-                                <form asp-area="Administration" asp-controller="Tags" asp-action="Delete" asp-route-id="@tag.Id" method="post" class="btn">
-                                    <button type="submit" class="btn btn-secondary">Delete</button>
-                                </form>
-                            }
+                            <form asp-area="Administration" asp-controller="Tags" asp-action="Delete" asp-route-id="@tag.Id" method="post" class="btn">
+                                <button type="submit" class="btn btn-secondary"><i class="fas fa-trash-alt"></i></button>
+                            </form>
                         </div>
                     </div>
                 </div>

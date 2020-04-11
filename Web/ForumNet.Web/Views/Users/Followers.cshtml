@@ -23,9 +23,11 @@
                         <div class="tt-item">
                             <div class="tt-col-merged">
                                 <div class="tt-col-avatar">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="@follower.ProfilePicture"></use>
-                                    </svg>
+                                    <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@follower.Id">
+                                        <svg class="tt-icon">
+                                            <use xlink:href="@follower.ProfilePicture"></use>
+                                        </svg>
+                                    </a>
                                 </div>
                                 <div class="tt-col-description">
                                     <h6 class="tt-title">
@@ -62,10 +64,12 @@
                 url: "/Users/Follow/" + id,
                 headers: { 'X-CSRF-TOKEN': token },
                 success: function (json) {
-                    if (json == true) {
+                    if (json === true) {
                         $('#follow-button').html('Following');
+                        $('#followersCount').html(@Model.FollowersCount + ' Followers');
                     } else {
                         $('#follow-button').html('Follow');
+                        $('#followersCount').html(@(Model.FollowersCount - 1) + ' Followers');
                     }
                 }
             });
