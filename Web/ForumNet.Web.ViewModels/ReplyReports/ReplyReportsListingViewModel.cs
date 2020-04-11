@@ -38,7 +38,7 @@
                 var sanitizer = new HtmlSanitizer();
                 sanitizer.AllowedTags.Add(GlobalConstants.IFrameAllowedTag);
 
-                var sanitized = sanitizer.Sanitize(this.Description);
+                var sanitized = sanitizer.Sanitize(this.ReplyDescription);
 
                 return this.Description.Length > GlobalConstants.ShortDescriptionAllowedLength
                    ? sanitized.Substring(0, GlobalConstants.ShortDescriptionAllowedLength) + "..."

@@ -4,7 +4,7 @@
 
     public class ChatWithUserViewModel
     {
-        public string ReceiverId { get; set; }
+        public ChatUserViewModel User { get; set; }
 
         public IEnumerable<ChatUserViewModel> Chats { get; set; }
 

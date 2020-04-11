@@ -35,7 +35,6 @@
 
         public class InputModel
         {
-            [Required]
             [DataType(DataType.Date)]
             [Display(Name = GlobalConstants.UserBirthDateDisplayName)]
             public DateTime? BirthDate { get; set; }
@@ -75,18 +74,15 @@
                 return this.Page();
             }
 
-            if (this.Input.BirthDate != user.BirthDate || this.Input.Gender != user.Gender)
-            {
-                user.BirthDate = this.Input.BirthDate;
-                user.Gender = this.Input.Gender;
-                user.Biography = this.Input.Biography;
+            user.BirthDate = this.Input.BirthDate;
+            user.Gender = this.Input.Gender;
+            user.Biography = this.Input.Biography;
 
-                var updateResult = await this.userManager.UpdateAsync(user);
-                if (!updateResult.Succeeded)
-                {
-                    var userId = await this.userManager.GetUserIdAsync(user);
-                    throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
-                }
+            var updateResult = await this.userManager.UpdateAsync(user);
+            if (!updateResult.Succeeded)
+            {
+                var userId = await this.userManager.GetUserIdAsync(user);
+                throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
             }
 
             await this.signInManager.RefreshSignInAsync(user);

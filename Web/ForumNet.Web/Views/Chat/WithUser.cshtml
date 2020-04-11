@@ -31,7 +31,7 @@
                         </i>
                     </a>
                     <h2 class="tt-title">
-                        @Model.Messages.Select(m => m.AuthorUserName).FirstOrDefault()
+                        @Model.User.UserName
                     </h2>
                     <a href="#" class="tt-icon-link">
                         <i class="tt-icon">
@@ -41,7 +41,7 @@
                         </i>
                     </a>
                 </div>
-                <div id="messagesList" class="tt-list-time-topic" style="overflow-y: auto; height:400px; display:block; word-break: break-word;">
+                <div id="messagesList" class="tt-list-time-topic" style="overflow-y: auto; height:300px; display:block; word-break: break-word;">
 
                     @foreach (var message in Model.Messages)
                     {
@@ -56,7 +56,7 @@
                                     <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@message.AuthorId">@message.AuthorUserName</a>
                                     <span class="time">@message.CreatedOn</span>
                                 </h4>
-                                @message.Content
+                                @message.SanitizedContent
                             </div>
                         </div>
                     }
@@ -106,8 +106,7 @@
                                 </div>
                                 <div class="tt-col-description">
                                     <h4 class="tt-title">
-                                    <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="${message.authorId}">${message.authorUserName}
-                                    </a>
+                                    <a href="/Users/Threads/${message.authorId}">${message.authorUserName}</a>
                                     <span class="time">${message.createdOn}</span>
                                     </h4>
                                     ${escapeHtml(message.content)}
@@ -121,7 +120,7 @@
         $("#sendButton").click(function () {
             var message = $.trim($('#messageInput').val());
             $('#messageInput').val('');
-            connection.invoke("SendMessage", escapeHtml(message), '@Model.ReceiverId');
+            connection.invoke("SendMessage", escapeHtml(message), '@Model.User.Id');
         });
 
         connection.start().catch(function (err) {
@@ -130,6 +129,11 @@
 
         function escapeHtml(unsafe) {
             return unsafe
+                .replace(/<3/g, "❤")
+                .replace(/:D/g, "😀")
+                .replace(/:P/g, "😜")
+                .replace(':)', "😊")
+                .replace(';)', "😉")
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
                 .replace(/>/g, "&gt;")

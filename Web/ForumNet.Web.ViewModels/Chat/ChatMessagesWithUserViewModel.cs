@@ -2,8 +2,6 @@
 {
     using Ganss.XSS;
 
-    using Common;
-
     public class ChatMessagesWithUserViewModel
     {
         private readonly IHtmlSanitizer htmlSanitizer;
@@ -11,7 +9,6 @@
         public ChatMessagesWithUserViewModel()
         {
             this.htmlSanitizer = new HtmlSanitizer();
-            this.htmlSanitizer.AllowedTags.Add(GlobalConstants.IFrameAllowedTag);
         }
 
         public int Id { get; set; }

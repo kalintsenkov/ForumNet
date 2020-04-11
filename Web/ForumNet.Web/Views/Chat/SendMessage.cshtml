@@ -59,6 +59,12 @@
 
 @section Scripts {
     <script>
+        $('#messageBox').on('keypress', function (e) {
+            if (e.which === 13 && !e.shiftKey) {
+                e.preventDefault();
+                $('#sendButton').click();
+            }
+        });
         $('#input-user').on('change', function () {
             var valueSelected = this.value;
             $("#addMessageForm input[name='ReceiverId']").val(valueSelected);

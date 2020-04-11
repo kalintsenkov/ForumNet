@@ -24,7 +24,7 @@
                 @if (Model.PostReports.Any())
                 {
                     <div class="tt-list-header">
-                        <div class="tt-col-topic">Topic</div>
+                        <div class="tt-col-topic">Report</div>
                         <div class="tt-col-value">Activity</div>
                     </div>
 
@@ -49,7 +49,7 @@
                                     @Html.Raw(report.ShortDescription)
                                 </div>
                                 <div class="row align-items-center no-gutters hide-desktope">
-                                    <div class="col-3 ml-auto show-mobile">
+                                    <div class="col-3 ml-auto hide-mobile">
                                         <div class="tt-value">@report.CreatedOn</div>
                                     </div>
                                 </div>

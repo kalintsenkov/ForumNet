@@ -67,7 +67,7 @@
             var userId = this.User.GetId();
             var viewModel = new ChatWithUserViewModel
             {
-                ReceiverId = id,
+                User = await this.usersService.GetByIdAsync<ChatUserViewModel>(id),
                 Chats = await this.chatService.GetAllAsync<ChatUserViewModel>(userId),
                 Messages = await this.messagesService.GetAllWithUserAsync<ChatMessagesWithUserViewModel>(userId, id),
             };

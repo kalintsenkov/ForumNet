@@ -19,10 +19,18 @@
                     <li><a href="#"><span class="tt-color14 tt-badge">Points: @Model.Points</span></a></li>
                 </ul>
             </div>
-            @if (Model.Id != this.User.GetId())
+
+            @if (Model.Id == this.User.GetId())
+            {
+                <a href="/Identity/Account/Manage" class="tt-icon-btn" style="color: #666f74">
+                    <i class="fas fa-cog"></i>
+                </a>
+            }
+            else
             {
                 <vc:users-follow-button user-id="@Model.Id"></vc:users-follow-button>
             }
+
         </div>
     </div>
 </div>
