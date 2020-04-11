@@ -2,9 +2,9 @@
 
 <div class="tt-all-avatar">
     <div class="tt-list-avatar" style="overflow-y: auto; height:400px; display:block; word-break: break-word;">
-        @if (Model.Any())
+        @if (this.Model.Any())
         {
-            foreach (var conversation in Model)
+            foreach (var conversation in this.Model)
             {
                 <a onclick="location.href = '/Chat/WithUser/@conversation.Id';" href="#" class="tt-item">
                     <div class="tt-col-avatar">

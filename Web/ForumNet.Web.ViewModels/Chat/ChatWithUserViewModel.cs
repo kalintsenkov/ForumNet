@@ -6,8 +6,6 @@
     {
         public ChatUserViewModel User { get; set; }
 
-        public IEnumerable<ChatUserViewModel> Chats { get; set; }
-
         public IEnumerable<ChatMessagesWithUserViewModel> Messages { get; set; }
     }
 }

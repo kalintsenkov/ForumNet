@@ -1,6 +1,6 @@
 ﻿@using ForumNet.Web.Infrastructure.Extensions
 @using ForumNet.Web.ViewModels.Chat
-@model ChatSendMessageViewModel
+@model ChatSendMessageInputModel
 @{
     ViewData["Title"] = "New message";
 }
@@ -20,7 +20,7 @@
                     </i>
                 </a>
 
-                <partial name="_ConversationsPartial" model="Model.Chats" />
+                <vc:chat-conversations></vc:chat-conversations>
 
             </div>
             <div class="col-md-8">
@@ -51,7 +51,24 @@
                     </div>
                 </div>
 
-                <partial name="_SendPartial" model="new ChatSendMessageInputModel { ReceiverId = Model.ReceiverId }" />
+                <div class="tt-wrapper-inner">
+                    <div class="pt-editor form-default">
+                        <form id="addMessageForm" asp-area="" asp-controller="Chat" asp-action="SendMessage" method="post">
+                            <div asp-validation-summary="All"></div>
+                            <input value="@Model.ReceiverId" name="ReceiverId" hidden />
+                            <div class="form-group">
+                                <textarea id="messageBox" asp-for="Message" class="form-control" placeholder="Write your message here"></textarea>
+                                <span asp-validation-for="Message"></span>
+                            </div>
+                            <div class="pt-row">
+                                <div class="col-auto ml-auto">
+                                    <button id="sendButton" type="submit" class="btn btn-secondary btn-custom">Send</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -78,4 +95,5 @@
             $(this)[0].selectize.clear(true);
         });
     </script>
+    <partial name="_ValidationScriptsPartial" />
 }

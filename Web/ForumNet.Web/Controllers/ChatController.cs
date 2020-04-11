@@ -12,38 +12,27 @@
     [Authorize]
     public class ChatController : Controller
     {
-        private readonly IChatService chatService;
         private readonly IUsersService usersService;
         private readonly IMessagesService messagesService;
 
         public ChatController(
-            IChatService chatService,
             IUsersService usersService,
             IMessagesService messagesService)
         {
-            this.chatService = chatService;
             this.usersService = usersService;
             this.messagesService = messagesService;
         }
 
-        public async Task<IActionResult> All()
+        public IActionResult All()
         {
-            var userId = this.User.GetId();
-            var viewModel = new ChatAllViewModel
-            {
-                Chats = await this.chatService.GetAllAsync<ChatUserViewModel>(userId),
-            };
-
-            return this.View(viewModel);
+            return this.View();
         }
 
         public async Task<IActionResult> SendMessage()
         {
-            var userId = this.User.GetId();
-            var viewModel = new ChatSendMessageViewModel
+            var viewModel = new ChatSendMessageInputModel
             {
                 Users = await this.usersService.GetAllAsync<ChatUserViewModel>(),
-                Chats = await this.chatService.GetAllAsync<ChatUserViewModel>(userId),
             };
 
             return this.View(viewModel);
@@ -54,10 +43,12 @@
         {
             if (!this.ModelState.IsValid)
             {
-                this.RedirectToAction(nameof(WithUser), new { id = input.ReceiverId });
+                input.Users = await this.usersService.GetAllAsync<ChatUserViewModel>();
+
+                this.View(input);
             }
 
-            await this.messagesService.CreateAsync(input.Content, this.User.GetId(), input.ReceiverId);
+            await this.messagesService.CreateAsync(input.Message, this.User.GetId(), input.ReceiverId);
 
             return this.RedirectToAction(nameof(WithUser), new { id = input.ReceiverId });
         }
@@ -68,7 +59,6 @@
             var viewModel = new ChatWithUserViewModel
             {
                 User = await this.usersService.GetByIdAsync<ChatUserViewModel>(id),
-                Chats = await this.chatService.GetAllAsync<ChatUserViewModel>(userId),
                 Messages = await this.messagesService.GetAllWithUserAsync<ChatMessagesWithUserViewModel>(userId, id),
             };
 

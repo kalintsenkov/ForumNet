@@ -1,5 +1,4 @@
-﻿@model ForumNet.Web.ViewModels.Chat.ChatAllViewModel
-@{
+﻿@{
     ViewData["Title"] = "Messages";
 }
 
@@ -18,7 +17,7 @@
                     </i>
                 </a>
 
-                <partial name="_ConversationsPartial" model="Model.Chats" />
+                <vc:chat-conversations></vc:chat-conversations>
 
             </div>
         </div>
