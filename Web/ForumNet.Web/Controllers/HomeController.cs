@@ -51,7 +51,7 @@
                 ReactionsCount = reactionsCount,
                 PostsCount = postsCount,
                 UsersCount = usersCount,
-                Admins = admins,
+                Admins = admins
             };
 
             return View(viewModel);
