@@ -83,8 +83,7 @@
         "dist/js/standalone/selectize.min.js",
         "dist/css/selectize.css",
         "dist/css/selectize.min.css",
-        "src/plugins/remove_button/plugin.min.js",
-        "src/plugins/restore_on_backspace/plugin.min.js"
+        "src/plugins/remove_button/plugin.min.js"
       ]
     },
     {
