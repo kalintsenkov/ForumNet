@@ -20,7 +20,7 @@
         public const string DateTimeFormat = "dd/MM/yy HH:mm";
         public const string DateTimeShortFormat = "dd/MM/yy";
 
-        public const string IFrameAllowedTag = "iframe";
+        public const string IFrameTag = "iframe";
 
         public const string UserUsernameDisplayName = "Display name";
         public const string UserLoginRememberMeDisplayName = "Remember me";

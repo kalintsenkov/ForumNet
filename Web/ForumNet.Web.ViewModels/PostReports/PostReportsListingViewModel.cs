@@ -11,7 +11,7 @@
         public PostReportsListingViewModel()
         {
             this.sanitizer = new HtmlSanitizer();
-            this.sanitizer.AllowedTags.Add(GlobalConstants.IFrameAllowedTag);
+            this.sanitizer.AllowedTags.Add(GlobalConstants.IFrameTag);
         }
 
         public int Id { get; set; }

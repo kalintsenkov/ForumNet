@@ -8,8 +8,9 @@ namespace ForumNet.Web
         public static void Main(string[] args) 
             => CreateHostBuilder(args).Build().Run();
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args) 
+            => Host
+                .CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

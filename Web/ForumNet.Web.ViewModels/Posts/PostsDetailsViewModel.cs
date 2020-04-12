@@ -14,7 +14,7 @@
         public PostsDetailsViewModel()
         {
             this.htmlSanitizer = new HtmlSanitizer();
-            this.htmlSanitizer.AllowedTags.Add(GlobalConstants.IFrameAllowedTag);
+            this.htmlSanitizer.AllowedTags.Add(GlobalConstants.IFrameTag);
         }
 
         public int Id { get; set; }
