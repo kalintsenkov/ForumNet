@@ -29,30 +29,31 @@ namespace ForumNet.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ForumDbContext>(options =>
-                options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
-
             services
+                .AddDbContext<ForumDbContext>(options => options
+                    .UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")))
                 .AddDefaultIdentity<ForumUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ForumRole>()
                 .AddEntityFrameworkStores<ForumDbContext>();
 
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            services
+                .Configure<CookiePolicyOptions>(options =>
+                {
+                    options.CheckConsentNeeded = context => true;
+                    options.MinimumSameSitePolicy = SameSiteMode.None;
+                })
+                .AddResponseCompression(options => options.EnableForHttps = true)
+                .AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN")
+                .AddSignalR();
 
-            services.AddResponseCompression(options => options.EnableForHttps = true);
+            services
+                .AddControllersWithViews(options => options
+                    .Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
-            services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
-
-            services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
-
-            services.AddSignalR();
             services.AddRazorPages();
 
-            services.AddAuthentication()
+            services
+                .AddAuthentication()
                 .AddFacebook(facebookOptions =>
                 {
                     facebookOptions.AppId = this.configuration["Facebook:AppId"];
@@ -67,9 +68,6 @@ namespace ForumNet.Web
             services.AddAutoMapper(typeof(ForumNetProfile).Assembly);
 
             services.AddSingleton(this.configuration);
-
-            services.AddTransient<IEmailSender>(
-                serviceProvider => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
@@ -82,6 +80,8 @@ namespace ForumNet.Web
             services.AddTransient<IReplyReportsService, ReplyReportsService>();
             services.AddTransient<ITagsService, TagsService>();
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IEmailSender>(serviceProvider =>
+                new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -91,43 +91,45 @@ namespace ForumNet.Web
 
             dbContext.Database.Migrate();
 
-            new ForumDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+            new ForumDbContextSeeder()
+                .SeedAsync(dbContext, serviceScope.ServiceProvider)
+                .GetAwaiter()
+                .GetResult();
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app
+                    .UseDeveloperExceptionPage()
+                    .UseDatabaseErrorPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
+                app
+                    .UseExceptionHandler("/Home/Error")
+                    .UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app
+                .UseHttpsRedirection()
+                .UseStaticFiles()
+                .UseRouting()
+                .UseAuthentication()
+                .UseAuthorization()
+                .UseCookiePolicy()
+                .UseStatusCodePagesWithRedirects("/Home/NotFound{0}")
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllerRoute(
+                        name: "areaRoute",
+                        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-            app.UseRouting();
+                    endpoints.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller=Posts}/{action=Trending}/{id?}");
 
-            app.UseCookiePolicy();
-            app.UseAuthentication();
-            app.UseAuthorization();
-
-            app.UseStatusCodePagesWithRedirects("/Home/NotFound{0}");
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "areaRoute",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Posts}/{action=Trending}/{id?}");
-
-                endpoints.MapHub<ChatHub>("/chat");
-                endpoints.MapRazorPages();
-            });
+                    endpoints.MapHub<ChatHub>("/chat");
+                    endpoints.MapRazorPages();
+                });
         }
     }
 }
