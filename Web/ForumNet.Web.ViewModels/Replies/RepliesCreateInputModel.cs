@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using Common;
+    using static Common.GlobalConstants;
 
     public class RepliesCreateInputModel
     {
@@ -12,7 +12,7 @@
         public int PostId { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.ReplyDescriptionMaxLength)]
+        [MaxLength(ReplyDescriptionMaxLength)]
         public string Description { get; set; }
     }
 }

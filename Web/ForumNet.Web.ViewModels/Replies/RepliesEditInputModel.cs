@@ -2,14 +2,14 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using Common;
+    using static Common.GlobalConstants;
 
     public class RepliesEditInputModel
     {
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.ReplyDescriptionMaxLength)]
+        [MaxLength(ReplyDescriptionMaxLength)]
         public string Description { get; set; }
 
         public string AuthorId { get; set; }

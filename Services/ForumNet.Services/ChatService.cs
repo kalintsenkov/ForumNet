@@ -25,14 +25,14 @@
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string currentUserId)
         {
             var sentMessages = this.db.Messages
-                .Where(m => !m.IsDeleted
-                    && (m.AuthorId == currentUserId || m.ReceiverId == currentUserId))
+                .Where(m => !m.IsDeleted && 
+                            (m.AuthorId == currentUserId || m.ReceiverId == currentUserId))
                 .Select(m => m.Author)
                 .OrderByDescending(m => m.CreatedOn);
 
             var receivedMessages = this.db.Messages
-                .Where(m => !m.IsDeleted
-                    && (m.AuthorId == currentUserId || m.ReceiverId == currentUserId))
+                .Where(m => !m.IsDeleted && 
+                            (m.AuthorId == currentUserId || m.ReceiverId == currentUserId))
                 .Select(m => m.Receiver)
                 .OrderByDescending(m => m.CreatedOn);
 

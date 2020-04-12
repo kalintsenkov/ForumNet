@@ -3,30 +3,32 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using Common;
     using Infrastructure.Attributes;
+
+    using static Common.ErrorMessages;
+    using static Common.GlobalConstants;
 
     public class PostsEditInputModel
     {
         public int Id { get; set; }
 
         [Required]
-        [StringLength(GlobalConstants.PostTitleMaxLength, ErrorMessage = ErrorMessages.PostTitleLengthErrorMessage, MinimumLength = GlobalConstants.PostTitleMinLength)]
+        [StringLength(PostTitleMaxLength, ErrorMessage = PostTitleLengthErrorMessage, MinimumLength = PostTitleMinLength)]
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.PostDescriptionMaxLength)]
+        [MaxLength(PostDescriptionMaxLength)]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         [Required]
-        [EnsureCategoryIdExists(ErrorMessage = ErrorMessages.CategoryNonExistingIdErrorMessage)]
+        [EnsureCategoryIdExists(ErrorMessage = CategoryNonExistingIdErrorMessage)]
         public int CategoryId { get; set; }
 
         public string AuthorId { get; set; }
 
-        [EnsureTagIdsExists(ErrorMessage = ErrorMessages.TagNonExistingIdErrorMessage)]
-        [Display(Name = GlobalConstants.TagsDisplayName)]
+        [EnsureTagIdsExists(ErrorMessage = TagNonExistingIdErrorMessage)]
+        [Display(Name = TagsDisplayName)]
         public IEnumerable<int> TagIds { get; set; }
 
         public IEnumerable<PostsTagsDetailsViewModel> Tags { get; set; }

@@ -73,17 +73,16 @@
                     CreatedOn = this.dateTimeProvider.Now()
                 };
 
-                await this.AddPointsAsync(followerId);
-                await this.db.UsersFollowers.AddAsync(userFollower);
                 isFollowed = true;
+                await this.db.UsersFollowers.AddAsync(userFollower);
             }
             else
             {
                 if (userFollower.IsDeleted)
                 {
+                    isFollowed = true;
                     userFollower.IsDeleted = false;
                     userFollower.DeletedOn = null;
-                    isFollowed = true;
                     userFollower.CreatedOn = this.dateTimeProvider.Now();
                     userFollower.ModifiedOn = this.dateTimeProvider.Now();
                 }
@@ -117,19 +116,35 @@
 
         public async Task<int> GetTotalCountAsync()
         {
-            return await this.db.Users.Where(u => !u.IsDeleted).CountAsync();
+            var count = await this.db.Users
+                .Where(u => !u.IsDeleted)
+                .CountAsync();
+
+            return count;
         }
 
         public async Task<int> GetFollowersCountAsync(string id)
         {
-            return await this.db.UsersFollowers
-                .CountAsync(uf => !uf.IsDeleted && !uf.User.IsDeleted && !uf.Follower.IsDeleted && uf.UserId == id);
+            var count = await this.db.UsersFollowers
+                .Where(uf => !uf.IsDeleted && 
+                             !uf.User.IsDeleted && 
+                             !uf.Follower.IsDeleted && 
+                             uf.UserId == id)
+                .CountAsync();
+
+            return count;
         }
 
         public async Task<int> GetFollowingCountAsync(string id)
         {
-            return await this.db.UsersFollowers
-                .CountAsync(uf => !uf.IsDeleted && !uf.User.IsDeleted && !uf.Follower.IsDeleted && uf.FollowerId == id);
+            var count = await this.db.UsersFollowers
+                .Where(uf => !uf.IsDeleted && 
+                             !uf.User.IsDeleted && 
+                             !uf.Follower.IsDeleted && 
+                             uf.FollowerId == id)
+                .CountAsync();
+
+            return count;
         }
 
         public async Task<TModel> GetByIdAsync<TModel>(string id)
@@ -161,7 +176,8 @@
 
             var admins = await this.db.Users
                 .Where(u => !u.IsDeleted && u.Roles
-                    .Select(r => r.RoleId).FirstOrDefault() == adminRoleId)
+                    .Select(r => r.RoleId)
+                    .FirstOrDefault() == adminRoleId)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

@@ -3,12 +3,12 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using Common;
+    using static Common.GlobalConstants;
 
     public class ChatSendMessageInputModel
     {
         [Required]
-        [MaxLength(GlobalConstants.MessageContentMaxLength)]
+        [MaxLength(MessageContentMaxLength)]
         public string Message { get; set; }
 
         [Required]

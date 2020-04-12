@@ -128,7 +128,8 @@
         {
             var count = await this.db.Posts
                 .Where(p => !p.IsDeleted && p.Author.Followers
-                    .Select(f => f.FollowerId).FirstOrDefault() == userId)
+                    .Select(f => f.FollowerId)
+                    .FirstOrDefault() == userId)
                 .CountAsync();
 
             return count;

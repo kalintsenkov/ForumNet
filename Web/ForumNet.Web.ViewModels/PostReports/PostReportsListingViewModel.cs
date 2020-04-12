@@ -6,6 +6,14 @@
 
     public class PostReportsListingViewModel
     {
+        private readonly IHtmlSanitizer sanitizer;
+
+        public PostReportsListingViewModel()
+        {
+            this.sanitizer = new HtmlSanitizer();
+            this.sanitizer.AllowedTags.Add(GlobalConstants.IFrameAllowedTag);
+        }
+
         public int Id { get; set; }
 
         public string Description { get; set; }
@@ -14,10 +22,7 @@
         {
             get
             {
-                var sanitizer = new HtmlSanitizer();
-                sanitizer.AllowedTags.Add(GlobalConstants.IFrameAllowedTag);
-
-                var sanitized = sanitizer.Sanitize(this.Description);
+                var sanitized = this.sanitizer.Sanitize(this.Description);
 
                 return this.Description.Length > GlobalConstants.ShortDescriptionAllowedLength
                    ? sanitized.Substring(0, GlobalConstants.ShortDescriptionAllowedLength) + "..."

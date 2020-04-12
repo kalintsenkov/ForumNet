@@ -2,14 +2,16 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using Common;
     using Infrastructure.Attributes;
+
+    using static Common.ErrorMessages;
+    using static Common.GlobalConstants;
 
     public class TagsCreateInputModel
     {
         [Required]
-        [StringLength(GlobalConstants.TagNameMaxLength, ErrorMessage = ErrorMessages.TagNameLengthErrorMessage, MinimumLength = GlobalConstants.TagNameMinLength)]
-        [EnsureTagNameNotExists(ErrorMessage = ErrorMessages.TagExistingNameErrorMessage)]
+        [StringLength(TagNameMaxLength, ErrorMessage = TagNameLengthErrorMessage, MinimumLength = TagNameMinLength)]
+        [EnsureTagNameNotExists(ErrorMessage = TagExistingNameErrorMessage)]
         public string Name { get; set; }
     }
 }

@@ -2,14 +2,16 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using Common;
     using Infrastructure.Attributes;
+
+    using static Common.ErrorMessages;
+    using static Common.GlobalConstants;
 
     public class CategoriesCreateInputModel
     {
         [Required]
-        [StringLength(GlobalConstants.CategoryNameMaxLength, ErrorMessage = ErrorMessages.CategoryNameLengthErrorMessage, MinimumLength = GlobalConstants.CategoryNameMinLength)]
-        [EnsureCategoryNameNotExists(ErrorMessage = ErrorMessages.CategoryExistingNameErrorMessage)]
+        [StringLength(CategoryNameMaxLength, ErrorMessage = CategoryNameLengthErrorMessage, MinimumLength = CategoryNameMinLength)]
+        [EnsureCategoryNameNotExists(ErrorMessage = CategoryExistingNameErrorMessage)]
         public string Name { get; set; }
     }
 }

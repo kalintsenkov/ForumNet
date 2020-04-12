@@ -38,7 +38,6 @@
             }
 
             user.Threads = await this.postsService.GetAllByUserIdAsync<UsersThreadsAllViewModel>(id);
-
             foreach (var thread in user.Threads)
             {
                 thread.Activity = await this.postsService.GetLatestActivityByIdAsync(thread.Id);
@@ -90,7 +89,6 @@
         [HttpPost]
         public async Task<IActionResult> Follow(string id)
         {
-            // User should not be able to follow himself
             var followerId = this.User.GetId();
             if (followerId == id)
             {

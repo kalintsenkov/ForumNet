@@ -2,10 +2,15 @@
 {
     using Ganss.XSS;
 
-    using Common;
-
     public class UsersRepliesAllViewModel
     {
+        private readonly IHtmlSanitizer sanitizer;
+
+        public UsersRepliesAllViewModel()
+        {
+            this.sanitizer = new HtmlSanitizer();
+        }
+
         public int Id { get; set; }
 
         public int PostId { get; set; }
@@ -15,16 +20,7 @@
         public string Description { get; set; }
 
         public string SanitizedDescription
-        {
-            get
-            {
-                var sanitized = new HtmlSanitizer().Sanitize(this.Description);
-
-                return this.Description.Length > GlobalConstants.ShortDescriptionAllowedLength
-                    ? sanitized.Substring(0, GlobalConstants.ShortDescriptionAllowedLength) + "..." 
-                    : sanitized;
-            }
-        }
+            => this.sanitizer.Sanitize(this.Description);
 
         public string Activity { get; set; }
 
