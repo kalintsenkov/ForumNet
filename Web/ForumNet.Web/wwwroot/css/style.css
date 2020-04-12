@@ -5913,6 +5913,13 @@ hr {
         fill: #2172cd;
     }
 
+    .tt-icon-btn:hover .tt-icon img {
+        -ms-transform: scale(1.5);
+        -webkit-transform: scale(1.5);
+        transition: transform .2s;
+        transform: scale(1.5);
+    }
+
         .tt-icon-btn:hover .tt-icon svg path {
             fill: #2172cd;
         }
