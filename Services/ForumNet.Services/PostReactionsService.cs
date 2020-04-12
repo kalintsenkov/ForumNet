@@ -9,8 +9,9 @@
     using Data;
     using Data.Models;
     using Data.Models.Enums;
+    using Models;
 
-    public class PostReactionsService: IPostReactionsService
+    public class PostReactionsService : IPostReactionsService
     {
         private readonly ForumDbContext db;
         private readonly IDateTimeProvider dateTimeProvider;
@@ -49,20 +50,22 @@
 
         public async Task<int> GetTotalCountAsync()
         {
-
             return await this.db.PostReactions.Where(pr => !pr.Post.IsDeleted).CountAsync();
         }
 
-        public async Task<(int Likes, int Loves, int Haha, int Wow, int Sad, int Angry)> GetCountByPostIdAsync(int postId)
+        public async Task<ReactionsCountServiceModel> GetCountByPostIdAsync(int postId)
         {
-            var likes = await this.GetCountByTypeAndPostIdAsync(ReactionType.Like, postId);
-            var loves = await this.GetCountByTypeAndPostIdAsync(ReactionType.Love, postId);
-            var haha = await this.GetCountByTypeAndPostIdAsync(ReactionType.Haha, postId);
-            var wow = await this.GetCountByTypeAndPostIdAsync(ReactionType.Wow, postId);
-            var sad = await this.GetCountByTypeAndPostIdAsync(ReactionType.Sad, postId);
-            var angry = await this.GetCountByTypeAndPostIdAsync(ReactionType.Angry, postId);
+            var reactionsCount = new ReactionsCountServiceModel
+            {
+                Likes = await this.GetCountByTypeAndPostIdAsync(ReactionType.Like, postId),
+                Loves = await this.GetCountByTypeAndPostIdAsync(ReactionType.Love, postId),
+                HahaCount = await this.GetCountByTypeAndPostIdAsync(ReactionType.Haha, postId),
+                WowCount = await this.GetCountByTypeAndPostIdAsync(ReactionType.Wow, postId),
+                SadCount = await this.GetCountByTypeAndPostIdAsync(ReactionType.Sad, postId),
+                AngryCount = await this.GetCountByTypeAndPostIdAsync(ReactionType.Angry, postId)
+            };
 
-            return (likes, loves, haha, wow, sad, angry);
+            return reactionsCount;
         }
 
         private async Task<int> GetCountByTypeAndPostIdAsync(ReactionType reactionType, int postId)

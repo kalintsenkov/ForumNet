@@ -9,6 +9,7 @@
     using Data;
     using Data.Models;
     using Data.Models.Enums;
+    using Models;
 
     public class ReplyReactionsService : IReplyReactionsService
     {
@@ -52,16 +53,19 @@
             return await this.db.ReplyReactions.Where(pr => !pr.Reply.IsDeleted).CountAsync();
         }
 
-        public async Task<(int Likes, int Loves, int Haha, int Wow, int Sad, int Angry)> GetCountByReplyIdAsync(int replyId)
+        public async Task<ReactionsCountServiceModel> GetCountByReplyIdAsync(int replyId)
         {
-            var likes = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Like, replyId);
-            var loves = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Love, replyId);
-            var haha = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Haha, replyId);
-            var wow = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Wow, replyId);
-            var sad = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Sad, replyId);
-            var angry = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Angry, replyId);
+            var reactionsCount = new ReactionsCountServiceModel
+            {
+                Likes = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Like, replyId),
+                Loves = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Love, replyId),
+                HahaCount = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Haha, replyId),
+                WowCount = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Wow, replyId),
+                SadCount = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Sad, replyId),
+                AngryCount = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Angry, replyId)
+            };
 
-            return (likes, loves, haha, wow, sad, angry);
+            return reactionsCount;
         }
 
         private async Task<int> GetCountByTypeAndReplyIdAsync(ReactionType reactionType, int replyId)

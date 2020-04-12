@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
 
     using Data.Models.Enums;
+    using Models;
 
     public interface IReplyReactionsService
     {
@@ -10,6 +11,6 @@
 
         Task<int> GetTotalCountAsync();
 
-        Task<(int Likes, int Loves, int Haha, int Wow, int Sad, int Angry)> GetCountByReplyIdAsync(int replyId);
+        Task<ReactionsCountServiceModel> GetCountByReplyIdAsync(int replyId);
     }
 }
