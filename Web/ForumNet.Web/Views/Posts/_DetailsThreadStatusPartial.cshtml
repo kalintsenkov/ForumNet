@@ -18,42 +18,43 @@
             </div>
             <div class="tt-item">
                 <div class="tt-icon-btn tt-position-bottom">
-                    <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
+                    <i class="tt-icon"><img src="~/images/like.svg" alt="like" /></i>
                     <span id="post-likes" class="tt-text">@Model.Likes</span>
                 </div>
             </div>
             <div class="tt-item">
                 <div class="tt-icon-btn tt-position-bottom">
-                    <i class="tt-icon fas fa-heart"></i>
+                    <i class="tt-icon"><img src="~/images/love.svg" alt="love" /></i>
                     <span id="post-loves" class="tt-text">@Model.Loves</span>
                 </div>
             </div>
             <div class="tt-item">
                 <div class="tt-icon-btn tt-position-bottom">
-                    <i class="tt-icon fas fa-grin-tears"></i>
+                    <i class="tt-icon"><img src="~/images/haha.svg" alt="haha" /></i>
                     <span id="post-haha" class="tt-text">@Model.HahaCount</span>
                 </div>
             </div>
             <div class="tt-item">
                 <div class="tt-icon-btn tt-position-bottom">
-                    <i class="tt-icon fas fa-surprise"></i>
+                    <i class="tt-icon"><img src="~/images/wow.svg" alt="wow" /></i>
                     <span id="post-wow" class="tt-text">@Model.WowCount</span>
                 </div>
             </div>
             <div class="tt-item">
                 <div class="tt-icon-btn tt-position-bottom">
-                    <i class="tt-icon fas fa-sad-tear"></i>
+                    <i class="tt-icon"><img src="~/images/sad.svg" alt="sad" /></i>
                     <span id="post-sad" class="tt-text">@Model.SadCount</span>
                 </div>
             </div>
             <div class="tt-item">
                 <div class="tt-icon-btn tt-position-bottom">
-                    <i class="tt-icon fas fa-angry"></i>
+                    <i class="tt-icon"><img src="~/images/angry.svg" alt="angry" /></i>
                     <span id="post-angry" class="tt-text">@Model.AngryCount</span>
                 </div>
             </div>
 
         </div>
+
         @if (Model.Replies.Any())
         {
             <hr />

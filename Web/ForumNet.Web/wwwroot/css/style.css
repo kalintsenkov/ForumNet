@@ -5890,6 +5890,11 @@ hr {
             transition: fill 0.2s linear;
         }
 
+        .tt-icon-btn .tt-icon img {
+            width: 25px;
+            height: 20px;
+        }
+
         .tt-icon-btn .tt-icon + .tt-text {
             margin-left: 10px;
         }

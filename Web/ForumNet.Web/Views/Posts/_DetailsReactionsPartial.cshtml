@@ -1,20 +1,20 @@
 ﻿@model ForumNet.Web.ViewModels.Posts.PostsDetailsViewModel
 
 <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="likeReaction(@Model.Id, 'post-reactions', 'post')">
-    <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
+    <i class="tt-icon"><img src="~/images/like.svg" alt="like" /></i>
 </button>
 <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="loveReaction(@Model.Id, 'post-reactions', 'post')">
-    <i class="tt-icon fas fa-heart"></i>
+    <i class="tt-icon"><img src="~/images/love.svg" alt="love" /></i>
 </button>
 <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="hahaReaction(@Model.Id, 'post-reactions', 'post')">
-    <i class="tt-icon fas fa-grin-tears"></i>
+    <i class="tt-icon"><img src="~/images/haha.svg" alt="haha" /></i>
 </button>
 <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="wowReaction(@Model.Id, 'post-reactions', 'post')">
-    <i class="tt-icon fas fa-surprise"></i>
+    <i class="tt-icon"><img src="~/images/wow.svg" alt="wow"/></i>
 </button>
 <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="sadReaction(@Model.Id, 'post-reactions', 'post')">
-    <i class="tt-icon fas fa-sad-tear"></i>
+    <i class="tt-icon"><img src="~/images/sad.svg" alt="sad" /></i>
 </button>
 <button type="button" class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="angryReaction(@Model.Id, 'post-reactions', 'post')">
-    <i class="tt-icon fas fa-angry"></i>
+    <i class="tt-icon"><img src="~/images/angry.svg" alt="angry" /></i>
 </button>
