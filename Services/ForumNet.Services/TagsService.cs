@@ -47,15 +47,11 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<bool> IsExistingAsync(int id)
-        {
-            return await this.db.Tags.AnyAsync(t => t.Id == id && !t.IsDeleted);
-        }
+        public async Task<bool> IsExistingAsync(int id) 
+            => await this.db.Tags.AnyAsync(t => t.Id == id && !t.IsDeleted);
 
-        public async Task<bool> IsExistingAsync(string name)
-        {
-            return await this.db.Tags.AnyAsync(t => t.Name == name && !t.IsDeleted);
-        }
+        public async Task<bool> IsExistingAsync(string name) 
+            => await this.db.Tags.AnyAsync(t => t.Name == name && !t.IsDeleted);
 
         public async Task<bool> AreExistingAsync(IEnumerable<int> ids)
         {
@@ -72,15 +68,11 @@
         }
 
         public async Task<TModel> GetByIdAsync<TModel>(int id)
-        {
-            var tag = await this.db.Tags
+            => await this.db.Tags
                 .Where(t => t.Id == id && !t.IsDeleted)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
-
-            return tag;
-        }
 
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null)
         {
@@ -100,17 +92,13 @@
             return tags;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId)
-        {
-            var tags = await this.db.PostsTags
+        public async Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId) 
+            => await this.db.PostsTags
                 .Where(pt => pt.PostId == postId && !pt.Post.IsDeleted)
                 .Select(pt => pt.Tag)
                 .Where(t => !t.IsDeleted)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
-
-            return tags;
-        }
     }
 }

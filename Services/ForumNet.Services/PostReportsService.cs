@@ -49,31 +49,21 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<bool> IsExistingAsync(int id)
-        {
-            return await this.db.PostReports.AnyAsync(pr => pr.Id == id && !pr.IsDeleted);
-        }
+        public async Task<bool> IsExistingAsync(int id) 
+            => await this.db.PostReports.AnyAsync(pr => pr.Id == id && !pr.IsDeleted);
 
-        public async Task<TModel> GetByIdAsync<TModel>(int id)
-        {
-            var postReport = await this.db.PostReports
+        public async Task<TModel> GetByIdAsync<TModel>(int id) 
+            => await this.db.PostReports
                 .Where(pr => pr.Id == id && !pr.IsDeleted)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
-            return postReport;
-        }
-
-        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
-        {
-            var reports = await this.db.PostReports
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>() 
+            => await this.db.PostReports
                 .Where(pr => !pr.IsDeleted && !pr.Post.IsDeleted)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
-
-            return reports;
-        }
     }
 }

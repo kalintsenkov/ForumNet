@@ -20,7 +20,7 @@
         private readonly IDateTimeProvider dateTimeProvider;
 
         public RepliesService(
-            ForumDbContext db, 
+            ForumDbContext db,
             IMapper mapper,
             IUsersService usersService,
             IDateTimeProvider dateTimeProvider)
@@ -88,41 +88,27 @@
         }
 
         public async Task<bool> IsExistingAsync(int id)
-        {
-            return await this.db.Replies.AnyAsync(r => r.Id == id && !r.IsDeleted);
-        }
+            => await this.db.Replies.AnyAsync(r => r.Id == id && !r.IsDeleted);
 
         public async Task<string> GetAuthorIdByIdAsync(int id)
-        {
-            var authorId = await this.db.Replies
+            => await this.db.Replies
                 .Where(r => r.Id == id && !r.IsDeleted)
                 .Select(r => r.AuthorId)
                 .FirstOrDefaultAsync();
 
-            return authorId;
-        }
-
         public async Task<TModel> GetByIdAsync<TModel>(int id)
-        {
-            var reply = await this.db.Replies
+            => await this.db.Replies
                 .Where(r => r.Id == id && !r.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
-            return reply;
-        }
-
-        public async Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId)
-        {
-            var replies = await this.db.Replies
+        public async Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId) 
+            => await this.db.Replies
                 .Where(r => r.AuthorId == userId && !r.IsDeleted && !r.Post.IsDeleted)
                 .OrderByDescending(p => p.CreatedOn)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
-
-            return replies;
-        }
 
         public async Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId, string sort = null)
         {
@@ -147,16 +133,12 @@
             return replies;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllByPostIdAndUserIdAsync<TModel>(int postId, string userId)
-        {
-            var replies = await this.db.Replies
+        public async Task<IEnumerable<TModel>> GetAllByPostIdAndUserIdAsync<TModel>(int postId, string userId) 
+            => await this.db.Replies
                 .Where(r => r.PostId == postId && r.AuthorId == userId && !r.IsDeleted)
                 .OrderByDescending(p => p.CreatedOn)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
-
-            return replies;
-        }
     }
 }

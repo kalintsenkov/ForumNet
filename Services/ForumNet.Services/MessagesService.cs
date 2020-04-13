@@ -39,17 +39,13 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TModel>> GetAllWithUserAsync<TModel>(string currentUserId, string userId)
-        {
-            var messages = await this.db.Messages
+        public async Task<IEnumerable<TModel>> GetAllWithUserAsync<TModel>(string currentUserId, string userId) 
+            => await this.db.Messages
                 .Where(m => !m.IsDeleted &&
                             ((m.ReceiverId == currentUserId && m.AuthorId == userId) ||
                              (m.ReceiverId == userId && m.AuthorId == currentUserId)))
                 .OrderBy(m => m.CreatedOn)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
-
-            return messages;
-        }
     }
 }

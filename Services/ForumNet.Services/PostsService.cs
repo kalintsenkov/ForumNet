@@ -115,35 +115,23 @@
         }
 
         public async Task<bool> IsExistingAsync(int id)
-        {
-            return await this.db.Posts.AnyAsync(p => p.Id == id && !p.IsDeleted);
-        }
+            => await this.db.Posts.AnyAsync(p => p.Id == id && !p.IsDeleted);
 
-        public async Task<int> GetCountAsync()
-        {
-            return await this.db.Posts.Where(p => !p.IsDeleted).CountAsync();
-        }
+        public async Task<int> GetCountAsync() 
+            => await this.db.Posts.Where(p => !p.IsDeleted).CountAsync();
 
-        public async Task<int> GetFollowingCountAsync(string userId)
-        {
-            var count = await this.db.Posts
+        public async Task<int> GetFollowingCountAsync(string userId) 
+            => await this.db.Posts
                 .Where(p => !p.IsDeleted && p.Author.Followers
                     .Select(f => f.FollowerId)
                     .FirstOrDefault() == userId)
                 .CountAsync();
 
-            return count;
-        }
-
-        public async Task<string> GetAuthorIdByIdAsync(int id)
-        {
-            var authorId = await this.db.Posts
+        public async Task<string> GetAuthorIdByIdAsync(int id) 
+            => await this.db.Posts
                 .Where(p => p.Id == id && !p.IsDeleted)
                 .Select(p => p.AuthorId)
                 .FirstOrDefaultAsync();
-
-            return authorId;
-        }
 
         public async Task<string> GetLatestActivityByIdAsync(int id)
         {
@@ -168,28 +156,20 @@
             return postLatestActivity;
         }
 
-        public async Task<TModel> GetByIdAsync<TModel>(int id)
-        {
-            var post = await this.db.Posts
+        public async Task<TModel> GetByIdAsync<TModel>(int id) 
+            => await this.db.Posts
                 .Where(p => p.Id == id && !p.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
-            return post;
-        }
-
-        public async Task<IEnumerable<TModel>> GetSuggestedAsync<TModel>(int take)
-        {
-            var posts = await this.db.Posts
+        public async Task<IEnumerable<TModel>> GetSuggestedAsync<TModel>(int take) 
+            => await this.db.Posts
                 .OrderByDescending(p => p.IsPinned)
                 .ThenByDescending(p => p.CreatedOn)
                 .Where(p => !p.IsDeleted)
                 .Take(take)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
-
-            return posts;
-        }
 
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null, int skip = 0, int? take = null)
         {
@@ -254,17 +234,13 @@
             return posts;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId)
-        {
-            var posts = await this.db.Posts
+        public async Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId) 
+            => await this.db.Posts
                 .OrderByDescending(p => p.CreatedOn)
                 .Where(p => p.AuthorId == userId && !p.IsDeleted)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
-
-            return posts;
-        }
 
         public async Task<IEnumerable<TModel>> GetAllFollowingByUserIdAsync<TModel>(string userId, string search = null, int skip = 0, int? take = null)
         {

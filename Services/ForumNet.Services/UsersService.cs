@@ -98,74 +98,50 @@
             return isFollowed;
         }
 
-        public async Task<bool> IsUsernameUsedAsync(string username)
-        {
-            return await this.db.Users.AnyAsync(u => u.UserName == username && !u.IsDeleted);
-        }
+        public async Task<bool> IsUsernameUsedAsync(string username) 
+            => await this.db.Users.AnyAsync(u => u.UserName == username && !u.IsDeleted);
 
-        public async Task<bool> IsDeletedAsync(string username)
-        {
-            return await this.db.Users.AnyAsync(u => u.UserName == username && u.IsDeleted);
-        }
+        public async Task<bool> IsDeletedAsync(string username) 
+            => await this.db.Users.AnyAsync(u => u.UserName == username && u.IsDeleted);
 
-        public async Task<bool> IsFollowedAlreadyAsync(string id, string followerId)
-        {
-            return await this.db.UsersFollowers
-                .AnyAsync(uf => uf.UserId == id && uf.FollowerId == followerId && !uf.IsDeleted);
-        }
+        public async Task<bool> IsFollowedAlreadyAsync(string id, string followerId) 
+            => await this.db.UsersFollowers
+                .AnyAsync(uf => uf.UserId == id && 
+                                uf.FollowerId == followerId && 
+                                !uf.IsDeleted);
 
-        public async Task<int> GetTotalCountAsync()
-        {
-            var count = await this.db.Users
+        public async Task<int> GetTotalCountAsync() 
+            => await this.db.Users
                 .Where(u => !u.IsDeleted)
                 .CountAsync();
 
-            return count;
-        }
-
-        public async Task<int> GetFollowersCountAsync(string id)
-        {
-            var count = await this.db.UsersFollowers
+        public async Task<int> GetFollowersCountAsync(string id) 
+            => await this.db.UsersFollowers
                 .Where(uf => !uf.IsDeleted && 
                              !uf.User.IsDeleted && 
                              !uf.Follower.IsDeleted && 
                              uf.UserId == id)
                 .CountAsync();
 
-            return count;
-        }
-
-        public async Task<int> GetFollowingCountAsync(string id)
-        {
-            var count = await this.db.UsersFollowers
+        public async Task<int> GetFollowingCountAsync(string id) 
+            => await this.db.UsersFollowers
                 .Where(uf => !uf.IsDeleted && 
                              !uf.User.IsDeleted && 
                              !uf.Follower.IsDeleted && 
                              uf.FollowerId == id)
                 .CountAsync();
 
-            return count;
-        }
-
-        public async Task<TModel> GetByIdAsync<TModel>(string id)
-        {
-            var user = await this.db.Users
+        public async Task<TModel> GetByIdAsync<TModel>(string id) 
+            => await this.db.Users
                 .Where(u => u.Id == id && !u.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
-            return user;
-        }
-
-        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
-        {
-            var users = await this.db.Users
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>() 
+            => await this.db.Users
                 .Where(u => !u.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
-
-            return users;
-        }
 
         public async Task<IEnumerable<TModel>> GetAdminsAsync<TModel>()
         {
@@ -184,28 +160,20 @@
             return admins;
         }
 
-        public async Task<IEnumerable<TModel>> GetFollowersAsync<TModel>(string id)
-        {
-            var followers = await this.db.UsersFollowers
+        public async Task<IEnumerable<TModel>> GetFollowersAsync<TModel>(string id) 
+            => await this.db.UsersFollowers
                 .Where(uf => uf.UserId == id && !uf.IsDeleted)
                 .Select(uf => uf.Follower)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
-            return followers;
-        }
-
-        public async Task<IEnumerable<TModel>> GetFollowingAsync<TModel>(string id)
-        {
-            var following = await this.db.UsersFollowers
+        public async Task<IEnumerable<TModel>> GetFollowingAsync<TModel>(string id) 
+            => await this.db.UsersFollowers
                 .Where(uf => uf.FollowerId == id && !uf.IsDeleted)
                 .Select(uf => uf.User)
                 .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
-
-            return following;
-        }
     }
 }

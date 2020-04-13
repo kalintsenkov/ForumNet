@@ -57,25 +57,17 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<bool> IsExistingAsync(int id)
-        {
-            return await this.db.Categories.AnyAsync(c => c.Id == id && !c.IsDeleted);
-        }
+        public async Task<bool> IsExistingAsync(int id) 
+            => await this.db.Categories.AnyAsync(c => c.Id == id && !c.IsDeleted);
 
-        public async Task<bool> IsExistingAsync(string name)
-        {
-            return await this.db.Categories.AnyAsync(c => c.Name == name && !c.IsDeleted);
-        }
+        public async Task<bool> IsExistingAsync(string name) 
+            => await this.db.Categories.AnyAsync(c => c.Name == name && !c.IsDeleted);
 
-        public async Task<TModel> GetByIdAsync<TModel>(int id)
-        {
-            var category = await this.db.Categories
+        public async Task<TModel> GetByIdAsync<TModel>(int id) 
+            => await this.db.Categories
                 .Where(c => c.Id == id && !c.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
-
-            return category;
-        }
 
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null)
         {

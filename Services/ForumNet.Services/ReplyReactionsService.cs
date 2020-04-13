@@ -48,14 +48,13 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<int> GetTotalCountAsync()
-        {
-            return await this.db.ReplyReactions.Where(pr => !pr.Reply.IsDeleted).CountAsync();
-        }
+        public async Task<int> GetTotalCountAsync() 
+            => await this.db.ReplyReactions
+                .Where(pr => !pr.Reply.IsDeleted)
+                .CountAsync();
 
-        public async Task<ReactionsCountServiceModel> GetCountByReplyIdAsync(int replyId)
-        {
-            var reactionsCount = new ReactionsCountServiceModel
+        public async Task<ReactionsCountServiceModel> GetCountByReplyIdAsync(int replyId) 
+            => new ReactionsCountServiceModel
             {
                 Likes = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Like, replyId),
                 Loves = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Love, replyId),
@@ -65,16 +64,9 @@
                 AngryCount = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Angry, replyId)
             };
 
-            return reactionsCount;
-        }
-
-        private async Task<int> GetCountByTypeAndReplyIdAsync(ReactionType reactionType, int replyId)
-        {
-            var count = await this.db.ReplyReactions
+        private async Task<int> GetCountByTypeAndReplyIdAsync(ReactionType reactionType, int replyId) 
+            => await this.db.ReplyReactions
                 .Where(pr => !pr.Reply.IsDeleted && pr.ReplyId == replyId)
                 .CountAsync(pr => pr.ReactionType == reactionType);
-
-            return count;
-        }
     }
 }
