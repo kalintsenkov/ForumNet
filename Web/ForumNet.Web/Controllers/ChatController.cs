@@ -23,10 +23,7 @@
             this.messagesService = messagesService;
         }
 
-        public IActionResult All()
-        {
-            return this.View();
-        }
+        public IActionResult All() => this.View();
 
         public async Task<IActionResult> SendMessage()
         {

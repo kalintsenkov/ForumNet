@@ -26,6 +26,9 @@
             this.dateTimeProvider = dateTimeProvider;
         }
 
+        public async Task WhoIsTyping(string name) 
+            => await this.Clients.Others.SendAsync("SayWhoIsTyping", name);
+
         public async Task SendMessage(string message, string receiverId)
         {
             if (string.IsNullOrWhiteSpace(message))

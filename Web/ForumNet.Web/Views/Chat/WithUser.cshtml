@@ -41,7 +41,9 @@
                         </i>
                     </a>
                 </div>
-                <div id="messagesList" class="tt-list-time-topic" style="overflow-y: auto; height:300px; display:block; word-break: break-word;">
+                <div id="messagesList" 
+                     class="tt-list-time-topic" 
+                     style="overflow-y: auto; overflow-x: hidden; height:300px; display:block; word-break: break-word;">
 
                     @foreach (var message in Model.Messages)
                     {
@@ -62,7 +64,7 @@
                     }
 
                 </div>
-
+                <div id="whoIsTyping"></div>
                 <div class="tt-wrapper-inner">
                     <div class="pt-editor form-default">
                         <div id="addMessageForm">
@@ -86,10 +88,18 @@
     <script>
         $('#messagesList')[0].scrollTop = $('#messagesList')[0].scrollHeight;
 
-        $('#messageInput').on('keypress', function (e) {
+        $('#messageInput').on('keypress', function(e) {
             if (e.which === 13 && !e.shiftKey) {
                 e.preventDefault();
                 $('#sendButton').click();
+            }
+        });
+
+        $("#messageInput").on('change keyup copy paste cut', function() {
+            if (!this.value) {
+                connection.invoke("WhoIsTyping", '');
+            } else {
+                connection.invoke("WhoIsTyping", '@this.User.Identity.Name');
             }
         });
 
@@ -97,33 +107,43 @@
             .withUrl("/chat")
             .build();
 
-        connection.on("ReceiveMessage", function (message) {
-            var chatInfo = `<div class="tt-item">
-                                <div class="tt-col-avatar">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="${message.authorProfilePicture}"></use>
-                                    </svg>
-                                </div>
-                                <div class="tt-col-description">
-                                    <h4 class="tt-title">
-                                    <a href="/Users/Threads/${message.authorId}">${message.authorUserName}</a>
-                                    <span class="time">${message.createdOn}</span>
-                                    </h4>
-                                    ${escapeHtml(message.content)}
-                                </div>
-                            </div>`;
-
-            $("#messagesList").append(chatInfo);
-            $('#messagesList')[0].scrollTop = $('#messagesList')[0].scrollHeight;
+        connection.on("SayWhoIsTyping", function (name) {
+            if (name === null || name === "") {
+                $("#whoIsTyping").html('');
+            } else {
+                var whoIsTypingInfo = `<em>&nbsp;&nbsp;${name} is typing...</em>`;
+                $("#whoIsTyping").html(whoIsTypingInfo);
+            }
         });
 
-        $("#sendButton").click(function () {
+        connection.on("ReceiveMessage",
+            function(message) {
+                var chatInfo = `<div class="tt-item">
+                                    <div class="tt-col-avatar">
+                                        <svg class="tt-icon">
+                                            <use xlink:href="${message.authorProfilePicture}"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="tt-col-description">
+                                        <h4 class="tt-title">
+                                            <a href="/Users/Threads/${message.authorId}">${message.authorUserName}</a>
+                                            <span class="time">${message.createdOn}</span>
+                                        </h4>
+                                        ${escapeHtml(message.content)}
+                                    </div>
+                                </div>`;
+
+                $("#messagesList").append(chatInfo);
+                $('#messagesList')[0].scrollTop = $('#messagesList')[0].scrollHeight;
+            });
+
+        $("#sendButton").click(function() {
             var message = $.trim($('#messageInput').val());
             $('#messageInput').val('');
             connection.invoke("SendMessage", escapeHtml(message), '@Model.User.Id');
         });
 
-        connection.start().catch(function (err) {
+        connection.start().catch(function(err) {
             return console.error(err.toString());
         });
 
