@@ -91,8 +91,8 @@
 
             if (this.ModelState.IsValid)
             {
-                var isUserDeleted = await this.usersService.IsUserDeletedAsync(Input.Username);
-                if (isUserDeleted)
+                var isDeleted = await this.usersService.IsDeletedAsync(Input.Username);
+                if (isDeleted)
                 {
                     this.ModelState.AddModelError(string.Empty, "The username or password is incorrect.");
                     return Page();

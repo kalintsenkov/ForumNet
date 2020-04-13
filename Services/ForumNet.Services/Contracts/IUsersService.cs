@@ -15,7 +15,7 @@
 
         Task<bool> IsUsernameUsedAsync(string username);
 
-        Task<bool> IsUserDeletedAsync(string username);
+        Task<bool> IsDeletedAsync(string username);
 
         Task<bool> IsFollowedAlreadyAsync(string id, string followerId);
 

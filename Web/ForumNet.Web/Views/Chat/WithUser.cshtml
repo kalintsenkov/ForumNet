@@ -56,7 +56,7 @@
                                     <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@message.AuthorId">@message.AuthorUserName</a>
                                     <span class="time">@message.CreatedOn</span>
                                 </h4>
-                                @message.SanitizedContent
+                                @Html.Raw(message.SanitizedContent)
                             </div>
                         </div>
                     }
@@ -129,11 +129,12 @@
 
         function escapeHtml(unsafe) {
             return unsafe
+                .replace(':)', "😊")
+                .replace(';)', "😉")
+                .replace(':*', "😘")
                 .replace(/<3/g, "❤")
                 .replace(/:D/g, "😀")
                 .replace(/:P/g, "😜")
-                .replace(':)', "😊")
-                .replace(';)', "😉")
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
                 .replace(/>/g, "&gt;")

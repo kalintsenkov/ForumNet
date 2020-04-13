@@ -103,7 +103,7 @@
             return await this.db.Users.AnyAsync(u => u.UserName == username && !u.IsDeleted);
         }
 
-        public async Task<bool> IsUserDeletedAsync(string username)
+        public async Task<bool> IsDeletedAsync(string username)
         {
             return await this.db.Users.AnyAsync(u => u.UserName == username && u.IsDeleted);
         }
