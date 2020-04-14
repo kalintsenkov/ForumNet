@@ -22,10 +22,7 @@ namespace ForumNet.Web
     {
         private readonly IConfiguration configuration;
 
-        public Startup(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-        }
+        public Startup(IConfiguration configuration) => this.configuration = configuration;
 
         public void ConfigureServices(IServiceCollection services)
         {

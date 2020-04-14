@@ -8,6 +8,11 @@
     using Common;
     using Data.Models;
     using Data.Models.Enums;
+    using InputModels.Categories;
+    using InputModels.PostReports;
+    using InputModels.Posts;
+    using InputModels.Replies;
+    using InputModels.ReplyReports;
     using ViewModels.Categories;
     using ViewModels.Chat;
     using ViewModels.Home;

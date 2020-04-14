@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Web.ViewModels.Tags
+﻿namespace ForumNet.Web.InputModels.Tags
 {
     using System.ComponentModel.DataAnnotations;
 

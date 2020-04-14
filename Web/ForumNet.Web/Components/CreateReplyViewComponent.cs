@@ -2,7 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    using ViewModels.Replies;
+    using InputModels.Replies;
 
     [ViewComponent(Name = "CreateReply")]
     public class CreateReplyViewComponent : ViewComponent

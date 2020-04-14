@@ -4,6 +4,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
+    using InputModels.Categories;
     using Services.Contracts;
     using ViewModels.Categories;
 
@@ -67,7 +68,7 @@
 
             await this.categoriesService.EditAsync(input.Id, input.Name);
 
-            return this.RedirectToAction("Details", "Categories", new { area = "" });
+            return this.RedirectToAction("Details", "Categories", new { id = input.Id, area = "" });
         }
 
         [HttpPost]

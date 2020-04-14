@@ -1,7 +1,9 @@
-﻿namespace ForumNet.Web.ViewModels.Chat
+﻿namespace ForumNet.Web.InputModels.Chat
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
+    using ViewModels.Chat;
 
     using static Common.GlobalConstants;
 

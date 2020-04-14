@@ -5,7 +5,6 @@
     using Ganss.XSS;
 
     using Common;
-    using Data.Models.Enums;
 
     public class PostsDetailsViewModel
     {
@@ -24,8 +23,6 @@
         public bool IsPinned { get; set; }
 
         public string CreatedOn { get; set; }
-
-        public PostType Type { get; set; }
 
         public string Description { get; set; }
 

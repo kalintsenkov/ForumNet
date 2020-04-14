@@ -4,6 +4,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
+    using InputModels.Tags;
     using Services.Contracts;
     using ViewModels.Tags;
 

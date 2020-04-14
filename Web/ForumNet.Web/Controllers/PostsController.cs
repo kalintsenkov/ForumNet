@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Infrastructure.Extensions;
+    using InputModels.Posts;
     using Services.Contracts;
     using ViewModels.Posts;
 

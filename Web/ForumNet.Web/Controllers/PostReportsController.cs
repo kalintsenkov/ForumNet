@@ -6,8 +6,8 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Infrastructure.Extensions;
+    using InputModels.PostReports;
     using Services.Contracts;
-    using ViewModels.PostReports;
 
     [Authorize]
     public class PostReportsController : Controller

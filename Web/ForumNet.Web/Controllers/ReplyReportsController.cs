@@ -6,7 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Infrastructure.Extensions;
-    using ViewModels.ReplyReports;
+    using InputModels.ReplyReports;
     using Services.Contracts;
 
     [Authorize]

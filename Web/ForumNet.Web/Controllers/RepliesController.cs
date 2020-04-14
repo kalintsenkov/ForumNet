@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Infrastructure.Extensions;
+    using InputModels.Replies;
     using Services.Contracts;
     using ViewModels.Replies;
 

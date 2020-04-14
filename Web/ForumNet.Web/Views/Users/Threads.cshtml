@@ -52,7 +52,11 @@
                                                 </li>
                                                 @foreach (var tag in thread.Tags)
                                                 {
-                                                    <li><a href="#"><span class="tt-badge">@tag.Name</span></a></li>
+                                                    <li>
+                                                        <a asp-area="" asp-controller="Tags" asp-action="Details" asp-route-id="@tag.Id">
+                                                            <span class="tt-badge">@tag.Name</span>
+                                                        </a>
+                                                    </li>
                                                 }
                                             </ul>
                                         </div>

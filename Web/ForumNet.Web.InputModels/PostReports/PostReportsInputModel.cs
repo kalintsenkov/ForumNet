@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Web.ViewModels.PostReports
+﻿namespace ForumNet.Web.InputModels.PostReports
 {
     using System.ComponentModel.DataAnnotations;
 

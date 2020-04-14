@@ -1,9 +1,10 @@
-﻿namespace ForumNet.Web.ViewModels.Posts
+﻿namespace ForumNet.Web.InputModels.Posts
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using Infrastructure.Attributes;
+    using ViewModels.Posts;
 
     using static Common.ErrorMessages;
     using static Common.GlobalConstants;

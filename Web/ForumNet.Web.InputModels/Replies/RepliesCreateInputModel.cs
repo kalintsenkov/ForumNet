@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Web.ViewModels.Replies
+﻿namespace ForumNet.Web.InputModels.Replies
 {
     using System.ComponentModel.DataAnnotations;
 
