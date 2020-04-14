@@ -66,6 +66,7 @@
             reply.DeletedOn = this.dateTimeProvider.Now();
 
             await this.db.SaveChangesAsync();
+            await this.DeleteNestedAsync(id);
         }
 
         public async Task MakeBestAnswerAsync(int id)
@@ -133,12 +134,19 @@
             return replies;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllByPostIdAndUserIdAsync<TModel>(int postId, string userId) 
-            => await this.db.Replies
-                .Where(r => r.PostId == postId && r.AuthorId == userId && !r.IsDeleted)
-                .OrderByDescending(p => p.CreatedOn)
-                .AsNoTracking()
-                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
-                .ToListAsync();
+        private async Task DeleteNestedAsync(int id)
+        {
+            var nestedReply = await this.db.Replies.FirstOrDefaultAsync(r => r.ParentId == id && !r.IsDeleted);
+            if (nestedReply == null)
+            {
+                return;
+            }
+
+            nestedReply.IsDeleted = true;
+            nestedReply.DeletedOn = this.dateTimeProvider.Now();
+
+            await this.db.SaveChangesAsync();
+            await this.DeleteNestedAsync(nestedReply.Id);
+        }
     }
 }

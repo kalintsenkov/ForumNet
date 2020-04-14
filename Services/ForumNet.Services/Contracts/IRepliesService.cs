@@ -22,7 +22,5 @@
         Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId);
 
         Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId, string sort = null);
-
-        Task<IEnumerable<TModel>> GetAllByPostIdAndUserIdAsync<TModel>(int postId, string userId);
     }
 }
