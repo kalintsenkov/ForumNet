@@ -3,20 +3,13 @@ namespace ForumNet.Web
     using AutoMapper;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
-    using Data;
-    using Data.Models;
-    using Data.Seeding;
     using Hubs;
-    using Services;
-    using Services.Contracts;
-    using Services.Messaging;
+    using Infrastructure.Extensions;
 
     public class Startup
     {
@@ -27,72 +20,27 @@ namespace ForumNet.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddDbContext<ForumDbContext>(options => options
-                    .UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")))
-                .AddDefaultIdentity<ForumUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ForumRole>()
-                .AddEntityFrameworkStores<ForumDbContext>();
+                .AddDatabase(this.configuration)
+                .AddIdentity()
+                .ConfigureCookiePolicyOptions()
+                .AddResponseCompressionForHttps()
+                .AddAntiforgeryWithHeader()
+                .AddFacebookAuthentication(this.configuration)
+                .AddGoogleAuthentication(this.configuration)
+                .AddAutoMapper(typeof(ForumNetProfile).Assembly)
+                .AddApplicationServices(this.configuration)
+                .AddRazorPages();
 
-            services
-                .Configure<CookiePolicyOptions>(options =>
-                {
-                    options.CheckConsentNeeded = context => true;
-                    options.MinimumSameSitePolicy = SameSiteMode.None;
-                })
-                .AddResponseCompression(options => options.EnableForHttps = true)
-                .AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN")
-                .AddSignalR();
+            services.AddSignalR();
 
             services
                 .AddControllersWithViews(options => options
-                    .Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
-
-            services.AddRazorPages();
-
-            services
-                .AddAuthentication()
-                .AddFacebook(facebookOptions =>
-                {
-                    facebookOptions.AppId = this.configuration["Facebook:AppId"];
-                    facebookOptions.AppSecret = this.configuration["Facebook:AppSecret"];
-                })
-                .AddGoogle(googleOptions =>
-                {
-                    googleOptions.ClientId = this.configuration["Google:ClientId"];
-                    googleOptions.ClientSecret = this.configuration["Google:ClientSecret"];
-                });
-
-            services.AddAutoMapper(typeof(ForumNetProfile).Assembly);
-
-            services.AddSingleton(this.configuration);
-            services.AddTransient<ICategoriesService, CategoriesService>();
-            services.AddTransient<IChatService, ChatService>();
-            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
-            services.AddTransient<IMessagesService, MessagesService>();
-            services.AddTransient<IPostReactionsService, PostReactionsService>();
-            services.AddTransient<IPostReportsService, PostReportsService>();
-            services.AddTransient<IPostsService, PostsService>();
-            services.AddTransient<IRepliesService, RepliesService>();
-            services.AddTransient<IReplyReactionsService, ReplyReactionsService>();
-            services.AddTransient<IReplyReportsService, ReplyReportsService>();
-            services.AddTransient<ITagsService, TagsService>();
-            services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<IEmailSender>(serviceProvider =>
-                new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
+                    .Filters
+                    .Add<AutoValidateAntiforgeryTokenAttribute>());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            using var serviceScope = app.ApplicationServices.CreateScope();
-            using var dbContext = serviceScope.ServiceProvider.GetRequiredService<ForumDbContext>();
-
-            dbContext.Database.Migrate();
-
-            new ForumDbContextSeeder()
-                .SeedAsync(dbContext, serviceScope.ServiceProvider)
-                .GetAwaiter()
-                .GetResult();
-
             if (env.IsDevelopment())
             {
                 app
@@ -107,6 +55,8 @@ namespace ForumNet.Web
             }
 
             app
+                .ApplyMigrations()
+                .SeedData()
                 .UseHttpsRedirection()
                 .UseStaticFiles()
                 .UseRouting()

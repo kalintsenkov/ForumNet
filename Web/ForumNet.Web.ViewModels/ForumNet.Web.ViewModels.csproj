@@ -1,12 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="HtmlSanitizer" Version="5.0.298" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ForumNet.Web.Infrastructure\ForumNet.Web.Infrastructure.csproj" />
