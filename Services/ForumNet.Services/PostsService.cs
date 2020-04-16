@@ -86,6 +86,7 @@
 
             await this.db.SaveChangesAsync();
         }
+
         public async Task<bool> PinAsync(int id)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
