@@ -1,5 +1,6 @@
 ﻿namespace ForumNet.Web.Areas.Administration.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,8 @@
 
     public class TagsController : AdminController
     {
+        private const int TagsPerPage = 9;
+
         private readonly ITagsService tagsService;
 
         public TagsController(ITagsService tagsService)
@@ -17,13 +20,17 @@
             this.tagsService = tagsService;
         }
 
-        public async Task<IActionResult> All(string search = null)
+        public async Task<IActionResult> All(int page = 1, string search = null)
         {
-            var tags = await this.tagsService.GetAllAsync<TagsInfoViewModel>(search);
+            var skip = (page - 1) * TagsPerPage;
+            var count = await this.tagsService.GetCountAsync();
+            var tags = await this.tagsService.GetAllAsync<TagsInfoViewModel>(search, skip, TagsPerPage);
             var viewModel = new TagsAllViewModel
             {
                 Tags = tags,
-                Search = search
+                Search = search,
+                PageIndex = page,
+                TotalPages = (int)Math.Ceiling(count / (decimal)TagsPerPage)
             };
 
             return this.View(viewModel);

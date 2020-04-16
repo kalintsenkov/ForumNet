@@ -119,7 +119,9 @@
             => await this.db.Posts.AnyAsync(p => p.Id == id && !p.IsDeleted);
 
         public async Task<int> GetCountAsync()
-            => await this.db.Posts.Where(p => !p.IsDeleted).CountAsync();
+            => await this.db.Posts
+                .Where(p => !p.IsDeleted)
+                .CountAsync();
 
         public async Task<int> GetFollowingCountAsync(string userId)
             => await this.db.Posts
@@ -159,12 +161,14 @@
 
         public async Task<TModel> GetByIdAsync<TModel>(int id)
             => await this.db.Posts
+                .AsNoTracking()
                 .Where(p => p.Id == id && !p.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
         public async Task<IEnumerable<TModel>> GetSuggestedAsync<TModel>(int take)
             => await this.db.Posts
+                .AsNoTracking()
                 .OrderByDescending(p => p.IsPinned)
                 .ThenByDescending(p => p.CreatedOn)
                 .Where(p => !p.IsDeleted)
@@ -172,22 +176,24 @@
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
-        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(int skip = 0, int take = 0, string search = null)
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null, int skip = 0, int? take = null)
         {
             var queryable = this.db.Posts
+                .AsNoTracking()
                 .OrderByDescending(p => p.IsPinned)
                 .ThenByDescending(p => p.CreatedOn)
-                .Where(p => !p.IsDeleted)
-                .Skip(skip)
-                .Take(take);
+                .Where(p => !p.IsDeleted);
 
             if (!string.IsNullOrWhiteSpace(search))
             {
                 queryable = queryable.Where(p => p.Title.Contains(search));
             }
 
+            queryable = take.HasValue
+                ? queryable.Skip(skip).Take(take.Value)
+                : queryable.Skip(skip);
+
             var posts = await queryable
-                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -197,6 +203,7 @@
         public async Task<IEnumerable<TModel>> GetAllByTagIdAsync<TModel>(int tagId, string search = null)
         {
             var queryable = this.db.Posts
+                .AsNoTracking()
                 .Where(p => !p.IsDeleted && p.Tags
                     .Select(t => t.TagId).Contains(tagId));
 
@@ -207,7 +214,6 @@
 
             var posts = await queryable
                 .OrderByDescending(p => p.CreatedOn)
-                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -217,6 +223,7 @@
         public async Task<IEnumerable<TModel>> GetAllByCategoryIdAsync<TModel>(int categoryId, string search = null)
         {
             var queryable = this.db.Posts
+                .AsNoTracking()
                 .OrderByDescending(p => p.CreatedOn)
                 .Where(p => p.CategoryId == categoryId && !p.IsDeleted);
 
@@ -226,7 +233,6 @@
             }
 
             var posts = await queryable
-                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
@@ -235,31 +241,37 @@
 
         public async Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId)
             => await this.db.Posts
+                .AsNoTracking()
                 .OrderByDescending(p => p.CreatedOn)
                 .Where(p => p.AuthorId == userId && !p.IsDeleted)
-                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
-        public async Task<IEnumerable<TModel>> GetAllFollowingByUserIdAsync<TModel>(string userId, int skip = 0, int take = 0, string search = null)
+        public async Task<IEnumerable<TModel>> GetAllFollowingByUserIdAsync<TModel>(
+            string userId, 
+            string search = null, 
+            int skip = 0, 
+            int? take = null)
         {
             var queryable = this.db.Posts
+                .AsNoTracking()
                 .OrderByDescending(p => p.CreatedOn)
                 .Where(p => p.Author.Followers
                     .Where(x => !x.IsDeleted && x.FollowerId == userId)
                     .Select(x => x.FollowerId)
-                    .FirstOrDefault() == userId)
-                .Skip(skip)
-                .Take(take);
+                    .FirstOrDefault() == userId);
 
             if (!string.IsNullOrWhiteSpace(search))
             {
                 queryable = queryable.Where(p => p.Title.Contains(search));
             }
 
+            queryable = take.HasValue
+                ? queryable.Skip(skip).Take(take.Value)
+                : queryable.Skip(skip);
+
             var posts = await queryable
                 .Where(p => !p.IsDeleted)
-                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

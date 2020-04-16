@@ -50,4 +50,43 @@
 
         </div>
     </div>
+    
+    @if (Model.TotalPages > 0)
+    {
+        <div class="text-center">
+            <nav>
+                <ul class="pagination">
+                    <li>
+                        <a asp-area=""
+                           asp-controller="Tags"
+                           asp-action="All"
+                           asp-route-page="@Model.PreviousPage">
+                            &laquo;
+                        </a>
+                    </li>
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        var active = i == Model.PageIndex ? "active" : string.Empty;
+                        <li>
+                            <a class="@active"
+                               asp-area=""
+                               asp-controller="Tags"
+                               asp-action="All"
+                               asp-route-page="@i">
+                                @i
+                            </a>
+                        </li>
+                    }
+                    <li>
+                        <a asp-area=""
+                           asp-controller="Tags"
+                           asp-action="All"
+                           asp-route-page="@Model.NextPage">
+                            &raquo;
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
 </div>

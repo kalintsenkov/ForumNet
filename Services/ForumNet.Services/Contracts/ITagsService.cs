@@ -15,9 +15,11 @@
 
         Task<bool> AreExistingAsync(IEnumerable<int> ids);
 
+        Task<int> GetCountAsync();
+
         Task<TModel> GetByIdAsync<TModel>(int id);
 
-        Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null);
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null, int skip = 0, int? take = null);
 
         Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId);
     }

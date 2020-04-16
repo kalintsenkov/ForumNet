@@ -67,26 +67,36 @@
             return true;
         }
 
+        public async Task<int> GetCountAsync()
+            => await this.db.Tags
+                .Where(p => !p.IsDeleted)
+                .CountAsync();
+
         public async Task<TModel> GetByIdAsync<TModel>(int id)
             => await this.db.Tags
-                .Where(t => t.Id == id && !t.IsDeleted)
                 .AsNoTracking()
+                .Where(t => t.Id == id && !t.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null)
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null, int skip = 0, int? take = null)
         {
-            var queryable = this.db.Tags.Where(t => !t.IsDeleted);
+            var queryable = this.db.Tags
+                .AsNoTracking()
+                .OrderByDescending(t => t.Posts
+                    .Count(p => !p.Post.IsDeleted))
+                .Where(t => !t.IsDeleted);
 
             if (!string.IsNullOrWhiteSpace(search))
             {
                 queryable = queryable.Where(t => t.Name.Contains(search));
             }
 
+            queryable = take.HasValue
+                ? queryable.Skip(skip).Take(take.Value)
+                : queryable.Skip(skip);
+
             var tags = await queryable
-                 .OrderByDescending(t => t.Posts
-                     .Count(p => !p.Post.IsDeleted))
-                 .AsNoTracking()
                  .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                  .ToListAsync();
 
@@ -95,10 +105,10 @@
 
         public async Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId) 
             => await this.db.PostsTags
+                .AsNoTracking()
                 .Where(pt => pt.PostId == postId && !pt.Post.IsDeleted)
                 .Select(pt => pt.Tag)
                 .Where(t => !t.IsDeleted)
-                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
     }
