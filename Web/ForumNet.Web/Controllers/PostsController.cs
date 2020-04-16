@@ -39,9 +39,9 @@
         [AllowAnonymous]
         public async Task<IActionResult> Trending(int page = 1, string search = null)
         {
+            var skip = (page - 1) * PostsPerPage;
             var count = await this.postsService.GetCountAsync();
-
-            var posts = await this.postsService.GetAllAsync<PostsListingViewModel>(search, (page - 1) * PostsPerPage, PostsPerPage);
+            var posts = await this.postsService.GetAllAsync<PostsListingViewModel>(search, skip, PostsPerPage);
             foreach (var post in posts)
             {
                 post.Activity = await this.postsService.GetLatestActivityByIdAsync(post.Id);
@@ -61,10 +61,13 @@
         public async Task<IActionResult> Following(int page = 1, string search = null)
         {
             var userId = this.User.GetId();
+            var skip = (page - 1) * PostsPerPage;
             var count = await this.postsService.GetFollowingCountAsync(userId);
-
-            var posts = await this.postsService
-                .GetAllFollowingByUserIdAsync<PostsListingViewModel>(userId, search, (page - 1) * PostsPerPage, PostsPerPage);
+            var posts = await this.postsService.GetAllFollowingByUserIdAsync<PostsListingViewModel>(
+                userId, 
+                search, 
+                skip, 
+                PostsPerPage);
 
             foreach (var post in posts)
             {
@@ -169,7 +172,12 @@
                 return this.Unauthorized();
             }
 
-            await this.postsService.EditAsync(input.Id, input.Title, input.Description, input.CategoryId, input.TagIds);
+            await this.postsService.EditAsync(
+                input.Id, 
+                input.Title, 
+                input.Description, 
+                input.CategoryId, 
+                input.TagIds);
 
             return this.RedirectToAction(nameof(Details), new { id = input.Id });
         }
