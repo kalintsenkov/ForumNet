@@ -41,7 +41,7 @@
         {
             var skip = (page - 1) * PostsPerPage;
             var count = await this.postsService.GetCountAsync();
-            var posts = await this.postsService.GetAllAsync<PostsListingViewModel>(search, skip, PostsPerPage);
+            var posts = await this.postsService.GetAllAsync<PostsListingViewModel>(skip, PostsPerPage, search);
             foreach (var post in posts)
             {
                 post.Activity = await this.postsService.GetLatestActivityByIdAsync(post.Id);
@@ -64,10 +64,10 @@
             var skip = (page - 1) * PostsPerPage;
             var count = await this.postsService.GetFollowingCountAsync(userId);
             var posts = await this.postsService.GetAllFollowingByUserIdAsync<PostsListingViewModel>(
-                userId, 
-                search, 
-                skip, 
-                PostsPerPage);
+                userId,
+                skip,
+                PostsPerPage,
+                search);
 
             foreach (var post in posts)
             {
@@ -173,10 +173,10 @@
             }
 
             await this.postsService.EditAsync(
-                input.Id, 
-                input.Title, 
-                input.Description, 
-                input.CategoryId, 
+                input.Id,
+                input.Title,
+                input.Description,
+                input.CategoryId,
                 input.TagIds);
 
             return this.RedirectToAction(nameof(Details), new { id = input.Id });

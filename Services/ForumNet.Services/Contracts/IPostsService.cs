@@ -33,7 +33,7 @@
 
         Task<IEnumerable<TModel>> GetSuggestedAsync<TModel>(int take);
 
-        Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null, int skip = 0, int? take = null);
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>(int skip = 0, int take = 0, string search = null);
 
         Task<IEnumerable<TModel>> GetAllByTagIdAsync<TModel>(int tagId, string search = null);
 
@@ -41,6 +41,6 @@
 
         Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId);
 
-        Task<IEnumerable<TModel>> GetAllFollowingByUserIdAsync<TModel>(string userId, string search = null, int skip = 0, int? take = null);
+        Task<IEnumerable<TModel>> GetAllFollowingByUserIdAsync<TModel>(string userId, int skip = 0, int take = 0, string search = null);
     }
 }

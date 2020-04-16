@@ -53,7 +53,7 @@
             this.CreateMap<Post, UsersThreadsAllViewModel>()
                 .ForMember(
                     dest => dest.Likes,
-                    dest => dest.MapFrom(src => src.Reactions.Count(r => r.ReactionType != ReactionType.Neutral)))
+                    dest => dest.MapFrom(src => src.Reactions.Count))
                 .ForMember(
                     dest => dest.RepliesCount,
                     dest => dest.MapFrom(src => src.Replies.Count(r => !r.IsDeleted)));
