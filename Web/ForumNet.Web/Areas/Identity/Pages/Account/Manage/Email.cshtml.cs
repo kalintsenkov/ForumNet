@@ -12,22 +12,18 @@
 
     using Common;
     using Data.Models;
-    using Infrastructure;
     using Services.Messaging;
 
     public partial class EmailModel : PageModel
     {
         private readonly UserManager<ForumUser> userManager;
-        private readonly SignInManager<ForumUser> signInManager;
         private readonly IEmailSender emailSender;
 
         public EmailModel(
             UserManager<ForumUser> userManager,
-            SignInManager<ForumUser> signInManager,
             IEmailSender emailSender)
         {
             this.userManager = userManager;
-            this.signInManager = signInManager;
             this.emailSender = emailSender;
         }
 
@@ -68,13 +64,13 @@
             var user = await this.userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{this.userManager.GetUserId(User)}'.");
+                return this.NotFound($"Unable to load user with ID '{this.userManager.GetUserId(User)}'.");
             }
 
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                await LoadAsync(user);
-                return Page();
+                await this.LoadAsync(user);
+                return this.Page();
             }
 
             var email = await this.userManager.GetEmailAsync(user);
@@ -85,7 +81,7 @@
                 var callbackUrl = Url.Page(
                     "/Account/ConfirmEmailChange",
                     pageHandler: null,
-                    values: new { userId = userId, email = Input.NewEmail, code = code },
+                    values: new { userId = userId, email = this.Input.NewEmail, code = code },
                     protocol: Request.Scheme);
                 await emailSender.SendEmailAsync(
                     GlobalConstants.SystemEmail,
@@ -102,23 +98,23 @@
             return RedirectToPage();
         }
 
-        public async Task<IActionResult> OnPostSendVerificationEmailAsync()
+        public async Task<IActionResult> OnGetSendVerificationEmailAsync()
         {
             var user = await userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
+                return this.NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
             }
 
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                await LoadAsync(user);
-                return Page();
+                await this.LoadAsync(user);
+                return this.Page();
             }
 
-            var userId = await userManager.GetUserIdAsync(user);
-            var email = await userManager.GetEmailAsync(user);
-            var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+            var userId = await this.userManager.GetUserIdAsync(user);
+            var email = await this.userManager.GetEmailAsync(user);
+            var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
             var callbackUrl = Url.Page(
                 "/Account/ConfirmEmail",
@@ -139,14 +135,14 @@
         private async Task LoadAsync(ForumUser user)
         {
             var email = await this.userManager.GetEmailAsync(user);
-            Email = email;
+            this.Email = email;
 
-            Input = new InputModel
+            this.Input = new InputModel
             {
                 NewEmail = email,
             };
 
-            IsEmailConfirmed = await this.userManager.IsEmailConfirmedAsync(user);
+            this.IsEmailConfirmed = await this.userManager.IsEmailConfirmedAsync(user);
         }
     }
 }
