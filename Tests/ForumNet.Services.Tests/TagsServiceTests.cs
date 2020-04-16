@@ -241,6 +241,64 @@
         }
 
         [Fact]
+        public async Task GetCountMethodShouldReturnAllTagsCount()
+        {
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+
+            var db = new ForumDbContext(options);
+            var dateTimeProvider = new Mock<IDateTimeProvider>();
+            dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
+
+            for (int i = 0; i < 3; i++)
+            {
+                await db.Tags.AddAsync(new Tag
+                {
+                    Name = $"Test {i}",
+                    CreatedOn = dateTimeProvider.Object.Now()
+                });
+            }
+
+            await db.SaveChangesAsync();
+
+            var tagsService = new TagsService(db, null, dateTimeProvider.Object);
+            var count = await tagsService.GetCountAsync();
+
+            count.Should().Be(3);
+        }
+
+        [Fact]
+        public async Task GetCountMethodShouldNotCountDeleted()
+        {
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+
+            var db = new ForumDbContext(options);
+            var dateTimeProvider = new Mock<IDateTimeProvider>();
+            dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
+
+            for (int i = 0; i < 3; i++)
+            {
+                await db.Tags.AddAsync(new Tag
+                {
+                    Name = $"Test {i}",
+                    IsDeleted = true,
+                    CreatedOn = dateTimeProvider.Object.Now(),
+                    DeletedOn = dateTimeProvider.Object.Now()
+                });
+            }
+
+            await db.SaveChangesAsync();
+
+            var tagsService = new TagsService(db, null, dateTimeProvider.Object);
+            var count = await tagsService.GetCountAsync();
+
+            count.Should().Be(0);
+        }
+
+        [Fact]
         public async Task GetByIdMethodShouldReturnCorrectModel()
         {
             var options = new DbContextOptionsBuilder<ForumDbContext>()
