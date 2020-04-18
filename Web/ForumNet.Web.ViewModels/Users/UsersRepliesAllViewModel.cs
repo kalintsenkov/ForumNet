@@ -11,8 +11,6 @@
             this.sanitizer = new HtmlSanitizer();
         }
 
-        public int Id { get; set; }
-
         public int PostId { get; set; }
 
         public string PostTitle { get; set; }
