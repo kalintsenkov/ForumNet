@@ -10,10 +10,7 @@
     {
         private readonly IPostsService postsService;
 
-        public PostsController(IPostsService postsService)
-        {
-            this.postsService = postsService;
-        }
+        public PostsController(IPostsService postsService) => this.postsService = postsService;
 
         [HttpPost]
         public async Task<IActionResult> Pin(int id)

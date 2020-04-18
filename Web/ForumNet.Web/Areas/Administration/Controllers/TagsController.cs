@@ -15,10 +15,7 @@
 
         private readonly ITagsService tagsService;
 
-        public TagsController(ITagsService tagsService)
-        {
-            this.tagsService = tagsService;
-        }
+        public TagsController(ITagsService tagsService) => this.tagsService = tagsService;
 
         public async Task<IActionResult> All(int page = 1, string search = null)
         {
@@ -36,10 +33,7 @@
             return this.View(viewModel);
         }
 
-        public IActionResult Create()
-        {
-            return this.View();
-        }
+        public IActionResult Create() => this.View();
 
         [HttpPost]
         public async Task<IActionResult> Create(TagsCreateInputModel input)

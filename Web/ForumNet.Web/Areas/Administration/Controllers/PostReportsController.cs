@@ -11,17 +11,14 @@
     {
         private readonly IPostReportsService postReportsService;
 
-        public PostReportsController(IPostReportsService postReportsService)
-        {
-            this.postReportsService = postReportsService;
-        }
+        public PostReportsController(IPostReportsService postReportsService) 
+            => this.postReportsService = postReportsService;
 
         public async Task<IActionResult> All()
         {
-            var postReports = await this.postReportsService.GetAllAsync<PostReportsListingViewModel>();
             var viewModel = new PostReportAllViewModel
             {
-                PostReports = postReports
+                PostReports = await this.postReportsService.GetAllAsync<PostReportsListingViewModel>()
             };
 
             return this.View(viewModel);

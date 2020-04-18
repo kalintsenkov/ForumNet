@@ -15,10 +15,7 @@
     {
         private readonly IRepliesService repliesService;
 
-        public RepliesController(IRepliesService repliesService)
-        {
-            this.repliesService = repliesService;
-        }
+        public RepliesController(IRepliesService repliesService) => this.repliesService = repliesService;
 
         [HttpPost]
         public async Task<IActionResult> Create(RepliesCreateInputModel input)

@@ -12,10 +12,8 @@
     {
         private readonly ICategoriesService categoriesService;
 
-        public CategoriesController(ICategoriesService categoriesService)
-        {
-            this.categoriesService = categoriesService;
-        }
+        public CategoriesController(ICategoriesService categoriesService) 
+            => this.categoriesService = categoriesService;
 
         public async Task<IActionResult> All(string search = null)
         {
@@ -29,10 +27,7 @@
             return View(viewModel);
         }
 
-        public IActionResult Create()
-        {
-            return this.View();
-        }
+        public IActionResult Create() => this.View();
 
         [HttpPost]
         public async Task<IActionResult> Create(CategoriesCreateInputModel input)
