@@ -1,10 +1,8 @@
 ﻿namespace ForumNet.Services.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using AutoMapper;
     using FluentAssertions;
     using Microsoft.EntityFrameworkCore;
     using Moq;
@@ -17,7 +15,7 @@
     public class MessagesServiceTests
     {
         [Fact]
-        public async Task CreateMethodShouldAddOnlyOneMessageInDatabase()
+        public async Task CreateMethodShouldAddMessageInDatabase()
         {
             var guid = Guid.NewGuid().ToString();
 
@@ -35,7 +33,7 @@
         }
 
         [Fact]
-        public async Task CreateMethodShouldAddRightCategoryInDatabase()
+        public async Task CreateMethodShouldAddRightMessageInDatabase()
         {
             var options = new DbContextOptionsBuilder<ForumDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
@@ -61,51 +59,5 @@
 
             actual.Should().BeEquivalentTo(expected);
         }
-
-        //[Fact]
-        //public async Task GetAllWithUserMethodShouldReturnAllMessagesWithCorrectUserOrderedByCreationDate()
-        //{
-        //    var options = new DbContextOptionsBuilder<ForumDbContext>()
-        //        .UseInMemoryDatabase(Guid.NewGuid().ToString())
-        //        .Options;
-
-        //    var db = new ForumDbContext(options);
-
-        //    var config = new MapperConfiguration(cfg =>
-        //    {
-        //        cfg.CreateMap<Message, Message>();
-        //    });
-
-        //    var mapper = config.CreateMapper();
-
-        //    var dateTimeProvider = new Mock<IDateTimeProvider>();
-        //    dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
-
-        //    var messages = new List<Message>
-        //    {
-        //        new Message
-        //        {
-        //            Content = "Test message 1",
-        //            AuthorId = "123",
-        //            ReceiverId = "321",
-        //            CreatedOn = dateTimeProvider.Object.Now()
-        //        },
-        //        new Message
-        //        {
-        //            Content = "Test message 2",
-        //            AuthorId = "321",
-        //            ReceiverId = "123",
-        //            CreatedOn = dateTimeProvider.Object.Now()
-        //        }
-        //    };
-
-        //    await db.Messages.AddRangeAsync(messages);
-        //    await db.SaveChangesAsync();
-
-        //    var messagesService = new MessagesService(db, mapper, dateTimeProvider.Object);
-        //    var actual = await messagesService.GetAllWithUserAsync<Message>("123", "321");
-
-        //    actual.Should().BeEquivalentTo(messages);
-        //}
     }
 }

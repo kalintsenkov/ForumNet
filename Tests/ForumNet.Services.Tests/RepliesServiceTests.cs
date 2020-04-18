@@ -1,10 +1,8 @@
 ﻿namespace ForumNet.Services.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using AutoMapper;
     using FluentAssertions;
     using Microsoft.EntityFrameworkCore;
     using Moq;
@@ -20,7 +18,7 @@
         [Theory]
         [InlineData("Test 1", 1, 1)]
         [InlineData("Test 2", null, 1)]
-        public async Task CreateMethodShouldAddOnlyOneReplyInDatabase(string description, int? parentId, int postId)
+        public async Task CreateMethodShouldAddReplyInDatabase(string description, int? parentId, int postId)
         {
             var guid = Guid.NewGuid().ToString();
 
@@ -280,82 +278,5 @@
 
             authorId.Should().BeNull();
         }
-
-        //[Fact]
-        //public async Task GetByIdMethodShouldReturnCorrectModel()
-        //{
-        //    var options = new DbContextOptionsBuilder<ForumDbContext>()
-        //        .UseInMemoryDatabase(Guid.NewGuid().ToString())
-        //        .Options;
-
-        //    var db = new ForumDbContext(options);
-
-        //    var config = new MapperConfiguration(cfg =>
-        //    {
-        //        cfg.CreateMap<Reply, Reply>();
-        //    });
-
-        //    var mapper = config.CreateMapper();
-
-        //    var dateTimeProvider = new DateTimeProvider();
-
-        //    await db.Replies.AddAsync(new Reply
-        //    {
-        //        Description = "Test",
-        //        AuthorId = "123",
-        //        PostId = 1,
-        //        CreatedOn = dateTimeProvider.Now()
-        //    });
-        //    await db.SaveChangesAsync();
-
-        //    var repliesService = new RepliesService(db, mapper, null, dateTimeProvider);
-        //    var expected = await repliesService.GetByIdAsync<Reply>(1);
-        //    var actual = await db.Replies.FirstOrDefaultAsync();
-
-        //    actual.Description.Should().Be(expected.Description);
-        //    actual.CreatedOn.Should().BeSameDateAs(expected.CreatedOn);
-        //}
-
-        //[Fact]
-        //public async Task GetAllByUserIdMethodShouldWorksCorrectly()
-        //{
-        //    var options = new DbContextOptionsBuilder<ForumDbContext>()
-        //        .UseInMemoryDatabase(Guid.NewGuid().ToString())
-        //        .Options;
-
-        //    var db = new ForumDbContext(options);
-        //    var usersServiceMock = new Mock<IUsersService>();
-        //    var dateTimeProvider = new Mock<IDateTimeProvider>();
-        //    dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
-
-        //    var config = new MapperConfiguration(cfg =>
-        //    {
-        //        cfg.CreateMap<Reply, Reply>();
-        //    });
-
-        //    var mapper = config.CreateMapper();
-
-        //    var expectedReplies = new List<Reply>();
-
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        expectedReplies.Add(new Reply
-        //        {
-        //            Description = $"Test {i}",
-        //            ParentId = null,
-        //            PostId = 1,
-        //            AuthorId = "123",
-        //            CreatedOn = dateTimeProvider.Object.Now()
-        //        });
-        //    }
-
-        //    await db.Replies.AddRangeAsync(expectedReplies);
-        //    await db.SaveChangesAsync();
-
-        //    var repliesService = new RepliesService(db, mapper, usersServiceMock.Object, dateTimeProvider.Object);
-        //    var actualReplies = await repliesService.GetAllByUserIdAsync<Reply>("123");
-
-        //    expectedReplies.Should().BeEquivalentTo(actualReplies);
-        //}
     }
 }

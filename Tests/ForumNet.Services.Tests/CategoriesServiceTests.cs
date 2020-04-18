@@ -17,7 +17,7 @@
     public class CategoriesServiceTests
     {
         [Fact]
-        public async Task CreateMethodShouldAddOnlyOneCategoryInDatabase()
+        public async Task CreateMethodShouldAddCategoryInDatabase()
         {
             var options = new DbContextOptionsBuilder<ForumDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())

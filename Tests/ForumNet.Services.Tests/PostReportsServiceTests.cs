@@ -1,10 +1,8 @@
 ﻿namespace ForumNet.Services.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using AutoMapper;
     using FluentAssertions;
     using Microsoft.EntityFrameworkCore;
     using Moq;
@@ -12,7 +10,6 @@
 
     using Data;
     using Data.Models;
-    using Data.Models.Enums;
     using Reports;
 
     public class PostReportsServiceTests
@@ -21,7 +18,7 @@
         [InlineData("Test 1", 1)]
         [InlineData("Test 2", 2)]
         [InlineData("Test 3", 3)]
-        public async Task CreateMethodShouldAddOnlyOnePostReportInDatabase(string description, int postId)
+        public async Task CreateMethodShouldAddPostReportInDatabase(string description, int postId)
         {
             var options = new DbContextOptionsBuilder<ForumDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
@@ -144,42 +141,5 @@
 
             isExisting.Should().BeFalse();
         }
-
-        //[Fact]
-        //public async Task GetByIdMethodShouldReturnCorrectModel()
-        //{
-        //    var options = new DbContextOptionsBuilder<ForumDbContext>()
-        //        .UseInMemoryDatabase(Guid.NewGuid().ToString())
-        //        .Options;
-
-        //    var db = new ForumDbContext(options);
-
-        //    var config = new MapperConfiguration(cfg =>
-        //    {
-        //        cfg.CreateMap<PostReport, PostReport>();
-        //    });
-
-        //    var mapper = config.CreateMapper();
-
-        //    var dateTimeProvider = new Mock<IDateTimeProvider>();
-        //    dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
-
-        //    await db.PostReports.AddAsync(new PostReport
-        //    {
-        //        Id = 1,
-        //        Description = "Test",
-        //        PostId = 1,
-        //        AuthorId = "123",
-        //        CreatedOn = dateTimeProvider.Object.Now()
-        //    });
-
-        //    await db.SaveChangesAsync();
-
-        //    var postReportsService = new PostReportsService(db, mapper, dateTimeProvider.Object);
-        //    var actual = await postReportsService.GetByIdAsync<PostReport>(1);
-        //    var expected = await db.PostReports.FirstOrDefaultAsync();
-
-        //    actual.Should().BeEquivalentTo(expected);
-        //}
     }
 }

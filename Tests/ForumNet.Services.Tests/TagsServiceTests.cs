@@ -18,7 +18,7 @@
     public class TagsServiceTests
     {
         [Fact]
-        public async Task CreateMethodShouldAddOnlyOneTagInDatabase()
+        public async Task CreateMethodShouldAddTagInDatabase()
         {
             var options = new DbContextOptionsBuilder<ForumDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
