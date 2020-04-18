@@ -39,7 +39,7 @@
             }
 
             var authorId = this.Context.User.GetId();
-            var currentTimeAsString = this.dateTimeProvider.Now();
+            var currentTime = this.dateTimeProvider.Now();
             var user = await this.usersService.GetByIdAsync<ChatUserViewModel>(authorId);
 
             await this.messagesService.CreateAsync(message, authorId, receiverId);
@@ -51,7 +51,7 @@
                     AuthorUserName = user.UserName,
                     AuthorProfilePicture = user.ProfilePicture,
                     Content = message,
-                    CreatedOn = currentTimeAsString
+                    CreatedOn = currentTime
                         .ToString(GlobalConstants.DateTimeFormat, CultureInfo.InvariantCulture)
                 });
         }
