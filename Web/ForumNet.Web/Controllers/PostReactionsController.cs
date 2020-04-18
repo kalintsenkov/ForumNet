@@ -7,7 +7,8 @@
 
     using Data.Models.Enums;
     using Infrastructure.Extensions;
-    using Services.Contracts;
+    using Services.Posts;
+    using Services.Reactions;
 
     [Authorize]
     [ApiController]

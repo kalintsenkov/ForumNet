@@ -9,7 +9,7 @@
 
     using Common;
     using Data.Models;
-    using Services.Contracts;
+    using Services.Users;
 
     public class ChangePasswordModel : PageModel
     {

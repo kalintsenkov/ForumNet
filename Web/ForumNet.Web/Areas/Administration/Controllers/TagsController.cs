@@ -6,7 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using InputModels.Tags;
-    using Services.Contracts;
+    using Services.Tags;
     using ViewModels.Tags;
 
     public class TagsController : AdminController

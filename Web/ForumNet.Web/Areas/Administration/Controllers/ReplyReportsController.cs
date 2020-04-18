@@ -4,7 +4,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    using Services.Contracts;
+    using Services.Reports;
     using ViewModels.ReplyReports;
 
     public class ReplyReportsController : AdminController

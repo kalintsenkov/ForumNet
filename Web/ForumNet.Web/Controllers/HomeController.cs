@@ -5,7 +5,9 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    using Services.Contracts;
+    using Services.Posts;
+    using Services.Reactions;
+    using Services.Users;
     using ViewModels;
     using ViewModels.Home;
 
@@ -54,11 +56,14 @@
                 Admins = admins
             };
 
-            return View(viewModel);
+            return this.View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error() 
-            => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        public IActionResult Error()
+            => this.View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            });
     }
 }

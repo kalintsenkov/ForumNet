@@ -8,7 +8,11 @@
 
     using Infrastructure.Extensions;
     using InputModels.Posts;
-    using Services.Contracts;
+    using Services.Categories;
+    using Services.Posts;
+    using Services.Replies;
+    using Services.Tags;
+    using Services.Users;
     using ViewModels.Posts;
 
     [Authorize]

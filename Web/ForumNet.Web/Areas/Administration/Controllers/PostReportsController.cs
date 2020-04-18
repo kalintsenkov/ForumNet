@@ -4,8 +4,8 @@
 
     using Microsoft.AspNetCore.Mvc;
 
+    using Services.Reports;
     using ViewModels.PostReports;
-    using Services.Contracts;
 
     public class PostReportsController : AdminController
     {

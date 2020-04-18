@@ -7,7 +7,8 @@
 
     using Infrastructure.Extensions;
     using InputModels.PostReports;
-    using Services.Contracts;
+    using Services.Posts;
+    using Services.Reports;
 
     [Authorize]
     public class PostReportsController : Controller

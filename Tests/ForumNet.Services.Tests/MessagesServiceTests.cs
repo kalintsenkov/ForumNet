@@ -10,9 +10,9 @@
     using Moq;
     using Xunit;
 
-    using Contracts;
     using Data;
     using Data.Models;
+    using Messages;
 
     public class MessagesServiceTests
     {

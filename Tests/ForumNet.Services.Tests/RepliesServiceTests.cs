@@ -10,9 +10,10 @@
     using Moq;
     using Xunit;
 
-    using Contracts;
     using Data;
     using Data.Models;
+    using Replies;
+    using Users;
 
     public class RepliesServiceTests
     {

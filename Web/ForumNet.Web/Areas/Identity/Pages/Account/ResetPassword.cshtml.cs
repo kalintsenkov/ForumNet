@@ -12,7 +12,7 @@
 
     using Common;
     using Data.Models;
-    using Services.Contracts;
+    using Services.Users;
 
     [AllowAnonymous]
     public class ResetPasswordModel : PageModel

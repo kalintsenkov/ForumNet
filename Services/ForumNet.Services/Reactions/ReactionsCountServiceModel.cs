@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Services.Models
+﻿namespace ForumNet.Services.Reactions
 {
     public class ReactionsCountServiceModel
     {

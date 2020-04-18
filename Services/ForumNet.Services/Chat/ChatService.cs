@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Services
+﻿namespace ForumNet.Services.Chat
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -8,7 +8,6 @@
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
 
-    using Contracts;
     using Data;
 
     public class ChatService : IChatService

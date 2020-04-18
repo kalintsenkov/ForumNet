@@ -13,10 +13,10 @@
     using Xunit;
 
     using Common;
-    using Contracts;
     using Data;
     using Data.Models;
     using Data.Models.Enums;
+    using Users;
 
     public class UsersServiceTests
     {

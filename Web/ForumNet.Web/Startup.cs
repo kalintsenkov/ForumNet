@@ -3,7 +3,6 @@ namespace ForumNet.Web
     using AutoMapper;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -24,19 +23,15 @@ namespace ForumNet.Web
                 .AddIdentity()
                 .ConfigureCookiePolicyOptions()
                 .AddResponseCompressionForHttps()
-                .AddAntiforgeryWithHeader()
+                .AddAntiforgeryHeader()
                 .AddFacebookAuthentication(this.configuration)
                 .AddGoogleAuthentication(this.configuration)
                 .AddAutoMapper(typeof(ForumNetProfile).Assembly)
                 .AddApplicationServices(this.configuration)
+                .AddControllersWithFilters()
                 .AddRazorPages();
 
             services.AddSignalR();
-
-            services
-                .AddControllersWithViews(options => options
-                    .Filters
-                    .Add<AutoValidateAntiforgeryTokenAttribute>());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

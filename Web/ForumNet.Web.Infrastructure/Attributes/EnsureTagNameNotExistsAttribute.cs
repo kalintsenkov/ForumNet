@@ -4,7 +4,7 @@
 
     using Microsoft.Extensions.DependencyInjection;
 
-    using Services.Contracts;
+    using Services.Tags;
 
     public class EnsureTagNameNotExistsAttribute : ValidationAttribute
     {

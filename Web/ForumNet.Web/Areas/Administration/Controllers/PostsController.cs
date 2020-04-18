@@ -4,7 +4,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    using Services.Contracts;
+    using Services.Posts;
 
     public class PostsController : AdminController
     {

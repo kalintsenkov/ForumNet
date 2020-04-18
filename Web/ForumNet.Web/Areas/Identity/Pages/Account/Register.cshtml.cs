@@ -17,8 +17,9 @@
     using Common;
     using Data.Models;
     using Data.Models.Enums;
-    using Services.Contracts;
+    using Services;
     using Services.Messaging;
+    using Services.Users;
 
     [AllowAnonymous]
     public class RegisterModel : PageModel

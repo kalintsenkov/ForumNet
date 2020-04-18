@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Services
+﻿namespace ForumNet.Services.Users
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -9,7 +9,6 @@
     using Microsoft.EntityFrameworkCore;
 
     using Common;
-    using Contracts;
     using Data;
     using Data.Models;
 

@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Infrastructure.Extensions;
-    using Services.Contracts;
+    using Services.Chat;
     using ViewModels.Chat;
 
     [ViewComponent(Name = "ChatConversations")]

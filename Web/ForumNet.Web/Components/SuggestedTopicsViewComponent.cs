@@ -4,7 +4,8 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    using Services.Contracts;
+    using Services.Posts;
+    using Services.Tags;
     using ViewModels.Posts;
 
     [ViewComponent(Name = "SuggestedTopics")]

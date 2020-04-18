@@ -9,7 +9,7 @@
 
     using Data.Models;
     using Infrastructure.Extensions;
-    using Services.Contracts;
+    using Services.Users;
 
     public class DeletePersonalDataModel : PageModel
     {

@@ -6,7 +6,10 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Infrastructure.Extensions;
-    using Services.Contracts;
+    using Services.Posts;
+    using Services.Replies;
+    using Services.Tags;
+    using Services.Users;
     using ViewModels.Users;
 
     [Authorize]

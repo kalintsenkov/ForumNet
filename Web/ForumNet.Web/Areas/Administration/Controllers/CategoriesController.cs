@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using InputModels.Categories;
-    using Services.Contracts;
+    using Services.Categories;
     using ViewModels.Categories;
 
     public class CategoriesController : AdminController

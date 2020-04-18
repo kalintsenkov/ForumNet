@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -9,8 +10,16 @@
     using Data;
     using Data.Models;
     using Services;
-    using Services.Contracts;
+    using Services.Categories;
+    using Services.Chat;
+    using Services.Messages;
     using Services.Messaging;
+    using Services.Posts;
+    using Services.Reactions;
+    using Services.Replies;
+    using Services.Reports;
+    using Services.Tags;
+    using Services.Users;
 
     public static class ServiceCollectionExtensions
     {
@@ -44,7 +53,7 @@
                 .AddResponseCompression(options => options
                     .EnableForHttps = true);
 
-        public static IServiceCollection AddAntiforgeryWithHeader(this IServiceCollection services)
+        public static IServiceCollection AddAntiforgeryHeader(this IServiceCollection services)
             => services
                 .AddAntiforgery(options => options
                     .HeaderName = "X-CSRF-TOKEN");
@@ -98,5 +107,15 @@
                 .AddTransient<IUsersService, UsersService>()
                 .AddTransient<IEmailSender>(serviceProvider => 
                     new SendGridEmailSender(configuration["SendGrid:ApiKey"]));
+
+        public static IServiceCollection AddControllersWithFilters(this IServiceCollection services)
+        {
+            services
+                .AddControllersWithViews(options => options
+                    .Filters
+                    .Add<AutoValidateAntiforgeryTokenAttribute>());
+
+            return services;
+        }
     }
 }

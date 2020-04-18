@@ -6,7 +6,8 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using Services.Contracts;
+    using Services.Posts;
+    using Services.Tags;
     using ViewModels.Posts;
     using ViewModels.Tags;
 

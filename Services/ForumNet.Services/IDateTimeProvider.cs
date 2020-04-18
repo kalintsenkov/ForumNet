@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Services.Contracts
+﻿namespace ForumNet.Services
 {
     using System;
 

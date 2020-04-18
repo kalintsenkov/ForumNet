@@ -7,7 +7,8 @@
 
     using Infrastructure.Extensions;
     using InputModels.ReplyReports;
-    using Services.Contracts;
+    using Services.Replies;
+    using Services.Reports;
 
     [Authorize]
     public class ReplyReportsController : Controller

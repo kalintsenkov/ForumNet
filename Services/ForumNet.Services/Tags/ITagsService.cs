@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Services.Contracts
+﻿namespace ForumNet.Services.Tags
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;

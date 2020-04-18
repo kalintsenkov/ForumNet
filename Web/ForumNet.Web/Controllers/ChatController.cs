@@ -7,7 +7,8 @@
 
     using Infrastructure.Extensions;
     using InputModels.Chat;
-    using Services.Contracts;
+    using Services.Messages;
+    using Services.Users;
     using ViewModels.Chat;
 
     [Authorize]

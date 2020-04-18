@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Services
+﻿namespace ForumNet.Services.Posts
 {
     using System;
     using System.Collections.Generic;
@@ -9,10 +9,10 @@
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
 
-    using Contracts;
     using Data;
     using Data.Models;
     using Data.Models.Enums;
+    using Users;
 
     public class PostsService : IPostsService
     {

@@ -11,12 +11,13 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
-    using Services.Contracts;
     using Services.Messaging;
 
     using Common;
     using Data.Models;
     using Data.Models.Enums;
+    using Services;
+    using Services.Users;
 
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel

@@ -1,15 +1,13 @@
-﻿namespace ForumNet.Services
+﻿namespace ForumNet.Services.Reactions
 {
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
 
-    using Contracts;
     using Data;
     using Data.Models;
     using Data.Models.Enums;
-    using Models;
 
     public class PostReactionsService : IPostReactionsService
     {

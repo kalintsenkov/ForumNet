@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Services.Contracts
+﻿namespace ForumNet.Services.Replies
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;

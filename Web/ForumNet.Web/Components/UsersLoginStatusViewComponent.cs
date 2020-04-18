@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Infrastructure.Extensions;
-    using Services.Contracts;
+    using Services.Users;
     using ViewModels.Users;
 
     [ViewComponent(Name = "UsersLoginStatus")]

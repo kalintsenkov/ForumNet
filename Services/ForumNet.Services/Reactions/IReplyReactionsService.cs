@@ -1,9 +1,8 @@
-﻿namespace ForumNet.Services.Contracts
+﻿namespace ForumNet.Services.Reactions
 {
     using System.Threading.Tasks;
 
     using Data.Models.Enums;
-    using Models;
 
     public interface IReplyReactionsService
     {

@@ -1,11 +1,11 @@
-﻿namespace ForumNet.Services.Contracts
+﻿namespace ForumNet.Services.Reports
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public interface IPostReportsService
+    public interface IReplyReportsService
     {
-        Task CreateAsync(string description, int postId, string authorId);
+        Task CreateAsync(string description, int replyId, string authorId);
 
         Task DeleteAsync(int id);
 

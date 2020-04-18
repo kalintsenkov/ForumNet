@@ -10,7 +10,7 @@
     using Moq;
     using Xunit;
 
-    using Contracts;
+    using Categories;
     using Data;
     using Data.Models;
 

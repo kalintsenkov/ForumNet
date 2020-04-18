@@ -7,7 +7,7 @@
 
     using Infrastructure.Extensions;
     using InputModels.Replies;
-    using Services.Contracts;
+    using Services.Replies;
     using ViewModels.Replies;
 
     [Authorize]

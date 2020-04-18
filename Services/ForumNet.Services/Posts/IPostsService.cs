@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Services.Contracts
+﻿namespace ForumNet.Services.Posts
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;

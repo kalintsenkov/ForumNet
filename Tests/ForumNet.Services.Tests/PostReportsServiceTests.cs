@@ -3,16 +3,17 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
     using AutoMapper;
     using FluentAssertions;
     using Microsoft.EntityFrameworkCore;
     using Moq;
     using Xunit;
 
-    using Contracts;
     using Data;
     using Data.Models;
     using Data.Models.Enums;
+    using Reports;
 
     public class PostReportsServiceTests
     {

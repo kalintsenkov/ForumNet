@@ -6,7 +6,7 @@
     using Microsoft.Extensions.DependencyInjection;
 
     using Common;
-    using Services.Contracts;
+    using Services.Tags;
 
     public class EnsureTagIdsExistsAttribute : ValidationAttribute
     {

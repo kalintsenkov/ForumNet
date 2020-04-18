@@ -11,9 +11,9 @@
     using Moq;
     using Xunit;
 
-    using Contracts;
     using Data;
     using Data.Models;
+    using Tags;
 
     public class TagsServiceTests
     {
