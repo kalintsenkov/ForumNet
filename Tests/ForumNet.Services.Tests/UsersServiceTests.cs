@@ -2,14 +2,17 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using AutoMapper;
     using FluentAssertions;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Moq;
     using Xunit;
 
+    using Common;
     using Contracts;
     using Data;
     using Data.Models;
@@ -719,5 +722,634 @@
             followingCount.Should().Be(0);
         }
 
+        [Theory]
+        [InlineData("user1", "user1@test.com", GenderType.NotKnown)]
+        [InlineData("user2", "user2@test.com", GenderType.Male)]
+        [InlineData("user3", "user3@test.com", GenderType.Female)]
+        public async Task GetByIdShouldReturnCorrectModel(string userName, string email, GenderType gender)
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase(guid)
+                .Options;
+
+            var db = new ForumDbContext(options);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ForumUser, ForumUser>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            var dateTimeProvider = new Mock<IDateTimeProvider>();
+            dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
+
+            var expected = new ForumUser
+            {
+                Id = guid,
+                UserName = userName,
+                Email = email,
+                ProfilePicture = "Some picture",
+                Gender = gender,
+                CreatedOn = dateTimeProvider.Object.Now()
+            };
+
+            await db.Users.AddAsync(expected);
+            await db.SaveChangesAsync();
+
+            var usersService = new UsersService(db, mapper, dateTimeProvider.Object);
+            var actual = await usersService.GetByIdAsync<ForumUser>(guid);
+
+            actual.Should().BeEquivalentTo(expected);
+        }
+
+        [Theory]
+        [InlineData("user1", "user1@test.com", GenderType.NotKnown)]
+        [InlineData("user2", "user2@test.com", GenderType.Male)]
+        [InlineData("user3", "user3@test.com", GenderType.Female)]
+        public async Task GetByIdShouldReturnNullIfUserIsDeleted(string userName, string email, GenderType gender)
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase(guid)
+                .Options;
+
+            var db = new ForumDbContext(options);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ForumUser, ForumUser>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            var dateTimeProvider = new Mock<IDateTimeProvider>();
+            dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
+
+            var expected = new ForumUser
+            {
+                Id = guid,
+                UserName = userName,
+                Email = email,
+                ProfilePicture = "Some picture",
+                Gender = gender,
+                IsDeleted = true,
+                CreatedOn = dateTimeProvider.Object.Now(),
+                DeletedOn = dateTimeProvider.Object.Now()
+            };
+
+            await db.Users.AddAsync(expected);
+            await db.SaveChangesAsync();
+
+            var usersService = new UsersService(db, mapper, dateTimeProvider.Object);
+            var actual = await usersService.GetByIdAsync<ForumUser>(guid);
+
+            actual.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task GetAllMethodShouldReturnCorrectModels()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase(guid)
+                .Options;
+
+            var db = new ForumDbContext(options);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ForumUser, ForumUser>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            var dateTimeProvider = new Mock<IDateTimeProvider>();
+            dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
+
+            var expected = new List<ForumUser>
+            {
+                new ForumUser
+                {
+                    Id = "123",
+                    UserName = "user 1",
+                    Email = "user1@test.com",
+                    ProfilePicture = "Some picture",
+                    Gender = GenderType.NotKnown,
+                    CreatedOn = dateTimeProvider.Object.Now()
+                },
+                new ForumUser
+                {
+                    Id = "1234",
+                    UserName = "user 2",
+                    Email = "user2@test.com",
+                    ProfilePicture = "Some picture",
+                    Gender = GenderType.NotKnown,
+                    CreatedOn = dateTimeProvider.Object.Now()
+                }
+            };
+
+            await db.Users.AddRangeAsync(expected);
+            await db.SaveChangesAsync();
+
+            var usersService = new UsersService(db, mapper, dateTimeProvider.Object);
+            var actual = await usersService.GetAllAsync<ForumUser>();
+
+            actual.Should().BeEquivalentTo(expected);
+            actual.Should().HaveCount(expected.Count);
+        }
+
+        [Fact]
+        public async Task GetAllMethodShouldNotReturnDeletedUsers()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase(guid)
+                .Options;
+
+            var db = new ForumDbContext(options);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ForumUser, ForumUser>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            var dateTimeProvider = new Mock<IDateTimeProvider>();
+            dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
+
+            var users = new List<ForumUser>
+            {
+                new ForumUser
+                {
+                    Id = "123",
+                    UserName = "user 1",
+                    Email = "user1@test.com",
+                    ProfilePicture = "Some picture",
+                    Gender = GenderType.NotKnown,
+                    IsDeleted = true,
+                    CreatedOn = dateTimeProvider.Object.Now(),
+                    DeletedOn = dateTimeProvider.Object.Now()
+                },
+                new ForumUser
+                {
+                    Id = "1234",
+                    UserName = "user 2",
+                    Email = "user2@test.com",
+                    ProfilePicture = "Some picture",
+                    Gender = GenderType.NotKnown,
+                    CreatedOn = dateTimeProvider.Object.Now()
+                }
+            };
+
+            await db.Users.AddRangeAsync(users);
+            await db.SaveChangesAsync();
+
+            var usersService = new UsersService(db, mapper, dateTimeProvider.Object);
+            var actual = await usersService.GetAllAsync<ForumUser>();
+
+            actual.Should().HaveCount(1);
+            actual.FirstOrDefault().Should().BeEquivalentTo(users[1]);
+        }
+
+        [Fact]
+        public async Task GetAdminsMethodShouldReturnOnlyAdmins()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase(guid)
+                .Options;
+
+            var db = new ForumDbContext(options);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ForumUser, ForumUser>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            var dateTimeProvider = new Mock<IDateTimeProvider>();
+            dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
+
+            var role = new ForumRole
+            {
+                Id = "Some role id",
+                Name = GlobalConstants.AdministratorRoleName,
+                CreatedOn = dateTimeProvider.Object.Now()
+            };
+
+            await db.Roles.AddAsync(role);
+
+            var expected = new List<ForumUser>
+            {
+                new ForumUser
+                {
+                    Id = "123",
+                    UserName = "user 1",
+                    Email = "user1@test.com",
+                    ProfilePicture = "Some picture",
+                    Gender = GenderType.NotKnown,
+                    CreatedOn = dateTimeProvider.Object.Now(),
+                    Roles = new List<IdentityUserRole<string>>
+                    {
+                        new IdentityUserRole<string>
+                        {
+                            RoleId = "Some role id"
+                        }
+                    }
+                },
+                new ForumUser
+                {
+                    Id = "1234",
+                    UserName = "user 2",
+                    Email = "user2@test.com",
+                    ProfilePicture = "Some picture",
+                    Gender = GenderType.NotKnown,
+                    CreatedOn = dateTimeProvider.Object.Now(),
+                    Roles = new List<IdentityUserRole<string>>
+                    {
+                        new IdentityUserRole<string>
+                        {
+                            RoleId = "Some role id"
+                        }
+                    }
+                }
+            };
+
+            await db.Users.AddRangeAsync(expected);
+            await db.SaveChangesAsync();
+
+            var usersService = new UsersService(db, mapper, dateTimeProvider.Object);
+            var actual = await usersService.GetAdminsAsync<ForumUser>();
+
+            actual.Should().BeEquivalentTo(expected);
+            actual.Should().HaveCount(expected.Count);
+        }
+
+        [Fact]
+        public async Task GetAdminsMethodShouldNotReturnDeleted()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase(guid)
+                .Options;
+
+            var db = new ForumDbContext(options);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ForumUser, ForumUser>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            var dateTimeProvider = new Mock<IDateTimeProvider>();
+            dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
+
+            var role = new ForumRole
+            {
+                Id = "Some role id",
+                Name = GlobalConstants.AdministratorRoleName,
+                CreatedOn = dateTimeProvider.Object.Now()
+            };
+
+            await db.Roles.AddAsync(role);
+
+            var expected = new List<ForumUser>
+            {
+                new ForumUser
+                {
+                    Id = "123",
+                    UserName = "user 1",
+                    Email = "user1@test.com",
+                    ProfilePicture = "Some picture",
+                    Gender = GenderType.NotKnown,
+                    CreatedOn = dateTimeProvider.Object.Now(),
+                    Roles = new List<IdentityUserRole<string>>
+                    {
+                        new IdentityUserRole<string>
+                        {
+                            RoleId = "Some role id"
+                        }
+                    }
+                },
+                new ForumUser
+                {
+                    Id = "1234",
+                    UserName = "user 2",
+                    Email = "user2@test.com",
+                    ProfilePicture = "Some picture",
+                    Gender = GenderType.NotKnown,
+                    IsDeleted = true,
+                    CreatedOn = dateTimeProvider.Object.Now(),
+                    DeletedOn = dateTimeProvider.Object.Now(),
+                    Roles = new List<IdentityUserRole<string>>
+                    {
+                        new IdentityUserRole<string>
+                        {
+                            RoleId = "Some role id"
+                        }
+                    }
+                }
+            };
+
+            await db.Users.AddRangeAsync(expected);
+            await db.SaveChangesAsync();
+
+            var usersService = new UsersService(db, mapper, dateTimeProvider.Object);
+            var actual = await usersService.GetAdminsAsync<ForumUser>();
+
+            actual.Should().HaveCount(1);
+            actual.FirstOrDefault().Should().BeEquivalentTo(expected[0]);
+        }
+
+        [Fact]
+        public async Task GetFollowersMethodShouldReturnUserFollowers()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase(guid)
+                .Options;
+
+            var db = new ForumDbContext(options);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ForumUser, ForumUser>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            var dateTimeProvider = new Mock<IDateTimeProvider>();
+            dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
+
+            var user = new ForumUser
+            {
+                Id = "12",
+                UserName = "user",
+                Email = "user@test.com",
+                ProfilePicture = "Some picture",
+                Gender = GenderType.NotKnown,
+                CreatedOn = dateTimeProvider.Object.Now()
+            };
+
+            var expected = new List<ForumUser>
+            {
+                new ForumUser
+                {
+                    Id = "123",
+                    UserName = "user 1",
+                    Email = "user1@test.com",
+                    ProfilePicture = "Some picture",
+                    Gender = GenderType.NotKnown,
+                    CreatedOn = dateTimeProvider.Object.Now()
+                },
+                new ForumUser
+                {
+                    Id = "1234",
+                    UserName = "user 2",
+                    Email = "user2@test.com",
+                    ProfilePicture = "Some picture",
+                    Gender = GenderType.NotKnown,
+                    CreatedOn = dateTimeProvider.Object.Now(),
+                }
+            };
+
+            await db.Users.AddAsync(user);
+            await db.Users.AddRangeAsync(expected);
+            await db.SaveChangesAsync();
+
+            var usersService = new UsersService(db, mapper, dateTimeProvider.Object);
+            await usersService.FollowAsync("12", "123");
+            await usersService.FollowAsync("12", "1234");
+
+            var actual = await usersService.GetFollowersAsync<ForumUser>("12");
+
+            actual.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public async Task GetFollowersMethodShouldNotReturnDeletedUsers()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase(guid)
+                .Options;
+
+            var db = new ForumDbContext(options);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ForumUser, ForumUser>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            var dateTimeProvider = new Mock<IDateTimeProvider>();
+            dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
+
+            var user = new ForumUser
+            {
+                Id = "12",
+                UserName = "user",
+                Email = "user@test.com",
+                ProfilePicture = "Some picture",
+                Gender = GenderType.NotKnown,
+                CreatedOn = dateTimeProvider.Object.Now()
+            };
+
+            var expected = new List<ForumUser>
+            {
+                new ForumUser
+                {
+                    Id = "123",
+                    UserName = "user 1",
+                    Email = "user1@test.com",
+                    ProfilePicture = "Some picture",
+                    Gender = GenderType.NotKnown,
+                    IsDeleted = true,
+                    CreatedOn = dateTimeProvider.Object.Now(),
+                    DeletedOn = dateTimeProvider.Object.Now()
+                },
+                new ForumUser
+                {
+                    Id = "1234",
+                    UserName = "user 2",
+                    Email = "user2@test.com",
+                    ProfilePicture = "Some picture",
+                    Gender = GenderType.NotKnown,
+                    IsDeleted = true,
+                    CreatedOn = dateTimeProvider.Object.Now(),
+                    DeletedOn = dateTimeProvider.Object.Now()
+                }
+            };
+
+            await db.Users.AddAsync(user);
+            await db.Users.AddRangeAsync(expected);
+            await db.SaveChangesAsync();
+
+            var usersService = new UsersService(db, mapper, dateTimeProvider.Object);
+            await usersService.FollowAsync("12", "123");
+            await usersService.FollowAsync("12", "1234");
+
+            var actual = await usersService.GetFollowersAsync<ForumUser>("12");
+
+            actual.Should().BeEmpty();
+        }
+
+        [Fact]
+        public async Task GetFollowingMethodShouldReturnUserFollowing()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase(guid)
+                .Options;
+
+            var db = new ForumDbContext(options);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ForumUser, ForumUser>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            var dateTimeProvider = new Mock<IDateTimeProvider>();
+            dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
+
+            var user = new ForumUser
+            {
+                Id = "12",
+                UserName = "user",
+                Email = "user@test.com",
+                ProfilePicture = "Some picture",
+                Gender = GenderType.NotKnown,
+                CreatedOn = dateTimeProvider.Object.Now()
+            };
+
+            var expected = new List<ForumUser>
+            {
+                new ForumUser
+                {
+                    Id = "123",
+                    UserName = "user 1",
+                    Email = "user1@test.com",
+                    ProfilePicture = "Some picture",
+                    Gender = GenderType.NotKnown,
+                    CreatedOn = dateTimeProvider.Object.Now()
+                },
+                new ForumUser
+                {
+                    Id = "1234",
+                    UserName = "user 2",
+                    Email = "user2@test.com",
+                    ProfilePicture = "Some picture",
+                    Gender = GenderType.NotKnown,
+                    CreatedOn = dateTimeProvider.Object.Now(),
+                }
+            };
+
+            await db.Users.AddAsync(user);
+            await db.Users.AddRangeAsync(expected);
+            await db.SaveChangesAsync();
+
+            var usersService = new UsersService(db, mapper, dateTimeProvider.Object);
+            await usersService.FollowAsync("123", "12");
+            await usersService.FollowAsync("1234", "12");
+
+            var actual = await usersService.GetFollowingAsync<ForumUser>("12");
+            
+            var actualUser1 = actual.ToList()[0];
+            var actualUser2 = actual.ToList()[1];
+            var expectedUser1 = expected[0];
+            var expectedUser2 = expected[1];
+
+            actualUser1.Id.Should().Be(expectedUser1.Id);
+            actualUser1.UserName.Should().Be(expectedUser1.UserName);
+            actualUser2.Id.Should().Be(expectedUser2.Id);
+            actualUser2.UserName.Should().Be(expectedUser2.UserName);
+        }
+
+        [Fact]
+        public async Task GetFollowingMethodShouldNotReturnDeletedUsers()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase(guid)
+                .Options;
+
+            var db = new ForumDbContext(options);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ForumUser, ForumUser>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            var dateTimeProvider = new Mock<IDateTimeProvider>();
+            dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
+
+            var user = new ForumUser
+            {
+                Id = "12",
+                UserName = "user",
+                Email = "user@test.com",
+                ProfilePicture = "Some picture",
+                Gender = GenderType.NotKnown,
+                CreatedOn = dateTimeProvider.Object.Now()
+            };
+
+            var expected = new List<ForumUser>
+            {
+                new ForumUser
+                {
+                    Id = "123",
+                    UserName = "user 1",
+                    Email = "user1@test.com",
+                    ProfilePicture = "Some picture",
+                    Gender = GenderType.NotKnown,
+                    IsDeleted = true,
+                    CreatedOn = dateTimeProvider.Object.Now(),
+                    DeletedOn = dateTimeProvider.Object.Now()
+                },
+                new ForumUser
+                {
+                    Id = "1234",
+                    UserName = "user 2",
+                    Email = "user2@test.com",
+                    ProfilePicture = "Some picture",
+                    Gender = GenderType.NotKnown,
+                    IsDeleted = true,
+                    CreatedOn = dateTimeProvider.Object.Now(),
+                    DeletedOn = dateTimeProvider.Object.Now()
+                }
+            };
+
+            await db.Users.AddAsync(user);
+            await db.Users.AddRangeAsync(expected);
+            await db.SaveChangesAsync();
+
+            var usersService = new UsersService(db, mapper, dateTimeProvider.Object);
+            await usersService.FollowAsync("123", "12");
+            await usersService.FollowAsync("1234", "12");
+
+            var actual = await usersService.GetFollowingAsync<ForumUser>("12");
+
+            actual.Should().BeEmpty();
+        }
     }
 }

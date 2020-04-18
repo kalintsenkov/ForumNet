@@ -133,12 +133,14 @@
 
         public async Task<TModel> GetByIdAsync<TModel>(string id) 
             => await this.db.Users
+                .AsNoTracking()
                 .Where(u => u.Id == id && !u.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>() 
             => await this.db.Users
+                .AsNoTracking()
                 .Where(u => !u.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
@@ -151,6 +153,7 @@
                 .FirstOrDefaultAsync();
 
             var admins = await this.db.Users
+                .AsNoTracking()
                 .Where(u => !u.IsDeleted && u.Roles
                     .Select(r => r.RoleId)
                     .FirstOrDefault() == adminRoleId)
@@ -162,17 +165,21 @@
 
         public async Task<IEnumerable<TModel>> GetFollowersAsync<TModel>(string id) 
             => await this.db.UsersFollowers
-                .Where(uf => uf.UserId == id && !uf.IsDeleted)
-                .Select(uf => uf.Follower)
                 .AsNoTracking()
+                .Where(uf => uf.UserId == id && 
+                             !uf.IsDeleted && 
+                             !uf.Follower.IsDeleted)
+                .Select(uf => uf.Follower)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
         public async Task<IEnumerable<TModel>> GetFollowingAsync<TModel>(string id) 
             => await this.db.UsersFollowers
-                .Where(uf => uf.FollowerId == id && !uf.IsDeleted)
-                .Select(uf => uf.User)
                 .AsNoTracking()
+                .Where(uf => uf.FollowerId == id && 
+                             !uf.IsDeleted && 
+                             !uf.User.IsDeleted)
+                .Select(uf => uf.User)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
     }

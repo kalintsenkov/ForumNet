@@ -1,6 +1,7 @@
 ﻿namespace ForumNet.Services.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoMapper;
     using FluentAssertions;
@@ -11,6 +12,7 @@
     using Contracts;
     using Data;
     using Data.Models;
+    using Data.Models.Enums;
 
     public class PostReportsServiceTests
     {
@@ -163,12 +165,13 @@
 
         //    await db.PostReports.AddAsync(new PostReport
         //    {
+        //        Id = 1,
         //        Description = "Test",
         //        PostId = 1,
         //        AuthorId = "123",
-        //        IsDeleted = false,
         //        CreatedOn = dateTimeProvider.Object.Now()
         //    });
+
         //    await db.SaveChangesAsync();
 
         //    var postReportsService = new PostReportsService(db, mapper, dateTimeProvider.Object);
