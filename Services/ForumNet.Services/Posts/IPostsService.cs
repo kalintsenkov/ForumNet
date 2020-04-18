@@ -15,9 +15,9 @@
 
         Task ViewAsync(int id);
 
-        Task<bool> PinAsync(int id);
-
         Task AddTagsAsync(int id, IEnumerable<int> tagIds);
+
+        Task<bool> PinAsync(int id);
 
         Task<bool> IsExistingAsync(int id);
 

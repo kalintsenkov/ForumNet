@@ -39,8 +39,10 @@
             }
             else
             {
-                replyReaction.ReactionType = replyReaction.ReactionType == reactionType ? ReactionType.Neutral : reactionType;
                 replyReaction.ModifiedOn = this.dateTimeProvider.Now();
+                replyReaction.ReactionType = replyReaction.ReactionType == reactionType 
+                    ? ReactionType.Neutral 
+                    : reactionType;
             }
 
             await this.db.SaveChangesAsync();

@@ -87,18 +87,6 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<bool> PinAsync(int id)
-        {
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
-
-            post.IsPinned = !post.IsPinned;
-            post.ModifiedOn = this.dateTimeProvider.Now();
-
-            await this.db.SaveChangesAsync();
-
-            return post.IsPinned;
-        }
-
         public async Task AddTagsAsync(int id, IEnumerable<int> tagIds)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
@@ -113,6 +101,18 @@
             }
 
             await this.db.SaveChangesAsync();
+        }
+
+        public async Task<bool> PinAsync(int id)
+        {
+            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
+
+            post.IsPinned = !post.IsPinned;
+            post.ModifiedOn = this.dateTimeProvider.Now();
+
+            await this.db.SaveChangesAsync();
+
+            return post.IsPinned;
         }
 
         public async Task<bool> IsExistingAsync(int id)
