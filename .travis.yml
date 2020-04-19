@@ -1,3 +1,19 @@
+dist: xenial
+addons:
+  snaps:
+  - name: dotnet-sdk
+    classic: true
+    channel: latest/beta
+sudo: required
+language: csharp
+mono: none
+script:
+  - sudo snap alias dotnet-sdk.dotnet dotnet
+  - dotnet --version
+  - dotnet build
+  - dotnet test ForumNet.Services.Tests/ForumNet.Services.Tests.csproj
+  - dotnet test ForumNet.Web.Tests/ForumNet.Web.Tests.csproj
+
 language: csharp
 dist: trusty
 mono: none
