@@ -181,6 +181,8 @@
             var queryable = this.db.Posts
                 .AsNoTracking()
                 .OrderByDescending(p => p.IsPinned)
+                .ThenByDescending(p => p.Reactions
+                    .Count(r => r.ReactionType != ReactionType.Neutral))
                 .ThenByDescending(p => p.CreatedOn)
                 .Where(p => !p.IsDeleted);
 
