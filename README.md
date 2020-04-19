@@ -2,7 +2,7 @@
 
 <p>Forum application built for <a href="https://softuni.bg/trainings/2796/asp-net-core-february-2020">ASP.NET Core course</a> at SoftUni</p>
 
-[![Build Status](https://dev.azure.com/Tsenkow/ForumNet/_apis/build/status/ForumNet-Azure%20Web%20App%20for%20ASP.NET-CI?branchName=master)](https://dev.azure.com/Tsenkow/ForumNet/_build/latest?definitionId=4&branchName=master) [![Build status](https://ci.appveyor.com/api/projects/status/y8re5a60joksloym?svg=true)](https://ci.appveyor.com/project/kalintsenkov/forumnet) [![Coverage Status](https://coveralls.io/repos/github/kalintsenkov/ForumNet/badge.svg?branch=master)](https://coveralls.io/github/kalintsenkov/ForumNet?branch=master)
+[![Build Status](https://dev.azure.com/Tsenkow/ForumNet/_apis/build/status/ForumNet-Azure%20Web%20App%20for%20ASP.NET-CI?branchName=master)](https://dev.azure.com/Tsenkow/ForumNet/_build/latest?definitionId=4&branchName=master) [![Build status](https://ci.appveyor.com/api/projects/status/y8re5a60joksloym?svg=true)](https://ci.appveyor.com/project/kalintsenkov/forumnet) [![Build Status](https://travis-ci.org/kalintsenkov/ForumNet.svg?branch=master)](https://travis-ci.org/kalintsenkov/ForumNet) [![Coverage Status](https://coveralls.io/repos/github/kalintsenkov/ForumNet/badge.svg?branch=master)](https://coveralls.io/github/kalintsenkov/ForumNet?branch=master)
 # 🛠 Built with:
 * [.NET Core 3.1](https://github.com/dotnet/core)
 * [ASP.NET Core 3.1](https://github.com/dotnet/aspnetcore)
