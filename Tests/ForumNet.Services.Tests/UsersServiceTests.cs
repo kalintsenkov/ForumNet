@@ -16,6 +16,7 @@
     using Data;
     using Data.Models;
     using Data.Models.Enums;
+    using Providers;
     using Users;
 
     public class UsersServiceTests

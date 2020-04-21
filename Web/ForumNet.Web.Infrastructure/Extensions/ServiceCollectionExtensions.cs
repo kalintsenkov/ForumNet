@@ -7,14 +7,15 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
+    using Common;
     using Data;
     using Data.Models;
-    using Services;
     using Services.Categories;
     using Services.Chat;
     using Services.Messages;
     using Services.Messaging;
     using Services.Posts;
+    using Services.Providers;
     using Services.Reactions;
     using Services.Replies;
     using Services.Reports;
@@ -33,7 +34,17 @@
         public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
             services
-                .AddDefaultIdentity<ForumUser>(IdentityOptionsProvider.GetIdentityOptions)
+                .AddDefaultIdentity<ForumUser>(options =>
+                {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequiredLength = GlobalConstants.UserPasswordMinLength;
+                    options.User.RequireUniqueEmail = true;
+                    //options.SignIn.RequireConfirmedAccount = true;
+                    //options.SignIn.RequireConfirmedEmail = true;
+                })
                 .AddRoles<ForumRole>()
                 .AddEntityFrameworkStores<ForumDbContext>();
 
@@ -108,7 +119,7 @@
                 .AddTransient<IEmailSender>(serviceProvider => 
                     new SendGridEmailSender(configuration["SendGrid:ApiKey"]));
 
-        public static IServiceCollection AddControllersWithFilters(this IServiceCollection services)
+        public static IServiceCollection AddControllersWithAntiforgeryTokenAttribute(this IServiceCollection services)
         {
             services
                 .AddControllersWithViews(options => options

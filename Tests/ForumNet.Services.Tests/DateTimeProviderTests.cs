@@ -5,6 +5,8 @@
     using FluentAssertions;
     using Xunit;
 
+    using Providers;
+
     public class DateTimeProviderTests
     {
         [Fact]

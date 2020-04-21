@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Services
+﻿namespace ForumNet.Services.Providers
 {
     using System;
 

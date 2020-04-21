@@ -13,6 +13,7 @@
     using Categories;
     using Data;
     using Data.Models;
+    using Providers;
 
     public class CategoriesServiceTests
     {

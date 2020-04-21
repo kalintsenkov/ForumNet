@@ -11,6 +11,7 @@
     using Common;
     using Data;
     using Data.Models;
+    using Providers;
 
     public class UsersService : IUsersService
     {

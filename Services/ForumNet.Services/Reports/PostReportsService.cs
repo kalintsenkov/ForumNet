@@ -10,6 +10,7 @@
 
     using Data;
     using Data.Models;
+    using Providers;
 
     public class PostReportsService : IPostReportsService
     {

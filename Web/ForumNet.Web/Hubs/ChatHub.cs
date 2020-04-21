@@ -7,8 +7,8 @@
 
     using Common;
     using Infrastructure.Extensions;
-    using Services;
     using Services.Messages;
+    using Services.Providers;
     using Services.Users;
     using ViewModels.Chat;
 
