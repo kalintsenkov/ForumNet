@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Services.Messaging
+﻿namespace ForumNet.Services.Providers.Email
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;

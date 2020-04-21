@@ -10,7 +10,7 @@
     using Microsoft.AspNetCore.WebUtilities;
 
     using Data.Models;
-    using Services.Messaging;
+    using Services.Providers.Email;
 
     [AllowAnonymous]
     public class RegisterConfirmationModel : PageModel

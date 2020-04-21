@@ -12,7 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\ForumNet.Data\ForumNet.Data.csproj" />
     <ProjectReference Include="..\..\ForumNet.Common\ForumNet.Common.csproj" />
-    <ProjectReference Include="..\ForumNet.Services.Messaging\ForumNet.Services.Messaging.csproj" />
+    <ProjectReference Include="..\ForumNet.Services.Providers\ForumNet.Services.Providers.csproj" />
   </ItemGroup>
 
 </Project>

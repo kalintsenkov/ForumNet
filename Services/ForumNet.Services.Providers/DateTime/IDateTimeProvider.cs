@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Services.Providers
+﻿namespace ForumNet.Services.Providers.DateTime
 {
     using System;
 

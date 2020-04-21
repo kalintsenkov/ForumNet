@@ -8,7 +8,7 @@
     using Common;
     using Infrastructure.Extensions;
     using Services.Messages;
-    using Services.Providers;
+    using Services.Providers.DateTime;
     using Services.Users;
     using ViewModels.Chat;
 

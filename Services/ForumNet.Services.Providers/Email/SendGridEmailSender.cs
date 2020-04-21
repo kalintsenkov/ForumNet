@@ -1,4 +1,4 @@
-﻿namespace ForumNet.Services.Messaging
+﻿namespace ForumNet.Services.Providers.Email
 {
     using System;
     using System.Collections.Generic;
@@ -14,7 +14,13 @@
 
         public SendGridEmailSender(string apiKey) => this.client = new SendGridClient(apiKey);
 
-        public async Task SendEmailAsync(string from, string fromName, string to, string subject, string htmlContent, IEnumerable<EmailAttachment> attachments = null)
+        public async Task SendEmailAsync(
+            string from, 
+            string fromName, 
+            string to, 
+            string subject, 
+            string htmlContent, 
+            IEnumerable<EmailAttachment> attachments = null)
         {
             if (string.IsNullOrWhiteSpace(subject) && string.IsNullOrWhiteSpace(htmlContent))
             {

@@ -5,7 +5,7 @@
     using FluentAssertions;
     using Xunit;
 
-    using Providers;
+    using Providers.DateTime;
 
     public class DateTimeProviderTests
     {

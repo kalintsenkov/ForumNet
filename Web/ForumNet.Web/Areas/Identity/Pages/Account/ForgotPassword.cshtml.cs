@@ -11,9 +11,9 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
 
+    using Common;
     using Data.Models;
-    using ForumNet.Common;
-    using Services.Messaging;
+    using Services.Providers.Email;
 
     [AllowAnonymous]
     public class ForgotPasswordModel : PageModel

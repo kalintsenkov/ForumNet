@@ -17,8 +17,8 @@
     using Common;
     using Data.Models;
     using Data.Models.Enums;
-    using Services.Messaging;
-    using Services.Providers;
+    using Services.Providers.DateTime;
+    using Services.Providers.Email;
     using Services.Users;
 
     [AllowAnonymous]

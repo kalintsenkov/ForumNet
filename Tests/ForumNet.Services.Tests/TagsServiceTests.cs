@@ -13,7 +13,7 @@
 
     using Data;
     using Data.Models;
-    using Providers;
+    using Providers.DateTime;
     using Tags;
 
     public class TagsServiceTests

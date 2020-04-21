@@ -11,7 +11,7 @@
     using Data;
     using Data.Models;
     using Messages;
-    using Providers;
+    using Providers.DateTime;
 
     public class MessagesServiceTests
     {

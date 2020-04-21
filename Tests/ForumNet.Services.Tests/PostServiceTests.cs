@@ -14,7 +14,7 @@
     using Data.Models;
     using Data.Models.Enums;
     using Posts;
-    using Providers;
+    using Providers.DateTime;
     using Users;
 
     public class PostServiceTests

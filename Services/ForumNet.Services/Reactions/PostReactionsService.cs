@@ -8,7 +8,7 @@
     using Data;
     using Data.Models;
     using Data.Models.Enums;
-    using Providers;
+    using Providers.DateTime;
 
     public class PostReactionsService : IPostReactionsService
     {

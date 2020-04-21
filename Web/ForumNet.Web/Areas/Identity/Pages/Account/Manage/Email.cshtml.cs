@@ -12,7 +12,7 @@
 
     using Common;
     using Data.Models;
-    using Services.Messaging;
+    using Services.Providers.Email;
 
     public partial class EmailModel : PageModel
     {

@@ -13,9 +13,9 @@
     using Services.Categories;
     using Services.Chat;
     using Services.Messages;
-    using Services.Messaging;
     using Services.Posts;
-    using Services.Providers;
+    using Services.Providers.DateTime;
+    using Services.Providers.Email;
     using Services.Reactions;
     using Services.Replies;
     using Services.Reports;
