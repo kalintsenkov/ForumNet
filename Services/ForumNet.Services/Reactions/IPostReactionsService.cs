@@ -6,10 +6,8 @@
 
     public interface IPostReactionsService
     {
-        Task ReactAsync(ReactionType reactionType, int postId, string authorId);
+        Task<ReactionsCountServiceModel> ReactAsync(ReactionType reactionType, int postId, string authorId);
 
         Task<int> GetTotalCountAsync();
-
-        Task<ReactionsCountServiceModel> GetCountByPostIdAsync(int postId);
     }
 }

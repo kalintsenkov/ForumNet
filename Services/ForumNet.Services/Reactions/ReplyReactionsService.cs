@@ -20,7 +20,7 @@
             this.dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task ReactAsync(ReactionType reactionType, int replyId, string authorId)
+        public async Task<ReactionsCountServiceModel> ReactAsync(ReactionType reactionType, int replyId, string authorId)
         {
             var replyReaction = await this.db.ReplyReactions
                 .FirstOrDefaultAsync(rr => rr.ReplyId == replyId && rr.AuthorId == authorId);
@@ -46,6 +46,8 @@
             }
 
             await this.db.SaveChangesAsync();
+
+            return await this.GetCountByReplyIdAsync(replyId);
         }
 
         public async Task<int> GetTotalCountAsync() 
@@ -53,7 +55,7 @@
                 .Where(pr => !pr.Reply.IsDeleted)
                 .CountAsync();
 
-        public async Task<ReactionsCountServiceModel> GetCountByReplyIdAsync(int replyId) 
+        private async Task<ReactionsCountServiceModel> GetCountByReplyIdAsync(int replyId) 
             => new ReactionsCountServiceModel
             {
                 Likes = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Like, replyId),

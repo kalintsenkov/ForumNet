@@ -2,118 +2,60 @@
 {
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using Data.Models.Enums;
     using Infrastructure.Extensions;
-    using Services.Posts;
     using Services.Reactions;
 
-    [Authorize]
-    [ApiController]
     [Route("api/post-reactions")]
-    public class PostReactionsController : ControllerBase
+    public class PostReactionsController : ApiController
     {
-        private readonly IPostsService postsService;
         private readonly IPostReactionsService postReactionsService;
 
-        public PostReactionsController(
-            IPostsService postsService,
-            IPostReactionsService postReactionsService)
-        {
-            this.postsService = postsService;
-            this.postReactionsService = postReactionsService;
-        }
+        public PostReactionsController(IPostReactionsService postReactionsService) 
+            => this.postReactionsService = postReactionsService;
 
         [HttpPost("like/{postId}")]
-        public async Task<ActionResult> Like(int postId)
-        {
-            var isExisting = await this.postsService.IsExistingAsync(postId);
-            if (!isExisting)
-            {
-                return this.NotFound();
-            }
-
-            await this.postReactionsService.ReactAsync(ReactionType.Like, postId, this.User.GetId());
-            var result = await this.postReactionsService.GetCountByPostIdAsync(postId);
-
-            return this.Ok(result);
-        }
+        public async Task<ActionResult<ReactionsCountServiceModel>> Like(int postId) 
+            => await this.postReactionsService.ReactAsync(
+                ReactionType.Like, 
+                postId, 
+                this.User.GetId());
 
         [HttpPost("love/{postId}")]
-        public async Task<ActionResult> Love(int postId)
-        {
-            var isExisting = await this.postsService.IsExistingAsync(postId);
-            if (!isExisting)
-            {
-                return this.NotFound();
-            }
-
-            await this.postReactionsService.ReactAsync(ReactionType.Love, postId, this.User.GetId());
-            var result = await this.postReactionsService.GetCountByPostIdAsync(postId);
-
-            return this.Ok(result);
-        }
+        public async Task<ActionResult<ReactionsCountServiceModel>> Love(int postId) 
+            => await this.postReactionsService.ReactAsync(
+                ReactionType.Love,
+                postId, 
+                this.User.GetId());
 
         [HttpPost("haha/{postId}")]
-        public async Task<ActionResult> Haha(int postId)
-        {
-            var isExisting = await this.postsService.IsExistingAsync(postId);
-            if (!isExisting)
-            {
-                return this.NotFound();
-            }
-
-            await this.postReactionsService.ReactAsync(ReactionType.Haha, postId, this.User.GetId());
-            var result = await this.postReactionsService.GetCountByPostIdAsync(postId);
-
-            return this.Ok(result);
-        }
+        public async Task<ActionResult<ReactionsCountServiceModel>> Haha(int postId) 
+            => await this.postReactionsService.ReactAsync(
+                ReactionType.Haha, 
+                postId, 
+                this.User.GetId());
 
         [HttpPost("wow/{postId}")]
-        public async Task<ActionResult> Wow(int postId)
-        {
-            var isExisting = await this.postsService.IsExistingAsync(postId);
-            if (!isExisting)
-            {
-                return this.NotFound();
-            }
-
-            await this.postReactionsService.ReactAsync(ReactionType.Wow, postId, this.User.GetId());
-            var result = await this.postReactionsService.GetCountByPostIdAsync(postId);
-
-            return this.Ok(result);
-        }
+        public async Task<ActionResult<ReactionsCountServiceModel>> Wow(int postId) 
+            => await this.postReactionsService.ReactAsync(
+                ReactionType.Wow, 
+                postId, 
+                this.User.GetId());
 
         [HttpPost("sad/{postId}")]
-        public async Task<ActionResult> Sad(int postId)
-        {
-            var isExisting = await this.postsService.IsExistingAsync(postId);
-            if (!isExisting)
-            {
-                return this.NotFound();
-            }
-
-            await this.postReactionsService.ReactAsync(ReactionType.Sad, postId, this.User.GetId());
-            var result = await this.postReactionsService.GetCountByPostIdAsync(postId);
-
-            return this.Ok(result);
-        }
+        public async Task<ActionResult<ReactionsCountServiceModel>> Sad(int postId) 
+            => await this.postReactionsService.ReactAsync(
+                ReactionType.Sad, 
+                postId, 
+                this.User.GetId());
 
         [HttpPost("angry/{postId}")]
-        public async Task<ActionResult> Angry(int postId)
-        {
-            var isExisting = await this.postsService.IsExistingAsync(postId);
-            if (!isExisting)
-            {
-                return this.NotFound();
-            }
-
-            await this.postReactionsService.ReactAsync(ReactionType.Angry, postId, this.User.GetId());
-            var result = await this.postReactionsService.GetCountByPostIdAsync(postId);
-
-            return this.Ok(result);
-        }
+        public async Task<ActionResult<ReactionsCountServiceModel>> Angry(int postId)
+            => await this.postReactionsService.ReactAsync(
+                ReactionType.Angry,
+                postId, 
+                this.User.GetId());
     }
 }

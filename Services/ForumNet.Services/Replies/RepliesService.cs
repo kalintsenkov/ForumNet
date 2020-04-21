@@ -71,21 +71,21 @@
 
         public async Task MakeBestAnswerAsync(int id)
         {
+            var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
             var bestAnswerReply = await this.db.Replies.FirstOrDefaultAsync(r => r.IsBestAnswer && !r.IsDeleted);
             if (bestAnswerReply == null)
             {
-                var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
-
                 reply.IsBestAnswer = true;
 
-                await this.db.SaveChangesAsync();
                 await this.usersService.AddPointsAsync(reply.AuthorId, 5);
             }
             else
             {
+                reply.IsBestAnswer = true;
                 bestAnswerReply.IsBestAnswer = false;
-                await this.db.SaveChangesAsync();
             }
+
+            await this.db.SaveChangesAsync();
         }
 
         public async Task<bool> IsExistingAsync(int id)
@@ -103,7 +103,7 @@
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId) 
+        public async Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId)
             => await this.db.Replies
                 .Where(r => r.AuthorId == userId && !r.IsDeleted && !r.Post.IsDeleted)
                 .OrderByDescending(p => p.CreatedOn)

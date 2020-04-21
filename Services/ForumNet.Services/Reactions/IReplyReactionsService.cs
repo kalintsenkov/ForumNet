@@ -6,10 +6,8 @@
 
     public interface IReplyReactionsService
     {
-        Task ReactAsync(ReactionType reactionType, int replyId, string authorId);
+        Task<ReactionsCountServiceModel> ReactAsync(ReactionType reactionType, int replyId, string authorId);
 
         Task<int> GetTotalCountAsync();
-
-        Task<ReactionsCountServiceModel> GetCountByReplyIdAsync(int replyId);
     }
 }
