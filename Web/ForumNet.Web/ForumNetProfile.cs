@@ -235,6 +235,7 @@
 
             #region Users
             this.CreateMap<ForumUser, ChatUserViewModel>();
+            this.CreateMap<ForumUser, ChatConversationsViewModel>();
             this.CreateMap<ForumUser, UsersLoginStatusViewModel>();
             this.CreateMap<ForumUser, HomeAboutAdminViewModel>();
             this.CreateMap<ForumUser, RepliesAuthorDetailsViewModel>();

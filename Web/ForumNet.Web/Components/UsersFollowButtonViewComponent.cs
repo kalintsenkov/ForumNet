@@ -13,10 +13,8 @@
     {
         private readonly IUsersService usersService;
 
-        public UsersFollowButtonViewComponent(IUsersService usersService)
-        {
-            this.usersService = usersService;
-        }
+        public UsersFollowButtonViewComponent(IUsersService usersService) 
+            => this.usersService = usersService;
 
         public async Task<IViewComponentResult> InvokeAsync(string userId)
         {

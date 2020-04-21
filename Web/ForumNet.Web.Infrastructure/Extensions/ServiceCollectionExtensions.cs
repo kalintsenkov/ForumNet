@@ -11,7 +11,6 @@
     using Data;
     using Data.Models;
     using Services.Categories;
-    using Services.Chat;
     using Services.Messages;
     using Services.Posts;
     using Services.Providers.DateTime;
@@ -105,7 +104,6 @@
             => services
                 .AddSingleton(configuration)
                 .AddTransient<ICategoriesService, CategoriesService>()
-                .AddTransient<IChatService, ChatService>()
                 .AddTransient<IDateTimeProvider, DateTimeProvider>()
                 .AddTransient<IMessagesService, MessagesService>()
                 .AddTransient<IPostReactionsService, PostReactionsService>()

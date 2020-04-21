@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ForumNet.Web.ViewModels.Chat.ChatUserViewModel>
+﻿@model IEnumerable<ForumNet.Web.ViewModels.Chat.ChatConversationsViewModel>
 
 <div class="tt-all-avatar">
     <div class="tt-list-avatar" style="overflow-y: auto; height:400px; display:block; word-break: break-word;">
@@ -13,7 +13,8 @@
                         </svg>
                     </div>
                     <div class="tt-col-description">
-                        <h4 class="tt-title"><span>@conversation.UserName</span></h4>
+                        <h4 class="tt-title"><span>@conversation.UserName</span>  <span class="time">@conversation.LastMessageActivity</span></h4>
+                        <div class="tt-message">@conversation.LastMessage</div>
                     </div>
                 </a>
             }

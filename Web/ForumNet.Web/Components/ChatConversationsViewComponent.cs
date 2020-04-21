@@ -5,25 +5,29 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Infrastructure.Extensions;
-    using Services.Chat;
+    using Services.Messages;
     using ViewModels.Chat;
 
     [ViewComponent(Name = "ChatConversations")]
     public class ChatConversationsViewComponent : ViewComponent
     {
-        private readonly IChatService chatService;
+        private readonly IMessagesService messagesService;
 
-        public ChatConversationsViewComponent(IChatService chatService)
-        {
-            this.chatService = chatService;
-        }
+        public ChatConversationsViewComponent(IMessagesService messagesService) 
+            => this.messagesService = messagesService;
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var userId = this.UserClaimsPrincipal.GetId();
-            var chats = await this.chatService.GetAllAsync<ChatUserViewModel>(userId);
+            var currentUserId = this.UserClaimsPrincipal.GetId();
+            var conversations = await this.messagesService.GetAllAsync<ChatConversationsViewModel>(currentUserId);
+            
+            foreach (var user in conversations)
+            {
+                user.LastMessage = await this.messagesService.GetLastMessageAsync(currentUserId, user.Id);
+                user.LastMessageActivity = await this.messagesService.GetLastActivityAsync(currentUserId, user.Id);
+            }
 
-            return this.View(chats);
+            return this.View(conversations);
         }
     }
 }

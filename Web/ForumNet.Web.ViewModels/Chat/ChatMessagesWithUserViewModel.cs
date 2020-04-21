@@ -4,17 +4,17 @@
 
     public class ChatMessagesWithUserViewModel
     {
-        private readonly IHtmlSanitizer htmlSanitizer;
+        private readonly IHtmlSanitizer sanitizer;
 
         public ChatMessagesWithUserViewModel()
         {
-            this.htmlSanitizer = new HtmlSanitizer();
+            this.sanitizer = new HtmlSanitizer();
         }
 
         public string Content { get; set; }
 
         public string SanitizedContent
-            => this.htmlSanitizer.Sanitize(this.Content);
+            => this.sanitizer.Sanitize(this.Content);
 
         public string AuthorId { get; set; }
 

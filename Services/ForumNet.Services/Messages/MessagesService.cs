@@ -8,6 +8,7 @@
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
 
+    using Common;
     using Data;
     using Data.Models;
     using Providers.DateTime;
@@ -39,6 +40,24 @@
             await this.db.SaveChangesAsync();
         }
 
+        public async Task<string> GetLastActivityAsync(string currentUserId, string userId)
+            => await this.db.Messages
+                .Where(m => !m.IsDeleted &&
+                            ((m.ReceiverId == currentUserId && m.AuthorId == userId) ||
+                             (m.ReceiverId == userId && m.AuthorId == currentUserId)))
+                .OrderByDescending(m => m.CreatedOn)
+                .Select(m => m.CreatedOn.ToString(GlobalConstants.DateTimeFormat))
+                .FirstOrDefaultAsync();
+
+        public async Task<string> GetLastMessageAsync(string currentUserId, string userId)
+            => await this.db.Messages
+                .Where(m => !m.IsDeleted &&
+                            ((m.ReceiverId == currentUserId && m.AuthorId == userId) ||
+                             (m.ReceiverId == userId && m.AuthorId == currentUserId)))
+                .OrderByDescending(m => m.CreatedOn)
+                .Select(m => m.Content)
+                .FirstOrDefaultAsync();
+
         public async Task<IEnumerable<TModel>> GetAllWithUserAsync<TModel>(string currentUserId, string userId) 
             => await this.db.Messages
                 .Where(m => !m.IsDeleted &&
@@ -47,5 +66,29 @@
                 .OrderBy(m => m.CreatedOn)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
+
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string currentUserId)
+        {
+            var sentMessages = this.db.Messages
+                .Where(m => !m.IsDeleted &&
+                            (m.AuthorId == currentUserId || m.ReceiverId == currentUserId))
+                .OrderByDescending(m => m.CreatedOn)
+                .Select(m => m.Author);
+
+            var receivedMessages = this.db.Messages
+                .Where(m => !m.IsDeleted &&
+                            (m.AuthorId == currentUserId || m.ReceiverId == currentUserId))
+                .OrderByDescending(m => m.CreatedOn)
+                .Select(m => m.Receiver);
+
+            var concatenatedMessages = await sentMessages
+                .Concat(receivedMessages)
+                .Where(u => u.Id != currentUserId)
+                .Distinct()
+                .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return concatenatedMessages;
+        }
     }
 }
