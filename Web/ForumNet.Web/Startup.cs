@@ -28,7 +28,7 @@ namespace ForumNet.Web
                 .AddGoogleAuthentication(this.configuration)
                 .AddAutoMapper(typeof(ForumNetProfile).Assembly)
                 .AddApplicationServices(this.configuration)
-                .AddControllersWithAntiforgeryTokenAttribute()
+                .AddControllersWithAutoAntiforgeryTokenAttribute()
                 .AddRazorPages();
 
             services.AddSignalR();

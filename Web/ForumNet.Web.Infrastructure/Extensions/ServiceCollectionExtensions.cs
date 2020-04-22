@@ -7,7 +7,6 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
-    using Common;
     using Data;
     using Data.Models;
     using Services.Categories;
@@ -23,27 +22,20 @@
 
     public static class ServiceCollectionExtensions
     {
+        private const string AntiforgeryHeaderName = "X-CSRF-TOKEN";
+
         public static IServiceCollection AddDatabase(
             this IServiceCollection services,
             IConfiguration configuration)
             => services
                 .AddDbContext<ForumDbContext>(options => options
-                    .UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                    .UseSqlServer(configuration.GetDefaultConnectionString()));
 
         public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
             services
-                .AddDefaultIdentity<ForumUser>(options =>
-                {
-                    options.Password.RequireDigit = false;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequiredLength = GlobalConstants.UserPasswordMinLength;
-                    options.User.RequireUniqueEmail = true;
-                    //options.SignIn.RequireConfirmedAccount = true;
-                    //options.SignIn.RequireConfirmedEmail = true;
-                })
+                .AddDefaultIdentity<ForumUser>(options => options
+                    .SetIdentityOptions())
                 .AddRoles<ForumRole>()
                 .AddEntityFrameworkStores<ForumDbContext>();
 
@@ -66,7 +58,7 @@
         public static IServiceCollection AddAntiforgeryHeader(this IServiceCollection services)
             => services
                 .AddAntiforgery(options => options
-                    .HeaderName = "X-CSRF-TOKEN");
+                    .HeaderName = AntiforgeryHeaderName);
 
         public static IServiceCollection AddFacebookAuthentication(
             this IServiceCollection services,
@@ -117,7 +109,7 @@
                 .AddTransient<IEmailSender>(serviceProvider => 
                     new SendGridEmailSender(configuration["SendGrid:ApiKey"]));
 
-        public static IServiceCollection AddControllersWithAntiforgeryTokenAttribute(this IServiceCollection services)
+        public static IServiceCollection AddControllersWithAutoAntiforgeryTokenAttribute(this IServiceCollection services)
         {
             services
                 .AddControllersWithViews(options => options
