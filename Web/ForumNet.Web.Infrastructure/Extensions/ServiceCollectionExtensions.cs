@@ -1,7 +1,6 @@
 ﻿namespace ForumNet.Web.Infrastructure.Extensions
 {
     using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -44,11 +43,8 @@
 
         public static IServiceCollection ConfigureCookiePolicyOptions(this IServiceCollection services)
             => services
-                .Configure<CookiePolicyOptions>(options =>
-                {
-                    options.CheckConsentNeeded = context => true;
-                    options.MinimumSameSitePolicy = SameSiteMode.None;
-                });
+                .Configure<CookiePolicyOptions>(options => options
+                    .SetCookiePolicyOptions());
 
         public static IServiceCollection AddResponseCompressionForHttps(this IServiceCollection services)
             => services
