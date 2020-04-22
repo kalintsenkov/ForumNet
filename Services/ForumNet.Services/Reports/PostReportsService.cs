@@ -39,18 +39,21 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var postReport = await this.db.PostReports.FirstOrDefaultAsync(pr => pr.Id == id && !pr.IsDeleted);
+            if (postReport == null)
+            {
+                return false;
+            }
 
             postReport.IsDeleted = true;
             postReport.DeletedOn = this.dateTimeProvider.Now();
 
             await this.db.SaveChangesAsync();
-        }
 
-        public async Task<bool> IsExistingAsync(int id) 
-            => await this.db.PostReports.AnyAsync(pr => pr.Id == id && !pr.IsDeleted);
+            return true;
+        }
 
         public async Task<TModel> GetByIdAsync<TModel>(int id) 
             => await this.db.PostReports

@@ -13,13 +13,13 @@
     using Providers.DateTime;
     using Reports;
 
-    public class PostReportsServiceTests
+    public class ReplyReportsServiceTests
     {
         [Theory]
         [InlineData("Test 1", 1)]
         [InlineData("Test 2", 2)]
         [InlineData("Test 3", 3)]
-        public async Task CreateMethodShouldAddPostReportInDatabase(string description, int postId)
+        public async Task CreateMethodShouldAddReplyReportInDatabase(string description, int replyId)
         {
             var options = new DbContextOptionsBuilder<ForumDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
@@ -29,17 +29,17 @@
             var dateTimeProvider = new Mock<IDateTimeProvider>();
             dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
 
-            var postReportsService = new PostReportsService(db, null, dateTimeProvider.Object);
-            await postReportsService.CreateAsync(description, postId, Guid.NewGuid().ToString());
+            var replyReportsService = new ReplyReportsService(db, null, dateTimeProvider.Object);
+            await replyReportsService.CreateAsync(description, replyId, Guid.NewGuid().ToString());
 
-            db.PostReports.Should().HaveCount(1);
+            db.ReplyReports.Should().HaveCount(1);
         }
 
         [Theory]
         [InlineData("Test 1", 1)]
         [InlineData("Test 2", 2)]
         [InlineData("Test 3", 3)]
-        public async Task CreateMethodShouldAddRightPostReportInDatabase(string description, int postId)
+        public async Task CreateMethodShouldAddRightReplyReportInDatabase(string description, int replyId)
         {
             var options = new DbContextOptionsBuilder<ForumDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
@@ -49,21 +49,21 @@
             var dateTimeProvider = new Mock<IDateTimeProvider>();
             dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
 
-            var postReportsService = new PostReportsService(db, null, dateTimeProvider.Object);
+            var postReportsService = new ReplyReportsService(db, null, dateTimeProvider.Object);
 
             var authorId = Guid.NewGuid().ToString();
-            await postReportsService.CreateAsync(description, postId, authorId);
+            await postReportsService.CreateAsync(description, replyId, authorId);
 
-            var expected = new PostReport
+            var expected = new ReplyReport
             {
                 Id = 1,
                 Description = description,
-                PostId = postId,
+                ReplyId = replyId,
                 AuthorId = authorId,
                 CreatedOn = dateTimeProvider.Object.Now(),
             };
 
-            var actual = await db.PostReports.FirstOrDefaultAsync();
+            var actual = await db.ReplyReports.FirstOrDefaultAsync();
 
             actual.Should().BeEquivalentTo(expected);
         }
@@ -72,7 +72,7 @@
         [InlineData("Test 1", 1)]
         [InlineData("Test 2", 2)]
         [InlineData("Test 3", 3)]
-        public async Task DeleteMethodShouldChangeIsDeletedAndDeletedOn(string description, int postId)
+        public async Task DeleteMethodShouldChangeIsDeletedAndDeletedOn(string description, int replyId)
         {
             var options = new DbContextOptionsBuilder<ForumDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
@@ -82,19 +82,19 @@
             var dateTimeProvider = new Mock<IDateTimeProvider>();
             dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
 
-            await db.PostReports.AddAsync(new PostReport
+            await db.ReplyReports.AddAsync(new ReplyReport
             {
                 Description = description,
-                PostId = postId,
+                ReplyId = replyId,
                 AuthorId = Guid.NewGuid().ToString(),
                 CreatedOn = dateTimeProvider.Object.Now()
             });
             await db.SaveChangesAsync();
 
-            var postReportsService = new PostReportsService(db, null, dateTimeProvider.Object);
-            await postReportsService.DeleteAsync(1);
+            var replyReportsService = new ReplyReportsService(db, null, dateTimeProvider.Object);
+            await replyReportsService.DeleteAsync(1);
 
-            var actual = await db.PostReports.FirstOrDefaultAsync();
+            var actual = await db.ReplyReports.FirstOrDefaultAsync();
 
             actual.IsDeleted.Should().BeTrue();
             actual.DeletedOn.Should().Be(dateTimeProvider.Object.Now());
@@ -111,8 +111,8 @@
             var dateTimeProvider = new Mock<IDateTimeProvider>();
             dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
 
-            var postReportsService = new PostReportsService(db, null, dateTimeProvider.Object);
-            var deleted = await postReportsService.DeleteAsync(1);
+            var replyReportsService = new ReplyReportsService(db, null, dateTimeProvider.Object);
+            var deleted = await replyReportsService.DeleteAsync(1);
 
             deleted.Should().BeFalse();
         }
@@ -121,7 +121,7 @@
         [InlineData("Test 1", 1)]
         [InlineData("Test 2", 2)]
         [InlineData("Test 3", 3)]
-        public async Task DeleteMethodShouldReturnTrueIfReportIsDeleted(string description, int postId)
+        public async Task DeleteMethodShouldReturnTrueIfReportIsDeleted(string description, int replyId)
         {
             var options = new DbContextOptionsBuilder<ForumDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
@@ -131,17 +131,17 @@
             var dateTimeProvider = new Mock<IDateTimeProvider>();
             dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
 
-            await db.PostReports.AddAsync(new PostReport
+            await db.ReplyReports.AddAsync(new ReplyReport
             {
                 Description = description,
-                PostId = postId,
+                ReplyId = replyId,
                 AuthorId = Guid.NewGuid().ToString(),
                 CreatedOn = dateTimeProvider.Object.Now()
             });
             await db.SaveChangesAsync();
 
-            var postReportsService = new PostReportsService(db, null, dateTimeProvider.Object);
-            var deleted = await postReportsService.DeleteAsync(1);
+            var replyReportsService = new ReplyReportsService(db, null, dateTimeProvider.Object);
+            var deleted = await replyReportsService.DeleteAsync(1);
 
             deleted.Should().BeTrue();
         }

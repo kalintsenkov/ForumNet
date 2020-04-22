@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Sendgrid" Version="9.13.1" />
+    <PackageReference Include="Sendgrid" Version="9.14.0" />
   </ItemGroup>
 
 </Project>

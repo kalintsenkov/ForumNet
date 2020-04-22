@@ -7,9 +7,7 @@
     {
         Task CreateAsync(string description, int replyId, string authorId);
 
-        Task DeleteAsync(int id);
-
-        Task<bool> IsExistingAsync(int id);
+        Task<bool> DeleteAsync(int id);
 
         Task<TModel> GetByIdAsync<TModel>(int id);
 

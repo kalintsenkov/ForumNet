@@ -38,13 +38,11 @@
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            var isExisting = await this.postReportsService.IsExistingAsync(id);
-            if (!isExisting)
+            var deleted = await this.postReportsService.DeleteAsync(id);
+            if (!deleted)
             {
                 return this.NotFound();
             }
-
-            await this.postReportsService.DeleteAsync(id);
 
             return this.RedirectToAction(nameof(All));
         }
