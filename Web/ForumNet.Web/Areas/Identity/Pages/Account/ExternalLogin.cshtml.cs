@@ -1,5 +1,6 @@
 ﻿namespace ForumNet.Web.Areas.Identity.Pages.Account
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
     using System.Security.Claims;
     using System.Text;
@@ -12,12 +13,15 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
 
-    using Common;
     using Data.Models;
     using Data.Models.Enums;
+    using Infrastructure.Attributes;
     using Services.Providers.DateTime;
     using Services.Providers.Email;
     using Services.Users;
+
+    using static Common.ErrorMessages;
+    using static Common.GlobalConstants;
 
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel
@@ -58,19 +62,24 @@
             [EmailAddress]
             public string Email { get; set; }
 
+            [DataType(DataType.Date)]
+            [Display(Name = UserBirthDateDisplayName)]
+            [MinAge(UserMinAge, ErrorMessage = UserAgeRestrictionErrorMessage)]
+            public DateTime BirthDate { get; set; }
+
             [Required]
-            [StringLength(GlobalConstants.UserUsernameMaxLength, ErrorMessage = ErrorMessages.UserUsernameLengthErrorMessage, MinimumLength = GlobalConstants.UserUsernameMinLength)]
-            [Display(Name = GlobalConstants.UserUsernameDisplayName)]
+            [StringLength(UserUsernameMaxLength, ErrorMessage = UserUsernameLengthErrorMessage, MinimumLength = UserUsernameMinLength)]
+            [Display(Name = UserUsernameDisplayName)]
             public string Username { get; set; }
 
             [Required]
-            [StringLength(GlobalConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.UserPasswordLengthErrorMessage, MinimumLength = GlobalConstants.UserPasswordMinLength)]
+            [StringLength(UserPasswordMaxLength, ErrorMessage = UserPasswordLengthErrorMessage, MinimumLength = UserPasswordMinLength)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = GlobalConstants.UserConfirmPasswordDisplayName)]
-            [Compare(nameof(Password), ErrorMessage = ErrorMessages.UserPasswordsDoNotMatchErrorMessage)]
+            [Display(Name = UserConfirmPasswordDisplayName)]
+            [Compare(nameof(Password), ErrorMessage = UserPasswordsDoNotMatchErrorMessage)]
             public string ConfirmPassword { get; set; }
         }
 
@@ -154,6 +163,7 @@
                 {
                     UserName = Input.Username,
                     Email = Input.Email,
+                    BirthDate = Input.BirthDate,
                     ProfilePicture = profilePicture,
                     Gender = GenderType.NotKnown,
                     CreatedOn = this.dateTimeProvider.Now()
@@ -176,8 +186,8 @@
                             protocol: Request.Scheme);
 
                         await this.emailSender.SendEmailAsync(
-                         GlobalConstants.SystemEmail,
-                         GlobalConstants.SystemName,
+                         SystemEmail,
+                         SystemName,
                          Input.Email,
                          "Confirm your email",
                          $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");

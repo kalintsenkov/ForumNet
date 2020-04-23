@@ -1,6 +1,5 @@
 ﻿@page
 @inject Microsoft.Extensions.Configuration.IConfiguration Configuration
-@using ForumNet.Data.Models.Enums
 @model RegisterModel
 
 @{
@@ -25,6 +24,11 @@
                     <label asp-for="Input.Username"></label>
                     <input asp-for="Input.Username" class="form-control" placeholder="Username..." />
                     <span asp-validation-for="Input.Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.BirthDate"></label>
+                    <input asp-for="Input.BirthDate" class="form-control" />
+                    <span asp-validation-for="Input.BirthDate"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Input.Email"></label>

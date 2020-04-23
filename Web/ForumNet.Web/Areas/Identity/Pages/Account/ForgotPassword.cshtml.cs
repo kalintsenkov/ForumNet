@@ -11,9 +11,10 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
 
-    using Common;
     using Data.Models;
     using Services.Providers.Email;
+
+    using static Common.GlobalConstants;
 
     [AllowAnonymous]
     public class ForgotPasswordModel : PageModel
@@ -21,7 +22,9 @@
         private readonly UserManager<ForumUser> userManager;
         private readonly IEmailSender emailSender;
 
-        public ForgotPasswordModel(UserManager<ForumUser> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(
+            UserManager<ForumUser> userManager, 
+            IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.emailSender = emailSender;
@@ -39,15 +42,15 @@
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
-                var user = await userManager.FindByEmailAsync(Input.Email);
-                if (user == null || !(await userManager.IsEmailConfirmedAsync(user)))
+                var user = await this.userManager.FindByEmailAsync(Input.Email);
+                if (user == null || !(await this.userManager.IsEmailConfirmedAsync(user)))
                 {
-                    return RedirectToPage("./ForgotPasswordConfirmation");
+                    return this.RedirectToPage("./ForgotPasswordConfirmation");
                 }
 
-                var code = await userManager.GeneratePasswordResetTokenAsync(user);
+                var code = await this.userManager.GeneratePasswordResetTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                 var callbackUrl = Url.Page(
                     "/Account/ResetPassword",
@@ -56,8 +59,8 @@
                     protocol: Request.Scheme);
 
                 await emailSender.SendEmailAsync(
-                    GlobalConstants.SystemEmail,
-                    GlobalConstants.SystemName,
+                    SystemEmail,
+                    SystemName,
                     Input.Email,
                     "Reset Password",
                     $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");

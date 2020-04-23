@@ -36,6 +36,7 @@
         public const int UserPasswordMaxLength = 100;
         public const int UserPasswordMinLength = 6;
         public const int UserBiographyMaxLength = 250;
+        public const int UserMinAge = 18;
 
         public const int TagNameMaxLength = 20;
         public const int TagNameMinLength = 3;

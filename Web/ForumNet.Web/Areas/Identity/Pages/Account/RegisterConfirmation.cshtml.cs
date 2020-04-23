@@ -34,13 +34,13 @@
         {
             if (email == null)
             {
-                return RedirectToPage("/Index");
+                return this.RedirectToPage("/Index");
             }
 
             var user = await this.userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                return NotFound($"Unable to load user with email '{email}'.");
+                return this.NotFound($"Unable to load user with email '{email}'.");
             }
 
             this.Email = email;
@@ -54,7 +54,7 @@
                 values: new { area = "Identity", userId = userId, code = code },
                 protocol: Request.Scheme);
 
-            return Page();
+            return this.Page();
         }
     }
 }

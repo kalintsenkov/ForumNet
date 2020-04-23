@@ -10,9 +10,11 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
 
-    using Common;
     using Data.Models;
     using Services.Users;
+
+    using static Common.ErrorMessages;
+    using static Common.GlobalConstants;
 
     [AllowAnonymous]
     public class ResetPasswordModel : PageModel
@@ -20,7 +22,9 @@
         private readonly UserManager<ForumUser> userManager;
         private readonly IUsersService usersService;
 
-        public ResetPasswordModel(UserManager<ForumUser> userManager, IUsersService usersService)
+        public ResetPasswordModel(
+            UserManager<ForumUser> userManager, 
+            IUsersService usersService)
         {
             this.userManager = userManager;
             this.usersService = usersService;
@@ -36,13 +40,13 @@
             public string Email { get; set; }
 
             [Required]
-            [StringLength(GlobalConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.UserPasswordLengthErrorMessage, MinimumLength = GlobalConstants.UserPasswordMinLength)]
+            [StringLength(UserPasswordMaxLength, ErrorMessage = UserPasswordLengthErrorMessage, MinimumLength = UserPasswordMinLength)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = GlobalConstants.UserConfirmPasswordDisplayName)]
-            [Compare(nameof(Password), ErrorMessage = ErrorMessages.UserPasswordsDoNotMatchErrorMessage)]
+            [Display(Name = UserConfirmPasswordDisplayName)]
+            [Compare(nameof(Password), ErrorMessage = UserPasswordsDoNotMatchErrorMessage)]
             public string ConfirmPassword { get; set; }
 
             public string Code { get; set; }
@@ -56,12 +60,12 @@
             }
             else
             {
-                Input = new InputModel
+                this.Input = new InputModel
                 {
                     Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code))
                 };
 
-                return Page();
+                return this.Page();
             }
         }
 
@@ -69,20 +73,20 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return Page();
+                return this.Page();
             }
 
             var user = await this.userManager.FindByEmailAsync(Input.Email);
             if (user == null)
             {
-                return RedirectToPage("./ResetPasswordConfirmation");
+                return this.RedirectToPage("./ResetPasswordConfirmation");
             }
 
             var result = await this.userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
             if (result.Succeeded)
             {
                 await this.usersService.ModifyAsync(user.Id);
-                return RedirectToPage("./ResetPasswordConfirmation");
+                return this.RedirectToPage("./ResetPasswordConfirmation");
             }
 
             foreach (var error in result.Errors)
@@ -90,7 +94,7 @@
                 this.ModelState.AddModelError(string.Empty, error.Description);
             }
 
-            return Page();
+            return this.Page();
         }
     }
 }

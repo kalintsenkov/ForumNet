@@ -7,9 +7,11 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
-    using Common;
     using Data.Models;
     using Services.Users;
+
+    using static Common.ErrorMessages;
+    using static Common.GlobalConstants;
 
     public class ChangePasswordModel : PageModel
     {
@@ -37,18 +39,18 @@
         {
             [Required]
             [DataType(DataType.Password)]
-            [Display(Name = GlobalConstants.UserCurrentPasswordDisplayName)]
+            [Display(Name = UserCurrentPasswordDisplayName)]
             public string OldPassword { get; set; }
 
             [Required]
-            [StringLength(GlobalConstants.UserPasswordMaxLength, ErrorMessage = ErrorMessages.UserPasswordLengthErrorMessage, MinimumLength = GlobalConstants.UserPasswordMinLength)]
+            [StringLength(UserPasswordMaxLength, ErrorMessage = UserPasswordLengthErrorMessage, MinimumLength = UserPasswordMinLength)]
             [DataType(DataType.Password)]
-            [Display(Name = GlobalConstants.UserNewPasswordDisplayName)]
+            [Display(Name = UserNewPasswordDisplayName)]
             public string NewPassword { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = GlobalConstants.UserConfirmNewPasswordDisplayName)]
-            [Compare(nameof(NewPassword), ErrorMessage = ErrorMessages.UserChangePasswordDoNotMatchErrorMessage)]
+            [Display(Name = UserConfirmNewPasswordDisplayName)]
+            [Compare(nameof(NewPassword), ErrorMessage = UserChangePasswordDoNotMatchErrorMessage)]
             public string ConfirmPassword { get; set; }
         }
 

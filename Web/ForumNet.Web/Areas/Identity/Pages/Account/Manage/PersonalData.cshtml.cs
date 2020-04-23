@@ -12,20 +12,17 @@
     {
         private readonly UserManager<ForumUser> userManager;
 
-        public PersonalDataModel(UserManager<ForumUser> userManager)
-        {
-            this.userManager = userManager;
-        }
+        public PersonalDataModel(UserManager<ForumUser> userManager) => this.userManager = userManager;
 
         public async Task<IActionResult> OnGet()
         {
-            var user = await userManager.GetUserAsync(User);
+            var user = await this.userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
+                return this.NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
             }
 
-            return Page();
+            return this.Page();
         }
     }
 }

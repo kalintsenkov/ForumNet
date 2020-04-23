@@ -8,9 +8,12 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
-    using Common;
     using Data.Models;
     using Data.Models.Enums;
+    using Infrastructure.Attributes;
+
+    using static Common.ErrorMessages;
+    using static Common.GlobalConstants;
 
     public partial class IndexModel : PageModel
     {
@@ -36,15 +39,16 @@
         public class InputModel
         {
             [DataType(DataType.Date)]
-            [Display(Name = GlobalConstants.UserBirthDateDisplayName)]
-            public DateTime? BirthDate { get; set; }
+            [Display(Name = UserBirthDateDisplayName)]
+            [MinAge(UserMinAge, ErrorMessage = UserAgeRestrictionErrorMessage)]
+            public DateTime BirthDate { get; set; }
 
             [Required]
-            [EnumDataType(typeof(GenderType), ErrorMessage = ErrorMessages.UserInvalidGenderType)]
-            [Display(Name = GlobalConstants.UserGenderDisplayName)]
+            [EnumDataType(typeof(GenderType), ErrorMessage = UserInvalidGenderType)]
+            [Display(Name = UserGenderDisplayName)]
             public GenderType Gender { get; set; }
 
-            [MaxLength(GlobalConstants.UserBiographyMaxLength)]
+            [MaxLength(UserBiographyMaxLength)]
             public string Biography { get; set; }
         }
 
@@ -53,7 +57,7 @@
             var user = await userManager.GetUserAsync(User);
             if (user == null)
             {
-                return this.NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
+                return this.NotFound($"Unable to load user with ID '{this.userManager.GetUserId(this.User)}'.");
             }
 
             await this.LoadAsync();
@@ -65,7 +69,7 @@
             var user = await this.userManager.GetUserAsync(User);
             if (user == null)
             {
-                return this.NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
+                return this.NotFound($"Unable to load user with ID '{this.userManager.GetUserId(this.User)}'.");
             }
 
             if (!this.ModelState.IsValid)

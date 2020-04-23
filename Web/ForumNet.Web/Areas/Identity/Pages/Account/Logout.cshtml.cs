@@ -12,10 +12,7 @@
     {
         private readonly SignInManager<ForumUser> signInManager;
 
-        public LogoutModel(SignInManager<ForumUser> signInManager)
-        {
-            this.signInManager = signInManager;
-        }
+        public LogoutModel(SignInManager<ForumUser> signInManager) => this.signInManager = signInManager;
 
         public async Task<IActionResult> OnGet(string returnUrl = null)
         {
@@ -23,12 +20,10 @@
 
             if (returnUrl != null)
             {
-                return LocalRedirect(returnUrl);
+                return this.LocalRedirect(returnUrl);
             }
-            else
-            {
-                return RedirectToPage();
-            }
+
+            return this.RedirectToPage();
         }
 
         public void OnPost()

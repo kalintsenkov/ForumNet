@@ -10,9 +10,10 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
 
-    using Common;
     using Data.Models;
     using Services.Providers.Email;
+
+    using static Common.GlobalConstants;
 
     public partial class EmailModel : PageModel
     {
@@ -43,7 +44,7 @@
         {
             [Required]
             [EmailAddress]
-            [Display(Name = GlobalConstants.UserNewEmailDisplayName)]
+            [Display(Name = UserNewEmailDisplayName)]
             public string NewEmail { get; set; }
         }
 
@@ -84,8 +85,8 @@
                     values: new { userId = userId, email = this.Input.NewEmail, code = code },
                     protocol: Request.Scheme);
                 await emailSender.SendEmailAsync(
-                    GlobalConstants.SystemEmail,
-                    GlobalConstants.SystemName,
+                    SystemEmail,
+                    SystemName,
                     Input.NewEmail,
                     "Confirm your email",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
@@ -122,8 +123,8 @@
                 values: new { area = "Identity", userId = userId, code = code },
                 protocol: Request.Scheme);
             await emailSender.SendEmailAsync(
-                GlobalConstants.SystemEmail,
-                GlobalConstants.SystemName,
+                SystemEmail,
+                SystemName,
                 email,
                 "Confirm your email",
                 $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
