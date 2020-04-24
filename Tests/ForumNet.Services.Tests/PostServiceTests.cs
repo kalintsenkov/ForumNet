@@ -40,10 +40,15 @@
 
             var postsService = new PostsService(db, null, usersServiceMock.Object, dateTimeProvider.Object);
 
-            var postId = await postsService.CreateAsync(title, type, description, guid, categoryId);
+            var expectedIds = new[] { 1, 2, 3 };
+            var postId = await postsService.CreateAsync(title, type, description, guid, categoryId, expectedIds);
+
+            var actual = await db.Posts.FirstOrDefaultAsync();
+            var actualTagIds = actual.Tags.Select(t => t.TagId).ToArray();
 
             postId.Should().Be(1);
             db.Posts.Should().HaveCount(1);
+            actualTagIds.Should().BeEquivalentTo(expectedIds);
         }
 
         [Theory]
@@ -191,47 +196,6 @@
             var actual = await db.Posts.FirstOrDefaultAsync();
 
             actual.Views.Should().Be(1);
-        }
-
-        [Theory]
-        [InlineData("Title 1", PostType.Discussion, "Description 1", 1)]
-        [InlineData("Title 2", PostType.Image, "Description 2", 2)]
-        [InlineData("Title 3", PostType.Video, "Description 3", 3)]
-        public async Task AddTagsMethodShouldAddTagIdsToPost(string title, PostType type, string description, int categoryId)
-        {
-            var guid = Guid.NewGuid().ToString();
-
-            var options = new DbContextOptionsBuilder<ForumDbContext>()
-                .UseInMemoryDatabase(guid)
-                .Options;
-
-            var db = new ForumDbContext(options);
-            var dateTimeProvider = new Mock<IDateTimeProvider>();
-            dateTimeProvider.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
-
-            var post = new Post
-            {
-                Id = 1,
-                Title = title,
-                Description = description,
-                Type = type,
-                CategoryId = categoryId,
-                AuthorId = guid,
-                CreatedOn = dateTimeProvider.Object.Now()
-            };
-
-            await db.Posts.AddAsync(post);
-            await db.SaveChangesAsync();
-
-            var postsService = new PostsService(db, null, null, dateTimeProvider.Object);
-
-            var expectedIds = new[] { 1, 2, 3 };
-            await postsService.AddTagsAsync(1, expectedIds);
-
-            var actual = await db.Posts.FirstOrDefaultAsync();
-            var actualIds = actual.Tags.Select(t => t.TagId);
-
-            actualIds.Should().BeEquivalentTo(expectedIds);
         }
 
         [Fact]

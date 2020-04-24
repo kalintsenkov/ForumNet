@@ -34,7 +34,13 @@
             this.dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task<int> CreateAsync(string title, PostType type, string description, string authorId, int categoryId)
+        public async Task<int> CreateAsync(
+            string title, 
+            PostType type, 
+            string description, 
+            string authorId, 
+            int categoryId, 
+            IEnumerable<int> tagIds)
         {
             var post = new Post
             {
@@ -48,13 +54,19 @@
 
             await this.db.Posts.AddAsync(post);
             await this.db.SaveChangesAsync();
+            await this.AddTagsAsync(post.Id, tagIds);
 
             await this.usersService.AddPointsAsync(authorId);
 
             return post.Id;
         }
 
-        public async Task EditAsync(int id, string title, string description, int categoryId, IEnumerable<int> tagIds)
+        public async Task EditAsync(
+            int id, 
+            string title, 
+            string description, 
+            int categoryId, 
+            IEnumerable<int> tagIds)
         {
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
 
@@ -84,22 +96,6 @@
             var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
 
             post.Views++;
-
-            await this.db.SaveChangesAsync();
-        }
-
-        public async Task AddTagsAsync(int id, IEnumerable<int> tagIds)
-        {
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
-
-            foreach (var tagId in tagIds)
-            {
-                post.Tags.Add(new PostTag
-                {
-                    PostId = id,
-                    TagId = tagId
-                });
-            }
 
             await this.db.SaveChangesAsync();
         }
@@ -279,6 +275,22 @@
                 .ToListAsync();
 
             return posts;
+        }
+
+        private async Task AddTagsAsync(int id, IEnumerable<int> tagIds)
+        {
+            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
+
+            foreach (var tagId in tagIds)
+            {
+                post.Tags.Add(new PostTag
+                {
+                    PostId = id,
+                    TagId = tagId
+                });
+            }
+
+            await this.db.SaveChangesAsync();
         }
 
         private async Task RemoveTagsAsync(int id, Post post)

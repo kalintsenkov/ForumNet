@@ -117,9 +117,8 @@
                 input.PostType,
                 input.Description,
                 this.User.GetId(),
-                input.CategoryId);
-
-            await this.postsService.AddTagsAsync(postId, input.TagIds);
+                input.CategoryId,
+                input.TagIds);
 
             return this.RedirectToAction(nameof(Details), new { id = postId });
         }

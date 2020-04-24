@@ -7,15 +7,13 @@
 
     public interface IPostsService
     {
-        Task<int> CreateAsync(string title, PostType type, string description, string authorId, int categoryId);
+        Task<int> CreateAsync(string title, PostType type, string description, string authorId, int categoryId, IEnumerable<int> tagIds);
 
         Task EditAsync(int id, string title, string description, int categoryId, IEnumerable<int> tagIds);
 
         Task DeleteAsync(int id);
 
         Task ViewAsync(int id);
-
-        Task AddTagsAsync(int id, IEnumerable<int> tagIds);
 
         Task<bool> PinAsync(int id);
 

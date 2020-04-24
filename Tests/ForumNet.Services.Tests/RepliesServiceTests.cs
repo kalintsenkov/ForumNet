@@ -194,48 +194,6 @@
         }
 
         [Fact]
-        public async Task IsExistingMethodShouldReturnTrueIfExists()
-        {
-            var options = new DbContextOptionsBuilder<ForumDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var db = new ForumDbContext(options);
-            var usersServiceMock = new Mock<IUsersService>();
-            var dateTimeProviderMock = new Mock<IDateTimeProvider>();
-            dateTimeProviderMock.Setup(dtp => dtp.Now()).Returns(new DateTime(2020, 3, 27));
-
-            await db.Replies.AddAsync(new Reply
-            {
-                Description = "Test",
-                CreatedOn = dateTimeProviderMock.Object.Now()
-            });
-            await db.SaveChangesAsync();
-
-            var repliesService = new RepliesService(db, null, usersServiceMock.Object, dateTimeProviderMock.Object);
-            var isExisting = await repliesService.IsExistingAsync(1);
-
-            isExisting.Should().BeTrue();
-        }
-
-        [Fact]
-        public async Task IsExistingMethodShouldReturnFalseIfNotExists()
-        {
-            var options = new DbContextOptionsBuilder<ForumDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var db = new ForumDbContext(options);
-            var usersServiceMock = new Mock<IUsersService>();
-            var dateTimeProviderMock = new Mock<IDateTimeProvider>();
-
-            var repliesService = new RepliesService(db, null, usersServiceMock.Object, dateTimeProviderMock.Object);
-            var isExisting = await repliesService.IsExistingAsync(1);
-
-            isExisting.Should().BeFalse();
-        }
-
-        [Fact]
         public async Task GetAuthorIdByIdMethodShouldReturnCorrectId()
         {
             var guid = Guid.NewGuid().ToString();
