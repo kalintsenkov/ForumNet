@@ -2,5 +2,10 @@
   "ConnectionStrings": {
     "DefaultConnection": "My Fake Connection String"
   },
+  "Cloudinary": {
+    "CloudName": "forumnet",
+    "ApiKey": "CloudinaryApiKey",
+    "ApiSecret": "CloudinaryApiSecret"
+  },
   "AllowedHosts": "*"
 }
