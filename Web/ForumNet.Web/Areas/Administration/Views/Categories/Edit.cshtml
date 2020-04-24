@@ -11,7 +11,10 @@
         </h1>
         <div class="row">
             <div class="col-md-4">
-                <form class="form-default" asp-area="Administration" asp-controller="Categories" asp-action="Edit">
+                <form class="form-default" 
+                      asp-area="Administration" 
+                      asp-controller="Categories" 
+                      asp-action="Edit">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Name" class="control-label"></label>
@@ -21,7 +24,12 @@
                         </div>
                     </div>
                     <div>
-                        <a asp-area="Administration" asp-controller="Categories" asp-action="All" class="btn btn-primary btn-width-lg">Back</a>
+                        <a asp-area="Administration"
+                           asp-controller="Categories"
+                           asp-action="All"
+                           class="btn btn-primary btn-width-lg">
+                            Back
+                        </a>
                         <button type="submit" class="btn btn-secondary btn-width-lg">Edit</button>
                     </div>
                 </form>

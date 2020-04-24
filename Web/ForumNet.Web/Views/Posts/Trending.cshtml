@@ -29,8 +29,18 @@
                         Looks like you are new here. Register for free, learn and contribute.
                     </div>
                     <div class="tt-col-btn">
-                        <a type="button" class="btn btn-primary" asp-area="Identity" asp-page="/Account/Login">Log in</a>
-                        <a type="button" class="btn btn-secondary" asp-area="Identity" asp-page="/Account/Register">Sign up</a>
+                        <a type="button"
+                           class="btn btn-primary"
+                           asp-area="Identity"
+                           asp-page="/Account/Login">
+                            Log in
+                        </a>
+                        <a type="button"
+                           class="btn btn-secondary"
+                           asp-area="Identity"
+                           asp-page="/Account/Register">
+                            Sign up
+                        </a>
                         <script type="text/javascript">
                             var removeHtml = function () { document.getElementById("not-logged-in-user").remove() }
                         </script>
@@ -53,7 +63,10 @@
 
                 <div class="@className">
                     <div class="tt-col-avatar">
-                        <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@post.AuthorId">
+                        <a asp-area="" 
+                           asp-controller="Users" 
+                           asp-action="Threads" 
+                           asp-route-id="@post.AuthorId">
                             <svg class="tt-icon">
                                 <use xlink:href="@post.AuthorProfilePicture"></use>
                             </svg>
@@ -61,7 +74,10 @@
                     </div>
                     <div class="tt-col-description">
                         <h6 class="tt-title">
-                            <a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@post.Id">
+                            <a asp-area="" 
+                               asp-controller="Posts"
+                               asp-action="Details"
+                               asp-route-id="@post.Id">
                                 @if (post.IsPinned)
                                 {
                                     <svg class="tt-icon">
@@ -75,7 +91,10 @@
                             <div class="col-11">
                                 <ul class="tt-list-badge">
                                     <li class="show-mobile">
-                                        <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
+                                        <a asp-area="" 
+                                           asp-controller="Categories"
+                                           asp-action="Details" 
+                                           asp-route-id="@post.Category.Id">
                                             <span class="tt-color01 tt-badge">@post.Category.Name</span>
                                         </a>
                                     </li>
@@ -83,7 +102,10 @@
                                     @foreach (var tag in post.Tags.Take(4))
                                     {
                                         <li>
-                                            <a asp-area="" asp-controller="Tags" asp-action="Details" asp-route-id="@tag.Id">
+                                            <a asp-area="" 
+                                               asp-controller="Tags"
+                                               asp-action="Details"
+                                               asp-route-id="@tag.Id">
                                                 <span class="tt-badge">@tag.Name</span>
                                             </a>
                                         </li>
@@ -96,7 +118,10 @@
                         </div>
                     </div>
                     <div class="tt-col-category">
-                        <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
+                        <a asp-area="" 
+                           asp-controller="Categories" 
+                           asp-action="Details" 
+                           asp-route-id="@post.Category.Id">
                             <span class="tt-color01 tt-badge">@post.Category.Name</span>
                         </a>
                     </div>

@@ -7,22 +7,38 @@
             if (this.Context.Request.GetEncodedUrl().Contains("Threads"))
             {
                 <li class="nav-item show">
-                    <a class="nav-link active" asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Id">
+                    <a class="nav-link active" 
+                       asp-area="" 
+                       asp-controller="Users" 
+                       asp-action="Threads" 
+                       asp-route-id="@Model.Id">
                         <span>Threads</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Replies" asp-route-id="@Model.Id">
+                    <a class="nav-link" 
+                       asp-area="" 
+                       asp-controller="Users" 
+                       asp-action="Replies" 
+                       asp-route-id="@Model.Id">
                         <span>Replies</span>
                     </a>
                 </li>
                 <li class="nav-item tt-hide-xs show">
-                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Followers" asp-route-id="@Model.Id">
+                    <a class="nav-link" 
+                       asp-area="" 
+                       asp-controller="Users"
+                       asp-action="Followers" 
+                       asp-route-id="@Model.Id">
                         <span id="followersCount">@Model.FollowersCount Followers</span>
                     </a>
                 </li>
                 <li class="nav-item tt-hide-md">
-                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Following" asp-route-id="@Model.Id">
+                    <a class="nav-link" 
+                       asp-area="" 
+                       asp-controller="Users" 
+                       asp-action="Following" 
+                       asp-route-id="@Model.Id">
                         <span>@Model.FollowingCount Following</span>
                     </a>
                 </li>
@@ -30,22 +46,38 @@
             else if (this.Context.Request.GetEncodedUrl().Contains("Replies"))
             {
                 <li class="nav-item show">
-                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Id">
+                    <a class="nav-link" 
+                       asp-area="" 
+                       asp-controller="Users" 
+                       asp-action="Threads" 
+                       asp-route-id="@Model.Id">
                         <span>Threads</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" asp-area="" asp-controller="Users" asp-action="Replies" asp-route-id="@Model.Id">
+                    <a class="nav-link active" 
+                       asp-area="" 
+                       asp-controller="Users" 
+                       asp-action="Replies" 
+                       asp-route-id="@Model.Id">
                         <span>Replies</span>
                     </a>
                 </li>
                 <li class="nav-item tt-hide-xs show">
-                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Followers" asp-route-id="@Model.Id">
+                    <a class="nav-link" 
+                       asp-area="" 
+                       asp-controller="Users" 
+                       asp-action="Followers" 
+                       asp-route-id="@Model.Id">
                         <span id="followersCount">@Model.FollowersCount Followers</span>
                     </a>
                 </li>
                 <li class="nav-item tt-hide-md">
-                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Following" asp-route-id="@Model.Id">
+                    <a class="nav-link" 
+                       asp-area="" 
+                       asp-controller="Users" 
+                       asp-action="Following" 
+                       asp-route-id="@Model.Id">
                         <span>@Model.FollowingCount Following</span>
                     </a>
                 </li>
@@ -53,22 +85,38 @@
             else if (this.Context.Request.GetEncodedUrl().Contains("Followers"))
             {
                 <li class="nav-item show">
-                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Id">
+                    <a class="nav-link" 
+                       asp-area="" 
+                       asp-controller="Users"
+                       asp-action="Threads" 
+                       asp-route-id="@Model.Id">
                         <span>Threads</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Replies" asp-route-id="@Model.Id">
+                    <a class="nav-link" 
+                       asp-area="" 
+                       asp-controller="Users"
+                       asp-action="Replies"
+                       asp-route-id="@Model.Id">
                         <span>Replies</span>
                     </a>
                 </li>
                 <li class="nav-item tt-hide-xs show">
-                    <a class="nav-link active" asp-area="" asp-controller="Users" asp-action="Followers" asp-route-id="@Model.Id">
+                    <a class="nav-link active" 
+                       asp-area="" 
+                       asp-controller="Users" 
+                       asp-action="Followers" 
+                       asp-route-id="@Model.Id">
                         <span id="followersCount">@Model.FollowersCount Followers</span>
                     </a>
                 </li>
                 <li class="nav-item tt-hide-md">
-                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Following" asp-route-id="@Model.Id">
+                    <a class="nav-link" 
+                       asp-area="" 
+                       asp-controller="Users"
+                       asp-action="Following"
+                       asp-route-id="@Model.Id">
                         <span>@Model.FollowingCount Following</span>
                     </a>
                 </li>
@@ -76,22 +124,38 @@
             else if (this.Context.Request.GetEncodedUrl().Contains("Following"))
             {
                 <li class="nav-item show">
-                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Id">
+                    <a class="nav-link"
+                       asp-area="" 
+                       asp-controller="Users"
+                       asp-action="Threads"
+                       asp-route-id="@Model.Id">
                         <span>Threads</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Replies" asp-route-id="@Model.Id">
+                    <a class="nav-link" 
+                       asp-area="" 
+                       asp-controller="Users"
+                       asp-action="Replies"
+                       asp-route-id="@Model.Id">
                         <span>Replies</span>
                     </a>
                 </li>
                 <li class="nav-item tt-hide-xs show">
-                    <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Followers" asp-route-id="@Model.Id">
+                    <a class="nav-link" 
+                       asp-area="" 
+                       asp-controller="Users" 
+                       asp-action="Followers" 
+                       asp-route-id="@Model.Id">
                         <span id="followersCount">@Model.FollowersCount Followers</span>
                     </a>
                 </li>
                 <li class="nav-item tt-hide-md">
-                    <a class="nav-link active" asp-area="" asp-controller="Users" asp-action="Following" asp-route-id="@Model.Id">
+                    <a class="nav-link active" 
+                       asp-area="" 
+                       asp-controller="Users"
+                       asp-action="Following"
+                       asp-route-id="@Model.Id">
                         <span>@Model.FollowingCount Following</span>
                     </a>
                 </li>

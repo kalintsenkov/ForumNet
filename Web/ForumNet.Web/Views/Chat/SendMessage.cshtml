@@ -52,11 +52,15 @@
 
                 <div class="tt-wrapper-inner">
                     <div class="pt-editor form-default">
-                        <form id="addMessageForm" asp-area="" asp-controller="Chat" asp-action="SendMessage" method="post">
+                        <form id="addMessageForm" 
+                              asp-area="" 
+                              asp-controller="Chat" 
+                              asp-action="SendMessage" 
+                              method="post">
                             <div asp-validation-summary="All"></div>
                             <input value="@Model.ReceiverId" name="ReceiverId" hidden />
                             <div class="form-group">
-                                <textarea id="messageBox" asp-for="Message" class="form-control" placeholder="Write your message here"></textarea>
+                                <textarea id="messageBox" asp-for="Message" class="form-control" placeholder="Type a message..."></textarea>
                                 <span asp-validation-for="Message"></span>
                             </div>
                             <div class="pt-row">

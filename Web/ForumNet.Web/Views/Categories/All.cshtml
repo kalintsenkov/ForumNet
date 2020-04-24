@@ -8,9 +8,13 @@
     <div class="tt-categories-title">
         <div class="tt-title">@ViewData["Title"]</div>
         <div class="tt-search">
-            <form class="search-wrapper" asp-area="" asp-controller="Categories" asp-action="All" method="get">
+            <form class="search-wrapper" 
+                  asp-area="" 
+                  asp-controller="Categories" 
+                  asp-action="All" 
+                  method="get">
                 <div class="search-form">
-                    <input type="text" asp-for="Search" class="tt-search__input" placeholder="Search Categories">
+                    <input type="text" asp-for="Search" class="tt-search__input" placeholder="Search Categories"/>
                     <button class="tt-search__btn" type="submit">
                         <svg class="tt-icon">
                             <use xlink:href="#icon-search"></use>
@@ -35,13 +39,21 @@
                         <div class="tt-item-header">
                             <ul class="tt-list-badge">
                                 <li>
-                                    <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id">
+                                    <a asp-area="" 
+                                       asp-controller="Categories" 
+                                       asp-action="Details" 
+                                       asp-route-id="@category.Id">
                                         <span class="tt-color01 tt-badge">@category.Name</span>
                                     </a>
                                 </li>
                             </ul>
                             <h6 class="tt-title">
-                                <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id">Threads - @category.PostsCount</a>
+                                <a asp-area=""
+                                   asp-controller="Categories"
+                                   asp-action="Details"
+                                   asp-route-id="@category.Id">
+                                    Threads - @category.PostsCount
+                                </a>
                             </h6>
                         </div>
                         <div class="tt-item-layout">

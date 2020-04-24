@@ -7,7 +7,9 @@
 
 <div class="container">
     <div class="tt-tab-wrapper">
+
         <vc:users-details user-id="@Model.Id"></vc:users-details>
+
         <div class="tab-pane tt-indent-none show active" id="tt-tab-04" role="tabpanel">
             @if (Model.Following.Any())
             {
@@ -23,7 +25,10 @@
                         <div class="tt-item">
                             <div class="tt-col-merged">
                                 <div class="tt-col-avatar">
-                                    <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@following.Id">
+                                    <a asp-area=""
+                                       asp-controller="Users"
+                                       asp-action="Threads"
+                                       asp-route-id="@following.Id">
                                         <svg class="tt-icon">
                                             <use xlink:href="@following.ProfilePicture"></use>
                                         </svg>
@@ -31,7 +36,10 @@
                                 </div>
                                 <div class="tt-col-description">
                                     <h6 class="tt-title">
-                                        <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@following.Id">
+                                        <a asp-area=""
+                                           asp-controller="Users"
+                                           asp-action="Threads"
+                                           asp-route-id="@following.Id">
                                             @following.UserName
                                         </a>
                                     </h6>

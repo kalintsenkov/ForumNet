@@ -15,7 +15,12 @@
             <div class="form-group">
                 <label asp-for="Title">Post Title</label>
                 <div class="tt-value-wrapper">
-                    <input asp-for="Title" type="text" class="form-control" id="inputTopicTitle" placeholder="Subject of your post" onkeyup="changeRemainingLength()">
+                    <input asp-for="Title"
+                           type="text"
+                           class="form-control"
+                           id="inputTopicTitle"
+                           placeholder="Subject of your post"
+                           onkeyup="changeRemainingLength()" />
                     <span id="remainingLength" class="tt-value-input"></span>
                     <span asp-validation-for="Title"></span>
                 </div>
@@ -55,7 +60,12 @@
                 </div>
                 <div class="row">
                     <div class="col-auto ml-md-auto">
-                        <a asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary btn-width-lg">Cancel</a>
+                        <a asp-controller="Posts"
+                           asp-action="Details"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-primary btn-width-lg">
+                            Cancel
+                        </a>
                         <button type="submit" class="btn btn-secondary btn-width-lg">Edit Post</button>
                     </div>
                 </div>

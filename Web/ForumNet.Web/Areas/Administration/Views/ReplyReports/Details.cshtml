@@ -9,7 +9,11 @@
         <div class="tt-item">
             <div class="tt-info-box">
                 <h6 class="tt-title">
-                    <a class="tt-color-dark tt-underline-02" asp-area="" asp-controller="Replies" asp-action="Details" asp-route-id="@Model.ReplyId">
+                    <a class="tt-color-dark tt-underline-02" 
+                       asp-area="" 
+                       asp-controller="Replies" 
+                       asp-action="Details" 
+                       asp-route-id="@Model.ReplyId">
                         Report for
                     </a>
                 </h6>
@@ -23,10 +27,15 @@
                 <div class="tt-item-header pt-noborder">
                     <div class="tt-item-info info-top">
                         <div class="tt-avatar-icon">
-                            <i class="tt-icon"><svg><use xlink:href="@Model.AuthorProfilePicture"></use></svg></i>
+                            <i class="tt-icon">
+                                <svg><use xlink:href="@Model.AuthorProfilePicture"></use></svg>
+                            </i>
                         </div>
                         <div class="tt-avatar-title">
-                            <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.AuthorId">
+                            <a asp-area="" 
+                               asp-controller="Users" 
+                               asp-action="Threads" 
+                               asp-route-id="@Model.AuthorId">
                                 @Model.AuthorUserName
                             </a>
                         </div>
@@ -39,7 +48,11 @@
                     <p>@Html.Raw(Model.SanitizedDescription)</p>
                 </div>
                 <div class="tt-item-info info-bottom">
-                    <form asp-area="Administration" asp-controller="ReplyReports" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+                    <form asp-area="Administration" 
+                          asp-controller="ReplyReports" 
+                          asp-action="Delete" 
+                          asp-route-id="@Model.Id" 
+                          method="post">
                         <button type="submit" class="btn btn-primary">Disapprove</button>
                     </form>
                 </div>
@@ -48,7 +61,12 @@
         <br />
         <div class="row">
             <div class="col-auto ml-md-auto">
-                <a asp-area="Administration" asp-controller="ReplyReports" asp-action="All" class="btn btn-primary">Back to all</a>
+                <a asp-area="Administration"
+                   asp-controller="ReplyReports"
+                   asp-action="All"
+                   class="btn btn-primary">
+                    Back to all
+                </a>
             </div>
         </div>
     </div>

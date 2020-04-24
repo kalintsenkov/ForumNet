@@ -8,12 +8,20 @@
         <div class="tt-wrapper-inner">
             <ul class="nav nav-tabs pt-tabs-default" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" asp-area="Administration" asp-controller="PostReports" asp-action="All" role="tab">
+                    <a class="nav-link active" 
+                       asp-area="Administration" 
+                       asp-controller="PostReports" 
+                       asp-action="All" 
+                       role="tab">
                         <span>Post Reports</span>
                     </a>
                 </li>
                 <li class="nav-item show">
-                    <a class="nav-link" asp-area="Administration" asp-controller="ReplyReports" asp-action="All" role="tab">
+                    <a class="nav-link" 
+                       asp-area="Administration" 
+                       asp-controller="ReplyReports" 
+                       asp-action="All" 
+                       role="tab">
                         <span>Reply Reports</span>
                     </a>
                 </li>
@@ -38,12 +46,18 @@
                             </div>
                             <div class="tt-col-description">
                                 <h6 class="tt-title">
-                                    <a asp-area="Administration" asp-controller="PostReports" asp-action="Details" asp-route-id="@report.Id">
+                                    <a asp-area="Administration" 
+                                       asp-controller="PostReports" 
+                                       asp-action="Details" 
+                                       asp-route-id="@report.Id">
                                         @report.PostTitle
                                     </a>
                                 </h6>
                                 <div class="tt-col-message">
-                                    <a asp-area="Administration" asp-controller="PostReports" asp-action="Details" asp-route-id="@report.Id">
+                                    <a asp-area="Administration" 
+                                       asp-controller="PostReports" 
+                                       asp-action="Details" 
+                                       asp-route-id="@report.Id">
                                         @report.AuthorUserName reported:
                                     </a>
                                     @Html.Raw(report.ShortDescription)

@@ -16,7 +16,12 @@
             <div class="form-group">
                 <label asp-for="Title">Post Title</label>
                 <div class="tt-value-wrapper">
-                    <input asp-for="Title" type="text" class="form-control" id="inputTopicTitle" placeholder="Subject of your post" onkeyup="changeRemainingLength()">
+                    <input asp-for="Title" 
+                           type="text" 
+                           class="form-control" 
+                           id="inputTopicTitle" 
+                           placeholder="Subject of your post" 
+                           onkeyup="changeRemainingLength()" />
                     <span id="remainingLength" class="tt-value-input">@GlobalConstants.PostTitleMaxLength</span>
                     <span asp-validation-for="Title"></span>
                 </div>

@@ -8,9 +8,16 @@
     <div class="tt-categories-title">
         <div class="tt-title">@ViewData["Title"]</div>
         <div class="tt-search">
-            <form class="search-wrapper" asp-area="" asp-controller="Tags" asp-action="All" method="get">
+            <form class="search-wrapper"
+                  asp-area=""
+                  asp-controller="Tags"
+                  asp-action="All"
+                  method="get">
                 <div class="search-form">
-                    <input type="text" asp-for="Search" class="tt-search__input" placeholder="Search Tags">
+                    <input type="text" 
+                           asp-for="Search" 
+                           class="tt-search__input" 
+                           placeholder="Search Tags" />
                     <button class="tt-search__btn" type="submit">
                         <svg class="tt-icon">
                             <use xlink:href="#icon-search"></use>
@@ -35,13 +42,21 @@
                         <div class="tt-item-header">
                             <ul class="tt-list-badge">
                                 <li>
-                                    <a asp-area="" asp-controller="Tags" asp-action="Details" asp-route-id="@tag.Id">
+                                    <a asp-area="" 
+                                       asp-controller="Tags"
+                                       asp-action="Details"
+                                       asp-route-id="@tag.Id">
                                         <span class="tt-badge">@tag.Name</span>
                                     </a>
                                 </li>
                             </ul>
                             <h6 class="tt-title">
-                                <a asp-area="" asp-controller="Tags" asp-action="Details" asp-route-id="@tag.Id">Threads - @tag.PostsCount</a>
+                                <a asp-area=""
+                                   asp-controller="Tags"
+                                   asp-action="Details"
+                                   asp-route-id="@tag.Id">
+                                    Threads - @tag.PostsCount
+                                </a>
                             </h6>
                         </div>
                     </div>
@@ -50,7 +65,7 @@
 
         </div>
     </div>
-    
+
     @if (Model.TotalPages > 0)
     {
         <div class="text-center">

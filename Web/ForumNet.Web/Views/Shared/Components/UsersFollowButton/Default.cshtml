@@ -3,7 +3,17 @@
 <div class="tt-col-btn">
     <form id="follow-form" method="post"></form>
     <div class="tt-list-btn">
-        <a asp-area="" asp-controller="Chat" asp-action="SendMessage" class="btn btn-primary">Message</a>
-        <a id="follow-button" href="#" class="btn btn-secondary" onclick="follow('@Model.Id')">@(Model.IsFollowed ? "Following" : "Follow")</a>
+        <a asp-area=""
+           asp-controller="Chat"
+           asp-action="SendMessage"
+           class="btn btn-primary">
+            Message
+        </a>
+        <a id="follow-button"
+           href="#"
+           class="btn btn-secondary"
+           onclick="follow('@Model.Id')">
+            @(Model.IsFollowed ? "Following" : "Follow")
+        </a>
     </div>
 </div>

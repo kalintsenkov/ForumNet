@@ -5,21 +5,20 @@
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
-<div class="alert alert-warning" role="alert">
-    <p>
-        <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
-    </p>
-</div>
-
 <div class="row justify-content-center">
     <div class="col-md-6">
+        <p>
+            <strong>
+                Deleting this data will permanently remove your account, and this cannot be recovered.
+            </strong>
+        </p>
         <form id="delete-user" method="post" class="form-default">
             <div asp-validation-summary="All"></div>
             @if (Model.RequirePassword)
             {
                 <div class="form-group">
                     <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
+                    <input asp-for="Input.Password" class="form-control" placeholder="Password..."/>
                     <span asp-validation-for="Input.Password"></span>
                 </div>
             }

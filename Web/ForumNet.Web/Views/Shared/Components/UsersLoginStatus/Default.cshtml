@@ -9,9 +9,14 @@
            asp-action="All">
             <i class="tt-icon fas fa-comment"></i>
         </a>
-        <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Id">
+        <a asp-area="" 
+           asp-controller="Users" 
+           asp-action="Threads" 
+           asp-route-id="@Model.Id">
             <div class="tt-avatar-icon tt-size-md">
-                <i class="tt-icon"><svg><use xlink:href="@Model.ProfilePicture"></use></svg></i>
+                <i class="tt-icon">
+                    <svg><use xlink:href="@Model.ProfilePicture"></use></svg>
+                </i>
             </div>
         </a>
         <div class="custom-select-01">

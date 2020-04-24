@@ -10,7 +10,10 @@
             <div class="tt-col-left">
                 <ul class="tt-list-badge">
                     <li>
-                        <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@Model.Tag.Id">
+                        <a asp-area=""
+                           asp-controller="Categories"
+                           asp-action="Details"
+                           asp-route-id="@Model.Tag.Id">
                             <span class="tt-badge">@Model.Tag.Name</span>
                         </a>
                     </li>
@@ -22,9 +25,18 @@
                 </div>
                 <div class="tt-col-item">
                     <div class="tt-search">
-                        <form class="search-wrapper" asp-area="" asp-controller="Tags" asp-action="Details" asp-route-id="@Model.Tag.Id" method="get">
+                        <form class="search-wrapper"
+                              asp-area=""
+                              asp-controller="Tags"
+                              asp-action="Details"
+                              asp-route-id="@Model.Tag.Id"
+                              method="get">
                             <div class="search-form">
-                                <input type="text" asp-for="Search" value="@Model.Search" class="tt-search__input" placeholder="Search in @Model.Tag.Name">
+                                <input type="text"
+                                       asp-for="Search"
+                                       value="@Model.Search"
+                                       class="tt-search__input"
+                                       placeholder="Search in @Model.Tag.Name" />
                                 <button class="tt-search__btn" type="submit">
                                     <svg class="tt-icon">
                                         <use xlink:href="#icon-search"></use>
@@ -61,7 +73,10 @@
             {
                 <div class="tt-item">
                     <div class="tt-col-avatar">
-                        <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@post.AuthorId">
+                        <a asp-area="" 
+                           asp-controller="Users" 
+                           asp-action="Threads" 
+                           asp-route-id="@post.AuthorId">
                             <svg class="tt-icon">
                                 <use xlink:href="@post.AuthorProfilePicture"></use>
                             </svg>
@@ -69,7 +84,10 @@
                     </div>
                     <div class="tt-col-description">
                         <h6 class="tt-title">
-                            <a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@post.Id">
+                            <a asp-area="" 
+                               asp-controller="Posts" 
+                               asp-action="Details" 
+                               asp-route-id="@post.Id">
                                 @post.Title
                             </a>
                         </h6>
@@ -77,13 +95,20 @@
                             <div class="col-11">
                                 <ul class="tt-list-badge">
                                     <li class="show-mobile">
-                                        <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
+                                        <a asp-area="" 
+                                           asp-controller="Categories" 
+                                           asp-action="Details" 
+                                           asp-route-id="@post.Category.Id">
                                             <span class="tt-color01 tt-badge">@post.Category.Name</span>
                                         </a>
                                     </li>
                                     @foreach (var tag in post.Tags)
                                     {
-                                        <li><a href="#"><span class="tt-badge">@tag.Name</span></a></li>
+                                        <li>
+                                            <a href="#">
+                                                <span class="tt-badge">@tag.Name</span>
+                                            </a>
+                                        </li>
                                     }
                                 </ul>
                             </div>
@@ -93,7 +118,10 @@
                         </div>
                     </div>
                     <div class="tt-col-category">
-                        <a asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@post.Category.Id">
+                        <a asp-area="" 
+                           asp-controller="Categories"
+                           asp-action="Details" 
+                           asp-route-id="@post.Category.Id">
                             <span class="tt-color01 tt-badge">@post.Category.Name</span>
                         </a>
                     </div>
@@ -120,7 +148,12 @@
                 <h6 class="tt-title">Sorry, nothing here.</h6>
                 <p>
                     But you can create new post about @Model.Tag.Name.<br>
-                    <a asp-area="" asp-controller="Posts" asp-action="Create" class="tt-color-dark tt-underline-02">Create New Post</a>
+                    <a asp-area=""
+                       asp-controller="Posts"
+                       asp-action="Create"
+                       class="tt-color-dark tt-underline-02">
+                        Create New Post
+                    </a>
                 </p>
             </div>
         }

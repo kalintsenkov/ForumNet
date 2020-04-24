@@ -23,7 +23,10 @@
                             </i>
                         </div>
                         <div class="topic-inner-title">
-                            <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@reply.Author.Id">
+                            <a asp-area="" 
+                               asp-controller="Users" 
+                               asp-action="Threads" 
+                               asp-route-id="@reply.Author.Id">
                                 @reply.Author.UserName
                             </a>
                         </div>
@@ -31,24 +34,48 @@
                     <div class="topic-inner-description">
                         @Html.Raw(reply.SanitizedDescription)
                         <div class="tt-item-info info-bottom">
-                            <partial name="_DetailsReactionsPartial" model="reply" />
+
+                            <partial name="_DetailsReactionsPartial" model="reply"/>
+
                             <div class="col-separator"></div>
 
                             @if (reply.Author.Id == this.User.GetId() || this.User.IsAdministrator())
                             {
-                                <a asp-area="" asp-controller="Replies" asp-action="Edit" asp-route-id="@reply.Id" class="tt-icon-btn" style="color: #666f74">
+                                <a asp-area="" 
+                                   asp-controller="Replies" 
+                                   asp-action="Edit" 
+                                   asp-route-id="@reply.Id" 
+                                   class="tt-icon-btn" 
+                                   style="color: #666f74">
                                     <i class="fas fa-pen"></i>
                                 </a>
-                                <a asp-area="" asp-controller="Replies" asp-action="Delete" asp-route-id="@reply.Id" class="tt-icon-btn" style="color: #666f74">
+                                <a asp-area="" 
+                                   asp-controller="Replies" 
+                                   asp-action="Delete" 
+                                   asp-route-id="@reply.Id" 
+                                   class="tt-icon-btn" 
+                                   style="color: #666f74">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             }
-                            
-                            <a asp-area="" asp-controller="ReplyReports" asp-action="Create" asp-route-id="@reply.Id" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
+
+                            <a asp-area="" 
+                               asp-controller="ReplyReports" 
+                               asp-action="Create" 
+                               asp-route-id="@reply.Id" 
+                               class="tt-icon-btn tt-hover-02 tt-small-indent">
+                                <i class="tt-icon">
+                                    <svg><use xlink:href="#icon-flag"></use></svg>
+                                </i>
                             </a>
-                            <a asp-area="" asp-controller="Replies" asp-action="Details" asp-route-id="@reply.Id" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
+                            <a asp-area="" 
+                               asp-controller="Replies" 
+                               asp-action="Details" 
+                               asp-route-id="@reply.Id" 
+                               class="tt-icon-btn tt-hover-02 tt-small-indent">
+                                <i class="tt-icon">
+                                    <svg><use xlink:href="#icon-reply"></use></svg>
+                                </i>
                             </a>
                         </div>
                         @{ await GetReplies(reply.Id); }
@@ -67,15 +94,26 @@
                 <div class="tt-item-header pt-noborder">
                     <div class="tt-item-info info-top">
                         <div class="tt-avatar-icon">
-                            <i class="tt-icon"><svg><use xlink:href="@Model.Author.ProfilePicture"></use></svg></i>
+                            <i class="tt-icon">
+                                <svg>
+                                    <use xlink:href="@Model.Author.ProfilePicture"></use>
+                                </svg>
+                            </i>
                         </div>
                         <div class="tt-avatar-title">
-                            <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Author.Id">
+                            <a asp-area="" 
+                               asp-controller="Users" 
+                               asp-action="Threads" 
+                               asp-route-id="@Model.Author.Id">
                                 @Model.Author.UserName
                             </a>
                         </div>
                         <a href="#" class="tt-info-time">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>@Model.CreatedOn
+                            <i class="tt-icon">
+                                <svg>
+                                    <use xlink:href="#icon-time"></use>
+                                </svg>
+                            </i>@Model.CreatedOn
                         </a>
                     </div>
                 </div>
@@ -85,25 +123,46 @@
                 </div>
                 <form id="reactions-form" method="post"></form>
                 <div class="tt-item-info info-bottom">
-                    <partial name="_DetailsReactionsPartial" model="Model" />
+
+                    <partial name="_DetailsReactionsPartial" model="Model"/>
 
                     <div class="col-separator"></div>
 
                     @if (Model.Author.Id == this.User.GetId() || this.User.IsAdministrator())
                     {
-                        <a asp-area="" asp-controller="Replies" asp-action="Edit" asp-route-id="@Model.Id" class="tt-icon-btn" style="color: #666f74">
+                        <a asp-area="" 
+                           asp-controller="Replies" 
+                           asp-action="Edit" 
+                           asp-route-id="@Model.Id" 
+                           class="tt-icon-btn" 
+                           style="color: #666f74">
                             <i class="fas fa-pen"></i>
                         </a>
-                        <a asp-area="" asp-controller="Replies" asp-action="Delete" asp-route-id="@Model.Id" class="tt-icon-btn" style="color: #666f74">
+                        <a asp-area="" 
+                           asp-controller="Replies" 
+                           asp-action="Delete" 
+                           asp-route-id="@Model.Id" 
+                           class="tt-icon-btn" 
+                           style="color: #666f74">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     }
 
-                    <a asp-area="" asp-controller="ReplyReports" asp-action="Create" asp-route-id="@Model.Id" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
+                    <a asp-area="" 
+                       asp-controller="ReplyReports" 
+                       asp-action="Create" 
+                       asp-route-id="@Model.Id" 
+                       class="tt-icon-btn tt-hover-02 tt-small-indent">
+                        <i class="tt-icon">
+                            <svg><use xlink:href="#icon-flag"></use></svg>
+                        </i>
                     </a>
-                    <button class="tt-icon-btn" style="padding: 0; border:none; background:none; outline: none; color: #666f74" onclick="animateButton()">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
+                    <button class="tt-icon-btn" 
+                            style="padding: 0; border: none; background: none; outline: none; color: #666f74" 
+                            onclick="animateButton()">
+                        <i class="tt-icon">
+                            <svg><use xlink:href="#icon-reply"></use></svg>
+                        </i>
                     </button>
                 </div>
             </div>
@@ -111,7 +170,13 @@
         <br />
         <div class="row">
             <div class="col-auto ml-md-auto">
-                <a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.PostId" class="btn btn-primary">Back to post</a>
+                <a asp-area=""
+                   asp-controller="Posts"
+                   asp-action="Details"
+                   asp-route-id="@Model.PostId"
+                   class="btn btn-primary">
+                    Back to post
+                </a>
             </div>
         </div>
     </div>

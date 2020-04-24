@@ -9,7 +9,11 @@
         <h1 class="tt-title-border">
             Describe your report
         </h1>
-        <form class="form-default form-create-topic" asp-area="" asp-controller="PostReports" asp-action="Create" asp-route-id="@Model.Id">
+        <form class="form-default form-create-topic" 
+              asp-area="" 
+              asp-controller="PostReports" 
+              asp-action="Create" 
+              asp-route-id="@Model.Id">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="pt-editor">
                 <h6 class="pt-title">Report Description</h6>
@@ -19,7 +23,11 @@
                 </div>
                 <div class="row">
                     <div class="col-auto ml-md-auto">
-                        <a asp-area="" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary btn-width-lg">
+                        <a asp-area="" 
+                           asp-controller="Posts" 
+                           asp-action="Details" 
+                           asp-route-id="@Model.Id" 
+                           class="btn btn-primary btn-width-lg">
                             Back
                         </a>
                         <button type="submit" class="btn btn-secondary btn-width-lg">

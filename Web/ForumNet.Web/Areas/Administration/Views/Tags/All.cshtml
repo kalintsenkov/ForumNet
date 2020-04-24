@@ -1,5 +1,4 @@
-﻿@using ForumNet.Web.Infrastructure.Extensions
-@model ForumNet.Web.ViewModels.Tags.TagsAllViewModel
+﻿@model ForumNet.Web.ViewModels.Tags.TagsAllViewModel
 @{
     ViewData["Title"] = "Tags";
 }
@@ -8,12 +7,24 @@
 <div class="tt-custom-mobile-indent container">
     <div class="tt-categories-title">
         <div class="tt-title">@ViewData["Title"]</div>
-        <a asp-area="Administration" asp-controller="Tags" asp-action="Create" class="btn btn-secondary ml-auto"><i class="fas fa-plus"></i></a>
+        <a asp-area="Administration"
+           asp-controller="Tags"
+           asp-action="Create"
+           class="btn btn-secondary ml-auto">
+            <i class="fas fa-plus"></i>
+        </a>
         &nbsp;
         <div class="tt-search">
-            <form class="search-wrapper" asp-area="Administration" asp-controller="Tags" asp-action="All" method="get">
+            <form class="search-wrapper"
+                  asp-area="Administration"
+                  asp-controller="Tags"
+                  asp-action="All"
+                  method="get">
                 <div class="search-form">
-                    <input type="text" asp-for="Search" class="tt-search__input" placeholder="Search Tags">
+                    <input type="text"
+                           asp-for="Search"
+                           class="tt-search__input"
+                           placeholder="Search Tags" />
                     <button class="tt-search__btn" type="submit">
                         <svg class="tt-icon">
                             <use xlink:href="#icon-search"></use>
@@ -38,19 +49,34 @@
                         <div class="tt-item-header">
                             <ul class="tt-list-badge">
                                 <li>
-                                    <a asp-area="" asp-controller="Tags" asp-action="Details" asp-route-id="@tag.Id">
+                                    <a asp-area=""
+                                       asp-controller="Tags" 
+                                       asp-action="Details" 
+                                       asp-route-id="@tag.Id">
                                         <span class="tt-badge">@tag.Name</span>
                                     </a>
                                 </li>
                             </ul>
                             <h6 class="tt-title">
-                                <a asp-area="" asp-controller="Tags" asp-action="Details" asp-route-id="@tag.Id">Threads - @tag.PostsCount</a>
+                                <a asp-area=""
+                                   asp-controller="Tags"
+                                   asp-action="Details"
+                                   asp-route-id="@tag.Id">
+                                    Threads - @tag.PostsCount
+                                </a>
                             </h6>
                         </div>
                         <hr />
                         <div class="tt-item-layout">
-                            <form asp-area="Administration" asp-controller="Tags" asp-action="Delete" asp-route-id="@tag.Id" method="post" class="btn">
-                                <button type="submit" class="btn btn-secondary"><i class="fas fa-trash-alt"></i></button>
+                            <form asp-area="Administration" 
+                                  asp-controller="Tags" 
+                                  asp-action="Delete" 
+                                  asp-route-id="@tag.Id" 
+                                  method="post" 
+                                  class="btn">
+                                <button type="submit" class="btn btn-secondary">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
                             </form>
                         </div>
                     </div>

@@ -9,13 +9,28 @@
         <div class="tt-wrapper-inner">
             <ul class="nav nav-tabs pt-tabs-default" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link show active" asp-area="" asp-controller="Home" asp-action="About"><span>About</span></a>
+                    <a class="nav-link show active"
+                       asp-area=""
+                       asp-controller="Home"
+                       asp-action="About">
+                        <span>About</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Guidelines"><span>Guidelines</span></a>
+                    <a class="nav-link"
+                       asp-area=""
+                       asp-controller="Home"
+                       asp-action="Guidelines">
+                        <span>Guidelines</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy"><span>Privacy</span></a>
+                    <a class="nav-link"
+                       asp-area=""
+                       asp-controller="Home"
+                       asp-action="Privacy">
+                        <span>Privacy</span>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -35,7 +50,11 @@
                                 @foreach (var admin in Model.Admins)
                                 {
                                     <div class="col-6 col-md-4 col-lg-3">
-                                        <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@admin.Id" class="tt-avatar">
+                                        <a asp-area="" 
+                                           asp-controller="Users" 
+                                           asp-action="Threads" 
+                                           asp-route-id="@admin.Id" 
+                                           class="tt-avatar">
                                             <div class="tt-col-icon">
                                                 <svg class="tt-icon">
                                                     <use xlink:href="@admin.ProfilePicture"></use>

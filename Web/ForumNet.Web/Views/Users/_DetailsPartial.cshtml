@@ -13,10 +13,19 @@
             </div>
             <div class="tt-col-title">
                 <div class="tt-title">
-                    <a asp-area="" asp-controller="Users" asp-action="Threads" asp-route-id="@Model.Id">@Model.UserName</a>
+                    <a asp-area=""
+                       asp-controller="Users"
+                       asp-action="Threads"
+                       asp-route-id="@Model.Id">
+                        @Model.UserName
+                    </a>
                 </div>
                 <ul class="tt-list-badge">
-                    <li><a href="#"><span class="tt-color14 tt-badge">Points: @Model.Points</span></a></li>
+                    <li>
+                        <a href="#">
+                            <span class="tt-color14 tt-badge">Points: @Model.Points</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
 
