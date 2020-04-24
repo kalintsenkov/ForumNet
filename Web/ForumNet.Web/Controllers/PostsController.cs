@@ -187,7 +187,7 @@
 
         public async Task<IActionResult> Delete(int id)
         {
-            var post = await this.postsService.GetByIdAsync<PostsDeleteDetailsViewModel>(id);
+            var post = await this.postsService.GetByIdAsync<PostsDeleteViewModel>(id);
             if (post == null)
             {
                 return this.NotFound();

@@ -100,7 +100,7 @@
 
         public async Task<IActionResult> Delete(int id)
         {
-            var reply = await this.repliesService.GetByIdAsync<RepliesDeleteDetailsViewModel>(id);
+            var reply = await this.repliesService.GetByIdAsync<RepliesDeleteViewModel>(id);
             if (reply == null)
             {
                 return this.NotFound();

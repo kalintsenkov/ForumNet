@@ -6,11 +6,11 @@
 
     using Common;
 
-    public class PostsDeleteDetailsViewModel
+    public class PostsDeleteViewModel
     {
         private readonly IHtmlSanitizer sanitizer;
 
-        public PostsDeleteDetailsViewModel()
+        public PostsDeleteViewModel()
         {
             this.sanitizer = new HtmlSanitizer();
             this.sanitizer.AllowedTags.Add(GlobalConstants.IFrameTag);

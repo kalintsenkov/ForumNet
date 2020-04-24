@@ -57,7 +57,7 @@
                 .ForMember(
                     dest => dest.RepliesCount,
                     dest => dest.MapFrom(src => src.Replies.Count(r => !r.IsDeleted)));
-            this.CreateMap<Post, PostsDeleteDetailsViewModel>()
+            this.CreateMap<Post, PostsDeleteViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
                     dest => dest.MapFrom(src => src.CreatedOn.ToString(GlobalConstants.DateTimeFormat, CultureInfo.InvariantCulture)))
@@ -154,7 +154,7 @@
                 .ForMember(
                     dest => dest.Activity,
                     dest => dest.MapFrom(src => src.CreatedOn.ToString(GlobalConstants.DateTimeShortFormat, CultureInfo.InvariantCulture)));
-            this.CreateMap<Reply, RepliesDeleteDetailsViewModel>()
+            this.CreateMap<Reply, RepliesDeleteViewModel>()
                 .ForMember(
                     dest => dest.CreatedOn,
                     dest => dest.MapFrom(src => src.CreatedOn.ToString(GlobalConstants.DateTimeFormat, CultureInfo.InvariantCulture)))

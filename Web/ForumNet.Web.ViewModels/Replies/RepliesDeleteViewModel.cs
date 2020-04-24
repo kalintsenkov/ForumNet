@@ -4,11 +4,11 @@
 
     using Common;
 
-    public class RepliesDeleteDetailsViewModel
+    public class RepliesDeleteViewModel
     {
         private readonly IHtmlSanitizer sanitizer;
 
-        public RepliesDeleteDetailsViewModel()
+        public RepliesDeleteViewModel()
         {
             this.sanitizer = new HtmlSanitizer();
             this.sanitizer.AllowedTags.Add(GlobalConstants.IFrameTag);
