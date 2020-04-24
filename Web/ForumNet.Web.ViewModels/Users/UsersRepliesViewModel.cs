@@ -2,11 +2,11 @@
 {
     using Ganss.XSS;
 
-    public class UsersRepliesAllViewModel
+    public class UsersRepliesViewModel
     {
         private readonly IHtmlSanitizer sanitizer;
 
-        public UsersRepliesAllViewModel()
+        public UsersRepliesViewModel()
         {
             this.sanitizer = new HtmlSanitizer();
         }

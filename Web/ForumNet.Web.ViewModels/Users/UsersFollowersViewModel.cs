@@ -1,6 +1,6 @@
 ﻿namespace ForumNet.Web.ViewModels.Users
 {
-    public class UsersFollowingAllViewModel
+    public class UsersFollowersViewModel
     {
         public string Id { get; set; }
 

@@ -18,12 +18,12 @@
 
         public int FollowingCount { get; set; }
 
-        public IEnumerable<UsersThreadsAllViewModel> Threads { get; set; }
+        public IEnumerable<UsersThreadsViewModel> Threads { get; set; }
 
-        public IEnumerable<UsersRepliesAllViewModel> Replies { get; set; }
+        public IEnumerable<UsersRepliesViewModel> Replies { get; set; }
 
-        public IEnumerable<UsersFollowersAllViewModel> Followers { get; set; }
+        public IEnumerable<UsersFollowersViewModel> Followers { get; set; }
 
-        public IEnumerable<UsersFollowingAllViewModel> Following { get; set; }
+        public IEnumerable<UsersFollowingViewModel> Following { get; set; }
     }
 }

@@ -46,7 +46,7 @@
             var reactionsCount = postsReactionsCount + repliesReactionsCount;
             var postsCount = await this.postsService.GetCountAsync();
             var usersCount = await this.usersService.GetTotalCountAsync();
-            var admins = await this.usersService.GetAdminsAsync<HomeAboutAdminViewModel>();
+            var admins = await this.usersService.GetAdminsAsync<HomeAdminViewModel>();
 
             var viewModel = new HomeAboutViewModel
             {

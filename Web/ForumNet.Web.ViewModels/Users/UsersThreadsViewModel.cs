@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class UsersThreadsAllViewModel
+    public class UsersThreadsViewModel
     {
         public int Id { get; set; }
 

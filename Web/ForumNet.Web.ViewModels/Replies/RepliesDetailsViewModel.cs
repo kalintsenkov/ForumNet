@@ -8,12 +8,12 @@
 
     public class RepliesDetailsViewModel
     {
-        private readonly IHtmlSanitizer htmlSanitizer;
+        private readonly IHtmlSanitizer sanitizer;
 
         public RepliesDetailsViewModel()
         {
-            this.htmlSanitizer = new HtmlSanitizer();
-            this.htmlSanitizer.AllowedTags.Add(GlobalConstants.IFrameTag);
+            this.sanitizer = new HtmlSanitizer();
+            this.sanitizer.AllowedTags.Add(GlobalConstants.IFrameTag);
         }
 
         public int Id { get; set; }
@@ -21,7 +21,7 @@
         public string Description { get; set; }
 
         public string SanitizedDescription
-            => this.htmlSanitizer.Sanitize(this.Description);
+            => this.sanitizer.Sanitize(this.Description);
 
         public int Likes { get; set; }
 

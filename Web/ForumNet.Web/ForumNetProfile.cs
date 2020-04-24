@@ -50,7 +50,7 @@
                 .ForMember(
                 dest => dest.Description,
                 dest => dest.Ignore());
-            this.CreateMap<Post, UsersThreadsAllViewModel>()
+            this.CreateMap<Post, UsersThreadsViewModel>()
                 .ForMember(
                     dest => dest.Likes,
                     dest => dest.MapFrom(src => src.Reactions.Count))
@@ -150,7 +150,7 @@
                 .ForMember(
                     dest => dest.Description,
                     dest => dest.Ignore());
-            this.CreateMap<Reply, UsersRepliesAllViewModel>()
+            this.CreateMap<Reply, UsersRepliesViewModel>()
                 .ForMember(
                     dest => dest.Activity,
                     dest => dest.MapFrom(src => src.CreatedOn.ToString(GlobalConstants.DateTimeShortFormat, CultureInfo.InvariantCulture)));
@@ -237,32 +237,32 @@
             this.CreateMap<ForumUser, ChatUserViewModel>();
             this.CreateMap<ForumUser, ChatConversationsViewModel>();
             this.CreateMap<ForumUser, UsersLoginStatusViewModel>();
-            this.CreateMap<ForumUser, HomeAboutAdminViewModel>();
+            this.CreateMap<ForumUser, HomeAdminViewModel>();
             this.CreateMap<ForumUser, RepliesAuthorDetailsViewModel>();
             this.CreateMap<ForumUser, PostsAuthorDetailsViewModel>();
             this.CreateMap<ForumUser, UsersDetailsViewModel>();
-            this.CreateMap<ForumUser, UsersFollowersAllViewModel>()
+            this.CreateMap<ForumUser, UsersFollowersViewModel>()
                 .ForMember(
                     dest => dest.ThreadsCount,
                     dest => dest.MapFrom(src => src.Posts.Count(p => !p.IsDeleted)))
                 .ForMember(
                     dest => dest.RepliesCount,
                     dest => dest.MapFrom(src => src.Replies.Count(r => !r.IsDeleted && !r.Post.IsDeleted)));
-            this.CreateMap<UserFollower, UsersFollowersAllViewModel>()
+            this.CreateMap<UserFollower, UsersFollowersViewModel>()
                 .ForMember(
                     dest => dest.ThreadsCount,
                     dest => dest.MapFrom(src => src.Follower.Posts.Count(p => !p.IsDeleted)))
                 .ForMember(
                     dest => dest.RepliesCount,
                     dest => dest.MapFrom(src => src.Follower.Replies.Count(r => !r.IsDeleted && !r.Post.IsDeleted)));
-            this.CreateMap<ForumUser, UsersFollowingAllViewModel>()
+            this.CreateMap<ForumUser, UsersFollowingViewModel>()
                 .ForMember(
                     dest => dest.ThreadsCount,
                     dest => dest.MapFrom(src => src.Posts.Count(p => !p.IsDeleted)))
                 .ForMember(
                     dest => dest.RepliesCount,
                     dest => dest.MapFrom(src => src.Replies.Count(r => !r.IsDeleted && !r.Post.IsDeleted)));
-            this.CreateMap<UserFollower, UsersFollowingAllViewModel>()
+            this.CreateMap<UserFollower, UsersFollowingViewModel>()
                 .ForMember(
                     dest => dest.ThreadsCount,
                     dest => dest.MapFrom(src => src.Follower.Posts.Count(p => !p.IsDeleted)))

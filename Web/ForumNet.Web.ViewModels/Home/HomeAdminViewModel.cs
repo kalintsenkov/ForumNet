@@ -1,6 +1,6 @@
 ﻿namespace ForumNet.Web.ViewModels.Home
 {
-    public class HomeAboutAdminViewModel
+    public class HomeAdminViewModel
     {
         public string Id { get; set; }
 

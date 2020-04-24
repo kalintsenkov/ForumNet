@@ -40,7 +40,7 @@
                 return this.NotFound();
             }
 
-            user.Threads = await this.postsService.GetAllByUserIdAsync<UsersThreadsAllViewModel>(id);
+            user.Threads = await this.postsService.GetAllByUserIdAsync<UsersThreadsViewModel>(id);
             foreach (var thread in user.Threads)
             {
                 thread.Activity = await this.postsService.GetLatestActivityByIdAsync(thread.Id);
@@ -58,7 +58,7 @@
                 return this.NotFound();
             }
 
-            user.Replies = await this.repliesService.GetAllByUserIdAsync<UsersRepliesAllViewModel>(id);
+            user.Replies = await this.repliesService.GetAllByUserIdAsync<UsersRepliesViewModel>(id);
 
             return this.View(user);
         }
@@ -71,7 +71,7 @@
                 return this.NotFound();
             }
 
-            user.Followers = await this.usersService.GetFollowersAsync<UsersFollowersAllViewModel>(id);
+            user.Followers = await this.usersService.GetFollowersAsync<UsersFollowersViewModel>(id);
 
             return this.View(user);
         }
@@ -84,7 +84,7 @@
                 return this.NotFound();
             }
 
-            user.Following = await this.usersService.GetFollowingAsync<UsersFollowingAllViewModel>(id);
+            user.Following = await this.usersService.GetFollowingAsync<UsersFollowingViewModel>(id);
 
             return this.View(user);
         }

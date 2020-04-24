@@ -10,6 +10,6 @@
 
         public int ReactionsCount { get; set; }
 
-        public IEnumerable<HomeAboutAdminViewModel> Admins { get; set; }
+        public IEnumerable<HomeAdminViewModel> Admins { get; set; }
     }
 }
