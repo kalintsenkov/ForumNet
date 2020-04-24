@@ -10,7 +10,6 @@
 
     using Data;
     using Data.Models;
-    using Providers;
     using Providers.DateTime;
 
     public class ReplyReportsService : IReplyReportsService
@@ -58,15 +57,15 @@
 
         public async Task<TModel> GetByIdAsync<TModel>(int id) 
             => await this.db.ReplyReports
-                .Where(r => r.Id == id && !r.IsDeleted)
                 .AsNoTracking()
+                .Where(r => r.Id == id && !r.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>() 
             => await this.db.ReplyReports
-                .Where(r => !r.IsDeleted && !r.Reply.IsDeleted)
                 .AsNoTracking()
+                .Where(r => !r.IsDeleted && !r.Reply.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
     }

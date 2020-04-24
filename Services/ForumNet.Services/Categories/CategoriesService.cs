@@ -39,7 +39,7 @@
 
         public async Task EditAsync(int id, string name)
         {
-            var category = await this.db.Categories.FirstOrDefaultAsync(c => c.Id == id && !c.IsDeleted);
+            var category = await this.GetByIdAsync(id);
 
             category.Name = name;
             category.ModifiedOn = this.dateTimeProvider.Now();
@@ -49,7 +49,7 @@
 
         public async Task DeleteAsync(int id)
         {
-            var category = await this.db.Categories.FirstOrDefaultAsync(c => c.Id == id && !c.IsDeleted);
+            var category = await this.GetByIdAsync(id);
 
             category.IsDeleted = true;
             category.DeletedOn = this.dateTimeProvider.Now();
@@ -65,13 +65,16 @@
 
         public async Task<TModel> GetByIdAsync<TModel>(int id) 
             => await this.db.Categories
+                .AsNoTracking()
                 .Where(c => c.Id == id && !c.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string search = null)
         {
-            var queryable = this.db.Categories.Where(c => !c.IsDeleted);
+            var queryable = this.db.Categories
+                .AsNoTracking()
+                .Where(c => !c.IsDeleted);
 
             if (!string.IsNullOrWhiteSpace(search))
             {
@@ -80,11 +83,13 @@
 
             var categories = await queryable
                 .OrderByDescending(c => c.Posts.Count)
-                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
             return categories;
         }
+
+        private async Task<Category> GetByIdAsync(int id)
+            => await this.db.Categories.FirstOrDefaultAsync(c => c.Id == id && !c.IsDeleted);
     }
 }

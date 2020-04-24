@@ -28,7 +28,7 @@
 
         public async Task ModifyAsync(string id)
         {
-            var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
+            var user = await this.GetByIdAsync(id);
 
             user.ModifiedOn = this.dateTimeProvider.Now();
 
@@ -37,7 +37,7 @@
 
         public async Task DeleteAsync(string id)
         {
-            var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
+            var user = await this.GetByIdAsync(id);
 
             user.Email = null;
             user.NormalizedEmail = null;
@@ -49,7 +49,7 @@
 
         public async Task<int> AddPointsAsync(string id, int points = 1)
         {
-            var user = await this.db.Users.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
+            var user = await this.GetByIdAsync(id);
 
             user.Points += points;
 
@@ -182,5 +182,8 @@
                 .Select(uf => uf.User)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
+
+        private async Task<ForumUser> GetByIdAsync(string id)
+            => await this.db.Users.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
     }
 }

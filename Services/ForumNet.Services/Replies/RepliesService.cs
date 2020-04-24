@@ -51,7 +51,7 @@
 
         public async Task EditAsync(int id, string description)
         {
-            var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
+            var reply = await this.GetByIdAsync(id);
 
             reply.Description = description;
             reply.ModifiedOn = this.dateTimeProvider.Now();
@@ -61,7 +61,7 @@
 
         public async Task DeleteAsync(int id)
         {
-            var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
+            var reply = await this.GetByIdAsync(id);
 
             reply.IsDeleted = true;
             reply.DeletedOn = this.dateTimeProvider.Now();
@@ -72,7 +72,8 @@
 
         public async Task MakeBestAnswerAsync(int id)
         {
-            var reply = await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
+            var reply = await this.GetByIdAsync(id);
+
             var bestAnswerReply = await this.db.Replies.FirstOrDefaultAsync(r => r.IsBestAnswer && !r.IsDeleted);
             if (bestAnswerReply == null)
             {
@@ -97,21 +98,23 @@
 
         public async Task<TModel> GetByIdAsync<TModel>(int id)
             => await this.db.Replies
+                .AsNoTracking()
                 .Where(r => r.Id == id && !r.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
         public async Task<IEnumerable<TModel>> GetAllByUserIdAsync<TModel>(string userId)
             => await this.db.Replies
+                .AsNoTracking()
                 .Where(r => r.AuthorId == userId && !r.IsDeleted && !r.Post.IsDeleted)
                 .OrderByDescending(p => p.CreatedOn)
-                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
         public async Task<IEnumerable<TModel>> GetAllByPostIdAsync<TModel>(int postId, string sort = null)
         {
             var queryable = this.db.Replies
+                .AsNoTracking()
                 .Where(r => r.PostId == postId && !r.IsDeleted)
                 .OrderByDescending(r => r.IsBestAnswer);
 
@@ -125,12 +128,14 @@
             };
 
             var replies = await queryable
-                .AsNoTracking()
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
             return replies;
         }
+
+        private async Task<Reply> GetByIdAsync(int id)
+            => await this.db.Replies.FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
 
         private async Task DeleteNestedAsync(int id)
         {

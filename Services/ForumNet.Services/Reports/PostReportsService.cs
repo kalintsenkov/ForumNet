@@ -57,15 +57,15 @@
 
         public async Task<TModel> GetByIdAsync<TModel>(int id) 
             => await this.db.PostReports
-                .Where(pr => pr.Id == id && !pr.IsDeleted)
                 .AsNoTracking()
+                .Where(pr => pr.Id == id && !pr.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>() 
             => await this.db.PostReports
-                .Where(pr => !pr.IsDeleted && !pr.Post.IsDeleted)
                 .AsNoTracking()
+                .Where(pr => !pr.IsDeleted && !pr.Post.IsDeleted)
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
     }

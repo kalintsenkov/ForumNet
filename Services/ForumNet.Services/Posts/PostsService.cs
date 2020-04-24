@@ -68,7 +68,7 @@
             int categoryId, 
             IEnumerable<int> tagIds)
         {
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
+            var post = await this.GetByIdAsync(id);
 
             await this.RemoveTagsAsync(id, post);
 
@@ -83,7 +83,7 @@
 
         public async Task DeleteAsync(int id)
         {
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
+            var post = await this.GetByIdAsync(id);
 
             post.IsDeleted = true;
             post.DeletedOn = this.dateTimeProvider.Now();
@@ -93,7 +93,7 @@
 
         public async Task ViewAsync(int id)
         {
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
+            var post = await this.GetByIdAsync(id);
 
             post.Views++;
 
@@ -102,7 +102,7 @@
 
         public async Task<bool> PinAsync(int id)
         {
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
+            var post = await this.GetByIdAsync(id);
 
             post.IsPinned = !post.IsPinned;
             post.ModifiedOn = this.dateTimeProvider.Now();
@@ -276,6 +276,9 @@
 
             return posts;
         }
+
+        private async Task<Post> GetByIdAsync(int id)
+            => await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
 
         private async Task AddTagsAsync(int id, IEnumerable<int> tagIds)
         {
