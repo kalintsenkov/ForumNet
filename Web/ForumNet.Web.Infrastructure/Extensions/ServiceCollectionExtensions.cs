@@ -1,5 +1,6 @@
 ﻿namespace ForumNet.Web.Infrastructure.Extensions
 {
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@
     using Services.Categories;
     using Services.Messages;
     using Services.Posts;
+    using Services.Providers.Cloudinary;
     using Services.Providers.DateTime;
     using Services.Providers.Email;
     using Services.Reactions;
@@ -91,7 +93,9 @@
             IConfiguration configuration)
             => services
                 .AddSingleton(configuration)
+                .AddSingleton(CloudinaryConfiguration(configuration))
                 .AddTransient<ICategoriesService, CategoriesService>()
+                .AddTransient<ICloudinaryService, CloudinaryService>()
                 .AddTransient<IDateTimeProvider, DateTimeProvider>()
                 .AddTransient<IMessagesService, MessagesService>()
                 .AddTransient<IPostReactionsService, PostReactionsService>()
@@ -113,6 +117,16 @@
                     .Add<AutoValidateAntiforgeryTokenAttribute>());
 
             return services;
+        }
+
+        private static Cloudinary CloudinaryConfiguration(IConfiguration configuration)
+        {
+            var cloudinaryCredentials = new Account(
+                configuration["Cloudinary:CloudName"],
+                configuration["Cloudinary:ApiKey"],
+                configuration["Cloudinary:ApiSecret"]);
+
+            return new Cloudinary(cloudinaryCredentials);
         }
     }
 }

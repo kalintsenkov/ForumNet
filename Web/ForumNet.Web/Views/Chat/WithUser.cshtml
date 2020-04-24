@@ -7,9 +7,9 @@
     <div class="tt-messages-layout">
         <div class="row no-gutters">
             <div class="col-md-4 tt-aside" id="js-aside">
-                <a asp-area="" 
-                   asp-controller="Chat" 
-                   asp-action="SendMessage" 
+                <a asp-area=""
+                   asp-controller="Chat"
+                   asp-action="SendMessage"
                    class="tt-title-aside">
                     <h2 class="tt-title">
                         @ViewData["Title"]
@@ -44,17 +44,29 @@
                         </i>
                     </a>
                 </div>
-                <div id="messagesList" 
-                     class="tt-list-time-topic" 
+                <div id="messagesList"
+                     class="tt-list-time-topic"
                      style="overflow-y: auto; overflow-x: hidden; height:300px; display:block; word-break: break-word;">
 
                     @foreach (var message in Model.Messages)
                     {
                         <div class="tt-item">
                             <div class="tt-col-avatar">
-                                <svg class="tt-icon">
-                                    <use xlink:href="@message.AuthorProfilePicture"></use>
-                                </svg>
+                                @if (message.AuthorProfilePicture.StartsWith("#icon-ava"))
+                                {
+                                    <svg class="tt-icon">
+                                        <use xlink:href="@message.AuthorProfilePicture"></use>
+                                    </svg>
+                                }
+                                else
+                                {
+                                    <img src="https://res.cloudinary.com/forumnet/image/upload/t_profile-picture/@message.AuthorProfilePicture"
+                                         alt="avatar"
+                                         class="tt-icon"
+                                         width="40"
+                                         height="40"
+                                         style="border-radius: 50%" />
+                                }
                             </div>
                             <div class="tt-col-description">
                                 <h4 class="tt-title">
@@ -96,37 +108,43 @@
     <script>
         $('#messagesList')[0].scrollTop = $('#messagesList')[0].scrollHeight;
 
-        $('#messageInput').on('keypress', function(e) {
-            if (e.which === 13 && !e.shiftKey) {
-                e.preventDefault();
-                $('#sendButton').click();
-            }
-        });
+        $('#messageInput').on('keypress',
+            function(e) {
+                if (e.which === 13 && !e.shiftKey) {
+                    e.preventDefault();
+                    $('#sendButton').click();
+                }
+            });
 
-        $("#messageInput").on('change keyup copy paste cut', function() {
-            if (!this.value) {
-                connection.invoke("WhoIsTyping", '');
-            } else {
-                connection.invoke("WhoIsTyping", '@this.User.Identity.Name');
-            }
-        });
+        $("#messageInput").on('change keyup copy paste cut',
+            function() {
+                if (!this.value) {
+                    connection.invoke("WhoIsTyping", '');
+                } else {
+                    connection.invoke("WhoIsTyping", '@this.User.Identity.Name');
+                }
+            });
 
         var connection = new signalR.HubConnectionBuilder()
             .withUrl("/chat")
             .build();
 
-        connection.on("SayWhoIsTyping", function (name) {
-            if (name === null || name === "") {
-                $("#whoIsTyping").html('');
-            } else {
-                var whoIsTypingInfo = `<em>&nbsp;&nbsp;${name} is typing...</em>`;
-                $("#whoIsTyping").html(whoIsTypingInfo);
-            }
-        });
+        connection.on("SayWhoIsTyping",
+            function(name) {
+                if (name === null || name === "") {
+                    $("#whoIsTyping").html('');
+                } else {
+                    var whoIsTypingInfo = `<em>&nbsp;&nbsp;${name} is typing...</em>`;
+                    $("#whoIsTyping").html(whoIsTypingInfo);
+                }
+            });
 
         connection.on("ReceiveMessage",
             function(message) {
-                var chatInfo = `<div class="tt-item">
+
+                var chatInfo;
+                if (message.authorProfilePicture.indexOf('#icon-ava') >= 0) {
+                    chatInfo = `<div class="tt-item">
                                     <div class="tt-col-avatar">
                                         <svg class="tt-icon">
                                             <use xlink:href="${message.authorProfilePicture}"></use>
@@ -140,6 +158,26 @@
                                         ${escapeHtml(message.content)}
                                     </div>
                                 </div>`;
+                } else {
+                    chatInfo = `<div class="tt-item">
+                                    <div class="tt-col-avatar">
+                                        <img src="https://res.cloudinary.com/forumnet/image/upload/t_profile-picture/${
+                                            `${message.authorProfilePicture}"
+                                             alt="avatar"
+                                             class="tt-icon"
+                                             width="40"
+                                             height="40"
+                                             style="border-radius: 50%" />
+                                    </div>
+                                    <div class="tt-col-description">
+                                        <h4 class="tt-title">
+                                            <a href="/Users/Threads/${message.authorId}">${message.authorUserName}</a>
+                                            <span class="time">${message.createdOn}</span>
+                                        </h4>
+                                        ${escapeHtml(message.content)}
+                                    </div>
+                                </div>`}`;
+                }
 
                 $("#messagesList").append(chatInfo);
                 $('#messagesList')[0].scrollTop = $('#messagesList')[0].scrollHeight;
@@ -171,5 +209,5 @@
                 .replace(/'/g, "&#039;");
         }
     </script>
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }

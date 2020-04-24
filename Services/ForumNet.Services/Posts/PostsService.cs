@@ -150,7 +150,7 @@
                 return latestPostReplyActivity;
             }
 
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
+            var post = await this.GetByIdAsync(id);
             var postLatestActivity = this.CalculateLatestActivity(currentTime, post.CreatedOn);
 
             return postLatestActivity;
@@ -282,7 +282,7 @@
 
         private async Task AddTagsAsync(int id, IEnumerable<int> tagIds)
         {
-            var post = await this.db.Posts.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
+            var post = await this.GetByIdAsync(id);
 
             foreach (var tagId in tagIds)
             {

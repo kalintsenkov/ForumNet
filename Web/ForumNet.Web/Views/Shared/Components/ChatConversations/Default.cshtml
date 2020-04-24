@@ -8,9 +8,21 @@
             {
                 <a onclick="location.href = '/Chat/WithUser/@conversation.Id';" href="#" class="tt-item">
                     <div class="tt-col-avatar">
-                        <svg class="tt-icon">
-                            <use xlink:href="@conversation.ProfilePicture"></use>
-                        </svg>
+                        @if (conversation.ProfilePicture.StartsWith("#icon-ava"))
+                        {
+                            <svg class="tt-icon">
+                                <use xlink:href="@conversation.ProfilePicture"></use>
+                            </svg>
+                        }
+                        else
+                        {
+                            <img src="https://res.cloudinary.com/forumnet/image/upload/t_profile-picture/@conversation.ProfilePicture"
+                                 alt="avatar"
+                                 class="tt-icon"
+                                 width="40"
+                                 height="40"
+                                 style="border-radius: 50%" />
+                        }
                     </div>
                     <div class="tt-col-description">
                         <h4 class="tt-title"><span>@conversation.UserName</span>  <span class="time">@conversation.LastMessageActivity</span></h4>

@@ -17,9 +17,21 @@
                     <div class="topic-inner-title">
                         <div class="topic-inner-avatar">
                             <i class="tt-icon">
-                                <svg>
-                                    <use xlink:href="@reply.Author.ProfilePicture"></use>
-                                </svg>
+                                @if (reply.Author.ProfilePicture.StartsWith("#icon-ava"))
+                                {
+                                    <svg>
+                                        <use xlink:href="@reply.Author.ProfilePicture"></use>
+                                    </svg>
+                                }
+                                else
+                                {
+                                    <img src="https://res.cloudinary.com/forumnet/image/upload/t_profile-picture/@reply.Author.ProfilePicture" 
+                                         alt="avatar"
+                                         class="tt-icon"
+                                         width="40"
+                                         height="40"
+                                         style="border-radius: 50%"/>
+                                }
                             </i>
                         </div>
                         <div class="topic-inner-title">
@@ -95,9 +107,21 @@
                     <div class="tt-item-info info-top">
                         <div class="tt-avatar-icon">
                             <i class="tt-icon">
-                                <svg>
-                                    <use xlink:href="@Model.Author.ProfilePicture"></use>
-                                </svg>
+                                @if (Model.Author.ProfilePicture.StartsWith("#icon-ava"))
+                                {
+                                    <svg>
+                                        <use xlink:href="@Model.Author.ProfilePicture"></use>
+                                    </svg>
+                                }
+                                else
+                                {
+                                    <img src="https://res.cloudinary.com/forumnet/image/upload/t_profile-picture/@Model.Author.ProfilePicture"
+                                         alt="avatar"
+                                         class="tt-icon"
+                                         width="40"
+                                         height="40"
+                                         style="border-radius: 50%" />
+                                }
                             </i>
                         </div>
                         <div class="tt-avatar-title">

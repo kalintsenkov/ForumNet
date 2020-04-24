@@ -28,9 +28,21 @@
                         {
                             <div class="tt-item">
                                 <div class="tt-col-avatar">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="@Model.ProfilePicture"></use>
-                                    </svg>
+                                    @if (Model.ProfilePicture.StartsWith("#icon-ava"))
+                                    {
+                                        <svg class="tt-icon">
+                                            <use xlink:href="@Model.ProfilePicture"></use>
+                                        </svg>
+                                    }
+                                    else
+                                    {
+                                        <img src="https://res.cloudinary.com/forumnet/image/upload/t_profile-picture/@Model.ProfilePicture" 
+                                             alt="avatar"
+                                             class="tt-icon"
+                                             width="40"
+                                             height="40"
+                                             style="border-radius: 50%"/>
+                                    }
                                 </div>
                                 <div class="tt-col-description">
                                     <h6 class="tt-title">

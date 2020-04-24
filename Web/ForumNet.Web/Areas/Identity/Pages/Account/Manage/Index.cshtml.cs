@@ -11,6 +11,8 @@
     using Data.Models;
     using Data.Models.Enums;
     using Infrastructure.Attributes;
+    using Microsoft.AspNetCore.Http;
+    using Services.Providers.Cloudinary;
 
     using static Common.ErrorMessages;
     using static Common.GlobalConstants;
@@ -19,13 +21,16 @@
     {
         private readonly UserManager<ForumUser> userManager;
         private readonly SignInManager<ForumUser> signInManager;
+        private readonly ICloudinaryService cloudinaryService;
 
         public IndexModel(
             UserManager<ForumUser> userManager,
-            SignInManager<ForumUser> signInManager)
+            SignInManager<ForumUser> signInManager, 
+            ICloudinaryService cloudinaryService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.cloudinaryService = cloudinaryService;
         }
 
         public string Username { get; set; }
@@ -38,6 +43,9 @@
 
         public class InputModel
         {
+            [DataType(DataType.Upload)]
+            public IFormFile ImageFile { get; set; }
+
             [DataType(DataType.Date)]
             [Display(Name = UserBirthDateDisplayName)]
             [MinAge(UserMinAge, ErrorMessage = UserAgeRestrictionErrorMessage)]
@@ -81,6 +89,13 @@
             user.BirthDate = this.Input.BirthDate;
             user.Gender = this.Input.Gender;
             user.Biography = this.Input.Biography;
+
+            var imageFile = this.Input.ImageFile;
+            if (imageFile != null)
+            {
+                var profilePictureUri = await this.cloudinaryService.UploadAsync(imageFile, imageFile.Name);
+                user.ProfilePicture = profilePictureUri;
+            }
 
             var updateResult = await this.userManager.UpdateAsync(user);
             if (!updateResult.Succeeded)

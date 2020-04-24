@@ -63,13 +63,25 @@
 
                 <div class="@className">
                     <div class="tt-col-avatar">
-                        <a asp-area="" 
-                           asp-controller="Users" 
-                           asp-action="Threads" 
+                        <a asp-area=""
+                           asp-controller="Users"
+                           asp-action="Threads"
                            asp-route-id="@post.AuthorId">
-                            <svg class="tt-icon">
-                                <use xlink:href="@post.AuthorProfilePicture"></use>
-                            </svg>
+                            @if (post.AuthorProfilePicture.StartsWith("#icon-ava"))
+                            {
+                                <svg class="tt-icon">
+                                    <use xlink:href="@post.AuthorProfilePicture"></use>
+                                </svg>
+                            }
+                            else
+                            {
+                                <img src="https://res.cloudinary.com/forumnet/image/upload/t_profile-picture/@post.AuthorProfilePicture" 
+                                     alt="avatar"
+                                     class="tt-icon"
+                                     width="40"
+                                     height="40"
+                                     style="border-radius: 50%"/>
+                            }
                         </a>
                     </div>
                     <div class="tt-col-description">

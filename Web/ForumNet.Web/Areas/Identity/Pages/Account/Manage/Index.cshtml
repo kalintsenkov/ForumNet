@@ -1,5 +1,6 @@
 ﻿@page
 @using ForumNet.Data.Models.Enums
+@inject UserManager<ForumUser> UserManager
 @model IndexModel
 @{
     ViewData["Title"] = "Profile";
@@ -9,8 +10,47 @@
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <form id="profile-form" class="form-default" method="post">
+        <form id="profile-form"
+              class="form-default"
+              method="post"
+              enctype="multipart/form-data">
+
             <div asp-validation-summary="All"></div>
+
+            <div class="tt-form-upload">
+                <div class="row no-gutter">
+                    <div class="col-auto">
+                        <div class="tt-avatar">
+
+                            @{
+                                var user = await UserManager.GetUserAsync(this.User);
+                                var profilePicture = user.ProfilePicture;
+                                @if (profilePicture.StartsWith("#icon-ava"))
+                                {
+                                    <svg style="width: 60px; height: 60px;">
+                                        <use xlink:href="@profilePicture"></use>
+                                    </svg>
+                                }
+                                else
+                                {
+                                    <img src="https://res.cloudinary.com/forumnet/image/upload/t_profile-picture/@profilePicture"
+                                         alt="avatar"
+                                         class="tt-icon"
+                                         width="60"
+                                         height="60"
+                                         style="border-radius: 50%" />
+                                }
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-auto ml-auto">
+                        <label asp-for="Input.ImageFile" class="btn btn-primary">Upload Picture</label>
+                        <input type="file" asp-for="Input.ImageFile" onchange="form.submit()" class="btn btn-primary" hidden />
+                    </div>
+                </div>
+            </div>
+            <hr />
             <div class="form-group">
                 <label asp-for="Username"></label>
                 <input asp-for="Username" class="form-control" disabled />

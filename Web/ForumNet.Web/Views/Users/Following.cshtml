@@ -29,9 +29,21 @@
                                        asp-controller="Users"
                                        asp-action="Threads"
                                        asp-route-id="@following.Id">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="@following.ProfilePicture"></use>
-                                        </svg>
+                                        @if (following.ProfilePicture.StartsWith("#icon-ava"))
+                                        {
+                                            <svg class="tt-icon">
+                                                <use xlink:href="@following.ProfilePicture"></use>
+                                            </svg>
+                                        }
+                                        else
+                                        {
+                                            <img src="https://res.cloudinary.com/forumnet/image/upload/t_profile-picture/@following.ProfilePicture" 
+                                                 alt="avatar"
+                                                 class="tt-icon"
+                                                 width="40"
+                                                 height="40"
+                                                 style="border-radius: 50%"/>
+                                        }
                                     </a>
                                 </div>
                                 <div class="tt-col-description">

@@ -56,9 +56,21 @@
                                            asp-route-id="@admin.Id" 
                                            class="tt-avatar">
                                             <div class="tt-col-icon">
-                                                <svg class="tt-icon">
-                                                    <use xlink:href="@admin.ProfilePicture"></use>
-                                                </svg>
+                                                @if (admin.ProfilePicture.StartsWith("#icon-ava"))
+                                                {
+                                                    <svg class="tt-icon">
+                                                        <use xlink:href="@admin.ProfilePicture"></use>
+                                                    </svg>
+                                                }
+                                                else
+                                                {
+                                                    <img src="https://res.cloudinary.com/forumnet/image/upload/t_profile-picture/@admin.ProfilePicture"
+                                                         alt="avatar"
+                                                         class="tt-icon"
+                                                         width="40"
+                                                         height="40"
+                                                         style="border-radius: 50%" />
+                                                }
                                             </div>
                                             <div class="tt-col-description">
                                                 <h6 class="tt-title">@admin.UserName</h6>

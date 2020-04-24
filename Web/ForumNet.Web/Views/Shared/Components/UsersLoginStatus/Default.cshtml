@@ -15,7 +15,20 @@
            asp-route-id="@Model.Id">
             <div class="tt-avatar-icon tt-size-md">
                 <i class="tt-icon">
-                    <svg><use xlink:href="@Model.ProfilePicture"></use></svg>
+                    @if (Model.ProfilePicture.StartsWith("#icon-ava"))
+                    {
+                        <svg>
+                            <use xlink:href="@Model.ProfilePicture"></use>
+                        </svg>
+                    }
+                    else
+                    {
+                        <img src="https://res.cloudinary.com/forumnet/image/upload/t_profile-picture/@Model.ProfilePicture"
+                             alt="avatar"
+                             width="40"
+                             height="40"
+                             style="border-radius: 50%" />
+                    }
                 </i>
             </div>
         </a>
