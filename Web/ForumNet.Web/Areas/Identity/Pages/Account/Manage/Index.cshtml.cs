@@ -44,6 +44,7 @@
         public class InputModel
         {
             [DataType(DataType.Upload)]
+            [FileVerifyExtensions(AllowedFileExtensions, ErrorMessage = UserProfilePictureUploadErrorMessage)]
             public IFormFile ImageFile { get; set; }
 
             [DataType(DataType.Date)]

@@ -21,6 +21,7 @@
         public const string DateTimeShortFormat = "dd/MM/yy";
 
         public const string IFrameTag = "iframe";
+        public const string AllowedFileExtensions = "jpg,jpeg,png";
 
         public const string UserUsernameDisplayName = "Display name";
         public const string UserLoginRememberMeDisplayName = "Remember me";
