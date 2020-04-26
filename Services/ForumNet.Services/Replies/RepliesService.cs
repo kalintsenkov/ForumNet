@@ -74,16 +74,15 @@
         {
             var reply = await this.GetByIdAsync(id);
 
+            reply.IsBestAnswer = true;
+
             var bestAnswerReply = await this.db.Replies.FirstOrDefaultAsync(r => r.IsBestAnswer && !r.IsDeleted);
             if (bestAnswerReply == null)
             {
-                reply.IsBestAnswer = true;
-
                 await this.usersService.AddPointsAsync(reply.AuthorId, 5);
             }
             else
             {
-                reply.IsBestAnswer = true;
                 bestAnswerReply.IsBestAnswer = false;
             }
 
