@@ -92,9 +92,10 @@
                 queryable = queryable.Where(t => t.Name.Contains(search));
             }
 
-            queryable = take.HasValue
-                ? queryable.Skip(skip).Take(take.Value)
-                : queryable.Skip(skip);
+            if (take.HasValue)
+            {
+                queryable = queryable.Skip(skip).Take(take.Value);
+            }
 
             var tags = await queryable
                  .ProjectTo<TModel>(this.mapper.ConfigurationProvider)

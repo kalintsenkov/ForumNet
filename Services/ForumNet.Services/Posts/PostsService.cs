@@ -189,9 +189,10 @@
                 queryable = queryable.Where(p => p.Title.Contains(search));
             }
 
-            queryable = take.HasValue
-                ? queryable.Skip(skip).Take(take.Value)
-                : queryable.Skip(skip);
+            if (take.HasValue)
+            {
+                queryable = queryable.Skip(skip).Take(take.Value);
+            }
 
             var posts = await queryable
                 .ProjectTo<TModel>(this.mapper.ConfigurationProvider)
@@ -256,9 +257,11 @@
             var queryable = this.db.Posts
                 .AsNoTracking()
                 .OrderByDescending(p => p.CreatedOn)
+                .ThenByDescending(p => p.Reactions
+                    .Count(r => r.ReactionType != ReactionType.Neutral))
                 .Where(p => p.Author.Followers
-                    .Where(x => !x.IsDeleted && x.FollowerId == userId)
-                    .Select(x => x.FollowerId)
+                    .Where(f => !f.IsDeleted && f.FollowerId == userId)
+                    .Select(f => f.FollowerId)
                     .FirstOrDefault() == userId);
 
             if (!string.IsNullOrWhiteSpace(search))
@@ -266,9 +269,10 @@
                 queryable = queryable.Where(p => p.Title.Contains(search));
             }
 
-            queryable = take.HasValue
-                ? queryable.Skip(skip).Take(take.Value)
-                : queryable.Skip(skip);
+            if (take.HasValue)
+            {
+                queryable = queryable.Skip(skip).Take(take.Value);
+            }
 
             var posts = await queryable
                 .Where(p => !p.IsDeleted)
