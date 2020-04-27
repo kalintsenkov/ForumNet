@@ -8,21 +8,23 @@
 
     public class FileVerifyExtensionsAttribute : ValidationAttribute
     {
-        private string[] AllowedExtensions { get; }
+        private readonly string extensions;
 
-        public FileVerifyExtensionsAttribute(string fileExtensions) 
-            => this.AllowedExtensions = fileExtensions
-                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .ToArray();
+        public FileVerifyExtensionsAttribute(string extensions) 
+            => this.extensions = extensions;
 
         public override bool IsValid(object value)
         {
+            var allowedExtensions = this.extensions
+                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .ToArray();
+
             var file = value as IFormFile;
             if (file != null)
             {
                 var fileName = file.FileName;
 
-                return this.AllowedExtensions.Any(y => fileName.EndsWith(y));
+                return allowedExtensions.Any(y => fileName.EndsWith(y));
             }
 
             return true;
