@@ -123,6 +123,7 @@
         public async Task<int> GetFollowingCountAsync(string userId)
             => await this.db.Posts
                 .Where(p => !p.IsDeleted && p.Author.Followers
+                    .Where(f => !f.IsDeleted)
                     .Select(f => f.FollowerId)
                     .FirstOrDefault() == userId)
                 .CountAsync();
