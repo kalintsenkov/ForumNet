@@ -44,7 +44,7 @@
         public async Task<IActionResult> Trending(int page = 1, string search = null)
         {
             var skip = (page - 1) * PostsPerPage;
-            var count = await this.postsService.GetCountAsync();
+            var count = await this.postsService.GetCountAsync(search);
             var posts = await this.postsService.GetAllAsync<PostsListingViewModel>(search, skip, PostsPerPage);
             foreach (var post in posts)
             {
@@ -55,6 +55,7 @@
             var viewModel = new PostsAllViewModel
             {
                 Posts = posts,
+                Search = search,
                 PageIndex = page,
                 TotalPages = (int)Math.Ceiling(count / (decimal)PostsPerPage)
             };

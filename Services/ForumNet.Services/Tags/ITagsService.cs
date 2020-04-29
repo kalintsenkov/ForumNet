@@ -15,7 +15,7 @@
 
         Task<bool> AreExistingAsync(IEnumerable<int> ids);
 
-        Task<int> GetCountAsync();
+        Task<int> GetCountAsync(string searchFilter = null);
 
         Task<TModel> GetByIdAsync<TModel>(int id);
 

@@ -67,10 +67,21 @@
             return true;
         }
 
-        public async Task<int> GetCountAsync()
-            => await this.db.Tags
-                .Where(p => !p.IsDeleted)
-                .CountAsync();
+        public async Task<int> GetCountAsync(string searchFilter = null)
+        {
+            var queryable = this.db.Tags
+                .Where(p => !p.IsDeleted);
+
+            if (!string.IsNullOrWhiteSpace(searchFilter))
+            {
+                queryable = queryable
+                    .Where(t => t.Name.Contains(searchFilter));
+            }
+
+            var count = await queryable.CountAsync();
+
+            return count;
+        }
 
         public async Task<TModel> GetByIdAsync<TModel>(int id)
             => await this.db.Tags

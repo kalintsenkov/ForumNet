@@ -14,9 +14,9 @@
                   asp-action="All"
                   method="get">
                 <div class="search-form">
-                    <input type="text" 
-                           asp-for="Search" 
-                           class="tt-search__input" 
+                    <input type="text"
+                           asp-for="Search"
+                           class="tt-search__input"
                            placeholder="Search Tags" />
                     <button class="tt-search__btn" type="submit">
                         <svg class="tt-icon">
@@ -42,7 +42,7 @@
                         <div class="tt-item-header">
                             <ul class="tt-list-badge">
                                 <li>
-                                    <a asp-area="" 
+                                    <a asp-area=""
                                        asp-controller="Tags"
                                        asp-action="Details"
                                        asp-route-id="@tag.Id">
@@ -66,7 +66,7 @@
         </div>
     </div>
 
-    @if (Model.TotalPages > 0)
+    @if (Model.TotalPages > 0 && Model.Search == null)
     {
         <div class="text-center">
             <nav>
@@ -96,6 +96,47 @@
                         <a asp-area=""
                            asp-controller="Tags"
                            asp-action="All"
+                           asp-route-page="@Model.NextPage">
+                            &raquo;
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
+    else if (Model.TotalPages > 0 && Model.Search != null)
+    {
+        <div class="text-center">
+            <nav>
+                <ul class="pagination">
+                    <li>
+                        <a asp-area=""
+                           asp-controller="Tags"
+                           asp-action="All"
+                           asp-route-search="@Model.Search"
+                           asp-route-page="@Model.PreviousPage">
+                            &laquo;
+                        </a>
+                    </li>
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        var active = i == Model.PageIndex ? "active" : string.Empty;
+                        <li>
+                            <a class="@active"
+                               asp-area=""
+                               asp-controller="Tags"
+                               asp-action="All"
+                               asp-route-search="@Model.Search"
+                               asp-route-page="@i">
+                                @i
+                            </a>
+                        </li>
+                    }
+                    <li>
+                        <a asp-area=""
+                           asp-controller="Tags"
+                           asp-action="All"
+                           asp-route-search="@Model.Search"
                            asp-route-page="@Model.NextPage">
                             &raquo;
                         </a>

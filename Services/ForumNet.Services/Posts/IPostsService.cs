@@ -19,7 +19,7 @@
 
         Task<bool> IsExistingAsync(int id);
 
-        Task<int> GetCountAsync();
+        Task<int> GetCountAsync(string searchFilter = null);
 
         Task<int> GetFollowingCountAsync(string userId);
 

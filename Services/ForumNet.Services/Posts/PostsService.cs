@@ -115,10 +115,21 @@
         public async Task<bool> IsExistingAsync(int id)
             => await this.db.Posts.AnyAsync(p => p.Id == id && !p.IsDeleted);
 
-        public async Task<int> GetCountAsync()
-            => await this.db.Posts
-                .Where(p => !p.IsDeleted)
-                .CountAsync();
+        public async Task<int> GetCountAsync(string searchFilter = null)
+        {
+            var queryable = this.db.Posts
+                .Where(p => !p.IsDeleted);
+
+            if (!string.IsNullOrWhiteSpace(searchFilter))
+            {
+                queryable = queryable
+                    .Where(t => t.Title.Contains(searchFilter));
+            }
+
+            var count = await queryable.CountAsync();
+
+            return count;
+        }
 
         public async Task<int> GetFollowingCountAsync(string userId)
             => await this.db.Posts

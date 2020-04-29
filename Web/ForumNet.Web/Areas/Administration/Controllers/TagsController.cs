@@ -20,7 +20,7 @@
         public async Task<IActionResult> All(int page = 1, string search = null)
         {
             var skip = (page - 1) * TagsPerPage;
-            var count = await this.tagsService.GetCountAsync();
+            var count = await this.tagsService.GetCountAsync(search);
             var tags = await this.tagsService.GetAllAsync<TagsInfoViewModel>(search, skip, TagsPerPage);
             var viewModel = new TagsAllViewModel
             {

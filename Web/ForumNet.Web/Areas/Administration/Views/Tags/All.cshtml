@@ -50,8 +50,8 @@
                             <ul class="tt-list-badge">
                                 <li>
                                     <a asp-area=""
-                                       asp-controller="Tags" 
-                                       asp-action="Details" 
+                                       asp-controller="Tags"
+                                       asp-action="Details"
                                        asp-route-id="@tag.Id">
                                         <span class="tt-badge">@tag.Name</span>
                                     </a>
@@ -68,11 +68,11 @@
                         </div>
                         <hr />
                         <div class="tt-item-layout">
-                            <form asp-area="Administration" 
-                                  asp-controller="Tags" 
-                                  asp-action="Delete" 
-                                  asp-route-id="@tag.Id" 
-                                  method="post" 
+                            <form asp-area="Administration"
+                                  asp-controller="Tags"
+                                  asp-action="Delete"
+                                  asp-route-id="@tag.Id"
+                                  method="post"
                                   class="btn">
                                 <button type="submit" class="btn btn-secondary">
                                     <i class="fas fa-trash-alt"></i>
@@ -86,7 +86,7 @@
         </div>
     </div>
 
-    @if (Model.TotalPages > 0)
+    @if (Model.TotalPages > 0 && Model.Search == null)
     {
         <div class="text-center">
             <nav>
@@ -116,6 +116,47 @@
                         <a asp-area="Administration"
                            asp-controller="Tags"
                            asp-action="All"
+                           asp-route-page="@Model.NextPage">
+                            &raquo;
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
+    else if (Model.TotalPages > 0 && Model.Search != null)
+    {
+        <div class="text-center">
+            <nav>
+                <ul class="pagination">
+                    <li>
+                        <a asp-area="Administration"
+                           asp-controller="Tags"
+                           asp-action="All"
+                           asp-route-search="@Model.Search"
+                           asp-route-page="@Model.PreviousPage">
+                            &laquo;
+                        </a>
+                    </li>
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        var active = i == Model.PageIndex ? "active" : string.Empty;
+                        <li>
+                            <a class="@active"
+                               asp-area="Administration"
+                               asp-controller="Tags"
+                               asp-action="All"
+                               asp-route-search="@Model.Search"
+                               asp-route-page="@i">
+                                @i
+                            </a>
+                        </li>
+                    }
+                    <li>
+                        <a asp-area="Administration"
+                           asp-controller="Tags"
+                           asp-action="All"
+                           asp-route-search="@Model.Search"
                            asp-route-page="@Model.NextPage">
                             &raquo;
                         </a>

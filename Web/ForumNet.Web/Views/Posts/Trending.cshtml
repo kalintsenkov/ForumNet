@@ -75,18 +75,18 @@
                             }
                             else
                             {
-                                <img src="https://res.cloudinary.com/forumnet/image/upload/t_profile-picture/@post.AuthorProfilePicture" 
+                                <img src="https://res.cloudinary.com/forumnet/image/upload/t_profile-picture/@post.AuthorProfilePicture"
                                      alt="avatar"
                                      class="tt-icon"
                                      width="40"
                                      height="40"
-                                     style="border-radius: 50%"/>
+                                     style="border-radius: 50%" />
                             }
                         </a>
                     </div>
                     <div class="tt-col-description">
                         <h6 class="tt-title">
-                            <a asp-area="" 
+                            <a asp-area=""
                                asp-controller="Posts"
                                asp-action="Details"
                                asp-route-id="@post.Id">
@@ -103,9 +103,9 @@
                             <div class="col-11">
                                 <ul class="tt-list-badge">
                                     <li class="show-mobile">
-                                        <a asp-area="" 
+                                        <a asp-area=""
                                            asp-controller="Categories"
-                                           asp-action="Details" 
+                                           asp-action="Details"
                                            asp-route-id="@post.Category.Id">
                                             <span class="tt-color01 tt-badge">@post.Category.Name</span>
                                         </a>
@@ -114,7 +114,7 @@
                                     @foreach (var tag in post.Tags.Take(4))
                                     {
                                         <li>
-                                            <a asp-area="" 
+                                            <a asp-area=""
                                                asp-controller="Tags"
                                                asp-action="Details"
                                                asp-route-id="@tag.Id">
@@ -130,9 +130,9 @@
                         </div>
                     </div>
                     <div class="tt-col-category">
-                        <a asp-area="" 
-                           asp-controller="Categories" 
-                           asp-action="Details" 
+                        <a asp-area=""
+                           asp-controller="Categories"
+                           asp-action="Details"
                            asp-route-id="@post.Category.Id">
                             <span class="tt-color01 tt-badge">@post.Category.Name</span>
                         </a>
@@ -144,7 +144,7 @@
                 </div>
             }
 
-            @if (Model.TotalPages > 0)
+            @if (Model.TotalPages > 0 && Model.Search == null)
             {
                 <div class="text-center">
                     <nav>
@@ -182,6 +182,47 @@
                     </nav>
                 </div>
             }
+            else if (Model.TotalPages > 0 && Model.Search != null)
+            {
+                <div class="text-center">
+                    <nav>
+                        <ul class="pagination">
+                            <li>
+                                <a asp-area=""
+                                   asp-controller="Posts"
+                                   asp-action="Trending"
+                                   asp-route-search="@Model.Search"
+                                   asp-route-page="@Model.PreviousPage">
+                                    &laquo;
+                                </a>
+                            </li>
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                var active = i == Model.PageIndex ? "active" : string.Empty;
+                                <li>
+                                    <a class="@active"
+                                       asp-area=""
+                                       asp-controller="Posts"
+                                       asp-action="Trending"
+                                       asp-route-search="@Model.Search"
+                                       asp-route-page="@i">
+                                        @i
+                                    </a>
+                                </li>
+                            }
+                            <li>
+                                <a asp-area=""
+                                   asp-controller="Posts"
+                                   asp-action="Trending"
+                                   asp-route-search="@Model.Search"
+                                   asp-route-page="@Model.NextPage">
+                                    &raquo;
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            }
         }
         else
         {
@@ -189,6 +230,6 @@
                 <h6 class="tt-title">No posts found</h6>
             </div>
         }
-        
+
     </nav>
 </div>
