@@ -6,8 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="CloudinaryDotNet" Version="1.10.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="1.1.0" />
-    <PackageReference Include="Sendgrid" Version="9.14.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.4" />
+    <PackageReference Include="Sendgrid" Version="9.15.1" />
   </ItemGroup>
 
 </Project>
